@@ -1,0 +1,15 @@
+﻿input-file: ServicesApi.json
+output-folder: ../src/Veracity.ApiClients.Identity.ServicesApi/
+clear-output-folder: false
+csharp: true
+legacy: true
+version: 3.5
+project-folder: ../src/Veracity.ApiClients.Identity.ServicesApi/
+namespace: Veracity.ApiClients.Identity.ServicesApi
+public-clients: true
+add-credentials: true
+override-client-name: ServicesApiClient
+
+directive:
+- from: swagger-document
+  where: $.paths..responses.*.content.*

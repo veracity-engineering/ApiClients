@@ -1,0 +1,8 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<ItemGroup>
+		<PackageReference Include="AutoRest.ApiClients.Common" />
+		<PackageReference Include="Microsoft.AspNetCore.JsonPatch" VersionOverride="6.0.8" />
+	</ItemGroup>
+
+</Project>

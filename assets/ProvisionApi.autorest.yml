@@ -1,0 +1,12 @@
+﻿input-file: ProvisionApi.json
+output-folder: ../src/Veracity.ApiClients.DataPlatform.ProvisionApi
+clear-output-folder: false
+
+csharp: true
+legacy: true
+
+project-folder: ../src/Veracity.ApiClients.DataPlatform.ProvisionApi/
+namespace: Veracity.ApiClients.DataPlatform.ProvisionApi
+public-clients: true
+add-credentials: true
+override-client-name: ProvisionApiClient

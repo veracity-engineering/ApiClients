@@ -1,0 +1,2781 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "Data API",
+    "version": "1.0"
+  },
+  "servers": [
+    {
+      "url": "https://api.veracity.com/veracity/datafabric/data"
+    }
+  ],
+  "paths": {
+    "/api/1/resources/{resourceId}/accesses": {
+      "get": {
+        "tags": [
+          "v1.0 Access"
+        ],
+        "summary": "Retrieves a list of Providers that have access to a specified resource.",
+        "description": "Get a list of all providers with accesses for a given storage item per page, using a page number and page size.\r\nNote the variable keyCreatedTimeUTC is the time the SAS key generated is valid from,\r\nthis is set one hour in the past from the time created this to avoid azure time skew issues.",
+        "operationId": "Access_Get",
+        "parameters": [
+          {
+            "name": "resourceId",
+            "in": "path",
+            "description": "Format - uuid. Azure resource",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "pageNo",
+            "in": "query",
+            "description": "Format - int32. Page number. Defaults to 1.",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "description": "Format - int32. Number of results per page. Defaults to 50. If this is a negative number, all results will be fetched",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PagedResult[ProviderAccessVM]"
+                },
+                "example": {
+                  "results": [
+                    {
+                      "userId": "00000000-0000-0000-0000-000000000000",
+                      "ownerId": "00000000-0000-0000-0000-000000000000",
+                      "grantedById": "00000000-0000-0000-0000-000000000000",
+                      "accessSharingId": "00000000-0000-0000-0000-000000000000",
+                      "keyCreated": true,
+                      "autoRefreshed": true,
+                      "keyCreatedTimeUTC": "string",
+                      "keyExpiryTimeUTC": "string",
+                      "resourceType": "string",
+                      "accessHours": 0,
+                      "accessKeyTemplateId": "00000000-0000-0000-0000-000000000000",
+                      "attribute1": true,
+                      "attribute2": true,
+                      "attribute3": true,
+                      "attribute4": true,
+                      "resourceId": "00000000-0000-0000-0000-000000000000",
+                      "ipRange": {
+                        "startIp": "string",
+                        "endIp": "string"
+                      },
+                      "comment": "string"
+                    }
+                  ],
+                  "page": 0,
+                  "resultsPerPage": 0,
+                  "totalPages": 0,
+                  "totalResults": 0
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PagedResult[ProviderAccessVM]"
+                },
+                "example": {
+                  "results": [
+                    {
+                      "userId": "00000000-0000-0000-0000-000000000000",
+                      "ownerId": "00000000-0000-0000-0000-000000000000",
+                      "grantedById": "00000000-0000-0000-0000-000000000000",
+                      "accessSharingId": "00000000-0000-0000-0000-000000000000",
+                      "keyCreated": true,
+                      "autoRefreshed": true,
+                      "keyCreatedTimeUTC": "string",
+                      "keyExpiryTimeUTC": "string",
+                      "resourceType": "string",
+                      "accessHours": 0,
+                      "accessKeyTemplateId": "00000000-0000-0000-0000-000000000000",
+                      "attribute1": true,
+                      "attribute2": true,
+                      "attribute3": true,
+                      "attribute4": true,
+                      "resourceId": "00000000-0000-0000-0000-000000000000",
+                      "ipRange": {
+                        "startIp": "string",
+                        "endIp": "string"
+                      },
+                      "comment": "string"
+                    }
+                  ],
+                  "page": 0,
+                  "resultsPerPage": 0,
+                  "totalPages": 0,
+                  "totalResults": 0
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "v1.0 Access"
+        ],
+        "summary": "Share access to another user for the specified resource",
+        "description": "Share access to another user for the specified resource",
+        "operationId": "Access_Post",
+        "parameters": [
+          {
+            "name": "resourceId",
+            "in": "path",
+            "description": "Format - uuid. Azure resource",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "autoRefreshed",
+            "in": "query",
+            "description": "Should a renewed key be issued to the shared party after it expires",
+            "required": true,
+            "schema": {
+              "type": "boolean"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SharingResourceInputData"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SharingResourceInputData"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/SharingResourceInputData"
+              }
+            },
+            "text/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/SharingResourceInputData"
+              }
+            },
+            "application/x-www-form-urlencoded": {}
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ShareResourceVM"
+                },
+                "example": {
+                  "accessSharingId": "00000000-0000-0000-0000-000000000000"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ShareResourceVM"
+                },
+                "example": {
+                  "accessSharingId": "00000000-0000-0000-0000-000000000000"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/ShareResourceVM"
+                },
+                "example": "<ShareResourceVM> <accessSharingId>00000000-0000-0000-0000-000000000000</accessSharingId> </ShareResourceVM>"
+              },
+              "text/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/ShareResourceVM"
+                },
+                "example": "<ShareResourceVM> <accessSharingId>00000000-0000-0000-0000-000000000000</accessSharingId> </ShareResourceVM>"
+              }
+            }
+          },
+          "400": {
+            "description": "BadRequest",
+            "content": {
+              "application/json": {},
+              "text/json": {},
+              "application/xml": {},
+              "text/xml": {}
+            }
+          },
+          "404": {
+            "description": "Resource was not found.",
+            "content": {
+              "application/json": {},
+              "text/json": {},
+              "application/xml": {},
+              "text/xml": {}
+            }
+          }
+        }
+      }
+    },
+    "/api/1/resources/{resourceId}/accesses/{accessId}": {
+      "put": {
+        "tags": [
+          "v1.0 Access"
+        ],
+        "summary": "Revoke an users ability to refresh keys on a resource",
+        "description": "Revoke an users ability to refresh keys on a resource",
+        "operationId": "Access_Put",
+        "parameters": [
+          {
+            "name": "resourceId",
+            "in": "path",
+            "description": "Format - uuid. Azure resource",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "accessId",
+            "in": "path",
+            "description": "Format - uuid. Access ID",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {},
+              "text/json": {},
+              "application/xml": {},
+              "text/xml": {}
+            }
+          },
+          "403": {
+            "description": "User is not the owner or a data steward",
+            "content": {
+              "application/json": {},
+              "text/json": {},
+              "application/xml": {},
+              "text/xml": {}
+            }
+          },
+          "404": {
+            "description": "Resource or access is not found",
+            "content": {
+              "application/json": {},
+              "text/json": {},
+              "application/xml": {},
+              "text/xml": {}
+            }
+          }
+        }
+      }
+    },
+    "/api/1/resources/{resourceId}/accesses/{accessId}/key": {
+      "put": {
+        "tags": [
+          "v1.0 Access"
+        ],
+        "summary": "Fetch a SAS key to access the storage item shared with you",
+        "description": "Fetch a SAS key to access the storage item shared with you",
+        "operationId": "Access_ClaimKey",
+        "parameters": [
+          {
+            "name": "resourceId",
+            "in": "path",
+            "description": "Format - uuid. Resource Id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "accessId",
+            "in": "path",
+            "description": "Format - uuid. Access Id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SASToken"
+                },
+                "example": {
+                  "sasKey": "string",
+                  "sasuRi": "string",
+                  "fullKey": "string",
+                  "sasKeyExpiryTimeUTC": "string",
+                  "isKeyExpired": true,
+                  "autoRefreshed": true,
+                  "ipRange": {
+                    "startIp": "string",
+                    "endIp": "string"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SASToken"
+                },
+                "example": {
+                  "sasKey": "string",
+                  "sasuRi": "string",
+                  "fullKey": "string",
+                  "sasKeyExpiryTimeUTC": "string",
+                  "isKeyExpired": true,
+                  "autoRefreshed": true,
+                  "ipRange": {
+                    "startIp": "string",
+                    "endIp": "string"
+                  }
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/SASToken"
+                },
+                "example": "<SASToken> <sasKey>string</sasKey> <sasuRi>string</sasuRi> <fullKey>string</fullKey> <sasKeyExpiryTimeUTC>string</sasKeyExpiryTimeUTC> <isKeyExpired>true</isKeyExpired> <autoRefreshed>true</autoRefreshed> <ipRange> <startIp>string</startIp> <endIp>string</endIp> </ipRange> </SASToken>"
+              },
+              "text/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/SASToken"
+                },
+                "example": "<SASToken> <sasKey>string</sasKey> <sasuRi>string</sasuRi> <fullKey>string</fullKey> <sasKeyExpiryTimeUTC>string</sasKeyExpiryTimeUTC> <isKeyExpired>true</isKeyExpired> <autoRefreshed>true</autoRefreshed> <ipRange> <startIp>string</startIp> <endIp>string</endIp> </ipRange> </SASToken>"
+              }
+            }
+          },
+          "404": {
+            "description": "Resource or access sharing not found",
+            "content": {
+              "application/json": {},
+              "text/json": {},
+              "application/xml": {},
+              "text/xml": {}
+            }
+          }
+        }
+      }
+    },
+    "/api/1/application": {
+      "get": {
+        "tags": [
+          "v1.0 Application"
+        ],
+        "summary": "Returns information about the current application.",
+        "description": "Returns information about the current application.",
+        "operationId": "Application_Me",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Application"
+                },
+                "example": {
+                  "id": "00000000-0000-0000-0000-000000000000",
+                  "companyId": "00000000-0000-0000-0000-000000000000",
+                  "role": "string"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Application"
+                },
+                "example": {
+                  "id": "00000000-0000-0000-0000-000000000000",
+                  "companyId": "00000000-0000-0000-0000-000000000000",
+                  "role": "string"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/Application"
+                },
+                "example": "<Application> <id>00000000-0000-0000-0000-000000000000</id> <companyId>00000000-0000-0000-0000-000000000000</companyId> <role>string</role> </Application>"
+              },
+              "text/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/Application"
+                },
+                "example": "<Application> <id>00000000-0000-0000-0000-000000000000</id> <companyId>00000000-0000-0000-0000-000000000000</companyId> <role>string</role> </Application>"
+              }
+            }
+          },
+          "404": {
+            "description": "NotFound",
+            "content": {
+              "application/json": {},
+              "text/json": {},
+              "application/xml": {},
+              "text/xml": {}
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "v1.0 Application"
+        ],
+        "summary": "Add a new application to Veracity data fabric.",
+        "description": "Needs to have the role \"DataAdmin\" to perform this action",
+        "operationId": "Application_Create",
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Application"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Application"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/Application"
+              }
+            },
+            "text/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/Application"
+              }
+            },
+            "application/x-www-form-urlencoded": {}
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "The application is created",
+            "content": {
+              "application/json": {},
+              "text/json": {},
+              "application/xml": {},
+              "text/xml": {}
+            }
+          },
+          "400": {
+            "description": "BadRequest",
+            "content": {
+              "application/json": {},
+              "text/json": {},
+              "application/xml": {},
+              "text/xml": {}
+            }
+          },
+          "409": {
+            "description": "A application with this ID already exist in veracity",
+            "content": {
+              "application/json": {},
+              "text/json": {},
+              "application/xml": {},
+              "text/xml": {}
+            }
+          }
+        }
+      }
+    },
+    "/api/1/application/{applicationId}": {
+      "get": {
+        "tags": [
+          "v1.0 Application"
+        ],
+        "summary": "Gets information about an application in Veracity data fabric.",
+        "description": "Gets information about an application in Veracity data fabric.",
+        "operationId": "Application_Get",
+        "parameters": [
+          {
+            "name": "applicationId",
+            "in": "path",
+            "description": "Format - uuid. AAD B2C Application Id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Application"
+                },
+                "example": {
+                  "id": "00000000-0000-0000-0000-000000000000",
+                  "companyId": "00000000-0000-0000-0000-000000000000",
+                  "role": "string"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Application"
+                },
+                "example": {
+                  "id": "00000000-0000-0000-0000-000000000000",
+                  "companyId": "00000000-0000-0000-0000-000000000000",
+                  "role": "string"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/Application"
+                },
+                "example": "<Application> <id>00000000-0000-0000-0000-000000000000</id> <companyId>00000000-0000-0000-0000-000000000000</companyId> <role>string</role> </Application>"
+              },
+              "text/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/Application"
+                },
+                "example": "<Application> <id>00000000-0000-0000-0000-000000000000</id> <companyId>00000000-0000-0000-0000-000000000000</companyId> <role>string</role> </Application>"
+              }
+            }
+          },
+          "404": {
+            "description": "The application was not found.",
+            "content": {
+              "application/json": {},
+              "text/json": {},
+              "application/xml": {},
+              "text/xml": {}
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "v1.0 Application"
+        ],
+        "summary": "Update role of a application on Veracity data fabric.",
+        "description": "Needs to have the role \"DataAdmin\" to perform this action",
+        "operationId": "Application_UpdateRole",
+        "parameters": [
+          {
+            "name": "applicationId",
+            "in": "path",
+            "description": "Format - uuid. AAD B2C Application Id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "role",
+            "in": "query",
+            "description": "Role name",
+            "required": true,
+            "schema": {
+              "enum": [
+                "none",
+                "manager",
+                "consumer",
+                "fullAll",
+                "identity",
+                "dataAdmin"
+              ],
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Role is updated",
+            "content": {
+              "application/json": {},
+              "text/json": {},
+              "application/xml": {},
+              "text/xml": {}
+            }
+          },
+          "404": {
+            "description": "Application was not found",
+            "content": {
+              "application/json": {},
+              "text/json": {},
+              "application/xml": {},
+              "text/xml": {}
+            }
+          }
+        }
+      }
+    },
+    "/api/1/resources/{resourceId}/datastewards": {
+      "get": {
+        "tags": [
+          "v1.0 DataStewards"
+        ],
+        "summary": "Retrieve a list of data stewards for the resource",
+        "description": "Retrieve a list of data stewards for the resource",
+        "operationId": "DataStewards_GetDataStewardsByResourceId",
+        "parameters": [
+          {
+            "name": "resourceId",
+            "in": "path",
+            "description": "Format - uuid. The Id of the resource",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DataStewardVMArray"
+                },
+                "example": [
+                  {
+                    "userId": "00000000-0000-0000-0000-000000000000",
+                    "resourceId": "00000000-0000-0000-0000-000000000000",
+                    "grantedBy": "00000000-0000-0000-0000-000000000000",
+                    "comment": "string"
+                  }
+                ]
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DataStewardVMArray"
+                },
+                "example": [
+                  {
+                    "userId": "00000000-0000-0000-0000-000000000000",
+                    "resourceId": "00000000-0000-0000-0000-000000000000",
+                    "grantedBy": "00000000-0000-0000-0000-000000000000",
+                    "comment": "string"
+                  }
+                ]
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/DataStewardVMArray"
+                },
+                "example": "<DataStewardVMArray> <userId>00000000-0000-0000-0000-000000000000</userId> <resourceId>00000000-0000-0000-0000-000000000000</resourceId> <grantedBy>00000000-0000-0000-0000-000000000000</grantedBy> <comment>string</comment> </DataStewardVMArray>"
+              },
+              "text/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/DataStewardVMArray"
+                },
+                "example": "<DataStewardVMArray> <userId>00000000-0000-0000-0000-000000000000</userId> <resourceId>00000000-0000-0000-0000-000000000000</resourceId> <grantedBy>00000000-0000-0000-0000-000000000000</grantedBy> <comment>string</comment> </DataStewardVMArray>"
+              }
+            }
+          },
+          "404": {
+            "description": "",
+            "content": {
+              "application/json": {},
+              "text/json": {},
+              "application/xml": {},
+              "text/xml": {}
+            }
+          }
+        }
+      }
+    },
+    "/api/1/resources/{resourceId}/owner": {
+      "put": {
+        "tags": [
+          "v1.0 DataStewards"
+        ],
+        "summary": "Transfer the ownership of the Azure resource to a specified user. \r\nBoth previous and the new owner should be affiliated with the same company.",
+        "description": "Returns the Azure resource with updated OwnerId field.",
+        "operationId": "DataStewards_TransferOwnership",
+        "parameters": [
+          {
+            "name": "resourceId",
+            "in": "path",
+            "description": "Format - uuid. The Id of the resource",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "userId",
+            "in": "query",
+            "description": "Format - uuid. The Id of the user with role of Data Manager that ownership will be transfered to.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "keepAccessAsDataSteward",
+            "in": "query",
+            "description": "The endpoint specified below will be updated with an Input flag. When the \"SetPreviousOwnerAsDataSteward\" flag is set to true. If it is false, then the previous owner will not be assigned as Data Steward.",
+            "schema": {
+              "type": "boolean"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StorageResourcesVM"
+                },
+                "example": {
+                  "resourceId": "00000000-0000-0000-0000-000000000000",
+                  "resourceName": "string",
+                  "resourceUrl": "string",
+                  "lastModifiedUTC": "string",
+                  "creationDateTimeUTC": "string",
+                  "ownerId": "00000000-0000-0000-0000-000000000000",
+                  "resourceType": "string",
+                  "resourceRegion": "string",
+                  "mayContainPersonalData": "unknown",
+                  "metadata": {
+                    "title": "string",
+                    "description": "string",
+                    "icon": {
+                      "id": "string",
+                      "backgroundColor": "string"
+                    },
+                    "tags": [
+                      {
+                        "id": "00000000-0000-0000-0000-000000000000",
+                        "title": "string"
+                      }
+                    ]
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StorageResourcesVM"
+                },
+                "example": {
+                  "resourceId": "00000000-0000-0000-0000-000000000000",
+                  "resourceName": "string",
+                  "resourceUrl": "string",
+                  "lastModifiedUTC": "string",
+                  "creationDateTimeUTC": "string",
+                  "ownerId": "00000000-0000-0000-0000-000000000000",
+                  "resourceType": "string",
+                  "resourceRegion": "string",
+                  "mayContainPersonalData": "unknown",
+                  "metadata": {
+                    "title": "string",
+                    "description": "string",
+                    "icon": {
+                      "id": "string",
+                      "backgroundColor": "string"
+                    },
+                    "tags": [
+                      {
+                        "id": "00000000-0000-0000-0000-000000000000",
+                        "title": "string"
+                      }
+                    ]
+                  }
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/StorageResourcesVM"
+                },
+                "example": "<StorageResourcesVM> <resourceId>00000000-0000-0000-0000-000000000000</resourceId> <resourceName>string</resourceName> <resourceUrl>string</resourceUrl> <lastModifiedUTC>string</lastModifiedUTC> <creationDateTimeUTC>string</creationDateTimeUTC> <ownerId>00000000-0000-0000-0000-000000000000</ownerId> <resourceType>string</resourceType> <resourceRegion>string</resourceRegion> <mayContainPersonalData>unknown</mayContainPersonalData> <metadata> <title>string</title> <description>string</description> <icon> <id>string</id> <backgroundColor>string</backgroundColor> </icon> <tags> <id>00000000-0000-0000-0000-000000000000</id> <title>string</title> </tags> </metadata> </StorageResourcesVM>"
+              },
+              "text/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/StorageResourcesVM"
+                },
+                "example": "<StorageResourcesVM> <resourceId>00000000-0000-0000-0000-000000000000</resourceId> <resourceName>string</resourceName> <resourceUrl>string</resourceUrl> <lastModifiedUTC>string</lastModifiedUTC> <creationDateTimeUTC>string</creationDateTimeUTC> <ownerId>00000000-0000-0000-0000-000000000000</ownerId> <resourceType>string</resourceType> <resourceRegion>string</resourceRegion> <mayContainPersonalData>unknown</mayContainPersonalData> <metadata> <title>string</title> <description>string</description> <icon> <id>string</id> <backgroundColor>string</backgroundColor> </icon> <tags> <id>00000000-0000-0000-0000-000000000000</id> <title>string</title> </tags> </metadata> </StorageResourcesVM>"
+              }
+            }
+          },
+          "400": {
+            "description": "During the validation none of the users were set as the new Owner of the resource. The reasons can be following: the resource doesn't exist in Veracity system, you don't have the ownership of the resource, you provided the same userId that owns the resource (yourself), provided user doesn't have a role of Data Manager or provided user doesn't exist in the Veracity Identity System",
+            "content": {
+              "application/json": {},
+              "text/json": {},
+              "application/xml": {},
+              "text/xml": {}
+            }
+          }
+        }
+      }
+    },
+    "/api/1/resources/{resourceId}/datastewards/{userId}": {
+      "post": {
+        "tags": [
+          "v1.0 DataStewards"
+        ],
+        "summary": "Delegate the rights to use the Azure resource to another Veracity user.",
+        "description": "If a DataSteward with this user id exist on this resource, it will be updated.\r\nReturns the Users that DataSteward for the provided resource was assigned to.",
+        "operationId": "DataStewards_Post",
+        "parameters": [
+          {
+            "name": "resourceId",
+            "in": "path",
+            "description": "Format - uuid. The Id of the resource",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "Format - uuid. A Data Steward user Id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Data-stewardship optional details",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DataStewardInputVm"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DataStewardInputVm"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/DataStewardInputVm"
+              }
+            },
+            "text/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/DataStewardInputVm"
+              }
+            },
+            "application/x-www-form-urlencoded": {}
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DataStewardVM"
+                },
+                "example": {
+                  "userId": "00000000-0000-0000-0000-000000000000",
+                  "resourceId": "00000000-0000-0000-0000-000000000000",
+                  "grantedBy": "00000000-0000-0000-0000-000000000000",
+                  "comment": "string"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DataStewardVM"
+                },
+                "example": {
+                  "userId": "00000000-0000-0000-0000-000000000000",
+                  "resourceId": "00000000-0000-0000-0000-000000000000",
+                  "grantedBy": "00000000-0000-0000-0000-000000000000",
+                  "comment": "string"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/DataStewardVM"
+                },
+                "example": "<DataStewardVM> <userId>00000000-0000-0000-0000-000000000000</userId> <resourceId>00000000-0000-0000-0000-000000000000</resourceId> <grantedBy>00000000-0000-0000-0000-000000000000</grantedBy> <comment>string</comment> </DataStewardVM>"
+              },
+              "text/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/DataStewardVM"
+                },
+                "example": "<DataStewardVM> <userId>00000000-0000-0000-0000-000000000000</userId> <resourceId>00000000-0000-0000-0000-000000000000</resourceId> <grantedBy>00000000-0000-0000-0000-000000000000</grantedBy> <comment>string</comment> </DataStewardVM>"
+              }
+            }
+          },
+          "400": {
+            "description": "During the validation the users were not saved as the Data Steward for the provided Azure Resource.The reasons can be following: the resource doesn't exist in Veracity system, you don't have the ownership of the resource, user already is a Data Steward for this container, user is an owner of the resource (yourself), or user doesn't exist in the Veracity Identity System",
+            "content": {
+              "application/json": {},
+              "text/json": {},
+              "application/xml": {},
+              "text/xml": {}
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "v1.0 DataStewards"
+        ],
+        "summary": "Delete a data stewards",
+        "description": "The user must be the owner of the resource to be able to delete datastewards",
+        "operationId": "DataStewards_Delete",
+        "parameters": [
+          {
+            "name": "resourceId",
+            "in": "path",
+            "description": "Format - uuid. The Id of the resource",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "Format - uuid.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Datasteward is deleted",
+            "content": {
+              "application/json": {},
+              "text/json": {},
+              "application/xml": {},
+              "text/xml": {}
+            }
+          },
+          "403": {
+            "description": "If the user is not the owner of the resource",
+            "content": {
+              "application/json": {},
+              "text/json": {},
+              "application/xml": {},
+              "text/xml": {}
+            }
+          },
+          "404": {
+            "description": "If resource or datasteward was not found.",
+            "content": {
+              "application/json": {},
+              "text/json": {},
+              "application/xml": {},
+              "text/xml": {}
+            }
+          }
+        }
+      }
+    },
+    "/api/1/keytemplates": {
+      "get": {
+        "tags": [
+          "v1.0 KeyTemplates"
+        ],
+        "summary": "Returns the templates for the different types of keys you can generate.",
+        "description": "Returns the template for the different types of keys you can generate.\r\nBlob Storage is the only storage type supported at the moment.\r\n            \r\nSupported access types for the Blob Storage types are as follows:\r\n    1. Write key\r\n    2. Read and list key\r\n    3. Read, write and list key\r\n    4. Read, write, delete and list key\r\nFor Each access type there are key templates that lasts 1 h, 8 h, 1 month, 2 months, 3 months, 4 months, 5 months and 6 months.\r\n            \r\nNote : \"IsSystemKey\" field in the result data is not relevant for the functionality currently supported. Please ignore that field.",
+        "operationId": "KeyTemplates_GetStorageKeyTemplates",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/KeyTemplateVMArray"
+                },
+                "example": [
+                  {
+                    "id": "00000000-0000-0000-0000-000000000000",
+                    "name": "string",
+                    "totalHours": 0,
+                    "isSystemKey": true,
+                    "description": "string",
+                    "attribute1": true,
+                    "attribute2": true,
+                    "attribute3": true,
+                    "attribute4": true
+                  }
+                ]
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/KeyTemplateVMArray"
+                },
+                "example": [
+                  {
+                    "id": "00000000-0000-0000-0000-000000000000",
+                    "name": "string",
+                    "totalHours": 0,
+                    "isSystemKey": true,
+                    "description": "string",
+                    "attribute1": true,
+                    "attribute2": true,
+                    "attribute3": true,
+                    "attribute4": true
+                  }
+                ]
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/KeyTemplateVMArray"
+                },
+                "example": "<KeyTemplateVMArray> <id>00000000-0000-0000-0000-000000000000</id> <name>string</name> <totalHours>0</totalHours> <isSystemKey>true</isSystemKey> <description>string</description> <attribute1>true</attribute1> <attribute2>true</attribute2> <attribute3>true</attribute3> <attribute4>true</attribute4> </KeyTemplateVMArray>"
+              },
+              "text/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/KeyTemplateVMArray"
+                },
+                "example": "<KeyTemplateVMArray> <id>00000000-0000-0000-0000-000000000000</id> <name>string</name> <totalHours>0</totalHours> <isSystemKey>true</isSystemKey> <description>string</description> <attribute1>true</attribute1> <attribute2>true</attribute2> <attribute3>true</attribute3> <attribute4>true</attribute4> </KeyTemplateVMArray>"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/1/resource/{resourceId}/ledger": {
+      "get": {
+        "tags": [
+          "v1.0 Ledger"
+        ],
+        "summary": "Returns a list of ledger records",
+        "description": "Endpoint returns a list of ledger records.\r\nA ledger record is an action done to a container, ex; creating a file, sharing a key.",
+        "operationId": "Ledger_Get",
+        "parameters": [
+          {
+            "name": "resourceId",
+            "in": "path",
+            "description": "Format - uuid. Veracity resource id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns a list ledger records",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReadLedgerArray"
+                },
+                "example": [
+                  {
+                    "entityId": "string",
+                    "entityType": "string",
+                    "companyId": "string",
+                    "containerName": "string",
+                    "dateOfEvent": "string",
+                    "category": "string",
+                    "ledgerSubCategory": "string",
+                    "description": "string",
+                    "region": "string",
+                    "affectedEntityId": "string",
+                    "affectedEntityType": "string",
+                    "affectedCompanyId": "string",
+                    "fileName": "string",
+                    "ipAddress": "string"
+                  }
+                ]
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReadLedgerArray"
+                },
+                "example": [
+                  {
+                    "entityId": "string",
+                    "entityType": "string",
+                    "companyId": "string",
+                    "containerName": "string",
+                    "dateOfEvent": "string",
+                    "category": "string",
+                    "ledgerSubCategory": "string",
+                    "description": "string",
+                    "region": "string",
+                    "affectedEntityId": "string",
+                    "affectedEntityType": "string",
+                    "affectedCompanyId": "string",
+                    "fileName": "string",
+                    "ipAddress": "string"
+                  }
+                ]
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReadLedgerArray"
+                },
+                "example": "<ReadLedgerArray> <entityId>string</entityId> <entityType>string</entityType> <companyId>string</companyId> <containerName>string</containerName> <dateOfEvent>string</dateOfEvent> <category>string</category> <ledgerSubCategory>string</ledgerSubCategory> <description>string</description> <region>string</region> <affectedEntityId>string</affectedEntityId> <affectedEntityType>string</affectedEntityType> <affectedCompanyId>string</affectedCompanyId> <fileName>string</fileName> <ipAddress>string</ipAddress> </ReadLedgerArray>"
+              },
+              "text/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReadLedgerArray"
+                },
+                "example": "<ReadLedgerArray> <entityId>string</entityId> <entityType>string</entityType> <companyId>string</companyId> <containerName>string</containerName> <dateOfEvent>string</dateOfEvent> <category>string</category> <ledgerSubCategory>string</ledgerSubCategory> <description>string</description> <region>string</region> <affectedEntityId>string</affectedEntityId> <affectedEntityType>string</affectedEntityType> <affectedCompanyId>string</affectedCompanyId> <fileName>string</fileName> <ipAddress>string</ipAddress> </ReadLedgerArray>"
+              }
+            }
+          },
+          "403": {
+            "description": "Not owner of container",
+            "content": {
+              "application/json": {},
+              "text/json": {},
+              "application/xml": {},
+              "text/xml": {}
+            }
+          },
+          "404": {
+            "description": "Resource was not found",
+            "content": {
+              "application/json": {},
+              "text/json": {},
+              "application/xml": {},
+              "text/xml": {}
+            }
+          },
+          "500": {
+            "description": "Unexpected server error",
+            "content": {
+              "application/json": {},
+              "text/json": {},
+              "application/xml": {},
+              "text/xml": {}
+            }
+          }
+        }
+      }
+    },
+    "/api/1/resources": {
+      "get": {
+        "tags": [
+          "v1.0 Resources"
+        ],
+        "summary": "Fetches all storage resources that you can claim keys for",
+        "description": "Fetches all storage resources that you can claim keys for",
+        "operationId": "Resources_Get",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResourceArray"
+                },
+                "example": [
+                  {
+                    "id": "00000000-0000-0000-0000-000000000000",
+                    "reference": "string",
+                    "url": "string",
+                    "lastModifiedUTC": "string",
+                    "creationDateTimeUTC": "string",
+                    "ownerId": "00000000-0000-0000-0000-000000000000",
+                    "accessLevel": "owner",
+                    "region": "string",
+                    "keyStatus": "noKeys",
+                    "mayContainPersonalData": "unknown",
+                    "metadata": {
+                      "title": "string",
+                      "description": "string",
+                      "icon": {
+                        "id": "string",
+                        "backgroundColor": "string"
+                      },
+                      "tags": [
+                        {
+                          "id": "00000000-0000-0000-0000-000000000000",
+                          "title": "string"
+                        }
+                      ]
+                    }
+                  }
+                ]
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResourceArray"
+                },
+                "example": [
+                  {
+                    "id": "00000000-0000-0000-0000-000000000000",
+                    "reference": "string",
+                    "url": "string",
+                    "lastModifiedUTC": "string",
+                    "creationDateTimeUTC": "string",
+                    "ownerId": "00000000-0000-0000-0000-000000000000",
+                    "accessLevel": "owner",
+                    "region": "string",
+                    "keyStatus": "noKeys",
+                    "mayContainPersonalData": "unknown",
+                    "metadata": {
+                      "title": "string",
+                      "description": "string",
+                      "icon": {
+                        "id": "string",
+                        "backgroundColor": "string"
+                      },
+                      "tags": [
+                        {
+                          "id": "00000000-0000-0000-0000-000000000000",
+                          "title": "string"
+                        }
+                      ]
+                    }
+                  }
+                ]
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResourceArray"
+                },
+                "example": "<ResourceArray> <id>00000000-0000-0000-0000-000000000000</id> <reference>string</reference> <url>string</url> <lastModifiedUTC>string</lastModifiedUTC> <creationDateTimeUTC>string</creationDateTimeUTC> <ownerId>00000000-0000-0000-0000-000000000000</ownerId> <accessLevel>owner</accessLevel> <region>string</region> <keyStatus>noKeys</keyStatus> <mayContainPersonalData>unknown</mayContainPersonalData> <metadata> <title>string</title> <description>string</description> <icon> <id>string</id> <backgroundColor>string</backgroundColor> </icon> <tags> <id>00000000-0000-0000-0000-000000000000</id> <title>string</title> </tags> </metadata> </ResourceArray>"
+              },
+              "text/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResourceArray"
+                },
+                "example": "<ResourceArray> <id>00000000-0000-0000-0000-000000000000</id> <reference>string</reference> <url>string</url> <lastModifiedUTC>string</lastModifiedUTC> <creationDateTimeUTC>string</creationDateTimeUTC> <ownerId>00000000-0000-0000-0000-000000000000</ownerId> <accessLevel>owner</accessLevel> <region>string</region> <keyStatus>noKeys</keyStatus> <mayContainPersonalData>unknown</mayContainPersonalData> <metadata> <title>string</title> <description>string</description> <icon> <id>string</id> <backgroundColor>string</backgroundColor> </icon> <tags> <id>00000000-0000-0000-0000-000000000000</id> <title>string</title> </tags> </metadata> </ResourceArray>"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/1/resources/{resourceId}": {
+      "get": {
+        "tags": [
+          "v1.0 Resources"
+        ],
+        "summary": "Returns a single resource",
+        "description": "Returns a single resource.",
+        "operationId": "Resources_GetById",
+        "parameters": [
+          {
+            "name": "resourceId",
+            "in": "path",
+            "description": "Format - uuid. Resource Id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns a single resource",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Resource"
+                },
+                "example": {
+                  "id": "00000000-0000-0000-0000-000000000000",
+                  "reference": "string",
+                  "url": "string",
+                  "lastModifiedUTC": "string",
+                  "creationDateTimeUTC": "string",
+                  "ownerId": "00000000-0000-0000-0000-000000000000",
+                  "accessLevel": "owner",
+                  "region": "string",
+                  "keyStatus": "noKeys",
+                  "mayContainPersonalData": "unknown",
+                  "metadata": {
+                    "title": "string",
+                    "description": "string",
+                    "icon": {
+                      "id": "string",
+                      "backgroundColor": "string"
+                    },
+                    "tags": [
+                      {
+                        "id": "00000000-0000-0000-0000-000000000000",
+                        "title": "string"
+                      }
+                    ]
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Resource"
+                },
+                "example": {
+                  "id": "00000000-0000-0000-0000-000000000000",
+                  "reference": "string",
+                  "url": "string",
+                  "lastModifiedUTC": "string",
+                  "creationDateTimeUTC": "string",
+                  "ownerId": "00000000-0000-0000-0000-000000000000",
+                  "accessLevel": "owner",
+                  "region": "string",
+                  "keyStatus": "noKeys",
+                  "mayContainPersonalData": "unknown",
+                  "metadata": {
+                    "title": "string",
+                    "description": "string",
+                    "icon": {
+                      "id": "string",
+                      "backgroundColor": "string"
+                    },
+                    "tags": [
+                      {
+                        "id": "00000000-0000-0000-0000-000000000000",
+                        "title": "string"
+                      }
+                    ]
+                  }
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/Resource"
+                },
+                "example": "<Resource> <id>00000000-0000-0000-0000-000000000000</id> <reference>string</reference> <url>string</url> <lastModifiedUTC>string</lastModifiedUTC> <creationDateTimeUTC>string</creationDateTimeUTC> <ownerId>00000000-0000-0000-0000-000000000000</ownerId> <accessLevel>owner</accessLevel> <region>string</region> <keyStatus>noKeys</keyStatus> <mayContainPersonalData>unknown</mayContainPersonalData> <metadata> <title>string</title> <description>string</description> <icon> <id>string</id> <backgroundColor>string</backgroundColor> </icon> <tags> <id>00000000-0000-0000-0000-000000000000</id> <title>string</title> </tags> </metadata> </Resource>"
+              },
+              "text/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/Resource"
+                },
+                "example": "<Resource> <id>00000000-0000-0000-0000-000000000000</id> <reference>string</reference> <url>string</url> <lastModifiedUTC>string</lastModifiedUTC> <creationDateTimeUTC>string</creationDateTimeUTC> <ownerId>00000000-0000-0000-0000-000000000000</ownerId> <accessLevel>owner</accessLevel> <region>string</region> <keyStatus>noKeys</keyStatus> <mayContainPersonalData>unknown</mayContainPersonalData> <metadata> <title>string</title> <description>string</description> <icon> <id>string</id> <backgroundColor>string</backgroundColor> </icon> <tags> <id>00000000-0000-0000-0000-000000000000</id> <title>string</title> </tags> </metadata> </Resource>"
+              }
+            }
+          },
+          "403": {
+            "description": "Missing the correct access to view the resource",
+            "content": {
+              "application/json": {},
+              "text/json": {},
+              "application/xml": {},
+              "text/xml": {}
+            }
+          },
+          "404": {
+            "description": "Resource was not found",
+            "content": {
+              "application/json": {},
+              "text/json": {},
+              "application/xml": {},
+              "text/xml": {}
+            }
+          }
+        }
+      }
+    },
+    "/api/1/resources/{resourceId}/keys": {
+      "get": {
+        "tags": [
+          "v1.0 Resources"
+        ],
+        "summary": "Fetch a SAS key to access a storage item shared with you\r\nDeprecated. Please use PUT /api/resources/{resourceId}/accesses/{accessId}/key",
+        "description": "Fetch a SAS key to access a storage item shared with you\r\nDeprecated. Please use PUT /api/resources/{resourceId}/accesses/{accessId}/key",
+        "operationId": "Resources_FetchKeyForStorageContainer",
+        "parameters": [
+          {
+            "name": "resourceId",
+            "in": "path",
+            "description": "Format - uuid. Storage resource Id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "accessSharingId",
+            "in": "query",
+            "description": "Format - uuid. The Id for the key you want to return",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SASToken"
+                },
+                "example": {
+                  "sasKey": "string",
+                  "sasuRi": "string",
+                  "fullKey": "string",
+                  "sasKeyExpiryTimeUTC": "string",
+                  "isKeyExpired": true,
+                  "autoRefreshed": true,
+                  "ipRange": {
+                    "startIp": "string",
+                    "endIp": "string"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SASToken"
+                },
+                "example": {
+                  "sasKey": "string",
+                  "sasuRi": "string",
+                  "fullKey": "string",
+                  "sasKeyExpiryTimeUTC": "string",
+                  "isKeyExpired": true,
+                  "autoRefreshed": true,
+                  "ipRange": {
+                    "startIp": "string",
+                    "endIp": "string"
+                  }
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/SASToken"
+                },
+                "example": "<SASToken> <sasKey>string</sasKey> <sasuRi>string</sasuRi> <fullKey>string</fullKey> <sasKeyExpiryTimeUTC>string</sasKeyExpiryTimeUTC> <isKeyExpired>true</isKeyExpired> <autoRefreshed>true</autoRefreshed> <ipRange> <startIp>string</startIp> <endIp>string</endIp> </ipRange> </SASToken>"
+              },
+              "text/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/SASToken"
+                },
+                "example": "<SASToken> <sasKey>string</sasKey> <sasuRi>string</sasuRi> <fullKey>string</fullKey> <sasKeyExpiryTimeUTC>string</sasKeyExpiryTimeUTC> <isKeyExpired>true</isKeyExpired> <autoRefreshed>true</autoRefreshed> <ipRange> <startIp>string</startIp> <endIp>string</endIp> </ipRange> </SASToken>"
+              }
+            }
+          },
+          "404": {
+            "description": "Resource or access sharing not found",
+            "content": {
+              "application/json": {},
+              "text/json": {},
+              "application/xml": {},
+              "text/xml": {}
+            }
+          }
+        }
+      }
+    },
+    "/api/1/tags": {
+      "get": {
+        "tags": [
+          "v1.0 Tags"
+        ],
+        "summary": "Retrieve metadata tags in Veracity.",
+        "description": "Default returns approved and non deleted tags.\r\nUse Query parameters to includes non approved and deleted (needs to be DataAdmin to perform this action)",
+        "operationId": "Tags_GetTags",
+        "parameters": [
+          {
+            "name": "includeDeleted",
+            "in": "query",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "includeNonVeracityApproved",
+            "in": "query",
+            "schema": {
+              "type": "boolean"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns a list of tags",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TagArray"
+                },
+                "example": [
+                  {
+                    "id": "00000000-0000-0000-0000-000000000000",
+                    "title": "string"
+                  }
+                ]
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TagArray"
+                },
+                "example": [
+                  {
+                    "id": "00000000-0000-0000-0000-000000000000",
+                    "title": "string"
+                  }
+                ]
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/TagArray"
+                },
+                "example": "<TagArray> <id>00000000-0000-0000-0000-000000000000</id> <title>string</title> </TagArray>"
+              },
+              "text/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/TagArray"
+                },
+                "example": "<TagArray> <id>00000000-0000-0000-0000-000000000000</id> <title>string</title> </TagArray>"
+              }
+            }
+          },
+          "403": {
+            "description": "Missing correct role to perform this action",
+            "content": {
+              "application/json": {},
+              "text/json": {},
+              "application/xml": {},
+              "text/xml": {}
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "v1.0 Tags"
+        ],
+        "summary": "Inserts tags and returns the inserted new inserted tags with ID's\r\n<remarks>\r\nId is not required for the input\r\n</remarks>",
+        "description": "Inserts tags and returns the inserted new inserted tags with ID's\r\n<remarks>\r\nId is not required for the input\r\n</remarks>",
+        "operationId": "Tags_InsertTags",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TagArray"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TagArray"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/TagArray"
+              }
+            },
+            "text/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/TagArray"
+              }
+            },
+            "application/x-www-form-urlencoded": {}
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Returns a list of tags",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TagArray"
+                },
+                "example": [
+                  {
+                    "id": "00000000-0000-0000-0000-000000000000",
+                    "title": "string"
+                  }
+                ]
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TagArray"
+                },
+                "example": [
+                  {
+                    "id": "00000000-0000-0000-0000-000000000000",
+                    "title": "string"
+                  }
+                ]
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/TagArray"
+                },
+                "example": "<TagArray> <id>00000000-0000-0000-0000-000000000000</id> <title>string</title> </TagArray>"
+              },
+              "text/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/TagArray"
+                },
+                "example": "<TagArray> <id>00000000-0000-0000-0000-000000000000</id> <title>string</title> </TagArray>"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/1/users/me": {
+      "get": {
+        "tags": [
+          "v1.0 Users"
+        ],
+        "summary": "Returns information about the current user.",
+        "description": "Returns information about the current user.",
+        "operationId": "Users_Me",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                },
+                "example": {
+                  "userId": "00000000-0000-0000-0000-000000000000",
+                  "companyId": "00000000-0000-0000-0000-000000000000",
+                  "role": "string"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                },
+                "example": {
+                  "userId": "00000000-0000-0000-0000-000000000000",
+                  "companyId": "00000000-0000-0000-0000-000000000000",
+                  "role": "string"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                },
+                "example": "<User> <userId>00000000-0000-0000-0000-000000000000</userId> <companyId>00000000-0000-0000-0000-000000000000</companyId> <role>string</role> </User>"
+              },
+              "text/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                },
+                "example": "<User> <userId>00000000-0000-0000-0000-000000000000</userId> <companyId>00000000-0000-0000-0000-000000000000</companyId> <role>string</role> </User>"
+              }
+            }
+          },
+          "404": {
+            "description": "NotFound",
+            "content": {
+              "application/json": {},
+              "text/json": {},
+              "application/xml": {},
+              "text/xml": {}
+            }
+          }
+        }
+      }
+    },
+    "/api/1/users/{userId}": {
+      "get": {
+        "tags": [
+          "v1.0 Users"
+        ],
+        "summary": "Gets information about an user.",
+        "description": "Gets information about an user.",
+        "operationId": "Users_Get",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "Format - uuid. My DNV GL Id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                },
+                "example": {
+                  "userId": "00000000-0000-0000-0000-000000000000",
+                  "companyId": "00000000-0000-0000-0000-000000000000",
+                  "role": "string"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                },
+                "example": {
+                  "userId": "00000000-0000-0000-0000-000000000000",
+                  "companyId": "00000000-0000-0000-0000-000000000000",
+                  "role": "string"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                },
+                "example": "<User> <userId>00000000-0000-0000-0000-000000000000</userId> <companyId>00000000-0000-0000-0000-000000000000</companyId> <role>string</role> </User>"
+              },
+              "text/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                },
+                "example": "<User> <userId>00000000-0000-0000-0000-000000000000</userId> <companyId>00000000-0000-0000-0000-000000000000</companyId> <role>string</role> </User>"
+              }
+            }
+          },
+          "404": {
+            "description": "The user was not found.",
+            "content": {
+              "application/json": {},
+              "text/json": {},
+              "application/xml": {},
+              "text/xml": {}
+            }
+          }
+        }
+      }
+    },
+    "/api/1/groups": {
+      "get": {
+        "tags": [
+          "v1.0 Groups"
+        ],
+        "summary": "Retrieve a list of all groups for the User.",
+        "description": "Retrieve a list of all groups for the User.",
+        "operationId": "Groups_Get",
+        "responses": {
+          "200": {
+            "description": "List of groups for this user.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GroupViewModelArray"
+                },
+                "example": [
+                  {
+                    "id": "00000000-0000-0000-0000-000000000000",
+                    "title": "string",
+                    "description": "string",
+                    "resourceIds": [
+                      "00000000-0000-0000-0000-000000000000"
+                    ],
+                    "sortingOrder": 0
+                  }
+                ]
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GroupViewModelArray"
+                },
+                "example": [
+                  {
+                    "id": "00000000-0000-0000-0000-000000000000",
+                    "title": "string",
+                    "description": "string",
+                    "resourceIds": [
+                      "00000000-0000-0000-0000-000000000000"
+                    ],
+                    "sortingOrder": 0
+                  }
+                ]
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/GroupViewModelArray"
+                },
+                "example": "<GroupViewModelArray> <id>00000000-0000-0000-0000-000000000000</id> <title>string</title> <description>string</description> <resourceIds>00000000-0000-0000-0000-000000000000</resourceIds> <sortingOrder>0</sortingOrder> </GroupViewModelArray>"
+              },
+              "text/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/GroupViewModelArray"
+                },
+                "example": "<GroupViewModelArray> <id>00000000-0000-0000-0000-000000000000</id> <title>string</title> <description>string</description> <resourceIds>00000000-0000-0000-0000-000000000000</resourceIds> <sortingOrder>0</sortingOrder> </GroupViewModelArray>"
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "v1.0 Groups"
+        ],
+        "summary": "Creates a Group from the input parameters for User.",
+        "description": "Creates a Group from the input parameters for User.",
+        "operationId": "Groups_Post",
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GroupCreationInputParameters"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GroupCreationInputParameters"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/GroupCreationInputParameters"
+              }
+            },
+            "text/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/GroupCreationInputParameters"
+              }
+            },
+            "application/x-www-form-urlencoded": {}
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Group created successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GroupViewModel"
+                },
+                "example": {
+                  "id": "00000000-0000-0000-0000-000000000000",
+                  "title": "string",
+                  "description": "string",
+                  "resourceIds": [
+                    "00000000-0000-0000-0000-000000000000"
+                  ],
+                  "sortingOrder": 0
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GroupViewModel"
+                },
+                "example": {
+                  "id": "00000000-0000-0000-0000-000000000000",
+                  "title": "string",
+                  "description": "string",
+                  "resourceIds": [
+                    "00000000-0000-0000-0000-000000000000"
+                  ],
+                  "sortingOrder": 0
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/GroupViewModel"
+                },
+                "example": "<GroupViewModel> <id>00000000-0000-0000-0000-000000000000</id> <title>string</title> <description>string</description> <resourceIds>00000000-0000-0000-0000-000000000000</resourceIds> <sortingOrder>0</sortingOrder> </GroupViewModel>"
+              },
+              "text/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/GroupViewModel"
+                },
+                "example": "<GroupViewModel> <id>00000000-0000-0000-0000-000000000000</id> <title>string</title> <description>string</description> <resourceIds>00000000-0000-0000-0000-000000000000</resourceIds> <sortingOrder>0</sortingOrder> </GroupViewModel>"
+              }
+            }
+          },
+          "400": {
+            "description": "Resource ID not found.",
+            "content": {
+              "application/json": {},
+              "text/json": {},
+              "application/xml": {},
+              "text/xml": {}
+            }
+          }
+        }
+      }
+    },
+    "/api/1/groups/{Id}": {
+      "get": {
+        "tags": [
+          "v1.0 Groups"
+        ],
+        "summary": "Retrieve Group by Id for the User.",
+        "description": "Retrieve Group by Id for the User.",
+        "operationId": "Groups_GetById",
+        "parameters": [
+          {
+            "name": "Id",
+            "in": "path",
+            "description": "Format - uuid. The GUID of the group.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Group with given Id found for user.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GroupViewModel"
+                },
+                "example": {
+                  "id": "00000000-0000-0000-0000-000000000000",
+                  "title": "string",
+                  "description": "string",
+                  "resourceIds": [
+                    "00000000-0000-0000-0000-000000000000"
+                  ],
+                  "sortingOrder": 0
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GroupViewModel"
+                },
+                "example": {
+                  "id": "00000000-0000-0000-0000-000000000000",
+                  "title": "string",
+                  "description": "string",
+                  "resourceIds": [
+                    "00000000-0000-0000-0000-000000000000"
+                  ],
+                  "sortingOrder": 0
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/GroupViewModel"
+                },
+                "example": "<GroupViewModel> <id>00000000-0000-0000-0000-000000000000</id> <title>string</title> <description>string</description> <resourceIds>00000000-0000-0000-0000-000000000000</resourceIds> <sortingOrder>0</sortingOrder> </GroupViewModel>"
+              },
+              "text/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/GroupViewModel"
+                },
+                "example": "<GroupViewModel> <id>00000000-0000-0000-0000-000000000000</id> <title>string</title> <description>string</description> <resourceIds>00000000-0000-0000-0000-000000000000</resourceIds> <sortingOrder>0</sortingOrder> </GroupViewModel>"
+              }
+            }
+          },
+          "404": {
+            "description": "Group with given Id not found for user",
+            "content": {
+              "application/json": {},
+              "text/json": {},
+              "application/xml": {},
+              "text/xml": {}
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "v1.0 Groups"
+        ],
+        "summary": "Updates the given group with the parameters from the request body.",
+        "description": "Updates the given group with the parameters from the request body.",
+        "operationId": "Groups_Put",
+        "parameters": [
+          {
+            "name": "Id",
+            "in": "path",
+            "description": "Format - uuid. The GUID of the Group",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "The group parameters.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GroupCreationInputParameters"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GroupCreationInputParameters"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/GroupCreationInputParameters"
+              }
+            },
+            "text/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/GroupCreationInputParameters"
+              }
+            },
+            "application/x-www-form-urlencoded": {}
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successfully updated group.",
+            "content": {
+              "application/json": {},
+              "text/json": {},
+              "application/xml": {},
+              "text/xml": {}
+            }
+          },
+          "400": {
+            "description": "Resource ID not found.",
+            "content": {
+              "application/json": {},
+              "text/json": {},
+              "application/xml": {},
+              "text/xml": {}
+            }
+          },
+          "404": {
+            "description": "Group with given ID not found.",
+            "content": {
+              "application/json": {},
+              "text/json": {},
+              "application/xml": {},
+              "text/xml": {}
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "v1.0 Groups"
+        ],
+        "summary": "Will delete the Users given group, and remove references to resources, will NOT delete resources.",
+        "description": "Will delete the Users given group, and remove references to resources, will NOT delete resources.",
+        "operationId": "Groups_Delete",
+        "parameters": [
+          {
+            "name": "Id",
+            "in": "path",
+            "description": "Format - uuid. The GUID of the group.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Successfully deleted group.",
+            "content": {
+              "application/json": {},
+              "text/json": {},
+              "application/xml": {},
+              "text/xml": {}
+            }
+          },
+          "404": {
+            "description": "Specified group was not found.",
+            "content": {
+              "application/json": {},
+              "text/json": {},
+              "application/xml": {},
+              "text/xml": {}
+            }
+          }
+        }
+      }
+    },
+    "/api/1/users/ResourceDistributionList": {
+      "get": {
+        "tags": [
+          "v1.0 Users"
+        ],
+        "summary": "Get the list of the users with whom storage accounts shared.",
+        "description": "Get the list of the users with whom storage accounts shared.",
+        "operationId": "Users_ResourceDistributionList",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "query",
+            "description": "Format - uuid. My DNV GL Id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResourceDistributedUser"
+                },
+                "example": {
+                  "userId": "00000000-0000-0000-0000-000000000000"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResourceDistributedUser"
+                },
+                "example": {
+                  "userId": "00000000-0000-0000-0000-000000000000"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResourceDistributedUser"
+                },
+                "example": "<ResourceDistributedUser> <userId>00000000-0000-0000-0000-000000000000</userId> </ResourceDistributedUser>"
+              },
+              "text/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResourceDistributedUser"
+                },
+                "example": "<ResourceDistributedUser> <userId>00000000-0000-0000-0000-000000000000</userId> </ResourceDistributedUser>"
+              }
+            }
+          },
+          "403": {
+            "description": "Not allowed to access the list.",
+            "content": {
+              "application/json": {},
+              "text/json": {},
+              "application/xml": {},
+              "text/xml": {}
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "PagedResult[ProviderAccessVM]": {
+        "type": "object",
+        "properties": {
+          "results": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ProviderAccessVM"
+            },
+            "readOnly": true
+          },
+          "page": {
+            "type": "integer",
+            "format": "int32",
+            "readOnly": true
+          },
+          "resultsPerPage": {
+            "type": "integer",
+            "format": "int32",
+            "readOnly": true
+          },
+          "totalPages": {
+            "type": "integer",
+            "format": "int32",
+            "readOnly": true
+          },
+          "totalResults": {
+            "type": "integer",
+            "format": "int64",
+            "readOnly": true
+          }
+        }
+      },
+      "ProviderAccessVM": {
+        "type": "object",
+        "properties": {
+          "userId": {
+            "type": "string",
+            "format": "uuid",
+            "example": "00000000-0000-0000-0000-000000000000"
+          },
+          "ownerId": {
+            "type": "string",
+            "format": "uuid",
+            "example": "00000000-0000-0000-0000-000000000000"
+          },
+          "grantedById": {
+            "type": "string",
+            "format": "uuid",
+            "example": "00000000-0000-0000-0000-000000000000"
+          },
+          "accessSharingId": {
+            "type": "string",
+            "format": "uuid",
+            "example": "00000000-0000-0000-0000-000000000000"
+          },
+          "keyCreated": {
+            "type": "boolean"
+          },
+          "autoRefreshed": {
+            "type": "boolean"
+          },
+          "keyCreatedTimeUTC": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "keyExpiryTimeUTC": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "resourceType": {
+            "type": "string"
+          },
+          "accessHours": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "accessKeyTemplateId": {
+            "type": "string",
+            "format": "uuid",
+            "example": "00000000-0000-0000-0000-000000000000"
+          },
+          "attribute1": {
+            "type": "boolean"
+          },
+          "attribute2": {
+            "type": "boolean"
+          },
+          "attribute3": {
+            "type": "boolean"
+          },
+          "attribute4": {
+            "type": "boolean"
+          },
+          "resourceId": {
+            "type": "string",
+            "format": "uuid",
+            "example": "00000000-0000-0000-0000-000000000000"
+          },
+          "ipRange": {
+            "$ref": "#/components/schemas/IpRange"
+          },
+          "comment": {
+            "type": "string"
+          }
+        }
+      },
+      "IpRange": {
+        "type": "object",
+        "properties": {
+          "startIp": {
+            "type": "string"
+          },
+          "endIp": {
+            "type": "string"
+          }
+        }
+      },
+      "SharingResourceInputData": {
+        "required": [
+          "userId",
+          "accessKeyTemplateId"
+        ],
+        "type": "object",
+        "properties": {
+          "userId": {
+            "type": "string",
+            "description": "Id of the target user",
+            "format": "uuid",
+            "example": "00000000-0000-0000-0000-000000000000"
+          },
+          "accessKeyTemplateId": {
+            "type": "string",
+            "description": "Id of the sharing template from GET /api/1/keytemplates",
+            "format": "uuid",
+            "example": "00000000-0000-0000-0000-000000000000"
+          },
+          "comment": {
+            "type": "string",
+            "description": "Optional comment field"
+          },
+          "ipRange": {
+            "$ref": "#/components/schemas/IpRange"
+          }
+        },
+        "description": "Type that contains required fields to perform a Resource Sharing"
+      },
+      "ShareResourceVM": {
+        "type": "object",
+        "properties": {
+          "accessSharingId": {
+            "type": "string",
+            "format": "uuid",
+            "example": "00000000-0000-0000-0000-000000000000"
+          }
+        }
+      },
+      "SASToken": {
+        "type": "object",
+        "properties": {
+          "sasKey": {
+            "type": "string"
+          },
+          "sasuRi": {
+            "type": "string"
+          },
+          "fullKey": {
+            "type": "string",
+            "readOnly": true
+          },
+          "sasKeyExpiryTimeUTC": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "isKeyExpired": {
+            "type": "boolean"
+          },
+          "autoRefreshed": {
+            "type": "boolean"
+          },
+          "ipRange": {
+            "$ref": "#/components/schemas/IpRange"
+          }
+        }
+      },
+      "Application": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "example": "00000000-0000-0000-0000-000000000000"
+          },
+          "companyId": {
+            "type": "string",
+            "format": "uuid",
+            "example": "00000000-0000-0000-0000-000000000000"
+          },
+          "role": {
+            "type": "string"
+          }
+        }
+      },
+      "DataStewardVM": {
+        "required": [
+          "userId",
+          "resourceId",
+          "grantedBy"
+        ],
+        "type": "object",
+        "properties": {
+          "userId": {
+            "type": "string",
+            "format": "uuid",
+            "example": "00000000-0000-0000-0000-000000000000"
+          },
+          "resourceId": {
+            "type": "string",
+            "format": "uuid",
+            "example": "00000000-0000-0000-0000-000000000000"
+          },
+          "grantedBy": {
+            "type": "string",
+            "format": "uuid",
+            "example": "00000000-0000-0000-0000-000000000000"
+          },
+          "comment": {
+            "type": "string"
+          }
+        }
+      },
+      "StorageResourcesVM": {
+        "type": "object",
+        "properties": {
+          "resourceId": {
+            "type": "string",
+            "format": "uuid",
+            "example": "00000000-0000-0000-0000-000000000000"
+          },
+          "resourceName": {
+            "type": "string"
+          },
+          "resourceUrl": {
+            "type": "string"
+          },
+          "lastModifiedUTC": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "creationDateTimeUTC": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "ownerId": {
+            "type": "string",
+            "format": "uuid",
+            "example": "00000000-0000-0000-0000-000000000000"
+          },
+          "resourceType": {
+            "type": "string"
+          },
+          "resourceRegion": {
+            "type": "string"
+          },
+          "mayContainPersonalData": {
+            "enum": [
+              "unknown",
+              "true",
+              "false"
+            ],
+            "type": "string"
+          },
+          "metadata": {
+            "$ref": "#/components/schemas/ResourceMetadata"
+          }
+        }
+      },
+      "ResourceMetadata": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "icon": {
+            "$ref": "#/components/schemas/Icon"
+          },
+          "tags": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Tag"
+            }
+          }
+        }
+      },
+      "Icon": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "backgroundColor": {
+            "type": "string"
+          }
+        }
+      },
+      "Tag": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "example": "00000000-0000-0000-0000-000000000000"
+          },
+          "title": {
+            "type": "string"
+          }
+        }
+      },
+      "DataStewardInputVm": {
+        "type": "object",
+        "properties": {
+          "comment": {
+            "type": "string"
+          }
+        }
+      },
+      "GroupViewModel": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "example": "00000000-0000-0000-0000-000000000000"
+          },
+          "title": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "resourceIds": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "uuid",
+              "example": "00000000-0000-0000-0000-000000000000"
+            }
+          },
+          "sortingOrder": {
+            "type": "number",
+            "format": "double"
+          }
+        }
+      },
+      "GroupCreationInputParameters": {
+        "required": [
+          "title",
+          "description",
+          "resourceIds"
+        ],
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "resourceIds": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "uuid",
+              "example": "00000000-0000-0000-0000-000000000000"
+            }
+          },
+          "sortingOrder": {
+            "type": "number",
+            "format": "double"
+          }
+        }
+      },
+      "KeyTemplateVM": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "example": "00000000-0000-0000-0000-000000000000"
+          },
+          "name": {
+            "type": "string"
+          },
+          "totalHours": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "isSystemKey": {
+            "type": "boolean"
+          },
+          "description": {
+            "type": "string"
+          },
+          "attribute1": {
+            "type": "boolean"
+          },
+          "attribute2": {
+            "type": "boolean"
+          },
+          "attribute3": {
+            "type": "boolean"
+          },
+          "attribute4": {
+            "type": "boolean"
+          }
+        }
+      },
+      "ReadLedger": {
+        "type": "object",
+        "properties": {
+          "entityId": {
+            "type": "string"
+          },
+          "entityType": {
+            "type": "string"
+          },
+          "companyId": {
+            "type": "string"
+          },
+          "containerName": {
+            "type": "string"
+          },
+          "dateOfEvent": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "category": {
+            "type": "string"
+          },
+          "ledgerSubCategory": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "region": {
+            "type": "string"
+          },
+          "affectedEntityId": {
+            "type": "string"
+          },
+          "affectedEntityType": {
+            "type": "string"
+          },
+          "affectedCompanyId": {
+            "type": "string"
+          },
+          "fileName": {
+            "type": "string"
+          },
+          "ipAddress": {
+            "type": "string"
+          }
+        }
+      },
+      "Resource": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "example": "00000000-0000-0000-0000-000000000000"
+          },
+          "reference": {
+            "type": "string"
+          },
+          "url": {
+            "type": "string"
+          },
+          "lastModifiedUTC": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "creationDateTimeUTC": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "ownerId": {
+            "type": "string",
+            "format": "uuid",
+            "example": "00000000-0000-0000-0000-000000000000"
+          },
+          "accessLevel": {
+            "enum": [
+              "owner",
+              "dataSteward",
+              "consumer"
+            ],
+            "type": "string"
+          },
+          "region": {
+            "type": "string"
+          },
+          "keyStatus": {
+            "enum": [
+              "noKeys",
+              "expired",
+              "available",
+              "active"
+            ],
+            "type": "string"
+          },
+          "mayContainPersonalData": {
+            "enum": [
+              "unknown",
+              "true",
+              "false"
+            ],
+            "type": "string"
+          },
+          "metadata": {
+            "$ref": "#/components/schemas/ResourceMetadata"
+          }
+        }
+      },
+      "User": {
+        "type": "object",
+        "properties": {
+          "userId": {
+            "type": "string",
+            "format": "uuid",
+            "example": "00000000-0000-0000-0000-000000000000"
+          },
+          "companyId": {
+            "type": "string",
+            "format": "uuid",
+            "example": "00000000-0000-0000-0000-000000000000"
+          },
+          "role": {
+            "type": "string"
+          }
+        }
+      },
+      "ResourceDistributedUser": {
+        "type": "object",
+        "properties": {
+          "userId": {
+            "type": "string",
+            "format": "uuid",
+            "example": "00000000-0000-0000-0000-000000000000"
+          }
+        }
+      },
+      "DataStewardVMArray": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/DataStewardVM"
+        }
+      },
+      "GroupViewModelArray": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/GroupViewModel"
+        }
+      },
+      "KeyTemplateVMArray": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/KeyTemplateVM"
+        }
+      },
+      "ReadLedgerArray": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/ReadLedger"
+        }
+      },
+      "ResourceArray": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/Resource"
+        }
+      },
+      "TagArray": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/Tag"
+        }
+      }
+    },
+    "securitySchemes": {
+      "apiKeyHeader": {
+        "type": "apiKey",
+        "name": "Ocp-Apim-Subscription-Key",
+        "in": "header"
+      },
+      "apiKeyQuery": {
+        "type": "apiKey",
+        "name": "subscription-key",
+        "in": "query"
+      }
+    }
+  },
+  "security": [
+    {
+      "apiKeyHeader": []
+    },
+    {
+      "apiKeyQuery": []
+    }
+  ]
+}

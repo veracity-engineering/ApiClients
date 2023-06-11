@@ -1,0 +1,3491 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "Data Validator API",
+    "contact": {
+      "name": "Eric Liu",
+      "email": "li.eric.liu@dnv.com"
+    },
+    "version": "v1"
+  },
+  "servers": [
+    {
+      "url": "https://datavalidator-stag.azurewebsites.net/"
+    }
+  ],
+  "paths": {
+    "/api/v1/schemas": {
+      "get": {
+        "tags": [
+          "Schema"
+        ],
+        "summary": "Gets a list of pre-defined schemas",
+        "operationId": "Schema_GetPredefinedList",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/SchemaReadDTO"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "NotFound"
+          },
+          "400": {
+            "description": "BadRequest"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Schema"
+        ],
+        "summary": "Adds a pre-defined schema with all the details",
+        "operationId": "Schema_AddPredefined",
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/SchemaWithVersionWriteDTO"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SchemaWithVersionWriteDTO"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SchemaWithVersionWriteDTO"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/SchemaWithVersionWriteDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SchemaReadDTO"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "BadRequest"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/api/v1/schemas/{schemaId}": {
+      "get": {
+        "tags": [
+          "Schema"
+        ],
+        "summary": "Gets a pre-defined schema",
+        "operationId": "Schema_GetPredefined",
+        "parameters": [
+          {
+            "name": "schemaId",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SchemaDetails"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "NotFound"
+          },
+          "400": {
+            "description": "BadRequest"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/api/v1/schemas/{schemaId}/versions": {
+      "post": {
+        "tags": [
+          "Schema"
+        ],
+        "summary": "Adds a version to a pre-defined schema",
+        "operationId": "Schema_AddPredefinedSchemaVersion",
+        "parameters": [
+          {
+            "name": "schemaId",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/SchemaVersionWriteDTO"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SchemaVersionWriteDTO"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SchemaVersionWriteDTO"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/SchemaVersionWriteDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SchemaVersionReadDTO"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "BadRequest"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/api/v1/schemas/schemaVersions/{versionId}": {
+      "get": {
+        "tags": [
+          "Schema"
+        ],
+        "summary": "Gets a schema version details",
+        "operationId": "Schema_GetPredefinedSchemaVersion",
+        "parameters": [
+          {
+            "name": "versionId",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SchemaVersionReadDTO"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "NotFound"
+          },
+          "400": {
+            "description": "BadRequest"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/api/v1/validators": {
+      "get": {
+        "tags": [
+          "ColumnValidator"
+        ],
+        "summary": "Lists all pre-defined column validators",
+        "operationId": "ColumnValidator_GetList",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ColumnValidatorReadDTO"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "NotFound"
+          },
+          "400": {
+            "description": "BadRequest"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "ColumnValidator"
+        ],
+        "summary": "Adds a new pre-defined column validator",
+        "operationId": "ColumnValidator_Add",
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ColumnValidatorWriteDTO"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ColumnValidatorWriteDTO"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ColumnValidatorWriteDTO"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ColumnValidatorWriteDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ColumnValidatorReadDTO"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "BadRequest"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/api/v1/validators/{id}": {
+      "get": {
+        "tags": [
+          "ColumnValidator"
+        ],
+        "summary": "Gets a pre-defined column validator",
+        "operationId": "ColumnValidator_Get",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "column validator Id",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ColumnValidatorReadDTO"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "NotFound"
+          },
+          "400": {
+            "description": "BadRequest"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "ColumnValidator"
+        ],
+        "summary": "Updates a pre-defined column validator",
+        "operationId": "ColumnValidator_Update",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ColumnValidatorWriteDTO"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ColumnValidatorWriteDTO"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ColumnValidatorWriteDTO"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ColumnValidatorWriteDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ColumnValidatorReadDTO"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "BadRequest"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "ColumnValidator"
+        ],
+        "summary": "Remove a pre-defined column validator",
+        "operationId": "ColumnValidator_Remove",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "column validator Id",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "BadRequest"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/api/v1/worker/containers/{containerId}": {
+      "get": {
+        "tags": [
+          "WorkerFunctions"
+        ],
+        "summary": "Gets basic container set info and schema info",
+        "operationId": "WorkerFunctions_GetContainerSetByContainerId",
+        "parameters": [
+          {
+            "name": "containerId",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ContainerSetWithSchemaInfoReadDTO"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "NotFound"
+          },
+          "400": {
+            "description": "BadRequest"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/api/v1/worker/containers/{containerId}/schemaDefinition": {
+      "get": {
+        "tags": [
+          "WorkerFunctions"
+        ],
+        "summary": "Gets container info and schema details by container Id",
+        "operationId": "WorkerFunctions_GetSchemaDefinition",
+        "parameters": [
+          {
+            "name": "containerId",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MinimalSchemaDefinitionForWorkerDto"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "NotFound"
+          },
+          "400": {
+            "description": "BadRequest"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/api/v1/worker/containers/{containerId}/validationsummary": {
+      "post": {
+        "tags": [
+          "WorkerFunctions"
+        ],
+        "summary": "Save Validation Summary of uploaded file on source container",
+        "operationId": "WorkerFunctions_AddValidationSummary",
+        "parameters": [
+          {
+            "name": "containerId",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ValidationSummaryWriteDTO"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ValidationSummaryWriteDTO"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ValidationSummaryWriteDTO"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ValidationSummaryWriteDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "BadRequest"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/api/v1/workspaces": {
+      "get": {
+        "tags": [
+          "Workspace"
+        ],
+        "summary": "List all my workspaces",
+        "operationId": "Workspace_GetList",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/WorkspaceReadDTO"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "NotFound"
+          },
+          "400": {
+            "description": "BadRequest"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Workspace"
+        ],
+        "summary": "Create a new workspace",
+        "operationId": "Workspace_Add",
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/WorkspaceWriteDTO"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/WorkspaceWriteDTO"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/WorkspaceWriteDTO"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/WorkspaceWriteDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WorkspaceReadDTO"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "BadRequest"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/api/v1/workspaces/{id}": {
+      "get": {
+        "tags": [
+          "Workspace"
+        ],
+        "summary": "Show workspace details",
+        "operationId": "Workspace_Get",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "workspace Id",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WorkspaceReadDTO"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "NotFound"
+          },
+          "400": {
+            "description": "BadRequest"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Workspace"
+        ],
+        "summary": "Update workspace",
+        "description": "Sample request body:\r\n\r\n\t{\r\n\t\t\"name\": \"string\",\r\n\t\t\"description\": \"string\"\r\n\t}",
+        "operationId": "Workspace_UpdateWorkspace",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "workspace Id",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/WorkspaceWriteDTO"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/WorkspaceWriteDTO"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/WorkspaceWriteDTO"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/WorkspaceWriteDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WorkspaceReadDTO"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "BadRequest"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/api/v1/workspaces/{id}/containers": {
+      "get": {
+        "tags": [
+          "Workspace"
+        ],
+        "summary": "Get a list of container sets",
+        "description": "Default behavior: Name expanded\r\nOther fields are optionally expandable.\r\nTo serve the front-end, they will also need an option to provide/expand:\r\n- the name/shortname of the schema that the schema version belongs to\r\n- the id of the schema the version belongs to",
+        "operationId": "Container_GetContainerList",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ContainerSetReadDTO"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "NotFound"
+          },
+          "400": {
+            "description": "BadRequest"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Workspace"
+        ],
+        "summary": "Create new container",
+        "description": "Required user input is:\r\n- Container Name\r\n- Processing region instance \r\n- Schema ID",
+        "operationId": "Container_AddContainer",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "workspace Id",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ContainerSetWriteDTO"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ContainerSetWriteDTO"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ContainerSetWriteDTO"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ContainerSetWriteDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ContainerSetReadDTO"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "BadRequest"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/api/v1/workspaces/{id}/containers/{containerId}": {
+      "get": {
+        "tags": [
+          "Workspace"
+        ],
+        "summary": "Gets container details",
+        "operationId": "Container_GetContainer",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "containerId",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ContainerSetReadDTO"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "NotFound"
+          },
+          "400": {
+            "description": "BadRequest"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Workspace"
+        ],
+        "summary": "Removes a container",
+        "operationId": "Container_Remove",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "workspace Id",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "containerId",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "BadRequest"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/api/v1/workspaces/{id}/datacollectsas": {
+      "put": {
+        "tags": [
+          "Workspace"
+        ],
+        "summary": "Update data collect SAS URL",
+        "operationId": "Workspace_UpdateDataCollectSAS",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/SASDTO"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SASDTO"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SASDTO"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/SASDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "boolean"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "BadRequest"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Workspace"
+        ],
+        "summary": "Get data collect SAS URL",
+        "operationId": "Workspace_GetDataCollectSAS",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SASDTO"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "NotFound"
+          },
+          "400": {
+            "description": "BadRequest"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/api/v1/workspaces/{id}/schemaColumns/{columnId}": {
+      "get": {
+        "tags": [
+          "Workspace"
+        ],
+        "summary": "Gets the specified schema column",
+        "operationId": "Schema_GetSchemaColumn",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "columnId",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SchemaColumnReadDTO"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "NotFound"
+          },
+          "400": {
+            "description": "BadRequest"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/api/v1/workspaces/{id}/schemas": {
+      "get": {
+        "tags": [
+          "Workspace"
+        ],
+        "summary": "List all workspace schemas",
+        "operationId": "Schema_GetSchemaList",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "workspace Id",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/SchemaReadDTO"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "NotFound"
+          },
+          "400": {
+            "description": "BadRequest"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Workspace"
+        ],
+        "summary": "Create a new schema with all the details",
+        "operationId": "Schema_Add",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "workspace Id",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/SchemaWithVersionWriteDTO"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SchemaWithVersionWriteDTO"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SchemaWithVersionWriteDTO"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/SchemaWithVersionWriteDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SchemaDetails"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "BadRequest"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/api/v1/workspaces/{id}/schemas/{schemaId}": {
+      "get": {
+        "tags": [
+          "Workspace"
+        ],
+        "summary": "Gets the specified schema with the details of its active version",
+        "operationId": "Schema_Get",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "workspace Id",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "schemaId",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SchemaDetails"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "NotFound"
+          },
+          "400": {
+            "description": "BadRequest"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Workspace"
+        ],
+        "summary": "Removes a schema",
+        "operationId": "Schema_Remove",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "workspace Id",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "schemaId",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "BadRequest"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "Workspace"
+        ],
+        "summary": "Updates a schema",
+        "description": "Request sample\r\n\r\n    {\r\n        \"op\": \"replace\",\r\n        \"path\": \"name\",\r\n        \"value\": \"new name\",\r\n        \"operationType\": null,  // not used\r\n        \"from\": null            // not used\r\n    }",
+        "operationId": "Schema_Patch",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "workspace Id",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "schemaId",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Operation"
+                }
+              }
+            },
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Operation"
+                }
+              }
+            },
+            "text/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Operation"
+                }
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Operation"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SchemaReadDTO"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "BadRequest"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/api/v1/workspaces/{id}/schemas/{schemaId}/versions": {
+      "post": {
+        "tags": [
+          "Workspace"
+        ],
+        "summary": "Adds a new schema version",
+        "operationId": "Schema_AddSchemaVersion",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "workspace Id",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "schemaId",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/SchemaVersionWriteDTO"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SchemaVersionWriteDTO"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SchemaVersionWriteDTO"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/SchemaVersionWriteDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SchemaVersionReadDTO"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "BadRequest"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/api/v1/workspaces/{id}/schemaVersions/{schemaVersionId}": {
+      "delete": {
+        "tags": [
+          "Workspace"
+        ],
+        "summary": "Removes a schema version",
+        "operationId": "Schema_RemoveSchemaVersion",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "workspace Id",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "schemaVersionId",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "BadRequest"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/api/v1/workspaces/{id}/schemaVersions/{versionId}": {
+      "get": {
+        "tags": [
+          "Workspace"
+        ],
+        "summary": "Gets a schema version details",
+        "operationId": "Schema_GetSchemaVersion",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "workspace Id",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "versionId",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SchemaVersionReadDTO"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "NotFound"
+          },
+          "400": {
+            "description": "BadRequest"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "Workspace"
+        ],
+        "summary": "Updates schema version",
+        "description": "Request sample\r\n\r\n    {\r\n        \"op\": \"replace\",\r\n        \"path\": \"name\",\r\n        \"value\": \"new name\",\r\n        \"operationType\": null,  // not used\r\n        \"from\": null            // not used\r\n    }",
+        "operationId": "Schema_PatchSchemaVersion",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "versionId",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Operation"
+                }
+              }
+            },
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Operation"
+                }
+              }
+            },
+            "text/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Operation"
+                }
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Operation"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SchemaVersionReadDTO"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "BadRequest"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/api/v1/workspaces/{id}/schemaVersions/{versionId}/activate": {
+      "patch": {
+        "tags": [
+          "Workspace"
+        ],
+        "summary": "Toogles the active status of schema version",
+        "operationId": "Schema_UpdateSchemaVersionIsActive",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "workspace Id",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "versionId",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SchemaVersionReadDTO"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "BadRequest"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/api/v1/workspaces/{id}/schemaVersions/{versionId}/columns": {
+      "get": {
+        "tags": [
+          "Workspace"
+        ],
+        "summary": "Gets columns by schema version Id",
+        "operationId": "Schema_GetColumnList",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "workspace Id",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "versionId",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/SchemaColumnReadDTO"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "NotFound"
+          },
+          "400": {
+            "description": "BadRequest"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/api/v1/workspaces/{id}/schemaVersions/{versionId}/rowValidators": {
+      "get": {
+        "tags": [
+          "Workspace"
+        ],
+        "summary": "Gets all the row validators by schema version Id",
+        "operationId": "Schema_GetRowValidatorList",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "workspace Id",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "versionId",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/RowValidatorReadDTO"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "NotFound"
+          },
+          "400": {
+            "description": "BadRequest"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/api/v1/workspaces/{id}/users": {
+      "get": {
+        "tags": [
+          "Workspace"
+        ],
+        "summary": "List all workspace members",
+        "operationId": "User_GetUserList",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/WorkspaceUserReadDTO"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "NotFound"
+          },
+          "400": {
+            "description": "BadRequest"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Workspace"
+        ],
+        "summary": "Add a user to a workspace",
+        "operationId": "User_AddUser",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/WorkspaceUserWriteDTO"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/WorkspaceUserWriteDTO"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/WorkspaceUserWriteDTO"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/WorkspaceUserWriteDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WorkspaceUserReadDTO"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "BadRequest"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Workspace"
+        ],
+        "summary": "Change the role of a workspace member",
+        "operationId": "User_UpdateUser",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/WorkspaceUserWriteDTO"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/WorkspaceUserWriteDTO"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/WorkspaceUserWriteDTO"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/WorkspaceUserWriteDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "BadRequest"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/api/v1/workspaces/{id}/users/{userId}": {
+      "delete": {
+        "tags": [
+          "Workspace"
+        ],
+        "summary": "Remove a member from a workspace",
+        "operationId": "User_RemoveUser",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "BadRequest"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/api/v1/workspaces/{id}/validators": {
+      "get": {
+        "tags": [
+          "Workspace"
+        ],
+        "summary": "Lists all column validators by workspace Id",
+        "operationId": "ColumnValidator_GetColumnValidatorList",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "workspace Id",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "includesPredefined",
+            "in": "query",
+            "description": "includes predefine validators in the response",
+            "schema": {
+              "type": "boolean",
+              "default": false
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ColumnValidatorReadDTO"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "NotFound"
+          },
+          "400": {
+            "description": "BadRequest"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Workspace"
+        ],
+        "summary": "Add a column validator to a workspace",
+        "operationId": "ColumnValidator_AddColumnValidator",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "workspace Id",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ColumnValidatorWriteDTO"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ColumnValidatorWriteDTO"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ColumnValidatorWriteDTO"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ColumnValidatorWriteDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ColumnValidatorReadDTO"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "BadRequest"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/api/v1/workspaces/{id}/validators/{validatorId}": {
+      "put": {
+        "tags": [
+          "Workspace"
+        ],
+        "summary": "Updates a column validator",
+        "operationId": "ColumnValidator_UpdateColumnValidator",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "workspace Id",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "validatorId",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ColumnValidatorWriteDTO"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ColumnValidatorWriteDTO"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ColumnValidatorWriteDTO"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ColumnValidatorWriteDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ColumnValidatorReadDTO"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "BadRequest"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Workspace"
+        ],
+        "summary": "Removes a column validator",
+        "operationId": "ColumnValidator_RemoveColumnValidator",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "workspace Id",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "validatorId",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "BadRequest"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Workspace"
+        ],
+        "summary": "Gets a column validator",
+        "operationId": "ColumnValidator_GetColumnValidator",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "workspace Id",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "validatorId",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ColumnValidatorReadDTO"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "NotFound"
+          },
+          "400": {
+            "description": "BadRequest"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "ColumnValidatorColumnReadDTO": {
+        "type": "object",
+        "properties": {
+          "schemaColumnId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "columnValidatorId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "validatorName": {
+            "type": "string",
+            "nullable": true
+          },
+          "severity": {
+            "$ref": "#/components/schemas/Severity"
+          }
+        }
+      },
+      "ColumnValidatorColumnWriteDTO": {
+        "type": "object",
+        "properties": {
+          "columnValidatorId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "severity": {
+            "$ref": "#/components/schemas/Severity"
+          }
+        }
+      },
+      "ColumnValidatorReadDTO": {
+        "type": "object",
+        "properties": {
+          "columnValidatorId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "message": {
+            "type": "string",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "isPredefined": {
+            "type": "boolean"
+          },
+          "workspaceId": {
+            "type": "string",
+            "format": "uuid",
+            "nullable": true
+          },
+          "validationType": {
+            "$ref": "#/components/schemas/ValidationType"
+          },
+          "max": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "min": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "regex": {
+            "type": "string",
+            "nullable": true
+          },
+          "type": {
+            "type": "string",
+            "nullable": true
+          },
+          "createdBy": {
+            "type": "string",
+            "format": "uuid",
+            "nullable": true
+          },
+          "createdOn": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          }
+        }
+      },
+      "ColumnValidatorWriteDTO": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "validationType": {
+            "$ref": "#/components/schemas/ValidationType"
+          },
+          "max": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "min": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "regex": {
+            "type": "string",
+            "nullable": true
+          },
+          "type": {
+            "type": "string",
+            "nullable": true
+          }
+        }
+      },
+      "ContainerSetReadDTO": {
+        "type": "object",
+        "properties": {
+          "containerSetId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "workspaceId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "region": {
+            "type": "string",
+            "nullable": true
+          },
+          "createdOn": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "createdBy": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "lastModifiedOn": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "lastModifiedBy": {
+            "type": "string",
+            "format": "uuid",
+            "nullable": true
+          },
+          "validationFunctionId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "schemaId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "outputContainerId": {
+            "type": "string",
+            "format": "uuid"
+          }
+        }
+      },
+      "ContainerSetWithSchemaInfoReadDTO": {
+        "type": "object",
+        "properties": {
+          "containerSetId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "workspaceId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "region": {
+            "type": "string",
+            "nullable": true
+          },
+          "createdOn": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "createdBy": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "lastModifiedOn": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "lastModifiedBy": {
+            "type": "string",
+            "format": "uuid",
+            "nullable": true
+          },
+          "validationFunctionId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "schemaId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "outputContainerId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "schemaName": {
+            "type": "string",
+            "nullable": true
+          },
+          "schemaShortName": {
+            "type": "string",
+            "nullable": true
+          },
+          "schemaDescription": {
+            "type": "string",
+            "nullable": true
+          },
+          "schemaIsPredefined": {
+            "type": "boolean"
+          }
+        }
+      },
+      "ContainerSetWriteDTO": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "region": {
+            "type": "string",
+            "nullable": true
+          },
+          "schemaId": {
+            "type": "string",
+            "format": "uuid"
+          }
+        }
+      },
+      "LogicalOperator": {
+        "enum": [
+          "And",
+          "Or"
+        ],
+        "type": "string",
+        "x-ms-enum": {
+          "name": "LogicalOperator",
+          "modelAsString": false
+        }
+      },
+      "MetaType": {
+        "enum": [
+          "NotApplicable",
+          "FileName",
+          "UploadTime",
+          "RowCorrection"
+        ],
+        "type": "string",
+        "x-ms-enum": {
+          "name": "MetaType",
+          "modelAsString": false
+        }
+      },
+      "MinimalSchemaDefinitionForWorkerDto": {
+        "type": "object",
+        "properties": {
+          "schemaRef": {
+            "$ref": "#/components/schemas/MinimalSchemaReferenceDto"
+          },
+          "outputContainerId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "columns": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SchemaColumnDefinitionDto"
+            },
+            "nullable": true
+          },
+          "columnValidators": {
+            "type": "object",
+            "additionalProperties": {
+              "$ref": "#/components/schemas/SchemaColumnValidatorDefinitionDto"
+            },
+            "nullable": true
+          },
+          "rowValidators": {
+            "type": "object",
+            "additionalProperties": {
+              "$ref": "#/components/schemas/SchemaRowValidatorDefinitionDto"
+            },
+            "nullable": true
+          }
+        }
+      },
+      "MinimalSchemaReferenceDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "shortName": {
+            "type": "string",
+            "nullable": true
+          },
+          "version": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      },
+      "Operation": {
+        "type": "object",
+        "properties": {
+          "operationType": {
+            "$ref": "#/components/schemas/OperationType"
+          },
+          "path": {
+            "type": "string",
+            "nullable": true
+          },
+          "op": {
+            "type": "string",
+            "nullable": true
+          },
+          "from": {
+            "type": "string",
+            "nullable": true
+          },
+          "value": {
+            "nullable": true
+          }
+        }
+      },
+      "OperationType": {
+        "enum": [
+          "Add",
+          "Remove",
+          "Replace",
+          "Move",
+          "Copy",
+          "Test",
+          "Invalid"
+        ],
+        "type": "string",
+        "x-ms-enum": {
+          "name": "OperationType",
+          "modelAsString": false
+        }
+      },
+      "Role": {
+        "enum": [
+          "Admin",
+          "Contributor",
+          "Reader"
+        ],
+        "type": "string",
+        "x-ms-enum": {
+          "name": "Role",
+          "modelAsString": false
+        }
+      },
+      "RowValidatorColumnReadDTO": {
+        "type": "object",
+        "properties": {
+          "rowValidatorId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "schemaColumnId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "columnName": {
+            "type": "string",
+            "nullable": true
+          },
+          "relationship": {
+            "$ref": "#/components/schemas/RowValidatorColumnRelationship"
+          }
+        }
+      },
+      "RowValidatorColumnRelationship": {
+        "enum": [
+          "Affect",
+          "Check"
+        ],
+        "type": "string",
+        "x-ms-enum": {
+          "name": "RowValidatorColumnRelationship",
+          "modelAsString": false
+        }
+      },
+      "RowValidatorReadDTO": {
+        "type": "object",
+        "properties": {
+          "rowValidatorId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "schemaVersionId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "checkParameter": {
+            "type": "string",
+            "nullable": true
+          },
+          "columnsToCheck": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/RowValidatorColumnReadDTO"
+            },
+            "nullable": true
+          },
+          "columnsToAffect": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/RowValidatorColumnReadDTO"
+            },
+            "nullable": true
+          },
+          "logicalOperator": {
+            "$ref": "#/components/schemas/LogicalOperator"
+          },
+          "rowValidatorType": {
+            "$ref": "#/components/schemas/RowValidatorType"
+          }
+        }
+      },
+      "RowValidatorType": {
+        "enum": [
+          "RequiredIfNotNull",
+          "RequiredIfRegexMatch",
+          "RequiredIfSumExceedsThreshold"
+        ],
+        "type": "string",
+        "x-ms-enum": {
+          "name": "RowValidatorType",
+          "modelAsString": false
+        }
+      },
+      "RowValidatorWriteDTO": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "checkParameter": {
+            "type": "string",
+            "nullable": true
+          },
+          "columnsToCheck": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "columnsToAffect": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "logicalOperator": {
+            "$ref": "#/components/schemas/LogicalOperator"
+          },
+          "rowValidatorType": {
+            "$ref": "#/components/schemas/RowValidatorType"
+          }
+        }
+      },
+      "SASDTO": {
+        "type": "object",
+        "properties": {
+          "url": {
+            "type": "string",
+            "nullable": true
+          }
+        }
+      },
+      "SchemaColumnDefinitionDto": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "mustBePresent": {
+            "type": "boolean"
+          },
+          "metaFormat": {
+            "type": "string",
+            "nullable": true
+          },
+          "rules": {
+            "type": "object",
+            "additionalProperties": {
+              "$ref": "#/components/schemas/Severity"
+            },
+            "nullable": true
+          },
+          "metaType": {
+            "$ref": "#/components/schemas/MetaType"
+          }
+        }
+      },
+      "SchemaColumnReadDTO": {
+        "type": "object",
+        "properties": {
+          "schemaColumnId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "schemaVersionId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "mustBePresent": {
+            "type": "boolean"
+          },
+          "columnOrder": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "metaFormat": {
+            "type": "string",
+            "nullable": true
+          },
+          "columnValidators": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ColumnValidatorColumnReadDTO"
+            },
+            "nullable": true
+          },
+          "schemaColumnType": {
+            "$ref": "#/components/schemas/SchemaColumnType"
+          },
+          "metaType": {
+            "$ref": "#/components/schemas/MetaType"
+          }
+        }
+      },
+      "SchemaColumnType": {
+        "enum": [
+          "Validation",
+          "Metadata"
+        ],
+        "type": "string",
+        "x-ms-enum": {
+          "name": "SchemaColumnType",
+          "modelAsString": false
+        }
+      },
+      "SchemaColumnValidatorDefinitionDto": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "message": {
+            "type": "string",
+            "nullable": true
+          },
+          "validationType": {
+            "$ref": "#/components/schemas/ValidationType"
+          },
+          "max": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "min": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "regex": {
+            "type": "string",
+            "nullable": true
+          },
+          "type": {
+            "type": "string",
+            "nullable": true
+          }
+        }
+      },
+      "SchemaColumnWriteDTO": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "mustBePresent": {
+            "type": "boolean"
+          },
+          "columnOrder": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "metaFormat": {
+            "type": "string",
+            "nullable": true
+          },
+          "columnValidators": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ColumnValidatorColumnWriteDTO"
+            },
+            "nullable": true
+          },
+          "schemaColumnType": {
+            "$ref": "#/components/schemas/SchemaColumnType"
+          },
+          "metaType": {
+            "$ref": "#/components/schemas/MetaType"
+          }
+        }
+      },
+      "SchemaDetails": {
+        "type": "object",
+        "properties": {
+          "schemaId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "shortName": {
+            "type": "string",
+            "nullable": true
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          },
+          "isPredefined": {
+            "type": "boolean"
+          },
+          "workspaceId": {
+            "type": "string",
+            "format": "uuid",
+            "nullable": true
+          },
+          "activeVersion": {
+            "$ref": "#/components/schemas/SchemaVersionReadDTO"
+          },
+          "versions": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SchemaVersionReadDTO"
+            },
+            "nullable": true
+          }
+        }
+      },
+      "SchemaReadDTO": {
+        "type": "object",
+        "properties": {
+          "schemaId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "shortName": {
+            "type": "string",
+            "nullable": true
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          },
+          "isPredefined": {
+            "type": "boolean"
+          },
+          "industryId": {
+            "type": "string",
+            "format": "uuid",
+            "nullable": true
+          },
+          "workspaceId": {
+            "type": "string",
+            "format": "uuid",
+            "nullable": true
+          }
+        }
+      },
+      "SchemaRowValidatorDefinitionDto": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "checkParameter": {
+            "type": "string",
+            "nullable": true
+          },
+          "columnsToCheck": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "columnsToAffect": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "logicalOperator": {
+            "$ref": "#/components/schemas/LogicalOperator"
+          },
+          "rowValidatorType": {
+            "$ref": "#/components/schemas/RowValidatorType"
+          }
+        }
+      },
+      "SchemaVersionReadDTO": {
+        "type": "object",
+        "properties": {
+          "schemaVersionId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "schemaId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "version": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "isActive": {
+            "type": "boolean"
+          },
+          "schemaColumns": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SchemaColumnReadDTO"
+            },
+            "nullable": true
+          },
+          "rowValidators": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/RowValidatorReadDTO"
+            },
+            "nullable": true
+          }
+        }
+      },
+      "SchemaVersionWriteDTO": {
+        "type": "object",
+        "properties": {
+          "rowValidators": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/RowValidatorWriteDTO"
+            },
+            "nullable": true
+          },
+          "schemaColumns": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SchemaColumnWriteDTO"
+            },
+            "nullable": true
+          }
+        }
+      },
+      "SchemaWithVersionWriteDTO": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "shortName": {
+            "type": "string",
+            "nullable": true
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          },
+          "version": {
+            "$ref": "#/components/schemas/SchemaVersionWriteDTO"
+          }
+        }
+      },
+      "Severity": {
+        "enum": [
+          "Error",
+          "Warning",
+          "Correction"
+        ],
+        "type": "string",
+        "x-ms-enum": {
+          "name": "Severity",
+          "modelAsString": false
+        }
+      },
+      "ValidationSummaryWriteDTO": {
+        "type": "object",
+        "properties": {
+          "region": {
+            "type": "string",
+            "nullable": true
+          },
+          "createdOn": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "schemaId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "recordsProcessed": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "recordsFailed": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "failedValidations": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "validationsCount": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      },
+      "ValidationType": {
+        "enum": [
+          "Length",
+          "Range",
+          "Regex",
+          "Required",
+          "Type"
+        ],
+        "type": "string",
+        "x-ms-enum": {
+          "name": "ValidationType",
+          "modelAsString": false
+        }
+      },
+      "WorkspaceReadDTO": {
+        "type": "object",
+        "properties": {
+          "workspaceId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          },
+          "createdBy": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "createdOn": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "lastModifiedBy": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "lastModifiedOn": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "owner": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "workspaceUsers": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/WorkspaceUserReadDTO"
+            },
+            "nullable": true
+          }
+        }
+      },
+      "WorkspaceUserReadDTO": {
+        "type": "object",
+        "properties": {
+          "workspaceId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "userId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "email": {
+            "type": "string",
+            "nullable": true
+          },
+          "role": {
+            "$ref": "#/components/schemas/Role"
+          }
+        }
+      },
+      "WorkspaceUserWriteDTO": {
+        "type": "object",
+        "properties": {
+          "userId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "role": {
+            "$ref": "#/components/schemas/Role"
+          }
+        }
+      },
+      "WorkspaceWriteDTO": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "OAuth2": {
+        "type": "oauth2",
+        "flows": {
+          "implicit": {
+            "authorizationUrl": "https://loginstag.veracity.com/307530a1-6e70-4ef7-8875-daa8f5a664ec/b2c_1a_signinwithadfsidp/oauth2/v2.0/authorize",
+            "scopes": {
+              "https://dnvglb2cstag.onmicrosoft.com/28b7ec7b-db04-40bb-a042-b7ac5a8b36be/user_impersonation": "Data Validator Api"
+            }
+          },
+          "clientCredentials": {
+            "tokenUrl": "/swagger/token",
+            "scopes": {
+              "https://dnvglb2ctest.onmicrosoft.com/28b7ec7b-db04-40bb-a042-b7ac5a8b36be/.default": "Data Validator Api"
+            }
+          }
+        }
+      },
+      "Bearer": {
+        "type": "http",
+        "scheme": "Bearer"
+      }
+    }
+  },
+  "security": [
+    {
+      "OAuth2": []
+    },
+    {
+      "Bearer": []
+    }
+  ]
+}
