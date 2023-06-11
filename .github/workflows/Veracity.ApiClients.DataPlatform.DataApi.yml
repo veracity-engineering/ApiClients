@@ -1,6 +1,7 @@
 name: Veracity.ApiClients.DataPlatform.DataApi
 
 on:
+  workflow_dispatch:
   push:
     branches:
     - "**"
@@ -13,7 +14,7 @@ on:
       - 'src/Veracity.ApiClients.DataPlatform.DataApi/**'
       - '.github/workflows/Veracity.ApiClients.DataPlatform.DataApi.yml'
 jobs:
-  ci-cd-dotnet:
+  nuget-publish:
     uses: ./.github/workflows/nuget-publish.yml
     with:
       source-path: 'src/Veracity.ApiClients.DataPlatform.DataApi'

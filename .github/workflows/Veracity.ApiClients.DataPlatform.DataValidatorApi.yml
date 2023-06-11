@@ -1,6 +1,7 @@
 name: Veracity.ApiClients.DataPlatform.DataValidatorApi
 
 on:
+  workflow_dispatch:
   push:
     branches:
     - "**"
@@ -13,7 +14,7 @@ on:
       - 'src/Veracity.ApiClients.DataPlatform.DataValidatorApi/**'
       - '.github/workflows/Veracity.ApiClients.DataPlatform.DataValidatorApi.yml'
 jobs:
-  ci-cd-dotnet:
+  nuget-publish:
     uses: ./.github/workflows/nuget-publish.yml
     with:
       source-path: 'src/Veracity.ApiClients.DataPlatform.DataValidatorApi'
