@@ -1,0 +1,20 @@
+name: Veracity.ApiClients.Identity.ServicesApi
+
+on:
+  push:
+    branches:
+    - "**"
+    paths:
+    - 'src/Veracity.ApiClients.Identity.ServicesApi/**'
+    - '.github/workflows/Veracity.ApiClients.Identity.ServicesApi.yml'
+    pull_request:
+      types: [ closed ]
+      paths:
+      - 'src/Veracity.ApiClients.Identity.ServicesApi/**'
+      - '.github/workflows/Veracity.ApiClients.Identity.ServicesApi.yml'
+jobs:
+  ci-cd-dotnet:
+    uses: ./.github/workflows/nuget-publish.yml
+    with:
+      source-path: 'src/Veracity.ApiClients.Identity.ServicesApi'
+    secrets: inherit

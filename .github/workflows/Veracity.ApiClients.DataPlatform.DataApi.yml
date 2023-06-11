@@ -1,0 +1,20 @@
+name: Veracity.ApiClients.DataPlatform.DataApi
+
+on:
+  push:
+    branches:
+    - "**"
+    paths:
+    - 'src/Veracity.ApiClients.DataPlatform.DataApi/**'
+    - '.github/workflows/Veracity.ApiClients.DataPlatform.DataApi.yml'
+    pull_request:
+      types: [ closed ]
+      paths:
+      - 'src/Veracity.ApiClients.DataPlatform.DataApi/**'
+      - '.github/workflows/Veracity.ApiClients.DataPlatform.DataApi.yml'
+jobs:
+  ci-cd-dotnet:
+    uses: ./.github/workflows/nuget-publish.yml
+    with:
+      source-path: 'src/Veracity.ApiClients.DataPlatform.DataApi'
+    secrets: inherit

@@ -1,0 +1,20 @@
+name: Veracity.ApiClients.DataPlatform.DataValidatorApi
+
+on:
+  push:
+    branches:
+    - "**"
+    paths:
+    - 'src/Veracity.ApiClients.DataPlatform.DataValidatorApi/**'
+    - '.github/workflows/Veracity.ApiClients.DataPlatform.DataValidatorApi.yml'
+    pull_request:
+      types: [ closed ]
+      paths:
+      - 'src/Veracity.ApiClients.DataPlatform.DataValidatorApi/**'
+      - '.github/workflows/Veracity.ApiClients.DataPlatform.DataValidatorApi.yml'
+jobs:
+  ci-cd-dotnet:
+    uses: ./.github/workflows/nuget-publish.yml
+    with:
+      source-path: 'src/Veracity.ApiClients.DataPlatform.DataValidatorApi'
+    secrets: inherit
