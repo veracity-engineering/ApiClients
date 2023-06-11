@@ -7,15 +7,10 @@
 		<Nullable>enable</Nullable>
 		<GenerateDocumentationFile>True</GenerateDocumentationFile>
 		<NoWarn>$(NoWarn);1701;1702;1573;1591</NoWarn>
-		<ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
 	</PropertyGroup>
 
 	<PropertyGroup Condition=" '$(RELEASE)' == ''">
 		<VersionSuffix>preview.$([System.DateTime]::UtcNow.ToString("yyMMddHHmm"))</VersionSuffix>
 	</PropertyGroup>
-
-	<ItemGroup>
-		<PackageVersion Include="AutoRest.ApiClients.Common" Version="1.0.3" />
-	</ItemGroup>
 
 </Project>
