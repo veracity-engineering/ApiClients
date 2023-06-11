@@ -17,5 +17,5 @@ jobs:
   nuget-publish:
     uses: ./.github/workflows/nuget-publish.yml
     with:
-      source-path: 'src/Authorization'
+      source-path: 'src/Veracity.ApiClients.DataPlatform.ProvisionApi'
     secrets: inherit
