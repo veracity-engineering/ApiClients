@@ -1,11 +1,11 @@
 ﻿input-file: ServicesApi.json
-output-folder: ../src/Veracity.ApiClients.Identity.ServicesApi/
+output-folder: ../src/DNV.ApiClients.Veracity.Identity.ServicesApi/
 clear-output-folder: false
 csharp: true
 legacy: true
 version: 3.5
-project-folder: ../src/Veracity.ApiClients.Identity.ServicesApi/
-namespace: Veracity.ApiClients.Identity.ServicesApi
+project-folder: ../src/DNV.ApiClients.Veracity.Identity.ServicesApi/
+namespace: DNV.ApiClients.Veracity.Identity.ServicesApi
 public-clients: true
 add-credentials: true
 override-client-name: ServicesApiClient

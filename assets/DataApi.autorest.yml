@@ -1,12 +1,12 @@
 ﻿input-file: DataApi.json
-output-folder: ../src/Veracity.ApiClients.DataPlatform.DataApi
+output-folder: ../src/DNV.ApiClients.Veracity.DataPlatform.DataApi
 clear-output-folder: false
 
 csharp: true
 legacy: true
 
-project-folder: src/../src/Veracity.ApiClients.DataPlatform.DataApi/
-namespace: Veracity.ApiClients.DataPlatform.DataApi
+project-folder: src/../src/DNV.ApiClients.Veracity.DataPlatform.DataApi/
+namespace: DNV.ApiClients.Veracity.DataPlatform.DataApi
 public-clients: true
 add-credentials: true
 override-client-name: DataApiClient

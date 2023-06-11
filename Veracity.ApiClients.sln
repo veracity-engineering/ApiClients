@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.1.32421.90
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Veracity.ApiClients.DataPlatform.ProvisionApi", "src\Veracity.ApiClients.DataPlatform.ProvisionApi\Veracity.ApiClients.DataPlatform.ProvisionApi.csproj", "{A707831A-BA4A-4D69-A0FB-DDF9B7788999}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DNV.ApiClients.Veracity.DataPlatform.ProvisionApi", "src\DNV.ApiClients.Veracity.DataPlatform.ProvisionApi\DNV.ApiClients.Veracity.DataPlatform.ProvisionApi.csproj", "{A707831A-BA4A-4D69-A0FB-DDF9B7788999}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Veracity.ApiClients.DataPlatform.DataValidatorApi", "src\Veracity.ApiClients.DataPlatform.DataValidatorApi\Veracity.ApiClients.DataPlatform.DataValidatorApi.csproj", "{27846781-F6C6-4BF6-B341-82173ABF0D41}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi", "src\DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi\DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi.csproj", "{27846781-F6C6-4BF6-B341-82173ABF0D41}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Veracity.ApiClients.DataPlatform.DataApi", "src\Veracity.ApiClients.DataPlatform.DataApi\Veracity.ApiClients.DataPlatform.DataApi.csproj", "{D6C7F60D-3CA4-412F-99A1-2CD015CED044}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DNV.ApiClients.Veracity.DataPlatform.DataApi", "src\DNV.ApiClients.Veracity.DataPlatform.DataApi\DNV.ApiClients.Veracity.DataPlatform.DataApi.csproj", "{D6C7F60D-3CA4-412F-99A1-2CD015CED044}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Veracity.ApiClients.Identity.ServicesApi", "src\Veracity.ApiClients.Identity.ServicesApi\Veracity.ApiClients.Identity.ServicesApi.csproj", "{A47A13C5-2D22-43FC-85D7-6E9EA45CEA6B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DNV.ApiClients.Veracity.Identity.ServicesApi", "src\DNV.ApiClients.Veracity.Identity.ServicesApi\DNV.ApiClients.Veracity.Identity.ServicesApi.csproj", "{A47A13C5-2D22-43FC-85D7-6E9EA45CEA6B}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{1BDFDD5F-8628-4585-B135-EA82DEF8ABC6}"
 	ProjectSection(SolutionItems) = preProject
