@@ -1,4 +1,4 @@
-name: Veracity.ApiClients.DataPlatform.ProvisionApi
+name: DNV.ApiClients.Veracity.DataPlatform.ProvisionApi
 
 on:
   workflow_dispatch:
@@ -6,16 +6,16 @@ on:
     branches:
     - "**"
     paths:
-    - 'src/Veracity.ApiClients.DataPlatform.ProvisionApi/**'
-    - '.github/workflows/Veracity.ApiClients.DataPlatform.ProvisionApi.yml'
+    - 'src/DNV.ApiClients.Veracity.DataPlatform.ProvisionApi/**'
+    - '.github/workflows/DNV.ApiClients.Veracity.DataPlatform.ProvisionApi.yml'
     pull_request:
       types: [ closed ]
       paths:
-      - 'src/Veracity.ApiClients.DataPlatform.ProvisionApi/**'
-      - '.github/workflows/Veracity.ApiClients.DataPlatform.ProvisionApi.yml'
+      - 'src/DNV.ApiClients.Veracity.DataPlatform.ProvisionApi/**'
+      - '.github/workflows/DNV.ApiClients.Veracity.DataPlatform.ProvisionApi.yml'
 jobs:
   nuget-publish:
     uses: ./.github/workflows/nuget-publish.yml
     with:
-      source-path: 'src/Veracity.ApiClients.DataPlatform.ProvisionApi'
+      source-path: 'src/DNV.ApiClients.Veracity.DataPlatform.ProvisionApi'
     secrets: inherit

@@ -1,4 +1,4 @@
-name: Veracity.ApiClients.DataPlatform.DataValidatorApi
+name: DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi
 
 on:
   workflow_dispatch:
@@ -6,16 +6,16 @@ on:
     branches:
     - "**"
     paths:
-    - 'src/Veracity.ApiClients.DataPlatform.DataValidatorApi/**'
-    - '.github/workflows/Veracity.ApiClients.DataPlatform.DataValidatorApi.yml'
+    - 'src/DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi/**'
+    - '.github/workflows/DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi.yml'
     pull_request:
       types: [ closed ]
       paths:
-      - 'src/Veracity.ApiClients.DataPlatform.DataValidatorApi/**'
-      - '.github/workflows/Veracity.ApiClients.DataPlatform.DataValidatorApi.yml'
+      - 'src/DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi/**'
+      - '.github/workflows/DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi.yml'
 jobs:
   nuget-publish:
     uses: ./.github/workflows/nuget-publish.yml
     with:
-      source-path: 'src/Veracity.ApiClients.DataPlatform.DataValidatorApi'
+      source-path: 'src/DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi'
     secrets: inherit

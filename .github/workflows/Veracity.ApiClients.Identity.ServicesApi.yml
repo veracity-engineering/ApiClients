@@ -1,4 +1,4 @@
-name: Veracity.ApiClients.Identity.ServicesApi
+name: DNV.ApiClients.Veracity.Identity.ServicesApi
 
 on:
   workflow_dispatch:
@@ -6,16 +6,16 @@ on:
     branches:
     - "**"
     paths:
-    - 'src/Veracity.ApiClients.Identity.ServicesApi/**'
-    - '.github/workflows/Veracity.ApiClients.Identity.ServicesApi.yml'
+    - 'src/DNV.ApiClients.Veracity.Identity.ServicesApi/**'
+    - '.github/workflows/DNV.ApiClients.Veracity.Identity.ServicesApi.yml'
     pull_request:
       types: [ closed ]
       paths:
-      - 'src/Veracity.ApiClients.Identity.ServicesApi/**'
-      - '.github/workflows/Veracity.ApiClients.Identity.ServicesApi.yml'
+      - 'src/DNV.ApiClients.Veracity.Identity.ServicesApi/**'
+      - '.github/workflows/DNV.ApiClients.Veracity.Identity.ServicesApi.yml'
 jobs:
   nuget-publish:
     uses: ./.github/workflows/nuget-publish.yml
     with:
-      source-path: 'src/Veracity.ApiClients.Identity.ServicesApi'
+      source-path: 'src/DNV.ApiClients.Veracity.Identity.ServicesApi'
     secrets: inherit
