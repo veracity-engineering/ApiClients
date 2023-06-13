@@ -31,8 +31,9 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi
             /// The operations group for this extension method.
             /// </param>
             /// <param name='id'>
+            /// Format - uuid.
             /// </param>
-            public static IList<ContainerSetReadDTO> GetContainerList(this IContainer operations, System.Guid id)
+            public static IList<ContainerSetReadDTO> GetContainerList(this IContainer operations, string id)
             {
                 return operations.GetContainerListAsync(id).GetAwaiter().GetResult();
             }
@@ -51,11 +52,12 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi
             /// The operations group for this extension method.
             /// </param>
             /// <param name='id'>
+            /// Format - uuid.
             /// </param>
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task<IList<ContainerSetReadDTO>> GetContainerListAsync(this IContainer operations, System.Guid id, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<IList<ContainerSetReadDTO>> GetContainerListAsync(this IContainer operations, string id, CancellationToken cancellationToken = default(CancellationToken))
             {
                 using (var _result = await operations.GetContainerListWithHttpMessagesAsync(id, null, cancellationToken).ConfigureAwait(false))
                 {
@@ -76,11 +78,11 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi
             /// The operations group for this extension method.
             /// </param>
             /// <param name='id'>
-            /// workspace Id
+            /// Format - uuid. workspace Id
             /// </param>
             /// <param name='body'>
             /// </param>
-            public static ContainerSetReadDTO AddContainer(this IContainer operations, System.Guid id, ContainerSetWriteDTO body = default(ContainerSetWriteDTO))
+            public static ContainerSetReadDTO AddContainer(this IContainer operations, string id, ContainerSetWriteDTO body = default(ContainerSetWriteDTO))
             {
                 return operations.AddContainerAsync(id, body).GetAwaiter().GetResult();
             }
@@ -98,14 +100,14 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi
             /// The operations group for this extension method.
             /// </param>
             /// <param name='id'>
-            /// workspace Id
+            /// Format - uuid. workspace Id
             /// </param>
             /// <param name='body'>
             /// </param>
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task<ContainerSetReadDTO> AddContainerAsync(this IContainer operations, System.Guid id, ContainerSetWriteDTO body = default(ContainerSetWriteDTO), CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<ContainerSetReadDTO> AddContainerAsync(this IContainer operations, string id, ContainerSetWriteDTO body = default(ContainerSetWriteDTO), CancellationToken cancellationToken = default(CancellationToken))
             {
                 using (var _result = await operations.AddContainerWithHttpMessagesAsync(id, body, null, cancellationToken).ConfigureAwait(false))
                 {
@@ -116,14 +118,19 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi
             /// <summary>
             /// Gets container details
             /// </summary>
+            /// <remarks>
+            /// Gets container details
+            /// </remarks>
             /// <param name='operations'>
             /// The operations group for this extension method.
             /// </param>
             /// <param name='id'>
+            /// Format - uuid.
             /// </param>
             /// <param name='containerId'>
+            /// Format - uuid.
             /// </param>
-            public static ContainerSetReadDTO GetContainer(this IContainer operations, System.Guid id, System.Guid containerId)
+            public static ContainerSetReadDTO GetContainer(this IContainer operations, string id, string containerId)
             {
                 return operations.GetContainerAsync(id, containerId).GetAwaiter().GetResult();
             }
@@ -131,17 +138,22 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi
             /// <summary>
             /// Gets container details
             /// </summary>
+            /// <remarks>
+            /// Gets container details
+            /// </remarks>
             /// <param name='operations'>
             /// The operations group for this extension method.
             /// </param>
             /// <param name='id'>
+            /// Format - uuid.
             /// </param>
             /// <param name='containerId'>
+            /// Format - uuid.
             /// </param>
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task<ContainerSetReadDTO> GetContainerAsync(this IContainer operations, System.Guid id, System.Guid containerId, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<ContainerSetReadDTO> GetContainerAsync(this IContainer operations, string id, string containerId, CancellationToken cancellationToken = default(CancellationToken))
             {
                 using (var _result = await operations.GetContainerWithHttpMessagesAsync(id, containerId, null, cancellationToken).ConfigureAwait(false))
                 {
@@ -152,15 +164,19 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi
             /// <summary>
             /// Removes a container
             /// </summary>
+            /// <remarks>
+            /// Removes a container
+            /// </remarks>
             /// <param name='operations'>
             /// The operations group for this extension method.
             /// </param>
             /// <param name='id'>
-            /// workspace Id
+            /// Format - uuid. workspace Id
             /// </param>
             /// <param name='containerId'>
+            /// Format - uuid.
             /// </param>
-            public static void Remove(this IContainer operations, System.Guid id, System.Guid containerId)
+            public static void Remove(this IContainer operations, string id, string containerId)
             {
                 operations.RemoveAsync(id, containerId).GetAwaiter().GetResult();
             }
@@ -168,18 +184,22 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi
             /// <summary>
             /// Removes a container
             /// </summary>
+            /// <remarks>
+            /// Removes a container
+            /// </remarks>
             /// <param name='operations'>
             /// The operations group for this extension method.
             /// </param>
             /// <param name='id'>
-            /// workspace Id
+            /// Format - uuid. workspace Id
             /// </param>
             /// <param name='containerId'>
+            /// Format - uuid.
             /// </param>
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task RemoveAsync(this IContainer operations, System.Guid id, System.Guid containerId, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task RemoveAsync(this IContainer operations, string id, string containerId, CancellationToken cancellationToken = default(CancellationToken))
             {
                 (await operations.RemoveWithHttpMessagesAsync(id, containerId, null, cancellationToken).ConfigureAwait(false)).Dispose();
             }

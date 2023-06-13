@@ -24,10 +24,11 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi.Models
         /// <summary>
         /// Initializes a new instance of the SchemaVersionWriteDTO class.
         /// </summary>
-        public SchemaVersionWriteDTO(IList<RowValidatorWriteDTO> rowValidators = default(IList<RowValidatorWriteDTO>), IList<SchemaColumnWriteDTO> schemaColumns = default(IList<SchemaColumnWriteDTO>))
+        public SchemaVersionWriteDTO(IList<RowValidatorWriteDTO> rowValidators = default(IList<RowValidatorWriteDTO>), IList<SchemaColumnWriteDTO> schemaColumns = default(IList<SchemaColumnWriteDTO>), string description = default(string))
         {
             RowValidators = rowValidators;
             SchemaColumns = schemaColumns;
+            Description = description;
             CustomInit();
         }
 
@@ -45,6 +46,11 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi.Models
         /// </summary>
         [JsonProperty(PropertyName = "schemaColumns")]
         public IList<SchemaColumnWriteDTO> SchemaColumns { get; set; }
+
+        /// <summary>
+        /// </summary>
+        [JsonProperty(PropertyName = "description")]
+        public string Description { get; set; }
 
     }
 }

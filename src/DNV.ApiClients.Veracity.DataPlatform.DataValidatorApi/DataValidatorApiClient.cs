@@ -15,7 +15,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi
     using System.Net;
     using System.Net.Http;
 
-    public partial class DataValidatorApiClient : ServiceClient<DataValidatorApiClient>, AutoRest.ApiClients.Common.IApiClient, IDataValidatorApiClient
+    public partial class DataValidatorApiClient : ServiceClient<DataValidatorApiClient>, IDataValidatorApiClient
     {
         /// <summary>
         /// The base URI of the service.
@@ -314,7 +314,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi
             Workspace = new Workspace(this);
             Container = new Container(this);
             User = new User(this);
-            BaseUri = new System.Uri("https://datavalidator-stag.azurewebsites.net");
+            BaseUri = new System.Uri("https://api.veracity.com/veracity/datavalidator");
             SerializationSettings = new JsonSerializerSettings
             {
                 Formatting = Newtonsoft.Json.Formatting.Indented,

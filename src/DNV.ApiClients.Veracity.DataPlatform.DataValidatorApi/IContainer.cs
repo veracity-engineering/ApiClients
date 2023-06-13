@@ -31,6 +31,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi
         /// - the id of the schema the version belongs to
         /// </remarks>
         /// <param name='id'>
+        /// Format - uuid.
         /// </param>
         /// <param name='customHeaders'>
         /// The headers that will be added to request.
@@ -44,7 +45,10 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi
         /// <exception cref="Microsoft.Rest.SerializationException">
         /// Thrown when unable to deserialize the response
         /// </exception>
-        Task<HttpOperationResponse<IList<ContainerSetReadDTO>>> GetContainerListWithHttpMessagesAsync(System.Guid id, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        /// <exception cref="Microsoft.Rest.ValidationException">
+        /// Thrown when a required parameter is null
+        /// </exception>
+        Task<HttpOperationResponse<IList<ContainerSetReadDTO>>> GetContainerListWithHttpMessagesAsync(string id, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
         /// <summary>
         /// Create new container
         /// </summary>
@@ -55,7 +59,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi
         /// - Schema ID
         /// </remarks>
         /// <param name='id'>
-        /// workspace Id
+        /// Format - uuid. workspace Id
         /// </param>
         /// <param name='body'>
         /// </param>
@@ -71,13 +75,21 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi
         /// <exception cref="Microsoft.Rest.SerializationException">
         /// Thrown when unable to deserialize the response
         /// </exception>
-        Task<HttpOperationResponse<ContainerSetReadDTO>> AddContainerWithHttpMessagesAsync(System.Guid id, ContainerSetWriteDTO body = default(ContainerSetWriteDTO), Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        /// <exception cref="Microsoft.Rest.ValidationException">
+        /// Thrown when a required parameter is null
+        /// </exception>
+        Task<HttpOperationResponse<ContainerSetReadDTO>> AddContainerWithHttpMessagesAsync(string id, ContainerSetWriteDTO body = default(ContainerSetWriteDTO), Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
         /// <summary>
         /// Gets container details
         /// </summary>
+        /// <remarks>
+        /// Gets container details
+        /// </remarks>
         /// <param name='id'>
+        /// Format - uuid.
         /// </param>
         /// <param name='containerId'>
+        /// Format - uuid.
         /// </param>
         /// <param name='customHeaders'>
         /// The headers that will be added to request.
@@ -91,14 +103,21 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi
         /// <exception cref="Microsoft.Rest.SerializationException">
         /// Thrown when unable to deserialize the response
         /// </exception>
-        Task<HttpOperationResponse<ContainerSetReadDTO>> GetContainerWithHttpMessagesAsync(System.Guid id, System.Guid containerId, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        /// <exception cref="Microsoft.Rest.ValidationException">
+        /// Thrown when a required parameter is null
+        /// </exception>
+        Task<HttpOperationResponse<ContainerSetReadDTO>> GetContainerWithHttpMessagesAsync(string id, string containerId, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
         /// <summary>
         /// Removes a container
         /// </summary>
+        /// <remarks>
+        /// Removes a container
+        /// </remarks>
         /// <param name='id'>
-        /// workspace Id
+        /// Format - uuid. workspace Id
         /// </param>
         /// <param name='containerId'>
+        /// Format - uuid.
         /// </param>
         /// <param name='customHeaders'>
         /// The headers that will be added to request.
@@ -109,6 +128,9 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi
         /// <exception cref="Microsoft.Rest.HttpOperationException">
         /// Thrown when the operation returned an invalid status code
         /// </exception>
-        Task<HttpOperationResponse> RemoveWithHttpMessagesAsync(System.Guid id, System.Guid containerId, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        /// <exception cref="Microsoft.Rest.ValidationException">
+        /// Thrown when a required parameter is null
+        /// </exception>
+        Task<HttpOperationResponse> RemoveWithHttpMessagesAsync(string id, string containerId, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
     }
 }

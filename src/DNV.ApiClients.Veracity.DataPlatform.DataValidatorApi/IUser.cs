@@ -21,7 +21,11 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi
         /// <summary>
         /// List all workspace members
         /// </summary>
+        /// <remarks>
+        /// List all workspace members
+        /// </remarks>
         /// <param name='id'>
+        /// Format - uuid.
         /// </param>
         /// <param name='customHeaders'>
         /// The headers that will be added to request.
@@ -35,11 +39,18 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi
         /// <exception cref="Microsoft.Rest.SerializationException">
         /// Thrown when unable to deserialize the response
         /// </exception>
-        Task<HttpOperationResponse<IList<WorkspaceUserReadDTO>>> GetUserListWithHttpMessagesAsync(System.Guid id, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        /// <exception cref="Microsoft.Rest.ValidationException">
+        /// Thrown when a required parameter is null
+        /// </exception>
+        Task<HttpOperationResponse<IList<WorkspaceUserReadDTO>>> GetUserListWithHttpMessagesAsync(string id, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
         /// <summary>
         /// Add a user to a workspace
         /// </summary>
+        /// <remarks>
+        /// Add a user to a workspace
+        /// </remarks>
         /// <param name='id'>
+        /// Format - uuid.
         /// </param>
         /// <param name='body'>
         /// </param>
@@ -55,11 +66,18 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi
         /// <exception cref="Microsoft.Rest.SerializationException">
         /// Thrown when unable to deserialize the response
         /// </exception>
-        Task<HttpOperationResponse<WorkspaceUserReadDTO>> AddUserWithHttpMessagesAsync(System.Guid id, WorkspaceUserWriteDTO body = default(WorkspaceUserWriteDTO), Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        /// <exception cref="Microsoft.Rest.ValidationException">
+        /// Thrown when a required parameter is null
+        /// </exception>
+        Task<HttpOperationResponse<WorkspaceUserReadDTO>> AddUserWithHttpMessagesAsync(string id, WorkspaceUserWriteDTO body = default(WorkspaceUserWriteDTO), Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
         /// <summary>
         /// Change the role of a workspace member
         /// </summary>
+        /// <remarks>
+        /// Change the role of a workspace member
+        /// </remarks>
         /// <param name='id'>
+        /// Format - uuid.
         /// </param>
         /// <param name='body'>
         /// </param>
@@ -72,13 +90,21 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi
         /// <exception cref="Microsoft.Rest.HttpOperationException">
         /// Thrown when the operation returned an invalid status code
         /// </exception>
-        Task<HttpOperationResponse> UpdateUserWithHttpMessagesAsync(System.Guid id, WorkspaceUserWriteDTO body = default(WorkspaceUserWriteDTO), Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        /// <exception cref="Microsoft.Rest.ValidationException">
+        /// Thrown when a required parameter is null
+        /// </exception>
+        Task<HttpOperationResponse> UpdateUserWithHttpMessagesAsync(string id, WorkspaceUserWriteDTO body = default(WorkspaceUserWriteDTO), Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
         /// <summary>
         /// Remove a member from a workspace
         /// </summary>
+        /// <remarks>
+        /// Remove a member from a workspace
+        /// </remarks>
         /// <param name='id'>
+        /// Format - uuid.
         /// </param>
         /// <param name='userId'>
+        /// Format - uuid.
         /// </param>
         /// <param name='customHeaders'>
         /// The headers that will be added to request.
@@ -89,6 +115,9 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi
         /// <exception cref="Microsoft.Rest.HttpOperationException">
         /// Thrown when the operation returned an invalid status code
         /// </exception>
-        Task<HttpOperationResponse> RemoveUserWithHttpMessagesAsync(System.Guid id, System.Guid userId, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        /// <exception cref="Microsoft.Rest.ValidationException">
+        /// Thrown when a required parameter is null
+        /// </exception>
+        Task<HttpOperationResponse> RemoveUserWithHttpMessagesAsync(string id, string userId, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
     }
 }

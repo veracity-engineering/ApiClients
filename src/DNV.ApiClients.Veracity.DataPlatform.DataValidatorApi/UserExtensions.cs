@@ -20,12 +20,16 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi
             /// <summary>
             /// List all workspace members
             /// </summary>
+            /// <remarks>
+            /// List all workspace members
+            /// </remarks>
             /// <param name='operations'>
             /// The operations group for this extension method.
             /// </param>
             /// <param name='id'>
+            /// Format - uuid.
             /// </param>
-            public static IList<WorkspaceUserReadDTO> GetUserList(this IUser operations, System.Guid id)
+            public static IList<WorkspaceUserReadDTO> GetUserList(this IUser operations, string id)
             {
                 return operations.GetUserListAsync(id).GetAwaiter().GetResult();
             }
@@ -33,15 +37,19 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi
             /// <summary>
             /// List all workspace members
             /// </summary>
+            /// <remarks>
+            /// List all workspace members
+            /// </remarks>
             /// <param name='operations'>
             /// The operations group for this extension method.
             /// </param>
             /// <param name='id'>
+            /// Format - uuid.
             /// </param>
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task<IList<WorkspaceUserReadDTO>> GetUserListAsync(this IUser operations, System.Guid id, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<IList<WorkspaceUserReadDTO>> GetUserListAsync(this IUser operations, string id, CancellationToken cancellationToken = default(CancellationToken))
             {
                 using (var _result = await operations.GetUserListWithHttpMessagesAsync(id, null, cancellationToken).ConfigureAwait(false))
                 {
@@ -52,14 +60,18 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi
             /// <summary>
             /// Add a user to a workspace
             /// </summary>
+            /// <remarks>
+            /// Add a user to a workspace
+            /// </remarks>
             /// <param name='operations'>
             /// The operations group for this extension method.
             /// </param>
             /// <param name='id'>
+            /// Format - uuid.
             /// </param>
             /// <param name='body'>
             /// </param>
-            public static WorkspaceUserReadDTO AddUser(this IUser operations, System.Guid id, WorkspaceUserWriteDTO body = default(WorkspaceUserWriteDTO))
+            public static WorkspaceUserReadDTO AddUser(this IUser operations, string id, WorkspaceUserWriteDTO body = default(WorkspaceUserWriteDTO))
             {
                 return operations.AddUserAsync(id, body).GetAwaiter().GetResult();
             }
@@ -67,17 +79,21 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi
             /// <summary>
             /// Add a user to a workspace
             /// </summary>
+            /// <remarks>
+            /// Add a user to a workspace
+            /// </remarks>
             /// <param name='operations'>
             /// The operations group for this extension method.
             /// </param>
             /// <param name='id'>
+            /// Format - uuid.
             /// </param>
             /// <param name='body'>
             /// </param>
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task<WorkspaceUserReadDTO> AddUserAsync(this IUser operations, System.Guid id, WorkspaceUserWriteDTO body = default(WorkspaceUserWriteDTO), CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<WorkspaceUserReadDTO> AddUserAsync(this IUser operations, string id, WorkspaceUserWriteDTO body = default(WorkspaceUserWriteDTO), CancellationToken cancellationToken = default(CancellationToken))
             {
                 using (var _result = await operations.AddUserWithHttpMessagesAsync(id, body, null, cancellationToken).ConfigureAwait(false))
                 {
@@ -88,14 +104,18 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi
             /// <summary>
             /// Change the role of a workspace member
             /// </summary>
+            /// <remarks>
+            /// Change the role of a workspace member
+            /// </remarks>
             /// <param name='operations'>
             /// The operations group for this extension method.
             /// </param>
             /// <param name='id'>
+            /// Format - uuid.
             /// </param>
             /// <param name='body'>
             /// </param>
-            public static void UpdateUser(this IUser operations, System.Guid id, WorkspaceUserWriteDTO body = default(WorkspaceUserWriteDTO))
+            public static void UpdateUser(this IUser operations, string id, WorkspaceUserWriteDTO body = default(WorkspaceUserWriteDTO))
             {
                 operations.UpdateUserAsync(id, body).GetAwaiter().GetResult();
             }
@@ -103,17 +123,21 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi
             /// <summary>
             /// Change the role of a workspace member
             /// </summary>
+            /// <remarks>
+            /// Change the role of a workspace member
+            /// </remarks>
             /// <param name='operations'>
             /// The operations group for this extension method.
             /// </param>
             /// <param name='id'>
+            /// Format - uuid.
             /// </param>
             /// <param name='body'>
             /// </param>
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task UpdateUserAsync(this IUser operations, System.Guid id, WorkspaceUserWriteDTO body = default(WorkspaceUserWriteDTO), CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task UpdateUserAsync(this IUser operations, string id, WorkspaceUserWriteDTO body = default(WorkspaceUserWriteDTO), CancellationToken cancellationToken = default(CancellationToken))
             {
                 (await operations.UpdateUserWithHttpMessagesAsync(id, body, null, cancellationToken).ConfigureAwait(false)).Dispose();
             }
@@ -121,14 +145,19 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi
             /// <summary>
             /// Remove a member from a workspace
             /// </summary>
+            /// <remarks>
+            /// Remove a member from a workspace
+            /// </remarks>
             /// <param name='operations'>
             /// The operations group for this extension method.
             /// </param>
             /// <param name='id'>
+            /// Format - uuid.
             /// </param>
             /// <param name='userId'>
+            /// Format - uuid.
             /// </param>
-            public static void RemoveUser(this IUser operations, System.Guid id, System.Guid userId)
+            public static void RemoveUser(this IUser operations, string id, string userId)
             {
                 operations.RemoveUserAsync(id, userId).GetAwaiter().GetResult();
             }
@@ -136,17 +165,22 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi
             /// <summary>
             /// Remove a member from a workspace
             /// </summary>
+            /// <remarks>
+            /// Remove a member from a workspace
+            /// </remarks>
             /// <param name='operations'>
             /// The operations group for this extension method.
             /// </param>
             /// <param name='id'>
+            /// Format - uuid.
             /// </param>
             /// <param name='userId'>
+            /// Format - uuid.
             /// </param>
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task RemoveUserAsync(this IUser operations, System.Guid id, System.Guid userId, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task RemoveUserAsync(this IUser operations, string id, string userId, CancellationToken cancellationToken = default(CancellationToken))
             {
                 (await operations.RemoveUserWithHttpMessagesAsync(id, userId, null, cancellationToken).ConfigureAwait(false)).Dispose();
             }

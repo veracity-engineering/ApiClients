@@ -21,6 +21,9 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi
         /// <summary>
         /// List all my workspaces
         /// </summary>
+        /// <remarks>
+        /// List all my workspaces
+        /// </remarks>
         /// <param name='customHeaders'>
         /// The headers that will be added to request.
         /// </param>
@@ -37,6 +40,9 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi
         /// <summary>
         /// Create a new workspace
         /// </summary>
+        /// <remarks>
+        /// Create a new workspace
+        /// </remarks>
         /// <param name='body'>
         /// </param>
         /// <param name='customHeaders'>
@@ -55,8 +61,11 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi
         /// <summary>
         /// Show workspace details
         /// </summary>
+        /// <remarks>
+        /// Show workspace details
+        /// </remarks>
         /// <param name='id'>
-        /// workspace Id
+        /// Format - uuid. workspace Id
         /// </param>
         /// <param name='customHeaders'>
         /// The headers that will be added to request.
@@ -70,7 +79,10 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi
         /// <exception cref="Microsoft.Rest.SerializationException">
         /// Thrown when unable to deserialize the response
         /// </exception>
-        Task<HttpOperationResponse<WorkspaceReadDTO>> GetWithHttpMessagesAsync(System.Guid id, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        /// <exception cref="Microsoft.Rest.ValidationException">
+        /// Thrown when a required parameter is null
+        /// </exception>
+        Task<HttpOperationResponse<WorkspaceReadDTO>> GetWithHttpMessagesAsync(string id, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
         /// <summary>
         /// Update workspace
         /// </summary>
@@ -83,7 +95,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi
         /// }
         /// </remarks>
         /// <param name='id'>
-        /// workspace Id
+        /// Format - uuid. workspace Id
         /// </param>
         /// <param name='body'>
         /// </param>
@@ -99,11 +111,18 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi
         /// <exception cref="Microsoft.Rest.SerializationException">
         /// Thrown when unable to deserialize the response
         /// </exception>
-        Task<HttpOperationResponse<WorkspaceReadDTO>> UpdateWorkspaceWithHttpMessagesAsync(System.Guid id, WorkspaceWriteDTO body = default(WorkspaceWriteDTO), Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        /// <exception cref="Microsoft.Rest.ValidationException">
+        /// Thrown when a required parameter is null
+        /// </exception>
+        Task<HttpOperationResponse<WorkspaceReadDTO>> UpdateWorkspaceWithHttpMessagesAsync(string id, WorkspaceWriteDTO body = default(WorkspaceWriteDTO), Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
         /// <summary>
         /// Update data collect SAS URL
         /// </summary>
+        /// <remarks>
+        /// Update data collect SAS URL
+        /// </remarks>
         /// <param name='id'>
+        /// Format - uuid.
         /// </param>
         /// <param name='body'>
         /// </param>
@@ -119,11 +138,18 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi
         /// <exception cref="Microsoft.Rest.SerializationException">
         /// Thrown when unable to deserialize the response
         /// </exception>
-        Task<HttpOperationResponse<bool?>> UpdateDataCollectSASWithHttpMessagesAsync(System.Guid id, SASDTO body = default(SASDTO), Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        /// <exception cref="Microsoft.Rest.ValidationException">
+        /// Thrown when a required parameter is null
+        /// </exception>
+        Task<HttpOperationResponse<bool?>> UpdateDataCollectSASWithHttpMessagesAsync(string id, SASDTO body = default(SASDTO), Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
         /// <summary>
         /// Get data collect SAS URL
         /// </summary>
+        /// <remarks>
+        /// Get data collect SAS URL
+        /// </remarks>
         /// <param name='id'>
+        /// Format - uuid.
         /// </param>
         /// <param name='customHeaders'>
         /// The headers that will be added to request.
@@ -137,6 +163,9 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi
         /// <exception cref="Microsoft.Rest.SerializationException">
         /// Thrown when unable to deserialize the response
         /// </exception>
-        Task<HttpOperationResponse<SASDTO>> GetDataCollectSASWithHttpMessagesAsync(System.Guid id, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        /// <exception cref="Microsoft.Rest.ValidationException">
+        /// Thrown when a required parameter is null
+        /// </exception>
+        Task<HttpOperationResponse<SASDTO>> GetDataCollectSASWithHttpMessagesAsync(string id, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
     }
 }

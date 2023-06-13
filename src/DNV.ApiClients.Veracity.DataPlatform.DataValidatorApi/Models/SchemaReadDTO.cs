@@ -22,7 +22,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi.Models
         /// <summary>
         /// Initializes a new instance of the SchemaReadDTO class.
         /// </summary>
-        public SchemaReadDTO(System.Guid? schemaId = default(System.Guid?), string name = default(string), string shortName = default(string), string description = default(string), bool? isPredefined = default(bool?), System.Guid? industryId = default(System.Guid?), System.Guid? workspaceId = default(System.Guid?))
+        public SchemaReadDTO(System.Guid? schemaId = default(System.Guid?), string name = default(string), string shortName = default(string), string description = default(string), bool? isPredefined = default(bool?), System.Guid? industryId = default(System.Guid?), System.Guid? workspaceId = default(System.Guid?), System.Guid? createdBy = default(System.Guid?))
         {
             SchemaId = schemaId;
             Name = name;
@@ -31,6 +31,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi.Models
             IsPredefined = isPredefined;
             IndustryId = industryId;
             WorkspaceId = workspaceId;
+            CreatedBy = createdBy;
             CustomInit();
         }
 
@@ -73,6 +74,11 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi.Models
         /// </summary>
         [JsonProperty(PropertyName = "workspaceId")]
         public System.Guid? WorkspaceId { get; set; }
+
+        /// <summary>
+        /// </summary>
+        [JsonProperty(PropertyName = "createdBy")]
+        public System.Guid? CreatedBy { get; set; }
 
     }
 }

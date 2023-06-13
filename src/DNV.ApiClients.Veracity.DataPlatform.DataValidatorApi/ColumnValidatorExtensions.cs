@@ -20,6 +20,9 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi
             /// <summary>
             /// Lists all pre-defined column validators
             /// </summary>
+            /// <remarks>
+            /// Lists all pre-defined column validators
+            /// </remarks>
             /// <param name='operations'>
             /// The operations group for this extension method.
             /// </param>
@@ -31,6 +34,9 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi
             /// <summary>
             /// Lists all pre-defined column validators
             /// </summary>
+            /// <remarks>
+            /// Lists all pre-defined column validators
+            /// </remarks>
             /// <param name='operations'>
             /// The operations group for this extension method.
             /// </param>
@@ -48,6 +54,9 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi
             /// <summary>
             /// Adds a new pre-defined column validator
             /// </summary>
+            /// <remarks>
+            /// Adds a new pre-defined column validator
+            /// </remarks>
             /// <param name='operations'>
             /// The operations group for this extension method.
             /// </param>
@@ -61,6 +70,9 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi
             /// <summary>
             /// Adds a new pre-defined column validator
             /// </summary>
+            /// <remarks>
+            /// Adds a new pre-defined column validator
+            /// </remarks>
             /// <param name='operations'>
             /// The operations group for this extension method.
             /// </param>
@@ -80,11 +92,14 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi
             /// <summary>
             /// Gets a pre-defined column validator
             /// </summary>
+            /// <remarks>
+            /// Gets a pre-defined column validator
+            /// </remarks>
             /// <param name='operations'>
             /// The operations group for this extension method.
             /// </param>
             /// <param name='id'>
-            /// column validator Id
+            /// Format - int32. column validator Id
             /// </param>
             public static ColumnValidatorReadDTO Get(this IColumnValidator operations, int id)
             {
@@ -94,11 +109,14 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi
             /// <summary>
             /// Gets a pre-defined column validator
             /// </summary>
+            /// <remarks>
+            /// Gets a pre-defined column validator
+            /// </remarks>
             /// <param name='operations'>
             /// The operations group for this extension method.
             /// </param>
             /// <param name='id'>
-            /// column validator Id
+            /// Format - int32. column validator Id
             /// </param>
             /// <param name='cancellationToken'>
             /// The cancellation token.
@@ -114,10 +132,14 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi
             /// <summary>
             /// Updates a pre-defined column validator
             /// </summary>
+            /// <remarks>
+            /// Updates a pre-defined column validator
+            /// </remarks>
             /// <param name='operations'>
             /// The operations group for this extension method.
             /// </param>
             /// <param name='id'>
+            /// Format - int32.
             /// </param>
             /// <param name='body'>
             /// </param>
@@ -129,10 +151,14 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi
             /// <summary>
             /// Updates a pre-defined column validator
             /// </summary>
+            /// <remarks>
+            /// Updates a pre-defined column validator
+            /// </remarks>
             /// <param name='operations'>
             /// The operations group for this extension method.
             /// </param>
             /// <param name='id'>
+            /// Format - int32.
             /// </param>
             /// <param name='body'>
             /// </param>
@@ -150,11 +176,14 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi
             /// <summary>
             /// Remove a pre-defined column validator
             /// </summary>
+            /// <remarks>
+            /// Remove a pre-defined column validator
+            /// </remarks>
             /// <param name='operations'>
             /// The operations group for this extension method.
             /// </param>
             /// <param name='id'>
-            /// column validator Id
+            /// Format - int32. column validator Id
             /// </param>
             public static void Remove(this IColumnValidator operations, int id)
             {
@@ -164,11 +193,14 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi
             /// <summary>
             /// Remove a pre-defined column validator
             /// </summary>
+            /// <remarks>
+            /// Remove a pre-defined column validator
+            /// </remarks>
             /// <param name='operations'>
             /// The operations group for this extension method.
             /// </param>
             /// <param name='id'>
-            /// column validator Id
+            /// Format - int32. column validator Id
             /// </param>
             /// <param name='cancellationToken'>
             /// The cancellation token.
@@ -181,16 +213,19 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi
             /// <summary>
             /// Lists all column validators by workspace Id
             /// </summary>
+            /// <remarks>
+            /// Lists all column validators by workspace Id
+            /// </remarks>
             /// <param name='operations'>
             /// The operations group for this extension method.
             /// </param>
             /// <param name='id'>
-            /// workspace Id
+            /// Format - uuid. workspace Id
             /// </param>
             /// <param name='includesPredefined'>
             /// includes predefine validators in the response
             /// </param>
-            public static IList<ColumnValidatorReadDTO> GetColumnValidatorList(this IColumnValidator operations, System.Guid id, bool? includesPredefined = false)
+            public static IList<ColumnValidatorReadDTO> GetColumnValidatorList(this IColumnValidator operations, string id, bool? includesPredefined = false)
             {
                 return operations.GetColumnValidatorListAsync(id, includesPredefined).GetAwaiter().GetResult();
             }
@@ -198,11 +233,14 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi
             /// <summary>
             /// Lists all column validators by workspace Id
             /// </summary>
+            /// <remarks>
+            /// Lists all column validators by workspace Id
+            /// </remarks>
             /// <param name='operations'>
             /// The operations group for this extension method.
             /// </param>
             /// <param name='id'>
-            /// workspace Id
+            /// Format - uuid. workspace Id
             /// </param>
             /// <param name='includesPredefined'>
             /// includes predefine validators in the response
@@ -210,7 +248,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task<IList<ColumnValidatorReadDTO>> GetColumnValidatorListAsync(this IColumnValidator operations, System.Guid id, bool? includesPredefined = false, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<IList<ColumnValidatorReadDTO>> GetColumnValidatorListAsync(this IColumnValidator operations, string id, bool? includesPredefined = false, CancellationToken cancellationToken = default(CancellationToken))
             {
                 using (var _result = await operations.GetColumnValidatorListWithHttpMessagesAsync(id, includesPredefined, null, cancellationToken).ConfigureAwait(false))
                 {
@@ -221,15 +259,18 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi
             /// <summary>
             /// Add a column validator to a workspace
             /// </summary>
+            /// <remarks>
+            /// Add a column validator to a workspace
+            /// </remarks>
             /// <param name='operations'>
             /// The operations group for this extension method.
             /// </param>
             /// <param name='id'>
-            /// workspace Id
+            /// Format - uuid. workspace Id
             /// </param>
             /// <param name='body'>
             /// </param>
-            public static ColumnValidatorReadDTO AddColumnValidator(this IColumnValidator operations, System.Guid id, ColumnValidatorWriteDTO body = default(ColumnValidatorWriteDTO))
+            public static ColumnValidatorReadDTO AddColumnValidator(this IColumnValidator operations, string id, ColumnValidatorWriteDTO body = default(ColumnValidatorWriteDTO))
             {
                 return operations.AddColumnValidatorAsync(id, body).GetAwaiter().GetResult();
             }
@@ -237,18 +278,21 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi
             /// <summary>
             /// Add a column validator to a workspace
             /// </summary>
+            /// <remarks>
+            /// Add a column validator to a workspace
+            /// </remarks>
             /// <param name='operations'>
             /// The operations group for this extension method.
             /// </param>
             /// <param name='id'>
-            /// workspace Id
+            /// Format - uuid. workspace Id
             /// </param>
             /// <param name='body'>
             /// </param>
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task<ColumnValidatorReadDTO> AddColumnValidatorAsync(this IColumnValidator operations, System.Guid id, ColumnValidatorWriteDTO body = default(ColumnValidatorWriteDTO), CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<ColumnValidatorReadDTO> AddColumnValidatorAsync(this IColumnValidator operations, string id, ColumnValidatorWriteDTO body = default(ColumnValidatorWriteDTO), CancellationToken cancellationToken = default(CancellationToken))
             {
                 using (var _result = await operations.AddColumnValidatorWithHttpMessagesAsync(id, body, null, cancellationToken).ConfigureAwait(false))
                 {
@@ -259,17 +303,21 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi
             /// <summary>
             /// Updates a column validator
             /// </summary>
+            /// <remarks>
+            /// Updates a column validator
+            /// </remarks>
             /// <param name='operations'>
             /// The operations group for this extension method.
             /// </param>
             /// <param name='id'>
-            /// workspace Id
+            /// Format - uuid. workspace Id
             /// </param>
             /// <param name='validatorId'>
+            /// Format - int32.
             /// </param>
             /// <param name='body'>
             /// </param>
-            public static ColumnValidatorReadDTO UpdateColumnValidator(this IColumnValidator operations, System.Guid id, int validatorId, ColumnValidatorWriteDTO body = default(ColumnValidatorWriteDTO))
+            public static ColumnValidatorReadDTO UpdateColumnValidator(this IColumnValidator operations, string id, int validatorId, ColumnValidatorWriteDTO body = default(ColumnValidatorWriteDTO))
             {
                 return operations.UpdateColumnValidatorAsync(id, validatorId, body).GetAwaiter().GetResult();
             }
@@ -277,20 +325,24 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi
             /// <summary>
             /// Updates a column validator
             /// </summary>
+            /// <remarks>
+            /// Updates a column validator
+            /// </remarks>
             /// <param name='operations'>
             /// The operations group for this extension method.
             /// </param>
             /// <param name='id'>
-            /// workspace Id
+            /// Format - uuid. workspace Id
             /// </param>
             /// <param name='validatorId'>
+            /// Format - int32.
             /// </param>
             /// <param name='body'>
             /// </param>
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task<ColumnValidatorReadDTO> UpdateColumnValidatorAsync(this IColumnValidator operations, System.Guid id, int validatorId, ColumnValidatorWriteDTO body = default(ColumnValidatorWriteDTO), CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<ColumnValidatorReadDTO> UpdateColumnValidatorAsync(this IColumnValidator operations, string id, int validatorId, ColumnValidatorWriteDTO body = default(ColumnValidatorWriteDTO), CancellationToken cancellationToken = default(CancellationToken))
             {
                 using (var _result = await operations.UpdateColumnValidatorWithHttpMessagesAsync(id, validatorId, body, null, cancellationToken).ConfigureAwait(false))
                 {
@@ -299,52 +351,21 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi
             }
 
             /// <summary>
-            /// Removes a column validator
-            /// </summary>
-            /// <param name='operations'>
-            /// The operations group for this extension method.
-            /// </param>
-            /// <param name='id'>
-            /// workspace Id
-            /// </param>
-            /// <param name='validatorId'>
-            /// </param>
-            public static void RemoveColumnValidator(this IColumnValidator operations, System.Guid id, int validatorId)
-            {
-                operations.RemoveColumnValidatorAsync(id, validatorId).GetAwaiter().GetResult();
-            }
-
-            /// <summary>
-            /// Removes a column validator
-            /// </summary>
-            /// <param name='operations'>
-            /// The operations group for this extension method.
-            /// </param>
-            /// <param name='id'>
-            /// workspace Id
-            /// </param>
-            /// <param name='validatorId'>
-            /// </param>
-            /// <param name='cancellationToken'>
-            /// The cancellation token.
-            /// </param>
-            public static async Task RemoveColumnValidatorAsync(this IColumnValidator operations, System.Guid id, int validatorId, CancellationToken cancellationToken = default(CancellationToken))
-            {
-                (await operations.RemoveColumnValidatorWithHttpMessagesAsync(id, validatorId, null, cancellationToken).ConfigureAwait(false)).Dispose();
-            }
-
-            /// <summary>
             /// Gets a column validator
             /// </summary>
+            /// <remarks>
+            /// Gets a column validator
+            /// </remarks>
             /// <param name='operations'>
             /// The operations group for this extension method.
             /// </param>
             /// <param name='id'>
-            /// workspace Id
+            /// Format - uuid. workspace Id
             /// </param>
             /// <param name='validatorId'>
+            /// Format - int32.
             /// </param>
-            public static ColumnValidatorReadDTO GetColumnValidator(this IColumnValidator operations, System.Guid id, int validatorId)
+            public static ColumnValidatorReadDTO GetColumnValidator(this IColumnValidator operations, string id, int validatorId)
             {
                 return operations.GetColumnValidatorAsync(id, validatorId).GetAwaiter().GetResult();
             }
@@ -352,23 +373,70 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi
             /// <summary>
             /// Gets a column validator
             /// </summary>
+            /// <remarks>
+            /// Gets a column validator
+            /// </remarks>
             /// <param name='operations'>
             /// The operations group for this extension method.
             /// </param>
             /// <param name='id'>
-            /// workspace Id
+            /// Format - uuid. workspace Id
             /// </param>
             /// <param name='validatorId'>
+            /// Format - int32.
             /// </param>
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task<ColumnValidatorReadDTO> GetColumnValidatorAsync(this IColumnValidator operations, System.Guid id, int validatorId, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<ColumnValidatorReadDTO> GetColumnValidatorAsync(this IColumnValidator operations, string id, int validatorId, CancellationToken cancellationToken = default(CancellationToken))
             {
                 using (var _result = await operations.GetColumnValidatorWithHttpMessagesAsync(id, validatorId, null, cancellationToken).ConfigureAwait(false))
                 {
                     return _result.Body;
                 }
+            }
+
+            /// <summary>
+            /// Removes a column validator
+            /// </summary>
+            /// <remarks>
+            /// Removes a column validator
+            /// </remarks>
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='id'>
+            /// Format - uuid. workspace Id
+            /// </param>
+            /// <param name='validatorId'>
+            /// Format - int32.
+            /// </param>
+            public static void RemoveColumnValidator(this IColumnValidator operations, string id, int validatorId)
+            {
+                operations.RemoveColumnValidatorAsync(id, validatorId).GetAwaiter().GetResult();
+            }
+
+            /// <summary>
+            /// Removes a column validator
+            /// </summary>
+            /// <remarks>
+            /// Removes a column validator
+            /// </remarks>
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='id'>
+            /// Format - uuid. workspace Id
+            /// </param>
+            /// <param name='validatorId'>
+            /// Format - int32.
+            /// </param>
+            /// <param name='cancellationToken'>
+            /// The cancellation token.
+            /// </param>
+            public static async Task RemoveColumnValidatorAsync(this IColumnValidator operations, string id, int validatorId, CancellationToken cancellationToken = default(CancellationToken))
+            {
+                (await operations.RemoveColumnValidatorWithHttpMessagesAsync(id, validatorId, null, cancellationToken).ConfigureAwait(false)).Dispose();
             }
 
     }

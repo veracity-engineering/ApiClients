@@ -1,5 +1,9 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
+	<PropertyGroup>
+		<VersionPrefix>1.0.1</VersionPrefix>
+	</PropertyGroup>
+
 	<ItemGroup>
 		<PackageReference Include="AutoRest.ApiClients.Common" />
 	</ItemGroup>

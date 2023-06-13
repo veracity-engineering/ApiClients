@@ -16,46 +16,18 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi
     public static partial class WorkerFunctionsExtensions
     {
             /// <summary>
-            /// Gets basic container set info and schema info
-            /// </summary>
-            /// <param name='operations'>
-            /// The operations group for this extension method.
-            /// </param>
-            /// <param name='containerId'>
-            /// </param>
-            public static ContainerSetWithSchemaInfoReadDTO GetContainerSetByContainerId(this IWorkerFunctions operations, System.Guid containerId)
-            {
-                return operations.GetContainerSetByContainerIdAsync(containerId).GetAwaiter().GetResult();
-            }
-
-            /// <summary>
-            /// Gets basic container set info and schema info
-            /// </summary>
-            /// <param name='operations'>
-            /// The operations group for this extension method.
-            /// </param>
-            /// <param name='containerId'>
-            /// </param>
-            /// <param name='cancellationToken'>
-            /// The cancellation token.
-            /// </param>
-            public static async Task<ContainerSetWithSchemaInfoReadDTO> GetContainerSetByContainerIdAsync(this IWorkerFunctions operations, System.Guid containerId, CancellationToken cancellationToken = default(CancellationToken))
-            {
-                using (var _result = await operations.GetContainerSetByContainerIdWithHttpMessagesAsync(containerId, null, cancellationToken).ConfigureAwait(false))
-                {
-                    return _result.Body;
-                }
-            }
-
-            /// <summary>
             /// Gets container info and schema details by container Id
             /// </summary>
+            /// <remarks>
+            /// Gets container info and schema details by container Id
+            /// </remarks>
             /// <param name='operations'>
             /// The operations group for this extension method.
             /// </param>
             /// <param name='containerId'>
+            /// Format - uuid.
             /// </param>
-            public static MinimalSchemaDefinitionForWorkerDto GetSchemaDefinition(this IWorkerFunctions operations, System.Guid containerId)
+            public static MinimalSchemaDefinitionForWorkerDto GetSchemaDefinition(this IWorkerFunctions operations, string containerId)
             {
                 return operations.GetSchemaDefinitionAsync(containerId).GetAwaiter().GetResult();
             }
@@ -63,15 +35,19 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi
             /// <summary>
             /// Gets container info and schema details by container Id
             /// </summary>
+            /// <remarks>
+            /// Gets container info and schema details by container Id
+            /// </remarks>
             /// <param name='operations'>
             /// The operations group for this extension method.
             /// </param>
             /// <param name='containerId'>
+            /// Format - uuid.
             /// </param>
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task<MinimalSchemaDefinitionForWorkerDto> GetSchemaDefinitionAsync(this IWorkerFunctions operations, System.Guid containerId, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<MinimalSchemaDefinitionForWorkerDto> GetSchemaDefinitionAsync(this IWorkerFunctions operations, string containerId, CancellationToken cancellationToken = default(CancellationToken))
             {
                 using (var _result = await operations.GetSchemaDefinitionWithHttpMessagesAsync(containerId, null, cancellationToken).ConfigureAwait(false))
                 {
@@ -82,14 +58,18 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi
             /// <summary>
             /// Save Validation Summary of uploaded file on source container
             /// </summary>
+            /// <remarks>
+            /// Save Validation Summary of uploaded file on source container
+            /// </remarks>
             /// <param name='operations'>
             /// The operations group for this extension method.
             /// </param>
             /// <param name='containerId'>
+            /// Format - uuid.
             /// </param>
             /// <param name='body'>
             /// </param>
-            public static System.Guid? AddValidationSummary(this IWorkerFunctions operations, System.Guid containerId, ValidationSummaryWriteDTO body = default(ValidationSummaryWriteDTO))
+            public static System.Guid? AddValidationSummary(this IWorkerFunctions operations, string containerId, ValidationSummaryWriteDTO body = default(ValidationSummaryWriteDTO))
             {
                 return operations.AddValidationSummaryAsync(containerId, body).GetAwaiter().GetResult();
             }
@@ -97,19 +77,63 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi
             /// <summary>
             /// Save Validation Summary of uploaded file on source container
             /// </summary>
+            /// <remarks>
+            /// Save Validation Summary of uploaded file on source container
+            /// </remarks>
             /// <param name='operations'>
             /// The operations group for this extension method.
             /// </param>
             /// <param name='containerId'>
+            /// Format - uuid.
             /// </param>
             /// <param name='body'>
             /// </param>
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task<System.Guid?> AddValidationSummaryAsync(this IWorkerFunctions operations, System.Guid containerId, ValidationSummaryWriteDTO body = default(ValidationSummaryWriteDTO), CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<System.Guid?> AddValidationSummaryAsync(this IWorkerFunctions operations, string containerId, ValidationSummaryWriteDTO body = default(ValidationSummaryWriteDTO), CancellationToken cancellationToken = default(CancellationToken))
             {
                 using (var _result = await operations.AddValidationSummaryWithHttpMessagesAsync(containerId, body, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Body;
+                }
+            }
+
+            /// <summary>
+            /// Gets basic container set info and schema info
+            /// </summary>
+            /// <remarks>
+            /// Gets basic container set info and schema info
+            /// </remarks>
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='containerId'>
+            /// Format - uuid.
+            /// </param>
+            public static ContainerSetWithSchemaInfoReadDTO GetContainerSetByContainerId(this IWorkerFunctions operations, string containerId)
+            {
+                return operations.GetContainerSetByContainerIdAsync(containerId).GetAwaiter().GetResult();
+            }
+
+            /// <summary>
+            /// Gets basic container set info and schema info
+            /// </summary>
+            /// <remarks>
+            /// Gets basic container set info and schema info
+            /// </remarks>
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='containerId'>
+            /// Format - uuid.
+            /// </param>
+            /// <param name='cancellationToken'>
+            /// The cancellation token.
+            /// </param>
+            public static async Task<ContainerSetWithSchemaInfoReadDTO> GetContainerSetByContainerIdAsync(this IWorkerFunctions operations, string containerId, CancellationToken cancellationToken = default(CancellationToken))
+            {
+                using (var _result = await operations.GetContainerSetByContainerIdWithHttpMessagesAsync(containerId, null, cancellationToken).ConfigureAwait(false))
                 {
                     return _result.Body;
                 }

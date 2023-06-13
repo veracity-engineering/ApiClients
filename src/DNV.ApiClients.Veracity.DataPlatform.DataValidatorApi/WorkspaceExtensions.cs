@@ -20,6 +20,9 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi
             /// <summary>
             /// List all my workspaces
             /// </summary>
+            /// <remarks>
+            /// List all my workspaces
+            /// </remarks>
             /// <param name='operations'>
             /// The operations group for this extension method.
             /// </param>
@@ -31,6 +34,9 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi
             /// <summary>
             /// List all my workspaces
             /// </summary>
+            /// <remarks>
+            /// List all my workspaces
+            /// </remarks>
             /// <param name='operations'>
             /// The operations group for this extension method.
             /// </param>
@@ -48,6 +54,9 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi
             /// <summary>
             /// Create a new workspace
             /// </summary>
+            /// <remarks>
+            /// Create a new workspace
+            /// </remarks>
             /// <param name='operations'>
             /// The operations group for this extension method.
             /// </param>
@@ -61,6 +70,9 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi
             /// <summary>
             /// Create a new workspace
             /// </summary>
+            /// <remarks>
+            /// Create a new workspace
+            /// </remarks>
             /// <param name='operations'>
             /// The operations group for this extension method.
             /// </param>
@@ -80,13 +92,16 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi
             /// <summary>
             /// Show workspace details
             /// </summary>
+            /// <remarks>
+            /// Show workspace details
+            /// </remarks>
             /// <param name='operations'>
             /// The operations group for this extension method.
             /// </param>
             /// <param name='id'>
-            /// workspace Id
+            /// Format - uuid. workspace Id
             /// </param>
-            public static WorkspaceReadDTO Get(this IWorkspace operations, System.Guid id)
+            public static WorkspaceReadDTO Get(this IWorkspace operations, string id)
             {
                 return operations.GetAsync(id).GetAwaiter().GetResult();
             }
@@ -94,16 +109,19 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi
             /// <summary>
             /// Show workspace details
             /// </summary>
+            /// <remarks>
+            /// Show workspace details
+            /// </remarks>
             /// <param name='operations'>
             /// The operations group for this extension method.
             /// </param>
             /// <param name='id'>
-            /// workspace Id
+            /// Format - uuid. workspace Id
             /// </param>
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task<WorkspaceReadDTO> GetAsync(this IWorkspace operations, System.Guid id, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<WorkspaceReadDTO> GetAsync(this IWorkspace operations, string id, CancellationToken cancellationToken = default(CancellationToken))
             {
                 using (var _result = await operations.GetWithHttpMessagesAsync(id, null, cancellationToken).ConfigureAwait(false))
                 {
@@ -126,11 +144,11 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi
             /// The operations group for this extension method.
             /// </param>
             /// <param name='id'>
-            /// workspace Id
+            /// Format - uuid. workspace Id
             /// </param>
             /// <param name='body'>
             /// </param>
-            public static WorkspaceReadDTO UpdateWorkspace(this IWorkspace operations, System.Guid id, WorkspaceWriteDTO body = default(WorkspaceWriteDTO))
+            public static WorkspaceReadDTO UpdateWorkspace(this IWorkspace operations, string id, WorkspaceWriteDTO body = default(WorkspaceWriteDTO))
             {
                 return operations.UpdateWorkspaceAsync(id, body).GetAwaiter().GetResult();
             }
@@ -150,14 +168,14 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi
             /// The operations group for this extension method.
             /// </param>
             /// <param name='id'>
-            /// workspace Id
+            /// Format - uuid. workspace Id
             /// </param>
             /// <param name='body'>
             /// </param>
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task<WorkspaceReadDTO> UpdateWorkspaceAsync(this IWorkspace operations, System.Guid id, WorkspaceWriteDTO body = default(WorkspaceWriteDTO), CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<WorkspaceReadDTO> UpdateWorkspaceAsync(this IWorkspace operations, string id, WorkspaceWriteDTO body = default(WorkspaceWriteDTO), CancellationToken cancellationToken = default(CancellationToken))
             {
                 using (var _result = await operations.UpdateWorkspaceWithHttpMessagesAsync(id, body, null, cancellationToken).ConfigureAwait(false))
                 {
@@ -168,14 +186,18 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi
             /// <summary>
             /// Update data collect SAS URL
             /// </summary>
+            /// <remarks>
+            /// Update data collect SAS URL
+            /// </remarks>
             /// <param name='operations'>
             /// The operations group for this extension method.
             /// </param>
             /// <param name='id'>
+            /// Format - uuid.
             /// </param>
             /// <param name='body'>
             /// </param>
-            public static bool? UpdateDataCollectSAS(this IWorkspace operations, System.Guid id, SASDTO body = default(SASDTO))
+            public static bool? UpdateDataCollectSAS(this IWorkspace operations, string id, SASDTO body = default(SASDTO))
             {
                 return operations.UpdateDataCollectSASAsync(id, body).GetAwaiter().GetResult();
             }
@@ -183,17 +205,21 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi
             /// <summary>
             /// Update data collect SAS URL
             /// </summary>
+            /// <remarks>
+            /// Update data collect SAS URL
+            /// </remarks>
             /// <param name='operations'>
             /// The operations group for this extension method.
             /// </param>
             /// <param name='id'>
+            /// Format - uuid.
             /// </param>
             /// <param name='body'>
             /// </param>
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task<bool?> UpdateDataCollectSASAsync(this IWorkspace operations, System.Guid id, SASDTO body = default(SASDTO), CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<bool?> UpdateDataCollectSASAsync(this IWorkspace operations, string id, SASDTO body = default(SASDTO), CancellationToken cancellationToken = default(CancellationToken))
             {
                 using (var _result = await operations.UpdateDataCollectSASWithHttpMessagesAsync(id, body, null, cancellationToken).ConfigureAwait(false))
                 {
@@ -204,12 +230,16 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi
             /// <summary>
             /// Get data collect SAS URL
             /// </summary>
+            /// <remarks>
+            /// Get data collect SAS URL
+            /// </remarks>
             /// <param name='operations'>
             /// The operations group for this extension method.
             /// </param>
             /// <param name='id'>
+            /// Format - uuid.
             /// </param>
-            public static SASDTO GetDataCollectSAS(this IWorkspace operations, System.Guid id)
+            public static SASDTO GetDataCollectSAS(this IWorkspace operations, string id)
             {
                 return operations.GetDataCollectSASAsync(id).GetAwaiter().GetResult();
             }
@@ -217,15 +247,19 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi
             /// <summary>
             /// Get data collect SAS URL
             /// </summary>
+            /// <remarks>
+            /// Get data collect SAS URL
+            /// </remarks>
             /// <param name='operations'>
             /// The operations group for this extension method.
             /// </param>
             /// <param name='id'>
+            /// Format - uuid.
             /// </param>
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task<SASDTO> GetDataCollectSASAsync(this IWorkspace operations, System.Guid id, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<SASDTO> GetDataCollectSASAsync(this IWorkspace operations, string id, CancellationToken cancellationToken = default(CancellationToken))
             {
                 using (var _result = await operations.GetDataCollectSASWithHttpMessagesAsync(id, null, cancellationToken).ConfigureAwait(false))
                 {

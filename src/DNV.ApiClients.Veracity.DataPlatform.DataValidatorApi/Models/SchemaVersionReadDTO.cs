@@ -24,7 +24,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi.Models
         /// <summary>
         /// Initializes a new instance of the SchemaVersionReadDTO class.
         /// </summary>
-        public SchemaVersionReadDTO(System.Guid? schemaVersionId = default(System.Guid?), System.Guid? schemaId = default(System.Guid?), int? version = default(int?), bool? isActive = default(bool?), IList<SchemaColumnReadDTO> schemaColumns = default(IList<SchemaColumnReadDTO>), IList<RowValidatorReadDTO> rowValidators = default(IList<RowValidatorReadDTO>))
+        public SchemaVersionReadDTO(System.Guid? schemaVersionId = default(System.Guid?), System.Guid? schemaId = default(System.Guid?), int? version = default(int?), bool? isActive = default(bool?), IList<SchemaColumnReadDTO> schemaColumns = default(IList<SchemaColumnReadDTO>), IList<RowValidatorReadDTO> rowValidators = default(IList<RowValidatorReadDTO>), string description = default(string), System.Guid? createdBy = default(System.Guid?))
         {
             SchemaVersionId = schemaVersionId;
             SchemaId = schemaId;
@@ -32,6 +32,8 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi.Models
             IsActive = isActive;
             SchemaColumns = schemaColumns;
             RowValidators = rowValidators;
+            Description = description;
+            CreatedBy = createdBy;
             CustomInit();
         }
 
@@ -69,6 +71,16 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi.Models
         /// </summary>
         [JsonProperty(PropertyName = "rowValidators")]
         public IList<RowValidatorReadDTO> RowValidators { get; set; }
+
+        /// <summary>
+        /// </summary>
+        [JsonProperty(PropertyName = "description")]
+        public string Description { get; set; }
+
+        /// <summary>
+        /// </summary>
+        [JsonProperty(PropertyName = "createdBy")]
+        public System.Guid? CreatedBy { get; set; }
 
     }
 }

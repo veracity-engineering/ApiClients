@@ -19,27 +19,13 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi
     public partial interface IWorkerFunctions
     {
         /// <summary>
-        /// Gets basic container set info and schema info
-        /// </summary>
-        /// <param name='containerId'>
-        /// </param>
-        /// <param name='customHeaders'>
-        /// The headers that will be added to request.
-        /// </param>
-        /// <param name='cancellationToken'>
-        /// The cancellation token.
-        /// </param>
-        /// <exception cref="Microsoft.Rest.HttpOperationException">
-        /// Thrown when the operation returned an invalid status code
-        /// </exception>
-        /// <exception cref="Microsoft.Rest.SerializationException">
-        /// Thrown when unable to deserialize the response
-        /// </exception>
-        Task<HttpOperationResponse<ContainerSetWithSchemaInfoReadDTO>> GetContainerSetByContainerIdWithHttpMessagesAsync(System.Guid containerId, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
-        /// <summary>
         /// Gets container info and schema details by container Id
         /// </summary>
+        /// <remarks>
+        /// Gets container info and schema details by container Id
+        /// </remarks>
         /// <param name='containerId'>
+        /// Format - uuid.
         /// </param>
         /// <param name='customHeaders'>
         /// The headers that will be added to request.
@@ -53,11 +39,18 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi
         /// <exception cref="Microsoft.Rest.SerializationException">
         /// Thrown when unable to deserialize the response
         /// </exception>
-        Task<HttpOperationResponse<MinimalSchemaDefinitionForWorkerDto>> GetSchemaDefinitionWithHttpMessagesAsync(System.Guid containerId, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        /// <exception cref="Microsoft.Rest.ValidationException">
+        /// Thrown when a required parameter is null
+        /// </exception>
+        Task<HttpOperationResponse<MinimalSchemaDefinitionForWorkerDto>> GetSchemaDefinitionWithHttpMessagesAsync(string containerId, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
         /// <summary>
         /// Save Validation Summary of uploaded file on source container
         /// </summary>
+        /// <remarks>
+        /// Save Validation Summary of uploaded file on source container
+        /// </remarks>
         /// <param name='containerId'>
+        /// Format - uuid.
         /// </param>
         /// <param name='body'>
         /// </param>
@@ -73,6 +66,34 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi
         /// <exception cref="Microsoft.Rest.SerializationException">
         /// Thrown when unable to deserialize the response
         /// </exception>
-        Task<HttpOperationResponse<System.Guid?>> AddValidationSummaryWithHttpMessagesAsync(System.Guid containerId, ValidationSummaryWriteDTO body = default(ValidationSummaryWriteDTO), Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        /// <exception cref="Microsoft.Rest.ValidationException">
+        /// Thrown when a required parameter is null
+        /// </exception>
+        Task<HttpOperationResponse<System.Guid?>> AddValidationSummaryWithHttpMessagesAsync(string containerId, ValidationSummaryWriteDTO body = default(ValidationSummaryWriteDTO), Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        /// <summary>
+        /// Gets basic container set info and schema info
+        /// </summary>
+        /// <remarks>
+        /// Gets basic container set info and schema info
+        /// </remarks>
+        /// <param name='containerId'>
+        /// Format - uuid.
+        /// </param>
+        /// <param name='customHeaders'>
+        /// The headers that will be added to request.
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        /// <exception cref="Microsoft.Rest.HttpOperationException">
+        /// Thrown when the operation returned an invalid status code
+        /// </exception>
+        /// <exception cref="Microsoft.Rest.SerializationException">
+        /// Thrown when unable to deserialize the response
+        /// </exception>
+        /// <exception cref="Microsoft.Rest.ValidationException">
+        /// Thrown when a required parameter is null
+        /// </exception>
+        Task<HttpOperationResponse<ContainerSetWithSchemaInfoReadDTO>> GetContainerSetByContainerIdWithHttpMessagesAsync(string containerId, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
     }
 }
