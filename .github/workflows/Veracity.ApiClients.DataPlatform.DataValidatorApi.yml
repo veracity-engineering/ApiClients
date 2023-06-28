@@ -4,15 +4,15 @@ on:
   workflow_dispatch:
   push:
     branches:
-    - "**"
+    - main
     paths:
     - 'src/DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi/**'
     - '.github/workflows/DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi.yml'
-    pull_request:
-      types: [ closed ]
-      paths:
-      - 'src/DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi/**'
-      - '.github/workflows/DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi.yml'
+  pull_request:
+    types: [ closed ]
+    paths:
+    - 'src/DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi/**'
+    - '.github/workflows/DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi.yml'
 jobs:
   nuget-publish:
     uses: ./.github/workflows/nuget-publish.yml
