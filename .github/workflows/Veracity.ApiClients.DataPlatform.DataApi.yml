@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
   push:
     branches:
-    - "**"
+    - main
     paths:
     - 'src/DNV.ApiClients.Veracity.DataPlatform.DataApi/**'
     - '.github/workflows/DNV.ApiClients.Veracity.DataPlatform.DataApi.yml'
