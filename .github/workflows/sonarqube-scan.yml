@@ -45,7 +45,6 @@ jobs:
         dotnet tool update dotnet-sonarscanner --tool-path ~/sonar/scanner
 
     - name: Begin SonarQube Scan
-      if: ${{ github.event.number }} != ''
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
         EVENT_NUMBER: ${{ github.event.number }}
@@ -69,18 +68,6 @@ jobs:
             /d:sonar-pullrequest.base=${{ github.BASE_REF }} \
             /d:sonar.pullrequest.github.repository=${{ github.repository }}
         fi
-
-    - name: Begin SonarQube Scan
-      if: ${{ github.event.number }} == ''
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
-      run: |        
-        ~/sonar/scanner/dotnet-sonarscanner \
-          begin /k:"VeracityApiClients" \
-          /d:sonar.login="${{ secrets.SONAR_TOKEN }}" \
-          /d:sonar.host.url="${{ vars.SONAR_HOST_URL }}" \
-          /d:sonar.dotnet.excludeTestProjects=true \
-          /d:sonar.verbose=true
 
     - name: Build and analyze
       env:
