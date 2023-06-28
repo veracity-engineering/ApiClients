@@ -8,11 +8,11 @@ on:
     paths:
     - 'src/DNV.ApiClients.Veracity.DataPlatform.DataApi/**'
     - '.github/workflows/DNV.ApiClients.Veracity.DataPlatform.DataApi.yml'
-    pull_request:
-      types: [ closed ]
-      paths:
-      - 'src/DNV.ApiClients.Veracity.DataPlatform.DataApi/**'
-      - '.github/workflows/DNV.ApiClients.Veracity.DataPlatform.DataApi.yml'
+  pull_request:
+    types: [ closed ]
+    paths:
+    - 'src/DNV.ApiClients.Veracity.DataPlatform.DataApi/**'
+    - '.github/workflows/DNV.ApiClients.Veracity.DataPlatform.DataApi.yml'
 jobs:
   nuget-publish:
     uses: ./.github/workflows/nuget-publish.yml

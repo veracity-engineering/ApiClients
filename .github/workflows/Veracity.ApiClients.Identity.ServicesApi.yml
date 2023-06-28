@@ -4,15 +4,15 @@ on:
   workflow_dispatch:
   push:
     branches:
-    - "**"
+    - main
     paths:
     - 'src/DNV.ApiClients.Veracity.Identity.ServicesApi/**'
     - '.github/workflows/DNV.ApiClients.Veracity.Identity.ServicesApi.yml'
-    pull_request:
-      types: [ closed ]
-      paths:
-      - 'src/DNV.ApiClients.Veracity.Identity.ServicesApi/**'
-      - '.github/workflows/DNV.ApiClients.Veracity.Identity.ServicesApi.yml'
+  pull_request:
+    types: [ closed ]
+    paths:
+    - 'src/DNV.ApiClients.Veracity.Identity.ServicesApi/**'
+    - '.github/workflows/DNV.ApiClients.Veracity.Identity.ServicesApi.yml'
 jobs:
   nuget-publish:
     uses: ./.github/workflows/nuget-publish.yml

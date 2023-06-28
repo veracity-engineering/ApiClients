@@ -15,7 +15,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi
     using System.Net;
     using System.Net.Http;
 
-    public partial class DataValidatorApiClient : ServiceClient<DataValidatorApiClient>, AutoRest.ApiClients.Common.IApiClient, IDataValidatorApiClient
+    public partial class DataValidatorApiClient : ServiceClient<DataValidatorApiClient>, AutoRest.ApiClients.Common.IApiClient, IDataValidatorApiClient   
     {
         /// <summary>
         /// The base URI of the service.
@@ -75,7 +75,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi
         /// </param>
         /// <param name='disposeHttpClient'>
         /// True: will dispose the provided httpClient on calling DataValidatorApiClient.Dispose(). False: will not dispose provided httpClient</param>
-        protected DataValidatorApiClient(HttpClient httpClient, bool disposeHttpClient) : base(httpClient, disposeHttpClient)
+        protected DataValidatorApiClient(HttpClient httpClient, bool disposeHttpClient, string notused) : base(httpClient, disposeHttpClient)
         {
             Initialize();
         }
