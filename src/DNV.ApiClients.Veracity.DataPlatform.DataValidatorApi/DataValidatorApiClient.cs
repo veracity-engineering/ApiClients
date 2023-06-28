@@ -15,7 +15,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi
     using System.Net;
     using System.Net.Http;
 
-    public partial class DataValidatorApiClient : ServiceClient<DataValidatorApiClient>, AutoRest.ApiClients.Common.IApiClient, IDataValidatorApiClient
+    public partial class DataValidatorApiClient : ServiceClient<DataValidatorApiClient>, AutoRest.ApiClients.Common.IApiClient, IDataValidatorApiClient 
     {
         /// <summary>
         /// The base URI of the service.
