@@ -48,17 +48,27 @@ jobs:
       if: ${{ github.event.number }} != ''
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
-      run: |        
-        ~/sonar/scanner/dotnet-sonarscanner \
-          begin /k:"VeracityApiClients" \
-          /d:sonar.login="${{ secrets.SONAR_TOKEN }}" \
-          /d:sonar.host.url="${{ vars.SONAR_HOST_URL }}" \
-          /d:sonar.dotnet.excludeTestProjects=true \
-          /d:sonar.verbose=true \
-          /d:sonar-pullrequest.key=${{ github.event.number }} \
-          /d:sonar-pullrequest.branch=${{ github.HEAD_REF }} \
-          /d:sonar-pullrequest.base=${{ github.BASE_REF }} \
-          /d:sonar.pullrequest.github.repository=${{ github.repository }}
+        EVENT_NUMBER: ${{ github.event.number }}
+      run: |
+        if [ "$EVENT_NUMBER" == "" ]; then     
+          ~/sonar/scanner/dotnet-sonarscanner \
+            begin /k:"VeracityApiClients" \
+            /d:sonar.login="${{ secrets.SONAR_TOKEN }}" \
+            /d:sonar.host.url="${{ vars.SONAR_HOST_URL }}" \
+            /d:sonar.dotnet.excludeTestProjects=true \
+            /d:sonar.verbose=true
+        else
+          ~/sonar/scanner/dotnet-sonarscanner \
+            begin /k:"VeracityApiClients" \
+            /d:sonar.login="${{ secrets.SONAR_TOKEN }}" \
+            /d:sonar.host.url="${{ vars.SONAR_HOST_URL }}" \
+            /d:sonar.dotnet.excludeTestProjects=true \
+            /d:sonar.verbose=true \
+            /d:sonar-pullrequest.key=${{ github.event.number }} \
+            /d:sonar-pullrequest.branch=${{ github.HEAD_REF }} \
+            /d:sonar-pullrequest.base=${{ github.BASE_REF }} \
+            /d:sonar.pullrequest.github.repository=${{ github.repository }}
+        fi
 
     - name: Begin SonarQube Scan
       if: ${{ github.event.number }} == ''
@@ -81,4 +91,4 @@ jobs:
           /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
 
 
-          
+
