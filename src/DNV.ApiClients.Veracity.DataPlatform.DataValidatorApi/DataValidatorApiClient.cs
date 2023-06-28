@@ -80,7 +80,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi
             Initialize();
         }
 
-        protected DataValidatorApiClient(HttpClient httpClient, bool disposeHttpClient, string notused) : base(httpClient, disposeHttpClient)
+        protected DataValidatorApiClient(HttpClient httpClient, bool disposeHttpClient, string notused) : base(httpClient, disposeHttpClient)  
         {
             Initialize();
         }
