@@ -54,15 +54,13 @@ jobs:
             begin /k:"VeracityApiClients" \
             /d:sonar.login="${{ secrets.SONAR_TOKEN }}" \
             /d:sonar.host.url="${{ vars.SONAR_HOST_URL }}" \
-            /d:sonar.dotnet.excludeTestProjects=true \
-            /d:sonar.verbose=true
+            /d:sonar.dotnet.excludeTestProjects=true
         else
           ~/sonar/scanner/dotnet-sonarscanner \
             begin /k:"VeracityApiClients" \
             /d:sonar.login="${{ secrets.SONAR_TOKEN }}" \
             /d:sonar.host.url="${{ vars.SONAR_HOST_URL }}" \
             /d:sonar.dotnet.excludeTestProjects=true \
-            /d:sonar.verbose=true \
             /d:sonar-pullrequest.key=${{ github.event.number }} \
             /d:sonar-pullrequest.branch=${{ github.HEAD_REF }} \
             /d:sonar-pullrequest.base=${{ github.BASE_REF }} \
