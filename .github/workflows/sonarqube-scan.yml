@@ -4,13 +4,13 @@ on:
   workflow_dispatch:
   push:
     branches:
-    - master
+    - main
     paths:
     - '.github/workflows/sonarqube-scan.yml'
   pull_request:
     types: [opened, edited, reopened, synchronize]
     branches:
-    - master
+    - main
     paths:
     - 'src/**'
 
