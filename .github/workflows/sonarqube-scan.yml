@@ -1,0 +1,65 @@
+name: SonarQube Scan
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+    - master
+    paths:
+    - '.github/workflows/sonarqube-scan.yml'
+  pull_request:
+    types: [opened, edited, reopened, synchronize]
+    branches:
+    - master
+    paths:
+    - 'src/**'
+
+jobs:
+  sonarqube_scan:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+  
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: 6.0.x
+    
+    - name: Set up JDK 11
+      uses: actions/setup-java@v3
+      with:
+        distribution: 'microsoft'
+        java-version: '11'
+        
+    - name: Cache SonarQube scanner
+      id: cache-sonar-scanner
+      uses: actions/cache@v3
+      with:
+        path: ~/sonar/scanner
+        key: ${{ runner.os }}-sonar-scanner
+        restore-keys: ${{ runner.os }}-sonar-scanner
+        
+    - name: Install SonarQube scanner
+      if: ${{ steps.cache-sonar-scanner.outputs.cache-hit != 'true' }}
+      run: |
+        dotnet tool update dotnet-sonarscanner --tool-path ~/sonar/scanner
+        
+    - name: Build and analyze
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
+      run: |        
+        ~/sonar/scanner/dotnet-sonarscanner \
+          begin /k:"VeracityApiClients" \
+          /d:sonar.login="${{ secrets.SONAR_TOKEN }}" \
+          /d:sonar.host.url="${{ vars.SONAR_HOST_URL }}" \
+          /d:sonar.dotnet.excludeTestProjects=true \
+          /d:sonar.verbose=true \
+          /d:sonar-pullrequest.key=${{ github.event.number }} \
+          /d:sonar-pullrequest.branch=${{ github.HEAD_REF }} \
+          /d:sonar-pullrequest.base=${{ github.BASE_REF }} \
+          /d:sonar.pullrequest.github.repository=${{ github.repository }}
+
+        dotnet build
+
+        ~/sonar/scanner/dotnet-sonarscanner end \
+          /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
