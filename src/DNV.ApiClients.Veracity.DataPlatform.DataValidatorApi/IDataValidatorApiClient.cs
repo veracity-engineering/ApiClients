@@ -6,13 +6,15 @@
 
 namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi
 {
+    using AutoRest.ApiClients;
+    using AutoRest.ApiClients.Common;
     using Microsoft.Rest;
     using Models;
     using Newtonsoft.Json;
 
     /// <summary>
     /// </summary>
-    public partial interface IDataValidatorApiClient : System.IDisposable
+    public partial interface IDataValidatorApiClient : AutoRest.ApiClients.Common.IApiClient, System.IDisposable
     {
         /// <summary>
         /// The base URI of the service.

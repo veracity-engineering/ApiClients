@@ -15,8 +15,8 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataApi
     using System.Net;
     using System.Net.Http;
 
-    public partial class DataApiClient : ServiceClient<DataApiClient>, AutoRest.ApiClients.Common.IApiClient, IDataApiClient
-	{
+    public partial class DataApiClient : ServiceClient<DataApiClient>, IDataApiClient
+    {
         /// <summary>
         /// The base URI of the service.
         /// </summary>

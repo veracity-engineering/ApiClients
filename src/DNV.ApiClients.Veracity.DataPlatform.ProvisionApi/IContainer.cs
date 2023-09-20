@@ -6,8 +6,7 @@
 
 namespace DNV.ApiClients.Veracity.DataPlatform.ProvisionApi
 {
-	using Microsoft.AspNetCore.JsonPatch;
-	using Microsoft.Rest;
+    using Microsoft.Rest;
     using Models;
     using System.Collections;
     using System.Collections.Generic;
@@ -99,7 +98,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.ProvisionApi
         /// <exception cref="Microsoft.Rest.ValidationException">
         /// Thrown when a required parameter is null
         /// </exception>
-        Task<HttpOperationResponse<Resource>> UpdateMetadataWithHttpMessagesAsync(string id, JsonPatchDocument<ResourceMetadata> body, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        Task<HttpOperationResponse<Resource>> UpdateMetadataWithHttpMessagesAsync(string id, JsonPatchDocumentResourceMetadata body = default(JsonPatchDocumentResourceMetadata), Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
         /// <summary>
         /// Delete blob storage container
         /// </summary>

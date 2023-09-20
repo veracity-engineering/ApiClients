@@ -15,7 +15,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.ProvisionApi
     using System.Net;
     using System.Net.Http;
 
-    public partial class ProvisionApiClient : ServiceClient<ProvisionApiClient>, AutoRest.ApiClients.Common.IApiClient, IProvisionApiClient
+    public partial class ProvisionApiClient : ServiceClient<ProvisionApiClient>, IProvisionApiClient
     {
         /// <summary>
         /// The base URI of the service.

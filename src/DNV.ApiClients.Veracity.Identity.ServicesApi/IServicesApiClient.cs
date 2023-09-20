@@ -6,6 +6,8 @@
 
 namespace DNV.ApiClients.Veracity.Identity.ServicesApi
 {
+    using AutoRest.ApiClients;
+    using AutoRest.ApiClients.Common;
     using Microsoft.Rest;
     using Models;
     using Newtonsoft.Json;
@@ -16,7 +18,7 @@ namespace DNV.ApiClients.Veracity.Identity.ServicesApi
 
     /// <summary>
     /// </summary>
-    public partial interface IServicesApiClient : System.IDisposable
+    public partial interface IServicesApiClient : AutoRest.ApiClients.Common.IApiClient, System.IDisposable
     {
         /// <summary>
         /// The base URI of the service.

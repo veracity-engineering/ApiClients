@@ -17,7 +17,7 @@ namespace DNV.ApiClients.Veracity.Identity.ServicesApi
     using System.Threading;
     using System.Threading.Tasks;
 
-    public partial class ServicesApiClient : ServiceClient<ServicesApiClient>, AutoRest.ApiClients.Common.IApiClient, IServicesApiClient
+    public partial class ServicesApiClient : ServiceClient<ServicesApiClient>, IServicesApiClient
     {
         /// <summary>
         /// The base URI of the service.

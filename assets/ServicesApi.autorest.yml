@@ -1,14 +1,18 @@
 ﻿input-file: ServicesApi.json
 output-folder: ../src/DNV.ApiClients.Veracity.Identity.ServicesApi/
 clear-output-folder: false
+
 csharp: true
 legacy: true
-version: 3.5
+
 project-folder: ../src/DNV.ApiClients.Veracity.Identity.ServicesApi/
 namespace: DNV.ApiClients.Veracity.Identity.ServicesApi
 public-clients: true
 add-credentials: true
 override-client-name: ServicesApiClient
+
+v3: true
+use: @cuteribs/autorest.csharp@2.3.0-2
 
 directive:
 - from: swagger-document

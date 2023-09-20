@@ -1,10 +1,15 @@
 ﻿input-file: DataValidatorApi.json
 output-folder: ../src/DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi/
 clear-output-folder: false
+
 csharp: true
 legacy: true
+
 project-folder: ../src/DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi/
 namespace: DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi
 public-clients: true
 add-credentials: true
 override-client-name: DataValidatorApiClient
+
+v3: true
+use: @cuteribs/autorest.csharp@2.3.0-2

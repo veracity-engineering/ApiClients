@@ -6,9 +6,8 @@
 
 namespace DNV.ApiClients.Veracity.DataPlatform.ProvisionApi
 {
-	using Microsoft.AspNetCore.JsonPatch;
-	using Microsoft.Rest;
-	using Models;
+    using Microsoft.Rest;
+    using Models;
     using Newtonsoft.Json;
     using System.Collections;
     using System.Collections.Generic;
@@ -254,7 +253,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.ProvisionApi
         /// <return>
         /// A response object containing the response body and response headers.
         /// </return>
-        public async Task<HttpOperationResponse<Resource>> UpdateMetadataWithHttpMessagesAsync(string id, JsonPatchDocument<ResourceMetadata> body, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken))
+        public async Task<HttpOperationResponse<Resource>> UpdateMetadataWithHttpMessagesAsync(string id, JsonPatchDocumentResourceMetadata body = default(JsonPatchDocumentResourceMetadata), Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken))
         {
             if (id == null)
             {

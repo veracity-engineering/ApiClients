@@ -6,9 +6,8 @@
 
 namespace DNV.ApiClients.Veracity.DataPlatform.ProvisionApi
 {
-	using Microsoft.AspNetCore.JsonPatch;
-	using Models;
-	using System.Threading;
+    using Models;
+    using System.Threading;
     using System.Threading.Tasks;
 
     /// <summary>
@@ -104,7 +103,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.ProvisionApi
             /// </param>
             /// <param name='body'>
             /// </param>
-            public static Resource UpdateMetadata(this IContainer operations, string id, JsonPatchDocument<ResourceMetadata> body)
+            public static Resource UpdateMetadata(this IContainer operations, string id, JsonPatchDocumentResourceMetadata body = default(JsonPatchDocumentResourceMetadata))
             {
                 return operations.UpdateMetadataAsync(id, body).GetAwaiter().GetResult();
             }
@@ -156,7 +155,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.ProvisionApi
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task<Resource> UpdateMetadataAsync(this IContainer operations, string id, JsonPatchDocument<ResourceMetadata> body, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<Resource> UpdateMetadataAsync(this IContainer operations, string id, JsonPatchDocumentResourceMetadata body = default(JsonPatchDocumentResourceMetadata), CancellationToken cancellationToken = default(CancellationToken))
             {
                 using (var _result = await operations.UpdateMetadataWithHttpMessagesAsync(id, body, null, cancellationToken).ConfigureAwait(false))
                 {
