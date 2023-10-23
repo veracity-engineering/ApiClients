@@ -1,0 +1,26 @@
+name: DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+    - main
+    paths:
+    - 'src/DataValidatorApi/**'
+    - '.github/workflows/DataValidatorApi.yml'
+  pull_request:
+    types: [ closed ]
+    paths:
+    - 'src/DataValidatorApi/**'
+    - '.github/workflows/DataValidatorApi.yml'
+jobs:
+  autorest-generate:
+    uses: ./.github/workflows/autorest-generate.yml
+    with:
+      input-file: 'https://datavalidator-stag.azurewebsites.net/swagger/v1/swagger.json'
+      api-name: 'DataValidatorApi'
+  # nuget-publish:
+  #   uses: ./.github/workflows/nuget-publish.yml
+  #   with:
+  #     source-path: 'src/DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi'
+  #   secrets: inherit

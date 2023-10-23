@@ -1,0 +1,39 @@
+env:
+  RELEASE: false
+  YML_OUTPUT: nuget-output
+on:
+    workflow_call:
+      inputs:
+        input-file:
+          required: true
+          type: string
+        api-name:
+          required: true
+          type: string
+          
+jobs:
+    autorest_generate:
+      name: Autorest Generate
+      runs-on: ubuntu-latest
+      env:
+        INPUT_FILE: ${{ inputs.input-file }}
+        API_NAME: ${{ inputs.api-name }}
+  
+      steps:
+        - uses: actions/checkout@v3
+    
+        - name: Download latest swagger.json
+          working-directory: assets
+          run: |
+            wget $INPUT_FILE -O $API_NAME.swagger.json
+
+            if [ ! -f '$API_NAME.swagger.json' ]; then
+                echo 'Failed to download input-file'
+                exit 1
+            fi
+
+            rm ../src/$API_NAME/*.cs
+            rm ../src/$API_NAME/Models/*.cs
+
+            npm i -g autorest
+            autorest $API_NAME.autorest.yml --version:3.5 
