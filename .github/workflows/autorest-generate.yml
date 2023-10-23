@@ -23,11 +23,11 @@ jobs:
         - uses: actions/checkout@v3
     
         - name: Download latest swagger.json
-          working-directory: assets
           run: |
+            cd assets
             wget $INPUT_FILE -O $API_NAME.swagger.json
 
-            if [ ! -f '$(API_NAME).swagger.json' ]; then
+            if [ ! -f '$API_NAME.swagger.json' ]; then
                 echo 'Failed to download input-file'
                 exit 1
             fi
