@@ -27,11 +27,6 @@ jobs:
             cd assets
             wget $INPUT_FILE -O $API_NAME.swagger.json
 
-            if [ ! -f '$API_NAME.swagger.json' ]; then
-                echo 'Failed to download input-file'
-                exit 1
-            fi
-
             rm ../src/$API_NAME/*.cs
             rm ../src/$API_NAME/Models/*.cs
 
