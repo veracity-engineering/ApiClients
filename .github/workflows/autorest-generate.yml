@@ -27,8 +27,10 @@ jobs:
             cd assets
             wget $INPUT_FILE -O $API_NAME.swagger.json
 
-            rm ../src/$API_NAME/*.cs
-            rm ../src/$API_NAME/Models/*.cs
+            if [ -f ../src/$API_NAME ]; then
+              rm ../src/$API_NAME/*.cs
+              rm ../src/$API_NAME/Models/*.cs
+            fi
 
             npm i -g autorest
             autorest $API_NAME.autorest.yml --version:3.5 
