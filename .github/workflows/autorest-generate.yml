@@ -14,7 +14,7 @@ on:
 jobs:
     autorest_generate:
       name: Autorest Generate
-      runs-on: ubuntu-latest
+      runs-on: windows-latest
       env:
         INPUT_FILE: ${{ inputs.input-file }}
         API_NAME: ${{ inputs.api-name }}
@@ -25,12 +25,12 @@ jobs:
         - name: Download latest swagger.json
           run: |
             cd assets
-            wget $INPUT_FILE -O $API_NAME.swagger.json
+            Invoke-WebRequest "$(INPUT_FILE)" -O "$(API_NAME).swagger.json"
 
-            if [ -f ../src/$API_NAME ]; then
-              rm ../src/$API_NAME/*.cs
-              rm ../src/$API_NAME/Models/*.cs
-            fi
+            if (!(Test-Path ../src/$(API_NAME))) {
+              rm ../src/$(API_NAME)/*.cs
+              rm ../src/$(API_NAME)/Models/*.cs
+            }
 
             npm i -g autorest
             autorest $API_NAME.autorest.yml --version:3.5 
