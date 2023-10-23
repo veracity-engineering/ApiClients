@@ -20,8 +20,8 @@ jobs:
     
         - name: Download latest swagger.json
           run: |
-            $INPUT_FILE=${{ inputs.input-file }}
-            $API_NAME=${{ inputs.api-name }}
+            $INPUT_FILE="${{ inputs.input-file }}"
+            $API_NAME="${{ inputs.api-name }}"
 
             cd assets
             Invoke-WebRequest "$(INPUT_FILE)" -O "$(API_NAME).swagger.json"
