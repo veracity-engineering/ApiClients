@@ -14,16 +14,15 @@ on:
 jobs:
     autorest_generate:
       name: Autorest Generate
-      runs-on: windows-latest
-      env:
-        INPUT_FILE: ${{ inputs.input-file }}
-        API_NAME: ${{ inputs.api-name }}
-  
+      runs-on: windows-latest  
       steps:
         - uses: actions/checkout@v3
     
         - name: Download latest swagger.json
           run: |
+            $INPUT_FILE=${{ inputs.input-file }}
+            $API_NAME=${{ inputs.api-name }}
+
             cd assets
             Invoke-WebRequest "$(INPUT_FILE)" -O "$(API_NAME).swagger.json"
 
