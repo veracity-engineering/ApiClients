@@ -27,7 +27,7 @@ jobs:
           run: |
             wget $INPUT_FILE -O $API_NAME.swagger.json
 
-            if [ ! -f '$API_NAME.swagger.json' ]; then
+            if [ ! -f '$(API_NAME).swagger.json' ]; then
                 echo 'Failed to download input-file'
                 exit 1
             fi
