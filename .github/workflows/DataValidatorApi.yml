@@ -17,10 +17,10 @@ jobs:
   autorest-generate:
     uses: ./.github/workflows/autorest-generate.yml
     with:
-      input-file: 'https://datavalidator-stag.azurewebsites.net/swagger/v1/swagger.json'
+      input-file: 'https://api-portal.veracity.com/docs/services/DataValidatorApi/export?DocumentFormat=OpenApiJson'
       api-name: 'DataValidatorApi'
   # nuget-publish:
   #   uses: ./.github/workflows/nuget-publish.yml
   #   with:
-  #     source-path: 'src/DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi'
+  #     source-path: 'src/DataValidatorApi'
   #   secrets: inherit

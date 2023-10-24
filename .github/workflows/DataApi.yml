@@ -1,0 +1,26 @@
+name: DNV.ApiClients.Veracity.DataPlatform.DataApi
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+    - main
+    paths:
+    - 'src/DataApi/**'
+    - '.github/workflows/DataApi.yml'
+  pull_request:
+    types: [ closed ]
+    paths:
+    - 'src/DataApi/**'
+    - '.github/workflows/DataApi.yml'
+jobs:
+  autorest-generate:
+    uses: ./.github/workflows/autorest-generate.yml
+    with:
+      input-file: 'https://api-portal.veracity.com/docs/services/data-api/export?DocumentFormat=OpenApiJson'
+      api-name: 'DataApi'
+  # nuget-publish:
+  #   uses: ./.github/workflows/nuget-publish.yml
+  #   with:
+  #     source-path: 'src/DataApi'
+  #   secrets: inherit

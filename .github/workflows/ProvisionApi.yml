@@ -1,0 +1,26 @@
+name: DNV.ApiClients.Veracity.DataPlatform.ProvisionApi
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+    - main
+    paths:
+    - 'src/ProvisionApi/**'
+    - '.github/workflows/ProvisionApi.yml'
+  pull_request:
+    types: [ closed ]
+    paths:
+    - 'src/ProvisionApi/**'
+    - '.github/workflows/ProvisionApi.yml'
+jobs:
+  autorest-generate:
+    uses: ./.github/workflows/autorest-generate.yml
+    with:
+      input-file: 'https://api-portal.veracity.com/docs/services/5a72f224978c230c4c13aadb/export?DocumentFormat=OpenApiJson'
+      api-name: 'ProvisionApi'
+  # nuget-publish:
+  #   uses: ./.github/workflows/nuget-publish.yml
+  #   with:
+  #     source-path: 'src/ProvisionApi'
+  #   secrets: inherit
