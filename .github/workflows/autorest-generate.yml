@@ -26,7 +26,7 @@ jobs:
             cd assets
             Invoke-WebRequest "$INPUT_FILE" -O "$API_NAME.swagger.json"
 
-            if (!(Test-Path ../src/$API_NAME)) {
+            if (Test-Path ../src/$API_NAME) {
               rm ../src/$API_NAME/*.cs
               rm ../src/$API_NAME/Models/*.cs
             }
