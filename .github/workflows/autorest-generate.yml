@@ -28,8 +28,11 @@ jobs:
 
             if (Test-Path ../src/$API_NAME) {
               rm ../src/$API_NAME/*.cs
-              rm ../src/$API_NAME/Models/*.cs
+
+              if (Test-Path ../src/$API_NAME/Models) {
+                rm ../src/$API_NAME/Models/*.cs
+              }
             }
 
             npm i -g autorest
-            autorest $API_NAME.autorest.yml --version:3.5 
+            autorest "$API_NAME.autorest.yml" --version:3.5 
