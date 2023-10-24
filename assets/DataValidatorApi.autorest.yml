@@ -1,4 +1,4 @@
-﻿input-file: DataValidatorApi.json
+﻿input-file: DataValidatorApi.swagger.json
 output-folder: ../src/DataValidatorApi/
 clear-output-folder: false
 
