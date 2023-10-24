@@ -1,5 +1,5 @@
 ﻿input-file: DataValidatorApi.swagger.json
-output-folder: ../src/DataValidatorApi/
+output-folder: ../src/DataValidatorApi
 clear-output-folder: false
 
 csharp: true
@@ -10,4 +10,3 @@ namespace: DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi
 public-clients: true
 add-credentials: true
 override-client-name: DataValidatorApiClient
-
