@@ -35,7 +35,7 @@ jobs:
             }
 
             npm i -g autorest
-            autorest "$API_NAME.autorest.yml" --version:3.5 --use:@cuteribs/autorest.csharp@2.3.0-2
+            autorest "$API_NAME.autorest.yml" --version:3.5 -v3 --use:@cuteribs/autorest.csharp@2.3.0-2
 
             git config user.email "actions-bot@users.noreply.github.com"
             git config user.name "github actions bot"
