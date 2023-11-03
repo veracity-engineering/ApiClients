@@ -39,14 +39,14 @@ namespace DNV.ApiClients.Veracity.DataPlatform.ProvisionApi
 
 
         /// <summary>
-        /// Gets the IContainer.
+        /// Gets the IV10Container.
         /// </summary>
-        IContainer Container { get; }
+        IV10Container V10Container { get; }
 
         /// <summary>
-        /// Gets the IRegions.
+        /// Gets the IV10Regions.
         /// </summary>
-        IRegions Regions { get; }
+        IV10Regions V10Regions { get; }
 
     }
 }
