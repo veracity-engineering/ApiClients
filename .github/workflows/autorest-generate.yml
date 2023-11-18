@@ -42,23 +42,23 @@ jobs:
 
       - name: Generate Code
         run: |
-          npm i -g autorest && \
+          npm i -g autorest
           autorest --version:3.5 --legacy; exit 0
       - if: always()
         run: |
           mv ./.github/workflows/autorest/*.md $HOME/.autorest/@autorest_core@3.5.1/node_modules/@autorest/core/dist/resources/
           wget ${{ inputs.input-file }} -O swagger.json
 
-          autorest && \
-            --input-file:swagger.json && \
-            --output-folder:"${{ inputs.output-folder }}" && \
-            --override-client-name:"${{ inputs.client-name }}" && \
-            --namespace:"${{ inputs.namespace }}" && \
-            --csharp:${{ inputs.csharp }} && \
-            --typescript:${{ inputs.typescript }} && \
-            --python:${{ inputs.python }} && \
-            --use:@cuteribs/autorest.csharp@latest && \
-            --use:@cuteribs/autorest.python@latest && \
-            --use:@cuteribs/autorest.typescript@latest && \
-            --legacy && \
+          autorest \
+            --input-file:swagger.json \
+            --output-folder:"${{ inputs.output-folder }}" \
+            --override-client-name:"${{ inputs.client-name }}" \
+            --namespace:"${{ inputs.namespace }}" \
+            --csharp:${{ inputs.csharp }} \
+            --typescript:${{ inputs.typescript }} \
+            --python:${{ inputs.python }} \
+            --use:@cuteribs/autorest.csharp@latest \
+            --use:@cuteribs/autorest.python@latest \
+            --use:@cuteribs/autorest.typescript@latest \
+            --legacy \
             --version:3.5
