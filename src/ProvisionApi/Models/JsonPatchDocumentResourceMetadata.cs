@@ -40,7 +40,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.ProvisionApi.Models
         /// <summary>
         /// </summary>
         [JsonProperty(PropertyName = "operations")]
-        public IList<OperationResourceMetadata> Operations { get; set; }
+        public IList<OperationResourceMetadata> Operations { get; private set; }
 
     }
 }

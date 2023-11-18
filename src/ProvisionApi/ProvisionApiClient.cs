@@ -38,14 +38,14 @@ namespace DNV.ApiClients.Veracity.DataPlatform.ProvisionApi
         public ServiceClientCredentials Credentials { get; private set; }
 
         /// <summary>
-        /// Gets the IContainer.
+        /// Gets the IV10Container.
         /// </summary>
-        public virtual IContainer Container { get; private set; }
+        public virtual IV10Container V10Container { get; private set; }
 
         /// <summary>
-        /// Gets the IRegions.
+        /// Gets the IV10Regions.
         /// </summary>
-        public virtual IRegions Regions { get; private set; }
+        public virtual IV10Regions V10Regions { get; private set; }
 
         /// <summary>
         /// Initializes a new instance of the ProvisionApiClient class.
@@ -288,8 +288,8 @@ namespace DNV.ApiClients.Veracity.DataPlatform.ProvisionApi
         /// </summary>
         private void Initialize()
         {
-            Container = new Container(this);
-            Regions = new Regions(this);
+            V10Container = new V10Container(this);
+            V10Regions = new V10Regions(this);
             BaseUri = new System.Uri("https://api.veracity.com/veracity/datafabric/provisioning");
             SerializationSettings = new JsonSerializerSettings
             {

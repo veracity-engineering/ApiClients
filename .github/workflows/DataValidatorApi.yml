@@ -15,10 +15,14 @@ on:
     - '.github/workflows/DataValidatorApi.yml'
 jobs:
   autorest-generate:
-    uses: ./.github/workflows/autorest-generate.yml
+    uses: ./.github/workflows/autorest/generate.yml
     with:
       input-file: 'https://api-portal.veracity.com/docs/services/DataValidatorApi/export?DocumentFormat=OpenApiJson'
       api-name: 'DataValidatorApi'
+      csharp: true
+      output-folder: src/DataValidatorApi
+      client-name: DataValidatorApiClient
+      namespace: DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi
   # nuget-publish:
   #   uses: ./.github/workflows/nuget-publish.yml
   #   with:
