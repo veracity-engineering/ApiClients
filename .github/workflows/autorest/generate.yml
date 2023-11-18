@@ -1,0 +1,65 @@
+env:
+  RELEASE: false
+  YML_OUTPUT: nuget-output
+on:
+  workflow_call:
+    inputs:
+      input-file:
+        required: true
+        type: string
+      api-name:
+        required: true
+        type: string
+      langs:
+        required: true
+        type: list
+      output-folder:
+        required: false
+        type: string
+      client-name:
+        required: false
+        type: string
+      namespace:
+        required: false
+        type: string
+
+jobs:
+  autorest_generate:
+    name: Autorest Generate
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+  
+      - name: Setup .Net
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: '6.0.x'
+
+      - name: Setup NodeJS
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      - name: Generate Code
+        run: |
+          npm i -g autorest && \
+          autorest --version:3.5 --legacy
+
+          mv ./.github/workflows/autorest/*.md $HOME/.autorest/@autorest_core@3.5.1/node_modules/@autorest/core/dist/resources/
+
+          $INPUT_FILE="${{ inputs.input-file }}"
+          $API_NAME="${{ inputs.api-name }}"
+
+          autorest && \
+            --input-file:"${{ inputs.input-file }}" && \
+            --output-folder:"${{ inputs.output-folder }}" && \
+            --override-client-name:"${{ inputs.client-name }}" && \
+            --namespace:"${{ inputs.namespace }}" && \
+            --csharp:${{ langs }} && \
+            --typescript:$typescript && \
+            --python:$python && \
+            --use:@cuteribs/autorest.csharp@latest && \
+            --use:@cuteribs/autorest.python@latest && \
+            --use:@cuteribs/autorest.typescript@latest && \
+            --legacy && \
+            --version:3.5
