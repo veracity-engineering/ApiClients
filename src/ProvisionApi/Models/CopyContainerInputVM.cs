@@ -42,7 +42,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.ProvisionApi.Models
         /// <param name="copyResourceDescription">A description of the
         /// container</param>
         /// <param name="copyResourceTags">List of container tags</param>
-        public CopyContainerInputVM(System.Guid sourceResourceId, bool copyResourceMayContainPersonalData, System.Guid? groupId = default(System.Guid?), string copyResourceShortName = default(string), string copyResourceTitle = default(string), string copyResourceDescription = default(string), Icon copyResourceIcon = default(Icon), IList<MetadataTag> copyResourceTags = default(IList<MetadataTag>))
+        public CopyContainerInputVM(System.Guid sourceResourceId, bool copyResourceMayContainPersonalData, System.Guid? groupId = default, string copyResourceShortName = default, string copyResourceTitle = default, string copyResourceDescription = default, Icon copyResourceIcon = default, IList<MetadataTag> copyResourceTags = default)
         {
             SourceResourceId = sourceResourceId;
             GroupId = groupId;

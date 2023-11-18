@@ -28,7 +28,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.ProvisionApi.Models
         /// 'expired', 'available', 'active'</param>
         /// <param name="mayContainPersonalData">Possible values include:
         /// 'unknown', 'true', 'false'</param>
-        public Resource(System.Guid? id = default(System.Guid?), string reference = default(string), string url = default(string), System.DateTime? lastModifiedUTC = default(System.DateTime?), System.DateTime? creationDateTimeUTC = default(System.DateTime?), System.Guid? ownerId = default(System.Guid?), string accessLevel = default(string), string region = default(string), string keyStatus = default(string), string mayContainPersonalData = default(string), ResourceMetadata metadata = default(ResourceMetadata))
+        public Resource(System.Guid? id = default, string reference = default, string url = default, System.DateTime? lastModifiedUTC = default, System.DateTime? creationDateTimeUTC = default, System.Guid? ownerId = default, string accessLevel = default, string region = default, string keyStatus = default, string mayContainPersonalData = default, ResourceMetadata metadata = default)
         {
             Id = id;
             Reference = reference;

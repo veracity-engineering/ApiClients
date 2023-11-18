@@ -26,7 +26,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.ProvisionApi.Models
         /// Initializes a new instance of the JsonPatchDocumentResourceMetadata
         /// class.
         /// </summary>
-        public JsonPatchDocumentResourceMetadata(IList<OperationResourceMetadata> operations = default(IList<OperationResourceMetadata>))
+        public JsonPatchDocumentResourceMetadata(IList<OperationResourceMetadata> operations = default)
         {
             Operations = operations;
             CustomInit();

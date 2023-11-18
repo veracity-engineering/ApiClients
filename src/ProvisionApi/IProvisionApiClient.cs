@@ -8,7 +8,6 @@ namespace DNV.ApiClients.Veracity.DataPlatform.ProvisionApi
 {
     using AutoRest.ApiClients;
     using AutoRest.ApiClients.Common;
-    using Microsoft.Rest;
     using Models;
     using Newtonsoft.Json;
 
@@ -30,12 +29,6 @@ namespace DNV.ApiClients.Veracity.DataPlatform.ProvisionApi
         /// Gets or sets json deserialization settings.
         /// </summary>
         JsonSerializerSettings DeserializationSettings { get; }
-
-        /// <summary>
-        /// Subscription credentials which uniquely identify client
-        /// subscription.
-        /// </summary>
-        ServiceClientCredentials Credentials { get; }
 
 
         /// <summary>

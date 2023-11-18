@@ -22,7 +22,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.ProvisionApi.Models
         /// <summary>
         /// Initializes a new instance of the StorageRegion class.
         /// </summary>
-        public StorageRegion(string shortName = default(string), string fullName = default(string), string location = default(string), string azureName = default(string), string displayName = default(string), string groupName = default(string))
+        public StorageRegion(string shortName = default, string fullName = default, string location = default, string azureName = default, string displayName = default, string groupName = default)
         {
             ShortName = shortName;
             FullName = fullName;

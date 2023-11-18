@@ -42,7 +42,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.ProvisionApi.Models
         /// <param name="title">A title of the container</param>
         /// <param name="description">A description of the container</param>
         /// <param name="tags">List of container tags</param>
-        public ContainerInput(string storageLocation, bool mayContainPersonalData, string containerShortName = default(string), string title = default(string), string description = default(string), Icon icon = default(Icon), IList<MetadataTag> tags = default(IList<MetadataTag>))
+        public ContainerInput(string storageLocation, bool mayContainPersonalData, string containerShortName = default, string title = default, string description = default, Icon icon = default, IList<MetadataTag> tags = default)
         {
             StorageLocation = storageLocation;
             ContainerShortName = containerShortName;

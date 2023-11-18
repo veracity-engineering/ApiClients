@@ -24,7 +24,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.ProvisionApi.Models
         /// <summary>
         /// Initializes a new instance of the ResourceMetadata class.
         /// </summary>
-        public ResourceMetadata(string title = default(string), string description = default(string), Icon icon = default(Icon), IList<Tag> tags = default(IList<Tag>))
+        public ResourceMetadata(string title = default, string description = default, Icon icon = default, IList<Tag> tags = default)
         {
             Title = title;
             Description = description;

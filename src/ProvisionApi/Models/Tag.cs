@@ -24,7 +24,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.ProvisionApi.Models
         /// </summary>
         /// <param name="type">Possible values include: 'userTag',
         /// 'systemTag'</param>
-        public Tag(System.Guid? id = default(System.Guid?), string title = default(string), string type = default(string))
+        public Tag(System.Guid? id = default, string title = default, string type = default)
         {
             Id = id;
             Title = title;

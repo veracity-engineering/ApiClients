@@ -22,7 +22,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.ProvisionApi.Models
         /// <summary>
         /// Initializes a new instance of the OperationResourceMetadata class.
         /// </summary>
-        public OperationResourceMetadata(object value = default(object), string path = default(string), string op = default(string), string fromProperty = default(string))
+        public OperationResourceMetadata(object value = default, string path = default, string op = default, string fromProperty = default)
         {
             Value = value;
             Path = path;
