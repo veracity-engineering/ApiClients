@@ -19,6 +19,10 @@ jobs:
     with:
       input-file: 'https://api-portal.veracity.com/docs/services/data-api/export?DocumentFormat=OpenApiJson'
       api-name: 'DataApi'
+      csharp: true
+      output-folder: src/DataApi
+      client-name: DataApiClient
+      namespace: DNV.ApiClients.Veracity.DataPlatform.DataApi
   # nuget-publish:
   #   uses: ./.github/workflows/nuget-publish.yml
   #   with:
