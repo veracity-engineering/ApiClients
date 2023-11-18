@@ -40,12 +40,15 @@ jobs:
         with:
           node-version: 18
 
-      - name: Generate Code
+      - name: Install AutoRest
         continue-on-error: true
         run: |
           npm i -g autorest
           autorest --version:3.5 --legacy
-          
+
+      - name: Generate Code
+        continue-on-error: true
+        run: |          
           mv ./.github/workflows/autorest/*.md $HOME/.autorest/@autorest_core@3.5.1/node_modules/@autorest/core/dist/resources/
           rm  ${{ inputs.output-folder }}/*.cs
           rm  ${{ inputs.output-folder }}/Models/*.cs
