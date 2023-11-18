@@ -65,6 +65,7 @@ jobs:
             --use:@cuteribs/autorest.python@latest \
             --use:@cuteribs/autorest.typescript@latest \
             --legacy \
+            --v3 \
             --version:3.5
 
           git config user.email "actions-bot@users.noreply.github.com"
