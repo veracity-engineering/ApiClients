@@ -62,3 +62,5 @@ jobs:
             --use:@cuteribs/autorest.typescript@latest \
             --legacy \
             --version:3.5
+
+          ls ${{ inputs.output-folder }} --color
