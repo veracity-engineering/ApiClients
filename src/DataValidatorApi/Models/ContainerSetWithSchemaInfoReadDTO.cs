@@ -24,7 +24,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi.Models
         /// Initializes a new instance of the ContainerSetWithSchemaInfoReadDTO
         /// class.
         /// </summary>
-        public ContainerSetWithSchemaInfoReadDTO(System.Guid? containerSetId = default(System.Guid?), string name = default(string), System.Guid? workspaceId = default(System.Guid?), string region = default(string), System.DateTime? createdOn = default(System.DateTime?), System.Guid? createdBy = default(System.Guid?), System.DateTime? lastModifiedOn = default(System.DateTime?), System.Guid? lastModifiedBy = default(System.Guid?), System.Guid? validationFunctionId = default(System.Guid?), System.Guid? schemaId = default(System.Guid?), System.Guid? outputContainerId = default(System.Guid?), string schemaName = default(string), string schemaShortName = default(string), string schemaDescription = default(string), bool? schemaIsPredefined = default(bool?))
+        public ContainerSetWithSchemaInfoReadDTO(System.Guid? containerSetId = default, string name = default, System.Guid? workspaceId = default, string region = default, System.DateTime? createdOn = default, System.Guid? createdBy = default, System.DateTime? lastModifiedOn = default, System.Guid? lastModifiedBy = default, System.Guid? validationFunctionId = default, System.Guid? schemaId = default, System.Guid? outputContainerId = default, string schemaName = default, string schemaShortName = default, string schemaDescription = default, bool? schemaIsPredefined = default)
         {
             ContainerSetId = containerSetId;
             Name = name;

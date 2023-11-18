@@ -24,7 +24,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi.Models
         /// <summary>
         /// Initializes a new instance of the WorkspaceReadDTO class.
         /// </summary>
-        public WorkspaceReadDTO(System.Guid? workspaceId = default(System.Guid?), string name = default(string), string description = default(string), System.Guid? createdBy = default(System.Guid?), System.DateTime? createdOn = default(System.DateTime?), System.Guid? lastModifiedBy = default(System.Guid?), System.DateTime? lastModifiedOn = default(System.DateTime?), System.Guid? owner = default(System.Guid?), IList<WorkspaceUserReadDTO> workspaceUsers = default(IList<WorkspaceUserReadDTO>))
+        public WorkspaceReadDTO(System.Guid? workspaceId = default, string name = default, string description = default, System.Guid? createdBy = default, System.DateTime? createdOn = default, System.Guid? lastModifiedBy = default, System.DateTime? lastModifiedOn = default, System.Guid? owner = default, IList<WorkspaceUserReadDTO> workspaceUsers = default)
         {
             WorkspaceId = workspaceId;
             Name = name;

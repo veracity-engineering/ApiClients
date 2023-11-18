@@ -48,7 +48,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi
         /// <exception cref="Microsoft.Rest.ValidationException">
         /// Thrown when a required parameter is null
         /// </exception>
-        Task<HttpOperationResponse<IList<ContainerSetReadDTO>>> GetContainerListWithHttpMessagesAsync(string id, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        Task<HttpOperationResponse<IList<ContainerSetReadDTO>>> GetContainerListWithHttpMessagesAsync(string id, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default);
         /// <summary>
         /// Create new container
         /// </summary>
@@ -78,7 +78,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi
         /// <exception cref="Microsoft.Rest.ValidationException">
         /// Thrown when a required parameter is null
         /// </exception>
-        Task<HttpOperationResponse<ContainerSetReadDTO>> AddContainerWithHttpMessagesAsync(string id, ContainerSetWriteDTO body = default(ContainerSetWriteDTO), Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        Task<HttpOperationResponse<ContainerSetReadDTO>> AddContainerWithHttpMessagesAsync(string id, ContainerSetWriteDTO body = default, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default);
         /// <summary>
         /// Gets container details
         /// </summary>
@@ -106,7 +106,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi
         /// <exception cref="Microsoft.Rest.ValidationException">
         /// Thrown when a required parameter is null
         /// </exception>
-        Task<HttpOperationResponse<ContainerSetReadDTO>> GetContainerWithHttpMessagesAsync(string id, string containerId, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        Task<HttpOperationResponse<ContainerSetReadDTO>> GetContainerWithHttpMessagesAsync(string id, string containerId, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default);
         /// <summary>
         /// Removes a container
         /// </summary>
@@ -131,6 +131,6 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi
         /// <exception cref="Microsoft.Rest.ValidationException">
         /// Thrown when a required parameter is null
         /// </exception>
-        Task<HttpOperationResponse> RemoveWithHttpMessagesAsync(string id, string containerId, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        Task<HttpOperationResponse> RemoveWithHttpMessagesAsync(string id, string containerId, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default);
     }
 }

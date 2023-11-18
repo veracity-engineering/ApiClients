@@ -22,7 +22,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi.Models
         /// <summary>
         /// Initializes a new instance of the MinimalSchemaReferenceDto class.
         /// </summary>
-        public MinimalSchemaReferenceDto(System.Guid? id = default(System.Guid?), string shortName = default(string), int? version = default(int?))
+        public MinimalSchemaReferenceDto(System.Guid? id = default, string shortName = default, int? version = default)
         {
             Id = id;
             ShortName = shortName;

@@ -22,7 +22,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi.Models
         /// <summary>
         /// Initializes a new instance of the ValidationSummaryWriteDTO class.
         /// </summary>
-        public ValidationSummaryWriteDTO(string region = default(string), System.DateTime? createdOn = default(System.DateTime?), System.Guid? schemaId = default(System.Guid?), int? recordsProcessed = default(int?), int? recordsFailed = default(int?), int? failedValidations = default(int?), int? validationsCount = default(int?))
+        public ValidationSummaryWriteDTO(string region = default, System.DateTime? createdOn = default, System.Guid? schemaId = default, int? recordsProcessed = default, int? recordsFailed = default, int? failedValidations = default, int? validationsCount = default)
         {
             Region = region;
             CreatedOn = createdOn;

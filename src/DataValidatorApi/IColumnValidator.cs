@@ -36,7 +36,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi
         /// <exception cref="Microsoft.Rest.SerializationException">
         /// Thrown when unable to deserialize the response
         /// </exception>
-        Task<HttpOperationResponse<IList<ColumnValidatorReadDTO>>> GetListWithHttpMessagesAsync(Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        Task<HttpOperationResponse<IList<ColumnValidatorReadDTO>>> GetListWithHttpMessagesAsync(Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default);
         /// <summary>
         /// Adds a new pre-defined column validator
         /// </summary>
@@ -57,7 +57,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi
         /// <exception cref="Microsoft.Rest.SerializationException">
         /// Thrown when unable to deserialize the response
         /// </exception>
-        Task<HttpOperationResponse<ColumnValidatorReadDTO>> AddWithHttpMessagesAsync(ColumnValidatorWriteDTO body = default(ColumnValidatorWriteDTO), Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        Task<HttpOperationResponse<ColumnValidatorReadDTO>> AddWithHttpMessagesAsync(ColumnValidatorWriteDTO body = default, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default);
         /// <summary>
         /// Gets a pre-defined column validator
         /// </summary>
@@ -79,7 +79,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi
         /// <exception cref="Microsoft.Rest.SerializationException">
         /// Thrown when unable to deserialize the response
         /// </exception>
-        Task<HttpOperationResponse<ColumnValidatorReadDTO>> GetWithHttpMessagesAsync(int id, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        Task<HttpOperationResponse<ColumnValidatorReadDTO>> GetWithHttpMessagesAsync(int id, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default);
         /// <summary>
         /// Updates a pre-defined column validator
         /// </summary>
@@ -103,7 +103,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi
         /// <exception cref="Microsoft.Rest.SerializationException">
         /// Thrown when unable to deserialize the response
         /// </exception>
-        Task<HttpOperationResponse<ColumnValidatorReadDTO>> UpdateWithHttpMessagesAsync(int id, ColumnValidatorWriteDTO body = default(ColumnValidatorWriteDTO), Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        Task<HttpOperationResponse<ColumnValidatorReadDTO>> UpdateWithHttpMessagesAsync(int id, ColumnValidatorWriteDTO body = default, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default);
         /// <summary>
         /// Remove a pre-defined column validator
         /// </summary>
@@ -122,7 +122,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi
         /// <exception cref="Microsoft.Rest.HttpOperationException">
         /// Thrown when the operation returned an invalid status code
         /// </exception>
-        Task<HttpOperationResponse> RemoveWithHttpMessagesAsync(int id, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        Task<HttpOperationResponse> RemoveWithHttpMessagesAsync(int id, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default);
         /// <summary>
         /// Lists all column validators by workspace Id
         /// </summary>
@@ -150,7 +150,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi
         /// <exception cref="Microsoft.Rest.ValidationException">
         /// Thrown when a required parameter is null
         /// </exception>
-        Task<HttpOperationResponse<IList<ColumnValidatorReadDTO>>> GetColumnValidatorListWithHttpMessagesAsync(string id, bool? includesPredefined = false, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        Task<HttpOperationResponse<IList<ColumnValidatorReadDTO>>> GetColumnValidatorListWithHttpMessagesAsync(string id, bool? includesPredefined = false, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default);
         /// <summary>
         /// Add a column validator to a workspace
         /// </summary>
@@ -177,7 +177,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi
         /// <exception cref="Microsoft.Rest.ValidationException">
         /// Thrown when a required parameter is null
         /// </exception>
-        Task<HttpOperationResponse<ColumnValidatorReadDTO>> AddColumnValidatorWithHttpMessagesAsync(string id, ColumnValidatorWriteDTO body = default(ColumnValidatorWriteDTO), Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        Task<HttpOperationResponse<ColumnValidatorReadDTO>> AddColumnValidatorWithHttpMessagesAsync(string id, ColumnValidatorWriteDTO body = default, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default);
         /// <summary>
         /// Updates a column validator
         /// </summary>
@@ -207,7 +207,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi
         /// <exception cref="Microsoft.Rest.ValidationException">
         /// Thrown when a required parameter is null
         /// </exception>
-        Task<HttpOperationResponse<ColumnValidatorReadDTO>> UpdateColumnValidatorWithHttpMessagesAsync(string id, int validatorId, ColumnValidatorWriteDTO body = default(ColumnValidatorWriteDTO), Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        Task<HttpOperationResponse<ColumnValidatorReadDTO>> UpdateColumnValidatorWithHttpMessagesAsync(string id, int validatorId, ColumnValidatorWriteDTO body = default, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default);
         /// <summary>
         /// Gets a column validator
         /// </summary>
@@ -235,7 +235,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi
         /// <exception cref="Microsoft.Rest.ValidationException">
         /// Thrown when a required parameter is null
         /// </exception>
-        Task<HttpOperationResponse<ColumnValidatorReadDTO>> GetColumnValidatorWithHttpMessagesAsync(string id, int validatorId, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        Task<HttpOperationResponse<ColumnValidatorReadDTO>> GetColumnValidatorWithHttpMessagesAsync(string id, int validatorId, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default);
         /// <summary>
         /// Removes a column validator
         /// </summary>
@@ -260,6 +260,6 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi
         /// <exception cref="Microsoft.Rest.ValidationException">
         /// Thrown when a required parameter is null
         /// </exception>
-        Task<HttpOperationResponse> RemoveColumnValidatorWithHttpMessagesAsync(string id, int validatorId, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        Task<HttpOperationResponse> RemoveColumnValidatorWithHttpMessagesAsync(string id, int validatorId, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default);
     }
 }

@@ -42,7 +42,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi
         /// <exception cref="Microsoft.Rest.ValidationException">
         /// Thrown when a required parameter is null
         /// </exception>
-        Task<HttpOperationResponse<IList<WorkspaceUserReadDTO>>> GetUserListWithHttpMessagesAsync(string id, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        Task<HttpOperationResponse<IList<WorkspaceUserReadDTO>>> GetUserListWithHttpMessagesAsync(string id, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default);
         /// <summary>
         /// Add a user to a workspace
         /// </summary>
@@ -69,7 +69,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi
         /// <exception cref="Microsoft.Rest.ValidationException">
         /// Thrown when a required parameter is null
         /// </exception>
-        Task<HttpOperationResponse<WorkspaceUserReadDTO>> AddUserWithHttpMessagesAsync(string id, WorkspaceUserWriteDTO body = default(WorkspaceUserWriteDTO), Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        Task<HttpOperationResponse<WorkspaceUserReadDTO>> AddUserWithHttpMessagesAsync(string id, WorkspaceUserWriteDTO body = default, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default);
         /// <summary>
         /// Change the role of a workspace member
         /// </summary>
@@ -93,7 +93,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi
         /// <exception cref="Microsoft.Rest.ValidationException">
         /// Thrown when a required parameter is null
         /// </exception>
-        Task<HttpOperationResponse> UpdateUserWithHttpMessagesAsync(string id, WorkspaceUserWriteDTO body = default(WorkspaceUserWriteDTO), Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        Task<HttpOperationResponse> UpdateUserWithHttpMessagesAsync(string id, WorkspaceUserWriteDTO body = default, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default);
         /// <summary>
         /// Remove a member from a workspace
         /// </summary>
@@ -118,6 +118,6 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi
         /// <exception cref="Microsoft.Rest.ValidationException">
         /// Thrown when a required parameter is null
         /// </exception>
-        Task<HttpOperationResponse> RemoveUserWithHttpMessagesAsync(string id, string userId, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        Task<HttpOperationResponse> RemoveUserWithHttpMessagesAsync(string id, string userId, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default);
     }
 }

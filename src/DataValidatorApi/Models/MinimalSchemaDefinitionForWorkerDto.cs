@@ -26,7 +26,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi.Models
         /// Initializes a new instance of the
         /// MinimalSchemaDefinitionForWorkerDto class.
         /// </summary>
-        public MinimalSchemaDefinitionForWorkerDto(MinimalSchemaReferenceDto schemaRef = default(MinimalSchemaReferenceDto), System.Guid? outputContainerId = default(System.Guid?), IList<SchemaColumnDefinitionDto> columns = default(IList<SchemaColumnDefinitionDto>), IDictionary<string, SchemaColumnValidatorDefinitionDto> columnValidators = default(IDictionary<string, SchemaColumnValidatorDefinitionDto>), IDictionary<string, SchemaRowValidatorDefinitionDto> rowValidators = default(IDictionary<string, SchemaRowValidatorDefinitionDto>))
+        public MinimalSchemaDefinitionForWorkerDto(MinimalSchemaReferenceDto schemaRef = default, System.Guid? outputContainerId = default, IList<SchemaColumnDefinitionDto> columns = default, IDictionary<string, SchemaColumnValidatorDefinitionDto> columnValidators = default, IDictionary<string, SchemaRowValidatorDefinitionDto> rowValidators = default)
         {
             SchemaRef = schemaRef;
             OutputContainerId = outputContainerId;

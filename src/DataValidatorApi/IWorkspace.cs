@@ -36,7 +36,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi
         /// <exception cref="Microsoft.Rest.SerializationException">
         /// Thrown when unable to deserialize the response
         /// </exception>
-        Task<HttpOperationResponse<IList<WorkspaceReadDTO>>> GetListWithHttpMessagesAsync(Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        Task<HttpOperationResponse<IList<WorkspaceReadDTO>>> GetListWithHttpMessagesAsync(Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default);
         /// <summary>
         /// Create a new workspace
         /// </summary>
@@ -57,7 +57,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi
         /// <exception cref="Microsoft.Rest.SerializationException">
         /// Thrown when unable to deserialize the response
         /// </exception>
-        Task<HttpOperationResponse<WorkspaceReadDTO>> AddWithHttpMessagesAsync(WorkspaceWriteDTO body = default(WorkspaceWriteDTO), Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        Task<HttpOperationResponse<WorkspaceReadDTO>> AddWithHttpMessagesAsync(WorkspaceWriteDTO body = default, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default);
         /// <summary>
         /// Show workspace details
         /// </summary>
@@ -82,7 +82,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi
         /// <exception cref="Microsoft.Rest.ValidationException">
         /// Thrown when a required parameter is null
         /// </exception>
-        Task<HttpOperationResponse<WorkspaceReadDTO>> GetWithHttpMessagesAsync(string id, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        Task<HttpOperationResponse<WorkspaceReadDTO>> GetWithHttpMessagesAsync(string id, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default);
         /// <summary>
         /// Update workspace
         /// </summary>
@@ -114,7 +114,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi
         /// <exception cref="Microsoft.Rest.ValidationException">
         /// Thrown when a required parameter is null
         /// </exception>
-        Task<HttpOperationResponse<WorkspaceReadDTO>> UpdateWorkspaceWithHttpMessagesAsync(string id, WorkspaceWriteDTO body = default(WorkspaceWriteDTO), Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        Task<HttpOperationResponse<WorkspaceReadDTO>> UpdateWorkspaceWithHttpMessagesAsync(string id, WorkspaceWriteDTO body = default, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default);
         /// <summary>
         /// Update data collect SAS URL
         /// </summary>
@@ -141,7 +141,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi
         /// <exception cref="Microsoft.Rest.ValidationException">
         /// Thrown when a required parameter is null
         /// </exception>
-        Task<HttpOperationResponse<bool?>> UpdateDataCollectSASWithHttpMessagesAsync(string id, SASDTO body = default(SASDTO), Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        Task<HttpOperationResponse<bool?>> UpdateDataCollectSASWithHttpMessagesAsync(string id, SASDTO body = default, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default);
         /// <summary>
         /// Get data collect SAS URL
         /// </summary>
@@ -166,6 +166,6 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi
         /// <exception cref="Microsoft.Rest.ValidationException">
         /// Thrown when a required parameter is null
         /// </exception>
-        Task<HttpOperationResponse<SASDTO>> GetDataCollectSASWithHttpMessagesAsync(string id, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        Task<HttpOperationResponse<SASDTO>> GetDataCollectSASWithHttpMessagesAsync(string id, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default);
     }
 }

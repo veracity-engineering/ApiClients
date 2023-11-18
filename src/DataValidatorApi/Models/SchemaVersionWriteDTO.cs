@@ -24,7 +24,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi.Models
         /// <summary>
         /// Initializes a new instance of the SchemaVersionWriteDTO class.
         /// </summary>
-        public SchemaVersionWriteDTO(IList<RowValidatorWriteDTO> rowValidators = default(IList<RowValidatorWriteDTO>), IList<SchemaColumnWriteDTO> schemaColumns = default(IList<SchemaColumnWriteDTO>), string description = default(string))
+        public SchemaVersionWriteDTO(IList<RowValidatorWriteDTO> rowValidators = default, IList<SchemaColumnWriteDTO> schemaColumns = default, string description = default)
         {
             RowValidators = rowValidators;
             SchemaColumns = schemaColumns;

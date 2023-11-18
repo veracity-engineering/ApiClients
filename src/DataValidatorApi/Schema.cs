@@ -67,7 +67,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi
         /// <return>
         /// A response object containing the response body and response headers.
         /// </return>
-        public async Task<HttpOperationResponse<IList<SchemaReadDTO>>> GetPredefinedListWithHttpMessagesAsync(Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken))
+        public async Task<HttpOperationResponse<IList<SchemaReadDTO>>> GetPredefinedListWithHttpMessagesAsync(Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default)
         {
             // Tracing
             bool _shouldTrace = ServiceClientTracing.IsEnabled;
@@ -104,12 +104,6 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi
 
             // Serialize Request
             string _requestContent = null;
-            // Set Credentials
-            if (Client.Credentials != null)
-            {
-                cancellationToken.ThrowIfCancellationRequested();
-                await Client.Credentials.ProcessHttpRequestAsync(_httpRequest, cancellationToken).ConfigureAwait(false);
-            }
             // Send Request
             if (_shouldTrace)
             {
@@ -124,7 +118,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi
             HttpStatusCode _statusCode = _httpResponse.StatusCode;
             cancellationToken.ThrowIfCancellationRequested();
             string _responseContent = null;
-            if ((int)_statusCode != 200)
+            if ((int)_statusCode != 200 && (int)_statusCode != 400 && (int)_statusCode != 401 && (int)_statusCode != 403 && (int)_statusCode != 404)
             {
                 var ex = new HttpOperationException(string.Format("Operation returned an invalid status code '{0}'", _statusCode));
                 if (_httpResponse.Content != null) {
@@ -198,7 +192,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi
         /// <return>
         /// A response object containing the response body and response headers.
         /// </return>
-        public async Task<HttpOperationResponse<SchemaReadDTO>> AddPredefinedWithHttpMessagesAsync(SchemaWithVersionWriteDTO body = default(SchemaWithVersionWriteDTO), Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken))
+        public async Task<HttpOperationResponse<SchemaReadDTO>> AddPredefinedWithHttpMessagesAsync(SchemaWithVersionWriteDTO body = default, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default)
         {
             // Tracing
             bool _shouldTrace = ServiceClientTracing.IsEnabled;
@@ -240,13 +234,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi
             {
                 _requestContent = Microsoft.Rest.Serialization.SafeJsonConvert.SerializeObject(body, Client.SerializationSettings);
                 _httpRequest.Content = new StringContent(_requestContent, System.Text.Encoding.UTF8);
-                _httpRequest.Content.Headers.ContentType =System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json; charset=utf-8");
-            }
-            // Set Credentials
-            if (Client.Credentials != null)
-            {
-                cancellationToken.ThrowIfCancellationRequested();
-                await Client.Credentials.ProcessHttpRequestAsync(_httpRequest, cancellationToken).ConfigureAwait(false);
+                _httpRequest.Content.Headers.ContentType =System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json-patch+json; charset=utf-8");
             }
             // Send Request
             if (_shouldTrace)
@@ -262,7 +250,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi
             HttpStatusCode _statusCode = _httpResponse.StatusCode;
             cancellationToken.ThrowIfCancellationRequested();
             string _responseContent = null;
-            if ((int)_statusCode != 201)
+            if ((int)_statusCode != 201 && (int)_statusCode != 400 && (int)_statusCode != 401 && (int)_statusCode != 403 && (int)_statusCode != 404)
             {
                 var ex = new HttpOperationException(string.Format("Operation returned an invalid status code '{0}'", _statusCode));
                 if (_httpResponse.Content != null) {
@@ -343,7 +331,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi
         /// <return>
         /// A response object containing the response body and response headers.
         /// </return>
-        public async Task<HttpOperationResponse<SchemaDetails>> GetPredefinedWithHttpMessagesAsync(string schemaId, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken))
+        public async Task<HttpOperationResponse<SchemaDetails>> GetPredefinedWithHttpMessagesAsync(string schemaId, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default)
         {
             if (schemaId == null)
             {
@@ -386,12 +374,6 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi
 
             // Serialize Request
             string _requestContent = null;
-            // Set Credentials
-            if (Client.Credentials != null)
-            {
-                cancellationToken.ThrowIfCancellationRequested();
-                await Client.Credentials.ProcessHttpRequestAsync(_httpRequest, cancellationToken).ConfigureAwait(false);
-            }
             // Send Request
             if (_shouldTrace)
             {
@@ -406,7 +388,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi
             HttpStatusCode _statusCode = _httpResponse.StatusCode;
             cancellationToken.ThrowIfCancellationRequested();
             string _responseContent = null;
-            if ((int)_statusCode != 200)
+            if ((int)_statusCode != 200 && (int)_statusCode != 400 && (int)_statusCode != 401 && (int)_statusCode != 403 && (int)_statusCode != 404)
             {
                 var ex = new HttpOperationException(string.Format("Operation returned an invalid status code '{0}'", _statusCode));
                 if (_httpResponse.Content != null) {
@@ -490,7 +472,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi
         /// <return>
         /// A response object containing the response body and response headers.
         /// </return>
-        public async Task<HttpOperationResponse<SchemaColumnReadDTO>> GetSchemaColumnWithHttpMessagesAsync(string id, int columnId, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken))
+        public async Task<HttpOperationResponse<SchemaColumnReadDTO>> GetSchemaColumnWithHttpMessagesAsync(string id, int columnId, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default)
         {
             if (id == null)
             {
@@ -535,12 +517,6 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi
 
             // Serialize Request
             string _requestContent = null;
-            // Set Credentials
-            if (Client.Credentials != null)
-            {
-                cancellationToken.ThrowIfCancellationRequested();
-                await Client.Credentials.ProcessHttpRequestAsync(_httpRequest, cancellationToken).ConfigureAwait(false);
-            }
             // Send Request
             if (_shouldTrace)
             {
@@ -555,7 +531,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi
             HttpStatusCode _statusCode = _httpResponse.StatusCode;
             cancellationToken.ThrowIfCancellationRequested();
             string _responseContent = null;
-            if ((int)_statusCode != 200)
+            if ((int)_statusCode != 200 && (int)_statusCode != 400 && (int)_statusCode != 401 && (int)_statusCode != 403 && (int)_statusCode != 404)
             {
                 var ex = new HttpOperationException(string.Format("Operation returned an invalid status code '{0}'", _statusCode));
                 if (_httpResponse.Content != null) {
@@ -636,7 +612,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi
         /// <return>
         /// A response object containing the response body and response headers.
         /// </return>
-        public async Task<HttpOperationResponse<IList<SchemaReadDTO>>> GetSchemaListWithHttpMessagesAsync(string id, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken))
+        public async Task<HttpOperationResponse<IList<SchemaReadDTO>>> GetSchemaListWithHttpMessagesAsync(string id, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default)
         {
             if (id == null)
             {
@@ -679,12 +655,6 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi
 
             // Serialize Request
             string _requestContent = null;
-            // Set Credentials
-            if (Client.Credentials != null)
-            {
-                cancellationToken.ThrowIfCancellationRequested();
-                await Client.Credentials.ProcessHttpRequestAsync(_httpRequest, cancellationToken).ConfigureAwait(false);
-            }
             // Send Request
             if (_shouldTrace)
             {
@@ -699,7 +669,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi
             HttpStatusCode _statusCode = _httpResponse.StatusCode;
             cancellationToken.ThrowIfCancellationRequested();
             string _responseContent = null;
-            if ((int)_statusCode != 200)
+            if ((int)_statusCode != 200 && (int)_statusCode != 400 && (int)_statusCode != 401 && (int)_statusCode != 403 && (int)_statusCode != 404)
             {
                 var ex = new HttpOperationException(string.Format("Operation returned an invalid status code '{0}'", _statusCode));
                 if (_httpResponse.Content != null) {
@@ -782,7 +752,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi
         /// <return>
         /// A response object containing the response body and response headers.
         /// </return>
-        public async Task<HttpOperationResponse<SchemaDetails>> AddWithHttpMessagesAsync(string id, SchemaWithVersionWriteDTO body = default(SchemaWithVersionWriteDTO), Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken))
+        public async Task<HttpOperationResponse<SchemaDetails>> AddWithHttpMessagesAsync(string id, SchemaWithVersionWriteDTO body = default, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default)
         {
             if (id == null)
             {
@@ -830,13 +800,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi
             {
                 _requestContent = Microsoft.Rest.Serialization.SafeJsonConvert.SerializeObject(body, Client.SerializationSettings);
                 _httpRequest.Content = new StringContent(_requestContent, System.Text.Encoding.UTF8);
-                _httpRequest.Content.Headers.ContentType =System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json; charset=utf-8");
-            }
-            // Set Credentials
-            if (Client.Credentials != null)
-            {
-                cancellationToken.ThrowIfCancellationRequested();
-                await Client.Credentials.ProcessHttpRequestAsync(_httpRequest, cancellationToken).ConfigureAwait(false);
+                _httpRequest.Content.Headers.ContentType =System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json-patch+json; charset=utf-8");
             }
             // Send Request
             if (_shouldTrace)
@@ -852,7 +816,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi
             HttpStatusCode _statusCode = _httpResponse.StatusCode;
             cancellationToken.ThrowIfCancellationRequested();
             string _responseContent = null;
-            if ((int)_statusCode != 201)
+            if ((int)_statusCode != 201 && (int)_statusCode != 400 && (int)_statusCode != 401 && (int)_statusCode != 403 && (int)_statusCode != 404)
             {
                 var ex = new HttpOperationException(string.Format("Operation returned an invalid status code '{0}'", _statusCode));
                 if (_httpResponse.Content != null) {
@@ -936,7 +900,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi
         /// <return>
         /// A response object containing the response body and response headers.
         /// </return>
-        public async Task<HttpOperationResponse<SchemaDetails>> GetWithHttpMessagesAsync(string id, string schemaId, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken))
+        public async Task<HttpOperationResponse<SchemaDetails>> GetWithHttpMessagesAsync(string id, string schemaId, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default)
         {
             if (id == null)
             {
@@ -985,12 +949,6 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi
 
             // Serialize Request
             string _requestContent = null;
-            // Set Credentials
-            if (Client.Credentials != null)
-            {
-                cancellationToken.ThrowIfCancellationRequested();
-                await Client.Credentials.ProcessHttpRequestAsync(_httpRequest, cancellationToken).ConfigureAwait(false);
-            }
             // Send Request
             if (_shouldTrace)
             {
@@ -1005,7 +963,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi
             HttpStatusCode _statusCode = _httpResponse.StatusCode;
             cancellationToken.ThrowIfCancellationRequested();
             string _responseContent = null;
-            if ((int)_statusCode != 200)
+            if ((int)_statusCode != 200 && (int)_statusCode != 400 && (int)_statusCode != 401 && (int)_statusCode != 403 && (int)_statusCode != 404)
             {
                 var ex = new HttpOperationException(string.Format("Operation returned an invalid status code '{0}'", _statusCode));
                 if (_httpResponse.Content != null) {
@@ -1099,7 +1057,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi
         /// <return>
         /// A response object containing the response body and response headers.
         /// </return>
-        public async Task<HttpOperationResponse<SchemaReadDTO>> PatchWithHttpMessagesAsync(string id, string schemaId, IList<Operation> body = default(IList<Operation>), Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken))
+        public async Task<HttpOperationResponse<SchemaReadDTO>> PatchWithHttpMessagesAsync(string id, string schemaId, IList<Operation> body = default, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default)
         {
             if (id == null)
             {
@@ -1153,13 +1111,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi
             {
                 _requestContent = Microsoft.Rest.Serialization.SafeJsonConvert.SerializeObject(body, Client.SerializationSettings);
                 _httpRequest.Content = new StringContent(_requestContent, System.Text.Encoding.UTF8);
-                _httpRequest.Content.Headers.ContentType =System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json; charset=utf-8");
-            }
-            // Set Credentials
-            if (Client.Credentials != null)
-            {
-                cancellationToken.ThrowIfCancellationRequested();
-                await Client.Credentials.ProcessHttpRequestAsync(_httpRequest, cancellationToken).ConfigureAwait(false);
+                _httpRequest.Content.Headers.ContentType =System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json-patch+json; charset=utf-8");
             }
             // Send Request
             if (_shouldTrace)
@@ -1175,7 +1127,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi
             HttpStatusCode _statusCode = _httpResponse.StatusCode;
             cancellationToken.ThrowIfCancellationRequested();
             string _responseContent = null;
-            if ((int)_statusCode != 200)
+            if ((int)_statusCode != 200 && (int)_statusCode != 400 && (int)_statusCode != 401 && (int)_statusCode != 403 && (int)_statusCode != 404)
             {
                 var ex = new HttpOperationException(string.Format("Operation returned an invalid status code '{0}'", _statusCode));
                 if (_httpResponse.Content != null) {
@@ -1256,7 +1208,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi
         /// <return>
         /// A response object containing the response body and response headers.
         /// </return>
-        public async Task<HttpOperationResponse> RemoveWithHttpMessagesAsync(string id, string schemaId, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken))
+        public async Task<HttpOperationResponse> RemoveWithHttpMessagesAsync(string id, string schemaId, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default)
         {
             if (id == null)
             {
@@ -1305,12 +1257,6 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi
 
             // Serialize Request
             string _requestContent = null;
-            // Set Credentials
-            if (Client.Credentials != null)
-            {
-                cancellationToken.ThrowIfCancellationRequested();
-                await Client.Credentials.ProcessHttpRequestAsync(_httpRequest, cancellationToken).ConfigureAwait(false);
-            }
             // Send Request
             if (_shouldTrace)
             {
@@ -1325,7 +1271,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi
             HttpStatusCode _statusCode = _httpResponse.StatusCode;
             cancellationToken.ThrowIfCancellationRequested();
             string _responseContent = null;
-            if ((int)_statusCode != 200)
+            if ((int)_statusCode != 200 && (int)_statusCode != 400 && (int)_statusCode != 401 && (int)_statusCode != 403 && (int)_statusCode != 404)
             {
                 var ex = new HttpOperationException(string.Format("Operation returned an invalid status code '{0}'", _statusCode));
                 if (_httpResponse.Content != null) {
@@ -1391,7 +1337,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi
         /// <return>
         /// A response object containing the response body and response headers.
         /// </return>
-        public async Task<HttpOperationResponse<SchemaVersionReadDTO>> GetSchemaVersionWithHttpMessagesAsync(string id, string versionId, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken))
+        public async Task<HttpOperationResponse<SchemaVersionReadDTO>> GetSchemaVersionWithHttpMessagesAsync(string id, string versionId, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default)
         {
             if (id == null)
             {
@@ -1440,12 +1386,6 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi
 
             // Serialize Request
             string _requestContent = null;
-            // Set Credentials
-            if (Client.Credentials != null)
-            {
-                cancellationToken.ThrowIfCancellationRequested();
-                await Client.Credentials.ProcessHttpRequestAsync(_httpRequest, cancellationToken).ConfigureAwait(false);
-            }
             // Send Request
             if (_shouldTrace)
             {
@@ -1460,7 +1400,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi
             HttpStatusCode _statusCode = _httpResponse.StatusCode;
             cancellationToken.ThrowIfCancellationRequested();
             string _responseContent = null;
-            if ((int)_statusCode != 200)
+            if ((int)_statusCode != 200 && (int)_statusCode != 400 && (int)_statusCode != 401 && (int)_statusCode != 403 && (int)_statusCode != 404)
             {
                 var ex = new HttpOperationException(string.Format("Operation returned an invalid status code '{0}'", _statusCode));
                 if (_httpResponse.Content != null) {
@@ -1554,7 +1494,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi
         /// <return>
         /// A response object containing the response body and response headers.
         /// </return>
-        public async Task<HttpOperationResponse<SchemaVersionReadDTO>> PatchSchemaVersionWithHttpMessagesAsync(string id, string versionId, IList<Operation> body = default(IList<Operation>), Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken))
+        public async Task<HttpOperationResponse<SchemaVersionReadDTO>> PatchSchemaVersionWithHttpMessagesAsync(string id, string versionId, IList<Operation> body = default, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default)
         {
             if (id == null)
             {
@@ -1608,13 +1548,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi
             {
                 _requestContent = Microsoft.Rest.Serialization.SafeJsonConvert.SerializeObject(body, Client.SerializationSettings);
                 _httpRequest.Content = new StringContent(_requestContent, System.Text.Encoding.UTF8);
-                _httpRequest.Content.Headers.ContentType =System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json; charset=utf-8");
-            }
-            // Set Credentials
-            if (Client.Credentials != null)
-            {
-                cancellationToken.ThrowIfCancellationRequested();
-                await Client.Credentials.ProcessHttpRequestAsync(_httpRequest, cancellationToken).ConfigureAwait(false);
+                _httpRequest.Content.Headers.ContentType =System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json-patch+json; charset=utf-8");
             }
             // Send Request
             if (_shouldTrace)
@@ -1630,7 +1564,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi
             HttpStatusCode _statusCode = _httpResponse.StatusCode;
             cancellationToken.ThrowIfCancellationRequested();
             string _responseContent = null;
-            if ((int)_statusCode != 200)
+            if ((int)_statusCode != 200 && (int)_statusCode != 400 && (int)_statusCode != 401 && (int)_statusCode != 403 && (int)_statusCode != 404)
             {
                 var ex = new HttpOperationException(string.Format("Operation returned an invalid status code '{0}'", _statusCode));
                 if (_httpResponse.Content != null) {
@@ -1714,7 +1648,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi
         /// <return>
         /// A response object containing the response body and response headers.
         /// </return>
-        public async Task<HttpOperationResponse<SchemaVersionReadDTO>> UpdateSchemaVersionIsActiveWithHttpMessagesAsync(string id, string versionId, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken))
+        public async Task<HttpOperationResponse<SchemaVersionReadDTO>> UpdateSchemaVersionIsActiveWithHttpMessagesAsync(string id, string versionId, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default)
         {
             if (id == null)
             {
@@ -1763,12 +1697,6 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi
 
             // Serialize Request
             string _requestContent = null;
-            // Set Credentials
-            if (Client.Credentials != null)
-            {
-                cancellationToken.ThrowIfCancellationRequested();
-                await Client.Credentials.ProcessHttpRequestAsync(_httpRequest, cancellationToken).ConfigureAwait(false);
-            }
             // Send Request
             if (_shouldTrace)
             {
@@ -1783,7 +1711,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi
             HttpStatusCode _statusCode = _httpResponse.StatusCode;
             cancellationToken.ThrowIfCancellationRequested();
             string _responseContent = null;
-            if ((int)_statusCode != 200)
+            if ((int)_statusCode != 200 && (int)_statusCode != 400 && (int)_statusCode != 401 && (int)_statusCode != 403 && (int)_statusCode != 404)
             {
                 var ex = new HttpOperationException(string.Format("Operation returned an invalid status code '{0}'", _statusCode));
                 if (_httpResponse.Content != null) {
@@ -1867,7 +1795,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi
         /// <return>
         /// A response object containing the response body and response headers.
         /// </return>
-        public async Task<HttpOperationResponse<IList<SchemaColumnReadDTO>>> GetColumnListWithHttpMessagesAsync(string id, string versionId, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken))
+        public async Task<HttpOperationResponse<IList<SchemaColumnReadDTO>>> GetColumnListWithHttpMessagesAsync(string id, string versionId, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default)
         {
             if (id == null)
             {
@@ -1916,12 +1844,6 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi
 
             // Serialize Request
             string _requestContent = null;
-            // Set Credentials
-            if (Client.Credentials != null)
-            {
-                cancellationToken.ThrowIfCancellationRequested();
-                await Client.Credentials.ProcessHttpRequestAsync(_httpRequest, cancellationToken).ConfigureAwait(false);
-            }
             // Send Request
             if (_shouldTrace)
             {
@@ -1936,7 +1858,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi
             HttpStatusCode _statusCode = _httpResponse.StatusCode;
             cancellationToken.ThrowIfCancellationRequested();
             string _responseContent = null;
-            if ((int)_statusCode != 200)
+            if ((int)_statusCode != 200 && (int)_statusCode != 400 && (int)_statusCode != 401 && (int)_statusCode != 403 && (int)_statusCode != 404)
             {
                 var ex = new HttpOperationException(string.Format("Operation returned an invalid status code '{0}'", _statusCode));
                 if (_httpResponse.Content != null) {
@@ -2020,7 +1942,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi
         /// <return>
         /// A response object containing the response body and response headers.
         /// </return>
-        public async Task<HttpOperationResponse<IList<RowValidatorReadDTO>>> GetRowValidatorListWithHttpMessagesAsync(string id, string versionId, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken))
+        public async Task<HttpOperationResponse<IList<RowValidatorReadDTO>>> GetRowValidatorListWithHttpMessagesAsync(string id, string versionId, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default)
         {
             if (id == null)
             {
@@ -2069,12 +1991,6 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi
 
             // Serialize Request
             string _requestContent = null;
-            // Set Credentials
-            if (Client.Credentials != null)
-            {
-                cancellationToken.ThrowIfCancellationRequested();
-                await Client.Credentials.ProcessHttpRequestAsync(_httpRequest, cancellationToken).ConfigureAwait(false);
-            }
             // Send Request
             if (_shouldTrace)
             {
@@ -2089,7 +2005,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi
             HttpStatusCode _statusCode = _httpResponse.StatusCode;
             cancellationToken.ThrowIfCancellationRequested();
             string _responseContent = null;
-            if ((int)_statusCode != 200)
+            if ((int)_statusCode != 200 && (int)_statusCode != 400 && (int)_statusCode != 401 && (int)_statusCode != 403 && (int)_statusCode != 404)
             {
                 var ex = new HttpOperationException(string.Format("Operation returned an invalid status code '{0}'", _statusCode));
                 if (_httpResponse.Content != null) {
@@ -2172,7 +2088,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi
         /// <return>
         /// A response object containing the response body and response headers.
         /// </return>
-        public async Task<HttpOperationResponse<SchemaVersionReadDTO>> AddPredefinedSchemaVersionWithHttpMessagesAsync(string schemaId, SchemaVersionWriteDTO body = default(SchemaVersionWriteDTO), Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken))
+        public async Task<HttpOperationResponse<SchemaVersionReadDTO>> AddPredefinedSchemaVersionWithHttpMessagesAsync(string schemaId, SchemaVersionWriteDTO body = default, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default)
         {
             if (schemaId == null)
             {
@@ -2220,13 +2136,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi
             {
                 _requestContent = Microsoft.Rest.Serialization.SafeJsonConvert.SerializeObject(body, Client.SerializationSettings);
                 _httpRequest.Content = new StringContent(_requestContent, System.Text.Encoding.UTF8);
-                _httpRequest.Content.Headers.ContentType =System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json; charset=utf-8");
-            }
-            // Set Credentials
-            if (Client.Credentials != null)
-            {
-                cancellationToken.ThrowIfCancellationRequested();
-                await Client.Credentials.ProcessHttpRequestAsync(_httpRequest, cancellationToken).ConfigureAwait(false);
+                _httpRequest.Content.Headers.ContentType =System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json-patch+json; charset=utf-8");
             }
             // Send Request
             if (_shouldTrace)
@@ -2242,7 +2152,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi
             HttpStatusCode _statusCode = _httpResponse.StatusCode;
             cancellationToken.ThrowIfCancellationRequested();
             string _responseContent = null;
-            if ((int)_statusCode != 201)
+            if ((int)_statusCode != 201 && (int)_statusCode != 400 && (int)_statusCode != 401 && (int)_statusCode != 403 && (int)_statusCode != 404)
             {
                 var ex = new HttpOperationException(string.Format("Operation returned an invalid status code '{0}'", _statusCode));
                 if (_httpResponse.Content != null) {
@@ -2323,7 +2233,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi
         /// <return>
         /// A response object containing the response body and response headers.
         /// </return>
-        public async Task<HttpOperationResponse<SchemaVersionReadDTO>> GetPredefinedSchemaVersionWithHttpMessagesAsync(string versionId, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken))
+        public async Task<HttpOperationResponse<SchemaVersionReadDTO>> GetPredefinedSchemaVersionWithHttpMessagesAsync(string versionId, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default)
         {
             if (versionId == null)
             {
@@ -2366,12 +2276,6 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi
 
             // Serialize Request
             string _requestContent = null;
-            // Set Credentials
-            if (Client.Credentials != null)
-            {
-                cancellationToken.ThrowIfCancellationRequested();
-                await Client.Credentials.ProcessHttpRequestAsync(_httpRequest, cancellationToken).ConfigureAwait(false);
-            }
             // Send Request
             if (_shouldTrace)
             {
@@ -2386,7 +2290,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi
             HttpStatusCode _statusCode = _httpResponse.StatusCode;
             cancellationToken.ThrowIfCancellationRequested();
             string _responseContent = null;
-            if ((int)_statusCode != 200)
+            if ((int)_statusCode != 200 && (int)_statusCode != 400 && (int)_statusCode != 401 && (int)_statusCode != 403 && (int)_statusCode != 404)
             {
                 var ex = new HttpOperationException(string.Format("Operation returned an invalid status code '{0}'", _statusCode));
                 if (_httpResponse.Content != null) {
@@ -2472,7 +2376,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi
         /// <return>
         /// A response object containing the response body and response headers.
         /// </return>
-        public async Task<HttpOperationResponse<SchemaVersionReadDTO>> AddSchemaVersionWithHttpMessagesAsync(string id, string schemaId, SchemaVersionWriteDTO body = default(SchemaVersionWriteDTO), Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken))
+        public async Task<HttpOperationResponse<SchemaVersionReadDTO>> AddSchemaVersionWithHttpMessagesAsync(string id, string schemaId, SchemaVersionWriteDTO body = default, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default)
         {
             if (id == null)
             {
@@ -2526,13 +2430,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi
             {
                 _requestContent = Microsoft.Rest.Serialization.SafeJsonConvert.SerializeObject(body, Client.SerializationSettings);
                 _httpRequest.Content = new StringContent(_requestContent, System.Text.Encoding.UTF8);
-                _httpRequest.Content.Headers.ContentType =System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json; charset=utf-8");
-            }
-            // Set Credentials
-            if (Client.Credentials != null)
-            {
-                cancellationToken.ThrowIfCancellationRequested();
-                await Client.Credentials.ProcessHttpRequestAsync(_httpRequest, cancellationToken).ConfigureAwait(false);
+                _httpRequest.Content.Headers.ContentType =System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json-patch+json; charset=utf-8");
             }
             // Send Request
             if (_shouldTrace)
@@ -2548,7 +2446,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi
             HttpStatusCode _statusCode = _httpResponse.StatusCode;
             cancellationToken.ThrowIfCancellationRequested();
             string _responseContent = null;
-            if ((int)_statusCode != 201)
+            if ((int)_statusCode != 201 && (int)_statusCode != 400 && (int)_statusCode != 401 && (int)_statusCode != 403 && (int)_statusCode != 404)
             {
                 var ex = new HttpOperationException(string.Format("Operation returned an invalid status code '{0}'", _statusCode));
                 if (_httpResponse.Content != null) {
@@ -2629,7 +2527,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi
         /// <return>
         /// A response object containing the response body and response headers.
         /// </return>
-        public async Task<HttpOperationResponse> RemoveSchemaVersionWithHttpMessagesAsync(string id, string schemaVersionId, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken))
+        public async Task<HttpOperationResponse> RemoveSchemaVersionWithHttpMessagesAsync(string id, string schemaVersionId, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default)
         {
             if (id == null)
             {
@@ -2678,12 +2576,6 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi
 
             // Serialize Request
             string _requestContent = null;
-            // Set Credentials
-            if (Client.Credentials != null)
-            {
-                cancellationToken.ThrowIfCancellationRequested();
-                await Client.Credentials.ProcessHttpRequestAsync(_httpRequest, cancellationToken).ConfigureAwait(false);
-            }
             // Send Request
             if (_shouldTrace)
             {
@@ -2698,7 +2590,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi
             HttpStatusCode _statusCode = _httpResponse.StatusCode;
             cancellationToken.ThrowIfCancellationRequested();
             string _responseContent = null;
-            if ((int)_statusCode != 200)
+            if ((int)_statusCode != 200 && (int)_statusCode != 400 && (int)_statusCode != 401 && (int)_statusCode != 403 && (int)_statusCode != 404)
             {
                 var ex = new HttpOperationException(string.Format("Operation returned an invalid status code '{0}'", _statusCode));
                 if (_httpResponse.Content != null) {

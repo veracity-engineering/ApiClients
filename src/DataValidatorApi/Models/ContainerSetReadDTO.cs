@@ -22,7 +22,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi.Models
         /// <summary>
         /// Initializes a new instance of the ContainerSetReadDTO class.
         /// </summary>
-        public ContainerSetReadDTO(System.Guid? containerSetId = default(System.Guid?), string name = default(string), System.Guid? workspaceId = default(System.Guid?), string region = default(string), System.DateTime? createdOn = default(System.DateTime?), System.Guid? createdBy = default(System.Guid?), System.DateTime? lastModifiedOn = default(System.DateTime?), System.Guid? lastModifiedBy = default(System.Guid?), System.Guid? validationFunctionId = default(System.Guid?), System.Guid? schemaId = default(System.Guid?), System.Guid? outputContainerId = default(System.Guid?))
+        public ContainerSetReadDTO(System.Guid? containerSetId = default, string name = default, System.Guid? workspaceId = default, string region = default, System.DateTime? createdOn = default, System.Guid? createdBy = default, System.DateTime? lastModifiedOn = default, System.Guid? lastModifiedBy = default, System.Guid? validationFunctionId = default, System.Guid? schemaId = default, System.Guid? outputContainerId = default)
         {
             ContainerSetId = containerSetId;
             Name = name;

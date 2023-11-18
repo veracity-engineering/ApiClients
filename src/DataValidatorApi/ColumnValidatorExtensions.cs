@@ -43,7 +43,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task<IList<ColumnValidatorReadDTO>> GetListAsync(this IColumnValidator operations, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<IList<ColumnValidatorReadDTO>> GetListAsync(this IColumnValidator operations, CancellationToken cancellationToken = default)
             {
                 using (var _result = await operations.GetListWithHttpMessagesAsync(null, cancellationToken).ConfigureAwait(false))
                 {
@@ -62,7 +62,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi
             /// </param>
             /// <param name='body'>
             /// </param>
-            public static ColumnValidatorReadDTO Add(this IColumnValidator operations, ColumnValidatorWriteDTO body = default(ColumnValidatorWriteDTO))
+            public static ColumnValidatorReadDTO Add(this IColumnValidator operations, ColumnValidatorWriteDTO body = default)
             {
                 return operations.AddAsync(body).GetAwaiter().GetResult();
             }
@@ -81,7 +81,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task<ColumnValidatorReadDTO> AddAsync(this IColumnValidator operations, ColumnValidatorWriteDTO body = default(ColumnValidatorWriteDTO), CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<ColumnValidatorReadDTO> AddAsync(this IColumnValidator operations, ColumnValidatorWriteDTO body = default, CancellationToken cancellationToken = default)
             {
                 using (var _result = await operations.AddWithHttpMessagesAsync(body, null, cancellationToken).ConfigureAwait(false))
                 {
@@ -121,7 +121,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task<ColumnValidatorReadDTO> GetAsync(this IColumnValidator operations, int id, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<ColumnValidatorReadDTO> GetAsync(this IColumnValidator operations, int id, CancellationToken cancellationToken = default)
             {
                 using (var _result = await operations.GetWithHttpMessagesAsync(id, null, cancellationToken).ConfigureAwait(false))
                 {
@@ -143,7 +143,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi
             /// </param>
             /// <param name='body'>
             /// </param>
-            public static ColumnValidatorReadDTO Update(this IColumnValidator operations, int id, ColumnValidatorWriteDTO body = default(ColumnValidatorWriteDTO))
+            public static ColumnValidatorReadDTO Update(this IColumnValidator operations, int id, ColumnValidatorWriteDTO body = default)
             {
                 return operations.UpdateAsync(id, body).GetAwaiter().GetResult();
             }
@@ -165,7 +165,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task<ColumnValidatorReadDTO> UpdateAsync(this IColumnValidator operations, int id, ColumnValidatorWriteDTO body = default(ColumnValidatorWriteDTO), CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<ColumnValidatorReadDTO> UpdateAsync(this IColumnValidator operations, int id, ColumnValidatorWriteDTO body = default, CancellationToken cancellationToken = default)
             {
                 using (var _result = await operations.UpdateWithHttpMessagesAsync(id, body, null, cancellationToken).ConfigureAwait(false))
                 {
@@ -205,7 +205,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task RemoveAsync(this IColumnValidator operations, int id, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task RemoveAsync(this IColumnValidator operations, int id, CancellationToken cancellationToken = default)
             {
                 (await operations.RemoveWithHttpMessagesAsync(id, null, cancellationToken).ConfigureAwait(false)).Dispose();
             }
@@ -248,7 +248,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task<IList<ColumnValidatorReadDTO>> GetColumnValidatorListAsync(this IColumnValidator operations, string id, bool? includesPredefined = false, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<IList<ColumnValidatorReadDTO>> GetColumnValidatorListAsync(this IColumnValidator operations, string id, bool? includesPredefined = false, CancellationToken cancellationToken = default)
             {
                 using (var _result = await operations.GetColumnValidatorListWithHttpMessagesAsync(id, includesPredefined, null, cancellationToken).ConfigureAwait(false))
                 {
@@ -270,7 +270,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi
             /// </param>
             /// <param name='body'>
             /// </param>
-            public static ColumnValidatorReadDTO AddColumnValidator(this IColumnValidator operations, string id, ColumnValidatorWriteDTO body = default(ColumnValidatorWriteDTO))
+            public static ColumnValidatorReadDTO AddColumnValidator(this IColumnValidator operations, string id, ColumnValidatorWriteDTO body = default)
             {
                 return operations.AddColumnValidatorAsync(id, body).GetAwaiter().GetResult();
             }
@@ -292,7 +292,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task<ColumnValidatorReadDTO> AddColumnValidatorAsync(this IColumnValidator operations, string id, ColumnValidatorWriteDTO body = default(ColumnValidatorWriteDTO), CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<ColumnValidatorReadDTO> AddColumnValidatorAsync(this IColumnValidator operations, string id, ColumnValidatorWriteDTO body = default, CancellationToken cancellationToken = default)
             {
                 using (var _result = await operations.AddColumnValidatorWithHttpMessagesAsync(id, body, null, cancellationToken).ConfigureAwait(false))
                 {
@@ -317,7 +317,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi
             /// </param>
             /// <param name='body'>
             /// </param>
-            public static ColumnValidatorReadDTO UpdateColumnValidator(this IColumnValidator operations, string id, int validatorId, ColumnValidatorWriteDTO body = default(ColumnValidatorWriteDTO))
+            public static ColumnValidatorReadDTO UpdateColumnValidator(this IColumnValidator operations, string id, int validatorId, ColumnValidatorWriteDTO body = default)
             {
                 return operations.UpdateColumnValidatorAsync(id, validatorId, body).GetAwaiter().GetResult();
             }
@@ -342,7 +342,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task<ColumnValidatorReadDTO> UpdateColumnValidatorAsync(this IColumnValidator operations, string id, int validatorId, ColumnValidatorWriteDTO body = default(ColumnValidatorWriteDTO), CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<ColumnValidatorReadDTO> UpdateColumnValidatorAsync(this IColumnValidator operations, string id, int validatorId, ColumnValidatorWriteDTO body = default, CancellationToken cancellationToken = default)
             {
                 using (var _result = await operations.UpdateColumnValidatorWithHttpMessagesAsync(id, validatorId, body, null, cancellationToken).ConfigureAwait(false))
                 {
@@ -388,7 +388,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task<ColumnValidatorReadDTO> GetColumnValidatorAsync(this IColumnValidator operations, string id, int validatorId, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<ColumnValidatorReadDTO> GetColumnValidatorAsync(this IColumnValidator operations, string id, int validatorId, CancellationToken cancellationToken = default)
             {
                 using (var _result = await operations.GetColumnValidatorWithHttpMessagesAsync(id, validatorId, null, cancellationToken).ConfigureAwait(false))
                 {
@@ -434,7 +434,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task RemoveColumnValidatorAsync(this IColumnValidator operations, string id, int validatorId, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task RemoveColumnValidatorAsync(this IColumnValidator operations, string id, int validatorId, CancellationToken cancellationToken = default)
             {
                 (await operations.RemoveColumnValidatorWithHttpMessagesAsync(id, validatorId, null, cancellationToken).ConfigureAwait(false)).Dispose();
             }

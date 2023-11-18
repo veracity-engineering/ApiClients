@@ -22,7 +22,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi.Models
         /// <summary>
         /// Initializes a new instance of the ContainerSetWriteDTO class.
         /// </summary>
-        public ContainerSetWriteDTO(string name = default(string), string region = default(string), System.Guid? schemaId = default(System.Guid?))
+        public ContainerSetWriteDTO(string name = default, string region = default, System.Guid? schemaId = default)
         {
             Name = name;
             Region = region;

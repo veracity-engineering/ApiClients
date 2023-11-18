@@ -42,7 +42,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi
         /// <exception cref="Microsoft.Rest.ValidationException">
         /// Thrown when a required parameter is null
         /// </exception>
-        Task<HttpOperationResponse<MinimalSchemaDefinitionForWorkerDto>> GetSchemaDefinitionWithHttpMessagesAsync(string containerId, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        Task<HttpOperationResponse<MinimalSchemaDefinitionForWorkerDto>> GetSchemaDefinitionWithHttpMessagesAsync(string containerId, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default);
         /// <summary>
         /// Save Validation Summary of uploaded file on source container
         /// </summary>
@@ -69,7 +69,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi
         /// <exception cref="Microsoft.Rest.ValidationException">
         /// Thrown when a required parameter is null
         /// </exception>
-        Task<HttpOperationResponse<System.Guid?>> AddValidationSummaryWithHttpMessagesAsync(string containerId, ValidationSummaryWriteDTO body = default(ValidationSummaryWriteDTO), Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        Task<HttpOperationResponse<System.Guid?>> AddValidationSummaryWithHttpMessagesAsync(string containerId, ValidationSummaryWriteDTO body = default, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default);
         /// <summary>
         /// Gets basic container set info and schema info
         /// </summary>
@@ -94,6 +94,6 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi
         /// <exception cref="Microsoft.Rest.ValidationException">
         /// Thrown when a required parameter is null
         /// </exception>
-        Task<HttpOperationResponse<ContainerSetWithSchemaInfoReadDTO>> GetContainerSetByContainerIdWithHttpMessagesAsync(string containerId, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        Task<HttpOperationResponse<ContainerSetWithSchemaInfoReadDTO>> GetContainerSetByContainerIdWithHttpMessagesAsync(string containerId, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default);
     }
 }

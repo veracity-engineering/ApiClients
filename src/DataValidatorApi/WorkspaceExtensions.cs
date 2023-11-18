@@ -43,7 +43,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task<IList<WorkspaceReadDTO>> GetListAsync(this IWorkspace operations, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<IList<WorkspaceReadDTO>> GetListAsync(this IWorkspace operations, CancellationToken cancellationToken = default)
             {
                 using (var _result = await operations.GetListWithHttpMessagesAsync(null, cancellationToken).ConfigureAwait(false))
                 {
@@ -62,7 +62,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi
             /// </param>
             /// <param name='body'>
             /// </param>
-            public static WorkspaceReadDTO Add(this IWorkspace operations, WorkspaceWriteDTO body = default(WorkspaceWriteDTO))
+            public static WorkspaceReadDTO Add(this IWorkspace operations, WorkspaceWriteDTO body = default)
             {
                 return operations.AddAsync(body).GetAwaiter().GetResult();
             }
@@ -81,7 +81,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task<WorkspaceReadDTO> AddAsync(this IWorkspace operations, WorkspaceWriteDTO body = default(WorkspaceWriteDTO), CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<WorkspaceReadDTO> AddAsync(this IWorkspace operations, WorkspaceWriteDTO body = default, CancellationToken cancellationToken = default)
             {
                 using (var _result = await operations.AddWithHttpMessagesAsync(body, null, cancellationToken).ConfigureAwait(false))
                 {
@@ -121,7 +121,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task<WorkspaceReadDTO> GetAsync(this IWorkspace operations, string id, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<WorkspaceReadDTO> GetAsync(this IWorkspace operations, string id, CancellationToken cancellationToken = default)
             {
                 using (var _result = await operations.GetWithHttpMessagesAsync(id, null, cancellationToken).ConfigureAwait(false))
                 {
@@ -148,7 +148,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi
             /// </param>
             /// <param name='body'>
             /// </param>
-            public static WorkspaceReadDTO UpdateWorkspace(this IWorkspace operations, string id, WorkspaceWriteDTO body = default(WorkspaceWriteDTO))
+            public static WorkspaceReadDTO UpdateWorkspace(this IWorkspace operations, string id, WorkspaceWriteDTO body = default)
             {
                 return operations.UpdateWorkspaceAsync(id, body).GetAwaiter().GetResult();
             }
@@ -175,7 +175,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task<WorkspaceReadDTO> UpdateWorkspaceAsync(this IWorkspace operations, string id, WorkspaceWriteDTO body = default(WorkspaceWriteDTO), CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<WorkspaceReadDTO> UpdateWorkspaceAsync(this IWorkspace operations, string id, WorkspaceWriteDTO body = default, CancellationToken cancellationToken = default)
             {
                 using (var _result = await operations.UpdateWorkspaceWithHttpMessagesAsync(id, body, null, cancellationToken).ConfigureAwait(false))
                 {
@@ -197,7 +197,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi
             /// </param>
             /// <param name='body'>
             /// </param>
-            public static bool? UpdateDataCollectSAS(this IWorkspace operations, string id, SASDTO body = default(SASDTO))
+            public static bool? UpdateDataCollectSAS(this IWorkspace operations, string id, SASDTO body = default)
             {
                 return operations.UpdateDataCollectSASAsync(id, body).GetAwaiter().GetResult();
             }
@@ -219,7 +219,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task<bool?> UpdateDataCollectSASAsync(this IWorkspace operations, string id, SASDTO body = default(SASDTO), CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<bool?> UpdateDataCollectSASAsync(this IWorkspace operations, string id, SASDTO body = default, CancellationToken cancellationToken = default)
             {
                 using (var _result = await operations.UpdateDataCollectSASWithHttpMessagesAsync(id, body, null, cancellationToken).ConfigureAwait(false))
                 {
@@ -259,7 +259,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task<SASDTO> GetDataCollectSASAsync(this IWorkspace operations, string id, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<SASDTO> GetDataCollectSASAsync(this IWorkspace operations, string id, CancellationToken cancellationToken = default)
             {
                 using (var _result = await operations.GetDataCollectSASWithHttpMessagesAsync(id, null, cancellationToken).ConfigureAwait(false))
                 {

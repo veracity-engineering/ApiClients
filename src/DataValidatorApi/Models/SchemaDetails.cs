@@ -24,7 +24,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi.Models
         /// <summary>
         /// Initializes a new instance of the SchemaDetails class.
         /// </summary>
-        public SchemaDetails(System.Guid? schemaId = default(System.Guid?), string name = default(string), string shortName = default(string), string description = default(string), bool? isPredefined = default(bool?), System.Guid? workspaceId = default(System.Guid?), SchemaVersionReadDTO activeVersion = default(SchemaVersionReadDTO), IList<SchemaVersionReadDTO> versions = default(IList<SchemaVersionReadDTO>))
+        public SchemaDetails(System.Guid? schemaId = default, string name = default, string shortName = default, string description = default, bool? isPredefined = default, System.Guid? workspaceId = default, SchemaVersionReadDTO activeVersion = default, IList<SchemaVersionReadDTO> versions = default)
         {
             SchemaId = schemaId;
             Name = name;

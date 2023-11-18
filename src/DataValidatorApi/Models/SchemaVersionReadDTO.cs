@@ -24,7 +24,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi.Models
         /// <summary>
         /// Initializes a new instance of the SchemaVersionReadDTO class.
         /// </summary>
-        public SchemaVersionReadDTO(System.Guid? schemaVersionId = default(System.Guid?), System.Guid? schemaId = default(System.Guid?), int? version = default(int?), bool? isActive = default(bool?), IList<SchemaColumnReadDTO> schemaColumns = default(IList<SchemaColumnReadDTO>), IList<RowValidatorReadDTO> rowValidators = default(IList<RowValidatorReadDTO>), string description = default(string), System.Guid? createdBy = default(System.Guid?))
+        public SchemaVersionReadDTO(System.Guid? schemaVersionId = default, System.Guid? schemaId = default, int? version = default, bool? isActive = default, IList<SchemaColumnReadDTO> schemaColumns = default, IList<RowValidatorReadDTO> rowValidators = default, string description = default, System.Guid? createdBy = default)
         {
             SchemaVersionId = schemaVersionId;
             SchemaId = schemaId;

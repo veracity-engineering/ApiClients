@@ -22,7 +22,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi.Models
         /// <summary>
         /// Initializes a new instance of the SchemaWithVersionWriteDTO class.
         /// </summary>
-        public SchemaWithVersionWriteDTO(string name = default(string), string shortName = default(string), string description = default(string), SchemaVersionWriteDTO version = default(SchemaVersionWriteDTO))
+        public SchemaWithVersionWriteDTO(string name = default, string shortName = default, string description = default, SchemaVersionWriteDTO version = default)
         {
             Name = name;
             ShortName = shortName;

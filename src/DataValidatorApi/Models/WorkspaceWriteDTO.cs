@@ -22,7 +22,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi.Models
         /// <summary>
         /// Initializes a new instance of the WorkspaceWriteDTO class.
         /// </summary>
-        public WorkspaceWriteDTO(string name = default(string), string description = default(string))
+        public WorkspaceWriteDTO(string name = default, string description = default)
         {
             Name = name;
             Description = description;

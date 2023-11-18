@@ -47,7 +47,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task<MinimalSchemaDefinitionForWorkerDto> GetSchemaDefinitionAsync(this IWorkerFunctions operations, string containerId, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<MinimalSchemaDefinitionForWorkerDto> GetSchemaDefinitionAsync(this IWorkerFunctions operations, string containerId, CancellationToken cancellationToken = default)
             {
                 using (var _result = await operations.GetSchemaDefinitionWithHttpMessagesAsync(containerId, null, cancellationToken).ConfigureAwait(false))
                 {
@@ -69,7 +69,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi
             /// </param>
             /// <param name='body'>
             /// </param>
-            public static System.Guid? AddValidationSummary(this IWorkerFunctions operations, string containerId, ValidationSummaryWriteDTO body = default(ValidationSummaryWriteDTO))
+            public static System.Guid? AddValidationSummary(this IWorkerFunctions operations, string containerId, ValidationSummaryWriteDTO body = default)
             {
                 return operations.AddValidationSummaryAsync(containerId, body).GetAwaiter().GetResult();
             }
@@ -91,7 +91,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task<System.Guid?> AddValidationSummaryAsync(this IWorkerFunctions operations, string containerId, ValidationSummaryWriteDTO body = default(ValidationSummaryWriteDTO), CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<System.Guid?> AddValidationSummaryAsync(this IWorkerFunctions operations, string containerId, ValidationSummaryWriteDTO body = default, CancellationToken cancellationToken = default)
             {
                 using (var _result = await operations.AddValidationSummaryWithHttpMessagesAsync(containerId, body, null, cancellationToken).ConfigureAwait(false))
                 {
@@ -131,7 +131,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task<ContainerSetWithSchemaInfoReadDTO> GetContainerSetByContainerIdAsync(this IWorkerFunctions operations, string containerId, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<ContainerSetWithSchemaInfoReadDTO> GetContainerSetByContainerIdAsync(this IWorkerFunctions operations, string containerId, CancellationToken cancellationToken = default)
             {
                 using (var _result = await operations.GetContainerSetByContainerIdWithHttpMessagesAsync(containerId, null, cancellationToken).ConfigureAwait(false))
                 {

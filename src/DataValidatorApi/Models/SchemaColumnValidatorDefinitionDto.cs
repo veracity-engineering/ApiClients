@@ -26,7 +26,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi.Models
         /// </summary>
         /// <param name="validationType">Possible values include: 'Length',
         /// 'Range', 'Regex', 'Required', 'Type'</param>
-        public SchemaColumnValidatorDefinitionDto(string name = default(string), string message = default(string), ValidationType? validationType = default(ValidationType?), double? max = default(double?), double? min = default(double?), string regex = default(string), string type = default(string))
+        public SchemaColumnValidatorDefinitionDto(string name = default, string message = default, string validationType = default, double? max = default, double? min = default, string regex = default, string type = default)
         {
             Name = name;
             Message = message;
@@ -58,7 +58,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi.Models
         /// 'Required', 'Type'
         /// </summary>
         [JsonProperty(PropertyName = "validationType")]
-        public ValidationType? ValidationType { get; set; }
+        public string ValidationType { get; set; }
 
         /// <summary>
         /// </summary>

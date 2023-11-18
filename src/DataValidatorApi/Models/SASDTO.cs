@@ -22,7 +22,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi.Models
         /// <summary>
         /// Initializes a new instance of the SASDTO class.
         /// </summary>
-        public SASDTO(string url = default(string))
+        public SASDTO(string url = default)
         {
             Url = url;
             CustomInit();

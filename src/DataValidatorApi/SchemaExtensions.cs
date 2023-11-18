@@ -43,7 +43,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task<IList<SchemaReadDTO>> GetPredefinedListAsync(this ISchema operations, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<IList<SchemaReadDTO>> GetPredefinedListAsync(this ISchema operations, CancellationToken cancellationToken = default)
             {
                 using (var _result = await operations.GetPredefinedListWithHttpMessagesAsync(null, cancellationToken).ConfigureAwait(false))
                 {
@@ -62,7 +62,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi
             /// </param>
             /// <param name='body'>
             /// </param>
-            public static SchemaReadDTO AddPredefined(this ISchema operations, SchemaWithVersionWriteDTO body = default(SchemaWithVersionWriteDTO))
+            public static SchemaReadDTO AddPredefined(this ISchema operations, SchemaWithVersionWriteDTO body = default)
             {
                 return operations.AddPredefinedAsync(body).GetAwaiter().GetResult();
             }
@@ -81,7 +81,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task<SchemaReadDTO> AddPredefinedAsync(this ISchema operations, SchemaWithVersionWriteDTO body = default(SchemaWithVersionWriteDTO), CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<SchemaReadDTO> AddPredefinedAsync(this ISchema operations, SchemaWithVersionWriteDTO body = default, CancellationToken cancellationToken = default)
             {
                 using (var _result = await operations.AddPredefinedWithHttpMessagesAsync(body, null, cancellationToken).ConfigureAwait(false))
                 {
@@ -121,7 +121,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task<SchemaDetails> GetPredefinedAsync(this ISchema operations, string schemaId, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<SchemaDetails> GetPredefinedAsync(this ISchema operations, string schemaId, CancellationToken cancellationToken = default)
             {
                 using (var _result = await operations.GetPredefinedWithHttpMessagesAsync(schemaId, null, cancellationToken).ConfigureAwait(false))
                 {
@@ -167,7 +167,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task<SchemaColumnReadDTO> GetSchemaColumnAsync(this ISchema operations, string id, int columnId, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<SchemaColumnReadDTO> GetSchemaColumnAsync(this ISchema operations, string id, int columnId, CancellationToken cancellationToken = default)
             {
                 using (var _result = await operations.GetSchemaColumnWithHttpMessagesAsync(id, columnId, null, cancellationToken).ConfigureAwait(false))
                 {
@@ -207,7 +207,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task<IList<SchemaReadDTO>> GetSchemaListAsync(this ISchema operations, string id, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<IList<SchemaReadDTO>> GetSchemaListAsync(this ISchema operations, string id, CancellationToken cancellationToken = default)
             {
                 using (var _result = await operations.GetSchemaListWithHttpMessagesAsync(id, null, cancellationToken).ConfigureAwait(false))
                 {
@@ -229,7 +229,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi
             /// </param>
             /// <param name='body'>
             /// </param>
-            public static SchemaDetails Add(this ISchema operations, string id, SchemaWithVersionWriteDTO body = default(SchemaWithVersionWriteDTO))
+            public static SchemaDetails Add(this ISchema operations, string id, SchemaWithVersionWriteDTO body = default)
             {
                 return operations.AddAsync(id, body).GetAwaiter().GetResult();
             }
@@ -251,7 +251,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task<SchemaDetails> AddAsync(this ISchema operations, string id, SchemaWithVersionWriteDTO body = default(SchemaWithVersionWriteDTO), CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<SchemaDetails> AddAsync(this ISchema operations, string id, SchemaWithVersionWriteDTO body = default, CancellationToken cancellationToken = default)
             {
                 using (var _result = await operations.AddWithHttpMessagesAsync(id, body, null, cancellationToken).ConfigureAwait(false))
                 {
@@ -297,7 +297,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task<SchemaDetails> GetAsync(this ISchema operations, string id, string schemaId, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<SchemaDetails> GetAsync(this ISchema operations, string id, string schemaId, CancellationToken cancellationToken = default)
             {
                 using (var _result = await operations.GetWithHttpMessagesAsync(id, schemaId, null, cancellationToken).ConfigureAwait(false))
                 {
@@ -330,7 +330,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi
             /// </param>
             /// <param name='body'>
             /// </param>
-            public static SchemaReadDTO Patch(this ISchema operations, string id, string schemaId, IList<Operation> body = default(IList<Operation>))
+            public static SchemaReadDTO Patch(this ISchema operations, string id, string schemaId, IList<Operation> body = default)
             {
                 return operations.PatchAsync(id, schemaId, body).GetAwaiter().GetResult();
             }
@@ -363,7 +363,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task<SchemaReadDTO> PatchAsync(this ISchema operations, string id, string schemaId, IList<Operation> body = default(IList<Operation>), CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<SchemaReadDTO> PatchAsync(this ISchema operations, string id, string schemaId, IList<Operation> body = default, CancellationToken cancellationToken = default)
             {
                 using (var _result = await operations.PatchWithHttpMessagesAsync(id, schemaId, body, null, cancellationToken).ConfigureAwait(false))
                 {
@@ -409,7 +409,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task RemoveAsync(this ISchema operations, string id, string schemaId, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task RemoveAsync(this ISchema operations, string id, string schemaId, CancellationToken cancellationToken = default)
             {
                 (await operations.RemoveWithHttpMessagesAsync(id, schemaId, null, cancellationToken).ConfigureAwait(false)).Dispose();
             }
@@ -452,7 +452,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task<SchemaVersionReadDTO> GetSchemaVersionAsync(this ISchema operations, string id, string versionId, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<SchemaVersionReadDTO> GetSchemaVersionAsync(this ISchema operations, string id, string versionId, CancellationToken cancellationToken = default)
             {
                 using (var _result = await operations.GetSchemaVersionWithHttpMessagesAsync(id, versionId, null, cancellationToken).ConfigureAwait(false))
                 {
@@ -485,7 +485,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi
             /// </param>
             /// <param name='body'>
             /// </param>
-            public static SchemaVersionReadDTO PatchSchemaVersion(this ISchema operations, string id, string versionId, IList<Operation> body = default(IList<Operation>))
+            public static SchemaVersionReadDTO PatchSchemaVersion(this ISchema operations, string id, string versionId, IList<Operation> body = default)
             {
                 return operations.PatchSchemaVersionAsync(id, versionId, body).GetAwaiter().GetResult();
             }
@@ -518,7 +518,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task<SchemaVersionReadDTO> PatchSchemaVersionAsync(this ISchema operations, string id, string versionId, IList<Operation> body = default(IList<Operation>), CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<SchemaVersionReadDTO> PatchSchemaVersionAsync(this ISchema operations, string id, string versionId, IList<Operation> body = default, CancellationToken cancellationToken = default)
             {
                 using (var _result = await operations.PatchSchemaVersionWithHttpMessagesAsync(id, versionId, body, null, cancellationToken).ConfigureAwait(false))
                 {
@@ -564,7 +564,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task<SchemaVersionReadDTO> UpdateSchemaVersionIsActiveAsync(this ISchema operations, string id, string versionId, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<SchemaVersionReadDTO> UpdateSchemaVersionIsActiveAsync(this ISchema operations, string id, string versionId, CancellationToken cancellationToken = default)
             {
                 using (var _result = await operations.UpdateSchemaVersionIsActiveWithHttpMessagesAsync(id, versionId, null, cancellationToken).ConfigureAwait(false))
                 {
@@ -610,7 +610,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task<IList<SchemaColumnReadDTO>> GetColumnListAsync(this ISchema operations, string id, string versionId, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<IList<SchemaColumnReadDTO>> GetColumnListAsync(this ISchema operations, string id, string versionId, CancellationToken cancellationToken = default)
             {
                 using (var _result = await operations.GetColumnListWithHttpMessagesAsync(id, versionId, null, cancellationToken).ConfigureAwait(false))
                 {
@@ -656,7 +656,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task<IList<RowValidatorReadDTO>> GetRowValidatorListAsync(this ISchema operations, string id, string versionId, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<IList<RowValidatorReadDTO>> GetRowValidatorListAsync(this ISchema operations, string id, string versionId, CancellationToken cancellationToken = default)
             {
                 using (var _result = await operations.GetRowValidatorListWithHttpMessagesAsync(id, versionId, null, cancellationToken).ConfigureAwait(false))
                 {
@@ -678,7 +678,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi
             /// </param>
             /// <param name='body'>
             /// </param>
-            public static SchemaVersionReadDTO AddPredefinedSchemaVersion(this ISchema operations, string schemaId, SchemaVersionWriteDTO body = default(SchemaVersionWriteDTO))
+            public static SchemaVersionReadDTO AddPredefinedSchemaVersion(this ISchema operations, string schemaId, SchemaVersionWriteDTO body = default)
             {
                 return operations.AddPredefinedSchemaVersionAsync(schemaId, body).GetAwaiter().GetResult();
             }
@@ -700,7 +700,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task<SchemaVersionReadDTO> AddPredefinedSchemaVersionAsync(this ISchema operations, string schemaId, SchemaVersionWriteDTO body = default(SchemaVersionWriteDTO), CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<SchemaVersionReadDTO> AddPredefinedSchemaVersionAsync(this ISchema operations, string schemaId, SchemaVersionWriteDTO body = default, CancellationToken cancellationToken = default)
             {
                 using (var _result = await operations.AddPredefinedSchemaVersionWithHttpMessagesAsync(schemaId, body, null, cancellationToken).ConfigureAwait(false))
                 {
@@ -740,7 +740,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task<SchemaVersionReadDTO> GetPredefinedSchemaVersionAsync(this ISchema operations, string versionId, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<SchemaVersionReadDTO> GetPredefinedSchemaVersionAsync(this ISchema operations, string versionId, CancellationToken cancellationToken = default)
             {
                 using (var _result = await operations.GetPredefinedSchemaVersionWithHttpMessagesAsync(versionId, null, cancellationToken).ConfigureAwait(false))
                 {
@@ -765,7 +765,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi
             /// </param>
             /// <param name='body'>
             /// </param>
-            public static SchemaVersionReadDTO AddSchemaVersion(this ISchema operations, string id, string schemaId, SchemaVersionWriteDTO body = default(SchemaVersionWriteDTO))
+            public static SchemaVersionReadDTO AddSchemaVersion(this ISchema operations, string id, string schemaId, SchemaVersionWriteDTO body = default)
             {
                 return operations.AddSchemaVersionAsync(id, schemaId, body).GetAwaiter().GetResult();
             }
@@ -790,7 +790,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task<SchemaVersionReadDTO> AddSchemaVersionAsync(this ISchema operations, string id, string schemaId, SchemaVersionWriteDTO body = default(SchemaVersionWriteDTO), CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<SchemaVersionReadDTO> AddSchemaVersionAsync(this ISchema operations, string id, string schemaId, SchemaVersionWriteDTO body = default, CancellationToken cancellationToken = default)
             {
                 using (var _result = await operations.AddSchemaVersionWithHttpMessagesAsync(id, schemaId, body, null, cancellationToken).ConfigureAwait(false))
                 {
@@ -836,7 +836,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task RemoveSchemaVersionAsync(this ISchema operations, string id, string schemaVersionId, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task RemoveSchemaVersionAsync(this ISchema operations, string id, string schemaVersionId, CancellationToken cancellationToken = default)
             {
                 (await operations.RemoveSchemaVersionWithHttpMessagesAsync(id, schemaVersionId, null, cancellationToken).ConfigureAwait(false)).Dispose();
             }

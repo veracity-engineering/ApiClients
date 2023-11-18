@@ -22,7 +22,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi.Models
         /// <summary>
         /// Initializes a new instance of the SchemaReadDTO class.
         /// </summary>
-        public SchemaReadDTO(System.Guid? schemaId = default(System.Guid?), string name = default(string), string shortName = default(string), string description = default(string), bool? isPredefined = default(bool?), System.Guid? industryId = default(System.Guid?), System.Guid? workspaceId = default(System.Guid?), System.Guid? createdBy = default(System.Guid?))
+        public SchemaReadDTO(System.Guid? schemaId = default, string name = default, string shortName = default, string description = default, bool? isPredefined = default, System.Guid? industryId = default, System.Guid? workspaceId = default, System.Guid? createdBy = default)
         {
             SchemaId = schemaId;
             Name = name;

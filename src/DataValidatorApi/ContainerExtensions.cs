@@ -57,7 +57,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task<IList<ContainerSetReadDTO>> GetContainerListAsync(this IContainer operations, string id, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<IList<ContainerSetReadDTO>> GetContainerListAsync(this IContainer operations, string id, CancellationToken cancellationToken = default)
             {
                 using (var _result = await operations.GetContainerListWithHttpMessagesAsync(id, null, cancellationToken).ConfigureAwait(false))
                 {
@@ -82,7 +82,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi
             /// </param>
             /// <param name='body'>
             /// </param>
-            public static ContainerSetReadDTO AddContainer(this IContainer operations, string id, ContainerSetWriteDTO body = default(ContainerSetWriteDTO))
+            public static ContainerSetReadDTO AddContainer(this IContainer operations, string id, ContainerSetWriteDTO body = default)
             {
                 return operations.AddContainerAsync(id, body).GetAwaiter().GetResult();
             }
@@ -107,7 +107,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task<ContainerSetReadDTO> AddContainerAsync(this IContainer operations, string id, ContainerSetWriteDTO body = default(ContainerSetWriteDTO), CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<ContainerSetReadDTO> AddContainerAsync(this IContainer operations, string id, ContainerSetWriteDTO body = default, CancellationToken cancellationToken = default)
             {
                 using (var _result = await operations.AddContainerWithHttpMessagesAsync(id, body, null, cancellationToken).ConfigureAwait(false))
                 {
@@ -153,7 +153,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task<ContainerSetReadDTO> GetContainerAsync(this IContainer operations, string id, string containerId, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<ContainerSetReadDTO> GetContainerAsync(this IContainer operations, string id, string containerId, CancellationToken cancellationToken = default)
             {
                 using (var _result = await operations.GetContainerWithHttpMessagesAsync(id, containerId, null, cancellationToken).ConfigureAwait(false))
                 {
@@ -199,7 +199,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task RemoveAsync(this IContainer operations, string id, string containerId, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task RemoveAsync(this IContainer operations, string id, string containerId, CancellationToken cancellationToken = default)
             {
                 (await operations.RemoveWithHttpMessagesAsync(id, containerId, null, cancellationToken).ConfigureAwait(false)).Dispose();
             }
