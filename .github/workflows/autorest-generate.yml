@@ -47,12 +47,10 @@ jobs:
       - if: always()
         run: |
           mv ./.github/workflows/autorest/*.md $HOME/.autorest/@autorest_core@3.5.1/node_modules/@autorest/core/dist/resources/
-
-          $INPUT_FILE="${{ inputs.input-file }}"
-          $API_NAME="${{ inputs.api-name }}"
+          wget ${{ inputs.input-file }} -O swagger.json
 
           autorest && \
-            --input-file:"${{ inputs.input-file }}" && \
+            --input-file:swagger.json && \
             --output-folder:"${{ inputs.output-folder }}" && \
             --override-client-name:"${{ inputs.client-name }}" && \
             --namespace:"${{ inputs.namespace }}" && \
