@@ -44,7 +44,8 @@ jobs:
         run: |
           npm i -g autorest && \
           autorest --version:3.5 --legacy; exit 0
-      - run: |
+      - if: always()
+        run: |
           mv ./.github/workflows/autorest/*.md $HOME/.autorest/@autorest_core@3.5.1/node_modules/@autorest/core/dist/resources/
 
           $INPUT_FILE="${{ inputs.input-file }}"
