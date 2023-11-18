@@ -55,9 +55,9 @@ jobs:
             --output-folder:"${{ inputs.output-folder }}" && \
             --override-client-name:"${{ inputs.client-name }}" && \
             --namespace:"${{ inputs.namespace }}" && \
-            --csharp:${{ csharp }} && \
-            --typescript:${{ typescript }} && \
-            --python:${{ python }} && \
+            --csharp:${{ inputs.csharp }} && \
+            --typescript:${{ inputs.typescript }} && \
+            --python:${{ inputs.python }} && \
             --use:@cuteribs/autorest.csharp@latest && \
             --use:@cuteribs/autorest.python@latest && \
             --use:@cuteribs/autorest.typescript@latest && \
