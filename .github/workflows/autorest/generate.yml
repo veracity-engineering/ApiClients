@@ -10,17 +10,17 @@ on:
       api-name:
         required: true
         type: string
-      langs:
-        required: true
-        type: list
+      csharp:
+        type: boolean
+      typescript:
+        type: boolean
+      python:
+        type: boolean
       output-folder:
-        required: false
         type: string
       client-name:
-        required: false
         type: string
       namespace:
-        required: false
         type: string
 
 jobs:
@@ -55,9 +55,9 @@ jobs:
             --output-folder:"${{ inputs.output-folder }}" && \
             --override-client-name:"${{ inputs.client-name }}" && \
             --namespace:"${{ inputs.namespace }}" && \
-            --csharp:${{ langs }} && \
-            --typescript:$typescript && \
-            --python:$python && \
+            --csharp:${{ csharp }} && \
+            --typescript:${{ typescript }} && \
+            --python:${{ python }} && \
             --use:@cuteribs/autorest.csharp@latest && \
             --use:@cuteribs/autorest.python@latest && \
             --use:@cuteribs/autorest.typescript@latest && \
