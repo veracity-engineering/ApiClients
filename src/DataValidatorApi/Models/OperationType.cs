@@ -12,10 +12,10 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi.Models
     using System.Runtime.Serialization;
 
     /// <summary>
-    /// Defines values for Schemas71.
+    /// Defines values for OperationType.
     /// </summary>
     [JsonConverter(typeof(StringEnumConverter))]
-    public enum Schemas71
+    public enum OperationType
     {
         [EnumMember(Value = "Add")]
         Add,
@@ -32,53 +32,53 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi.Models
         [EnumMember(Value = "Invalid")]
         Invalid
     }
-    internal static class Schemas71EnumExtension
+    internal static class OperationTypeEnumExtension
     {
-        internal static string ToSerializedValue(this Schemas71? value)
+        internal static string ToSerializedValue(this OperationType? value)
         {
-            return value == null ? null : ((Schemas71)value).ToSerializedValue();
+            return value == null ? null : ((OperationType)value).ToSerializedValue();
         }
 
-        internal static string ToSerializedValue(this Schemas71 value)
+        internal static string ToSerializedValue(this OperationType value)
         {
             switch( value )
             {
-                case Schemas71.Add:
+                case OperationType.Add:
                     return "Add";
-                case Schemas71.Remove:
+                case OperationType.Remove:
                     return "Remove";
-                case Schemas71.Replace:
+                case OperationType.Replace:
                     return "Replace";
-                case Schemas71.Move:
+                case OperationType.Move:
                     return "Move";
-                case Schemas71.Copy:
+                case OperationType.Copy:
                     return "Copy";
-                case Schemas71.Test:
+                case OperationType.Test:
                     return "Test";
-                case Schemas71.Invalid:
+                case OperationType.Invalid:
                     return "Invalid";
             }
             return null;
         }
 
-        internal static Schemas71? ParseSchemas71(this string value)
+        internal static OperationType? ParseOperationType(this string value)
         {
             switch( value )
             {
                 case "Add":
-                    return Schemas71.Add;
+                    return OperationType.Add;
                 case "Remove":
-                    return Schemas71.Remove;
+                    return OperationType.Remove;
                 case "Replace":
-                    return Schemas71.Replace;
+                    return OperationType.Replace;
                 case "Move":
-                    return Schemas71.Move;
+                    return OperationType.Move;
                 case "Copy":
-                    return Schemas71.Copy;
+                    return OperationType.Copy;
                 case "Test":
-                    return Schemas71.Test;
+                    return OperationType.Test;
                 case "Invalid":
-                    return Schemas71.Invalid;
+                    return OperationType.Invalid;
             }
             return null;
         }

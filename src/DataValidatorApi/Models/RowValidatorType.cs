@@ -12,10 +12,10 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi.Models
     using System.Runtime.Serialization;
 
     /// <summary>
-    /// Defines values for Schemas85.
+    /// Defines values for RowValidatorType.
     /// </summary>
     [JsonConverter(typeof(StringEnumConverter))]
-    public enum Schemas85
+    public enum RowValidatorType
     {
         [EnumMember(Value = "RequiredIfNotNull")]
         RequiredIfNotNull,
@@ -24,37 +24,37 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi.Models
         [EnumMember(Value = "RequiredIfSumExceedsThreshold")]
         RequiredIfSumExceedsThreshold
     }
-    internal static class Schemas85EnumExtension
+    internal static class RowValidatorTypeEnumExtension
     {
-        internal static string ToSerializedValue(this Schemas85? value)
+        internal static string ToSerializedValue(this RowValidatorType? value)
         {
-            return value == null ? null : ((Schemas85)value).ToSerializedValue();
+            return value == null ? null : ((RowValidatorType)value).ToSerializedValue();
         }
 
-        internal static string ToSerializedValue(this Schemas85 value)
+        internal static string ToSerializedValue(this RowValidatorType value)
         {
             switch( value )
             {
-                case Schemas85.RequiredIfNotNull:
+                case RowValidatorType.RequiredIfNotNull:
                     return "RequiredIfNotNull";
-                case Schemas85.RequiredIfRegexMatch:
+                case RowValidatorType.RequiredIfRegexMatch:
                     return "RequiredIfRegexMatch";
-                case Schemas85.RequiredIfSumExceedsThreshold:
+                case RowValidatorType.RequiredIfSumExceedsThreshold:
                     return "RequiredIfSumExceedsThreshold";
             }
             return null;
         }
 
-        internal static Schemas85? ParseSchemas85(this string value)
+        internal static RowValidatorType? ParseRowValidatorType(this string value)
         {
             switch( value )
             {
                 case "RequiredIfNotNull":
-                    return Schemas85.RequiredIfNotNull;
+                    return RowValidatorType.RequiredIfNotNull;
                 case "RequiredIfRegexMatch":
-                    return Schemas85.RequiredIfRegexMatch;
+                    return RowValidatorType.RequiredIfRegexMatch;
                 case "RequiredIfSumExceedsThreshold":
-                    return Schemas85.RequiredIfSumExceedsThreshold;
+                    return RowValidatorType.RequiredIfSumExceedsThreshold;
             }
             return null;
         }

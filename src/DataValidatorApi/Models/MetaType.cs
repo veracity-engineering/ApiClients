@@ -12,10 +12,10 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi.Models
     using System.Runtime.Serialization;
 
     /// <summary>
-    /// Defines values for Schemas56.
+    /// Defines values for MetaType.
     /// </summary>
     [JsonConverter(typeof(StringEnumConverter))]
-    public enum Schemas56
+    public enum MetaType
     {
         [EnumMember(Value = "NotApplicable")]
         NotApplicable,
@@ -26,41 +26,41 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi.Models
         [EnumMember(Value = "RowCorrection")]
         RowCorrection
     }
-    internal static class Schemas56EnumExtension
+    internal static class MetaTypeEnumExtension
     {
-        internal static string ToSerializedValue(this Schemas56? value)
+        internal static string ToSerializedValue(this MetaType? value)
         {
-            return value == null ? null : ((Schemas56)value).ToSerializedValue();
+            return value == null ? null : ((MetaType)value).ToSerializedValue();
         }
 
-        internal static string ToSerializedValue(this Schemas56 value)
+        internal static string ToSerializedValue(this MetaType value)
         {
             switch( value )
             {
-                case Schemas56.NotApplicable:
+                case MetaType.NotApplicable:
                     return "NotApplicable";
-                case Schemas56.FileName:
+                case MetaType.FileName:
                     return "FileName";
-                case Schemas56.UploadTime:
+                case MetaType.UploadTime:
                     return "UploadTime";
-                case Schemas56.RowCorrection:
+                case MetaType.RowCorrection:
                     return "RowCorrection";
             }
             return null;
         }
 
-        internal static Schemas56? ParseSchemas56(this string value)
+        internal static MetaType? ParseMetaType(this string value)
         {
             switch( value )
             {
                 case "NotApplicable":
-                    return Schemas56.NotApplicable;
+                    return MetaType.NotApplicable;
                 case "FileName":
-                    return Schemas56.FileName;
+                    return MetaType.FileName;
                 case "UploadTime":
-                    return Schemas56.UploadTime;
+                    return MetaType.UploadTime;
                 case "RowCorrection":
-                    return Schemas56.RowCorrection;
+                    return MetaType.RowCorrection;
             }
             return null;
         }

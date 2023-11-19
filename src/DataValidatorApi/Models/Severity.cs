@@ -12,10 +12,10 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi.Models
     using System.Runtime.Serialization;
 
     /// <summary>
-    /// Defines values for Schemas157.
+    /// Defines values for Severity.
     /// </summary>
     [JsonConverter(typeof(StringEnumConverter))]
-    public enum Schemas157
+    public enum Severity
     {
         [EnumMember(Value = "Error")]
         Error,
@@ -24,37 +24,37 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi.Models
         [EnumMember(Value = "Correction")]
         Correction
     }
-    internal static class Schemas157EnumExtension
+    internal static class SeverityEnumExtension
     {
-        internal static string ToSerializedValue(this Schemas157? value)
+        internal static string ToSerializedValue(this Severity? value)
         {
-            return value == null ? null : ((Schemas157)value).ToSerializedValue();
+            return value == null ? null : ((Severity)value).ToSerializedValue();
         }
 
-        internal static string ToSerializedValue(this Schemas157 value)
+        internal static string ToSerializedValue(this Severity value)
         {
             switch( value )
             {
-                case Schemas157.Error:
+                case Severity.Error:
                     return "Error";
-                case Schemas157.Warning:
+                case Severity.Warning:
                     return "Warning";
-                case Schemas157.Correction:
+                case Severity.Correction:
                     return "Correction";
             }
             return null;
         }
 
-        internal static Schemas157? ParseSchemas157(this string value)
+        internal static Severity? ParseSeverity(this string value)
         {
             switch( value )
             {
                 case "Error":
-                    return Schemas157.Error;
+                    return Severity.Error;
                 case "Warning":
-                    return Schemas157.Warning;
+                    return Severity.Warning;
                 case "Correction":
-                    return Schemas157.Correction;
+                    return Severity.Correction;
             }
             return null;
         }

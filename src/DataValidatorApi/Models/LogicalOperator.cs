@@ -12,43 +12,43 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi.Models
     using System.Runtime.Serialization;
 
     /// <summary>
-    /// Defines values for Schemas55.
+    /// Defines values for LogicalOperator.
     /// </summary>
     [JsonConverter(typeof(StringEnumConverter))]
-    public enum Schemas55
+    public enum LogicalOperator
     {
         [EnumMember(Value = "And")]
         And,
         [EnumMember(Value = "Or")]
         Or
     }
-    internal static class Schemas55EnumExtension
+    internal static class LogicalOperatorEnumExtension
     {
-        internal static string ToSerializedValue(this Schemas55? value)
+        internal static string ToSerializedValue(this LogicalOperator? value)
         {
-            return value == null ? null : ((Schemas55)value).ToSerializedValue();
+            return value == null ? null : ((LogicalOperator)value).ToSerializedValue();
         }
 
-        internal static string ToSerializedValue(this Schemas55 value)
+        internal static string ToSerializedValue(this LogicalOperator value)
         {
             switch( value )
             {
-                case Schemas55.And:
+                case LogicalOperator.And:
                     return "And";
-                case Schemas55.Or:
+                case LogicalOperator.Or:
                     return "Or";
             }
             return null;
         }
 
-        internal static Schemas55? ParseSchemas55(this string value)
+        internal static LogicalOperator? ParseLogicalOperator(this string value)
         {
             switch( value )
             {
                 case "And":
-                    return Schemas55.And;
+                    return LogicalOperator.And;
                 case "Or":
-                    return Schemas55.Or;
+                    return LogicalOperator.Or;
             }
             return null;
         }

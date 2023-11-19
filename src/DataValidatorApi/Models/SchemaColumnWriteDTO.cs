@@ -28,7 +28,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi.Models
         /// 'Validation', 'Metadata'</param>
         /// <param name="metaType">Possible values include: 'NotApplicable',
         /// 'FileName', 'UploadTime', 'RowCorrection'</param>
-        public SchemaColumnWriteDTO(string name = default, bool? mustBePresent = default, int? columnOrder = default, string metaFormat = default, IList<ColumnValidatorColumnWriteDTO> columnValidators = default, Schemas106? schemaColumnType = default, Schemas56? metaType = default)
+        public SchemaColumnWriteDTO(string name = default, bool? mustBePresent = default, int? columnOrder = default, string metaFormat = default, IList<ColumnValidatorColumnWriteDTO> columnValidators = default, SchemaColumnType? schemaColumnType = default, MetaType? metaType = default)
         {
             Name = name;
             MustBePresent = mustBePresent;
@@ -74,14 +74,14 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi.Models
         /// Gets or sets possible values include: 'Validation', 'Metadata'
         /// </summary>
         [JsonProperty(PropertyName = "schemaColumnType")]
-        public Schemas106? SchemaColumnType { get; set; }
+        public SchemaColumnType? SchemaColumnType { get; set; }
 
         /// <summary>
         /// Gets or sets possible values include: 'NotApplicable', 'FileName',
         /// 'UploadTime', 'RowCorrection'
         /// </summary>
         [JsonProperty(PropertyName = "metaType")]
-        public Schemas56? MetaType { get; set; }
+        public MetaType? MetaType { get; set; }
 
     }
 }

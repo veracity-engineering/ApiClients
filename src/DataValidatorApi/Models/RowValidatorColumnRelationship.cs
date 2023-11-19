@@ -12,43 +12,43 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi.Models
     using System.Runtime.Serialization;
 
     /// <summary>
-    /// Defines values for Schemas77.
+    /// Defines values for RowValidatorColumnRelationship.
     /// </summary>
     [JsonConverter(typeof(StringEnumConverter))]
-    public enum Schemas77
+    public enum RowValidatorColumnRelationship
     {
         [EnumMember(Value = "Affect")]
         Affect,
         [EnumMember(Value = "Check")]
         Check
     }
-    internal static class Schemas77EnumExtension
+    internal static class RowValidatorColumnRelationshipEnumExtension
     {
-        internal static string ToSerializedValue(this Schemas77? value)
+        internal static string ToSerializedValue(this RowValidatorColumnRelationship? value)
         {
-            return value == null ? null : ((Schemas77)value).ToSerializedValue();
+            return value == null ? null : ((RowValidatorColumnRelationship)value).ToSerializedValue();
         }
 
-        internal static string ToSerializedValue(this Schemas77 value)
+        internal static string ToSerializedValue(this RowValidatorColumnRelationship value)
         {
             switch( value )
             {
-                case Schemas77.Affect:
+                case RowValidatorColumnRelationship.Affect:
                     return "Affect";
-                case Schemas77.Check:
+                case RowValidatorColumnRelationship.Check:
                     return "Check";
             }
             return null;
         }
 
-        internal static Schemas77? ParseSchemas77(this string value)
+        internal static RowValidatorColumnRelationship? ParseRowValidatorColumnRelationship(this string value)
         {
             switch( value )
             {
                 case "Affect":
-                    return Schemas77.Affect;
+                    return RowValidatorColumnRelationship.Affect;
                 case "Check":
-                    return Schemas77.Check;
+                    return RowValidatorColumnRelationship.Check;
             }
             return null;
         }

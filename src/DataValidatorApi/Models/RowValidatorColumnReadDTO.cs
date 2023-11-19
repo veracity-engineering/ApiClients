@@ -24,7 +24,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi.Models
         /// </summary>
         /// <param name="relationship">Possible values include: 'Affect',
         /// 'Check'</param>
-        public RowValidatorColumnReadDTO(System.Guid? rowValidatorId = default, int? schemaColumnId = default, string columnName = default, Schemas77? relationship = default)
+        public RowValidatorColumnReadDTO(System.Guid? rowValidatorId = default, int? schemaColumnId = default, string columnName = default, RowValidatorColumnRelationship? relationship = default)
         {
             RowValidatorId = rowValidatorId;
             SchemaColumnId = schemaColumnId;
@@ -57,7 +57,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi.Models
         /// Gets or sets possible values include: 'Affect', 'Check'
         /// </summary>
         [JsonProperty(PropertyName = "relationship")]
-        public Schemas77? Relationship { get; set; }
+        public RowValidatorColumnRelationship? Relationship { get; set; }
 
     }
 }

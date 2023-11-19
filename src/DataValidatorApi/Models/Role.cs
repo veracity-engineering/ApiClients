@@ -12,10 +12,10 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi.Models
     using System.Runtime.Serialization;
 
     /// <summary>
-    /// Defines values for Schemas72.
+    /// Defines values for Role.
     /// </summary>
     [JsonConverter(typeof(StringEnumConverter))]
-    public enum Schemas72
+    public enum Role
     {
         [EnumMember(Value = "Admin")]
         Admin,
@@ -24,37 +24,37 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi.Models
         [EnumMember(Value = "Reader")]
         Reader
     }
-    internal static class Schemas72EnumExtension
+    internal static class RoleEnumExtension
     {
-        internal static string ToSerializedValue(this Schemas72? value)
+        internal static string ToSerializedValue(this Role? value)
         {
-            return value == null ? null : ((Schemas72)value).ToSerializedValue();
+            return value == null ? null : ((Role)value).ToSerializedValue();
         }
 
-        internal static string ToSerializedValue(this Schemas72 value)
+        internal static string ToSerializedValue(this Role value)
         {
             switch( value )
             {
-                case Schemas72.Admin:
+                case Role.Admin:
                     return "Admin";
-                case Schemas72.Contributor:
+                case Role.Contributor:
                     return "Contributor";
-                case Schemas72.Reader:
+                case Role.Reader:
                     return "Reader";
             }
             return null;
         }
 
-        internal static Schemas72? ParseSchemas72(this string value)
+        internal static Role? ParseRole(this string value)
         {
             switch( value )
             {
                 case "Admin":
-                    return Schemas72.Admin;
+                    return Role.Admin;
                 case "Contributor":
-                    return Schemas72.Contributor;
+                    return Role.Contributor;
                 case "Reader":
-                    return Schemas72.Reader;
+                    return Role.Reader;
             }
             return null;
         }

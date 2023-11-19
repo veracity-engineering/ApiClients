@@ -12,43 +12,43 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi.Models
     using System.Runtime.Serialization;
 
     /// <summary>
-    /// Defines values for Schemas106.
+    /// Defines values for SchemaColumnType.
     /// </summary>
     [JsonConverter(typeof(StringEnumConverter))]
-    public enum Schemas106
+    public enum SchemaColumnType
     {
         [EnumMember(Value = "Validation")]
         Validation,
         [EnumMember(Value = "Metadata")]
         Metadata
     }
-    internal static class Schemas106EnumExtension
+    internal static class SchemaColumnTypeEnumExtension
     {
-        internal static string ToSerializedValue(this Schemas106? value)
+        internal static string ToSerializedValue(this SchemaColumnType? value)
         {
-            return value == null ? null : ((Schemas106)value).ToSerializedValue();
+            return value == null ? null : ((SchemaColumnType)value).ToSerializedValue();
         }
 
-        internal static string ToSerializedValue(this Schemas106 value)
+        internal static string ToSerializedValue(this SchemaColumnType value)
         {
             switch( value )
             {
-                case Schemas106.Validation:
+                case SchemaColumnType.Validation:
                     return "Validation";
-                case Schemas106.Metadata:
+                case SchemaColumnType.Metadata:
                     return "Metadata";
             }
             return null;
         }
 
-        internal static Schemas106? ParseSchemas106(this string value)
+        internal static SchemaColumnType? ParseSchemaColumnType(this string value)
         {
             switch( value )
             {
                 case "Validation":
-                    return Schemas106.Validation;
+                    return SchemaColumnType.Validation;
                 case "Metadata":
-                    return Schemas106.Metadata;
+                    return SchemaColumnType.Metadata;
             }
             return null;
         }

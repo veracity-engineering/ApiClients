@@ -29,7 +29,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi.Models
         /// <param name="rowValidatorType">Possible values include:
         /// 'RequiredIfNotNull', 'RequiredIfRegexMatch',
         /// 'RequiredIfSumExceedsThreshold'</param>
-        public RowValidatorWriteDTO(string name = default, string checkParameter = default, IList<string> columnsToCheck = default, IList<string> columnsToAffect = default, Schemas55? logicalOperator = default, Schemas85? rowValidatorType = default)
+        public RowValidatorWriteDTO(string name = default, string checkParameter = default, IList<string> columnsToCheck = default, IList<string> columnsToAffect = default, LogicalOperator? logicalOperator = default, RowValidatorType? rowValidatorType = default)
         {
             Name = name;
             CheckParameter = checkParameter;
@@ -69,14 +69,14 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi.Models
         /// Gets or sets possible values include: 'And', 'Or'
         /// </summary>
         [JsonProperty(PropertyName = "logicalOperator")]
-        public Schemas55? LogicalOperator { get; set; }
+        public LogicalOperator? LogicalOperator { get; set; }
 
         /// <summary>
         /// Gets or sets possible values include: 'RequiredIfNotNull',
         /// 'RequiredIfRegexMatch', 'RequiredIfSumExceedsThreshold'
         /// </summary>
         [JsonProperty(PropertyName = "rowValidatorType")]
-        public Schemas85? RowValidatorType { get; set; }
+        public RowValidatorType? RowValidatorType { get; set; }
 
     }
 }

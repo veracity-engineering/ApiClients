@@ -12,10 +12,10 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi.Models
     using System.Runtime.Serialization;
 
     /// <summary>
-    /// Defines values for Schemas166.
+    /// Defines values for ValidationType.
     /// </summary>
     [JsonConverter(typeof(StringEnumConverter))]
-    public enum Schemas166
+    public enum ValidationType
     {
         [EnumMember(Value = "Length")]
         Length,
@@ -28,45 +28,45 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi.Models
         [EnumMember(Value = "Type")]
         Type
     }
-    internal static class Schemas166EnumExtension
+    internal static class ValidationTypeEnumExtension
     {
-        internal static string ToSerializedValue(this Schemas166? value)
+        internal static string ToSerializedValue(this ValidationType? value)
         {
-            return value == null ? null : ((Schemas166)value).ToSerializedValue();
+            return value == null ? null : ((ValidationType)value).ToSerializedValue();
         }
 
-        internal static string ToSerializedValue(this Schemas166 value)
+        internal static string ToSerializedValue(this ValidationType value)
         {
             switch( value )
             {
-                case Schemas166.Length:
+                case ValidationType.Length:
                     return "Length";
-                case Schemas166.Range:
+                case ValidationType.Range:
                     return "Range";
-                case Schemas166.Regex:
+                case ValidationType.Regex:
                     return "Regex";
-                case Schemas166.Required:
+                case ValidationType.Required:
                     return "Required";
-                case Schemas166.Type:
+                case ValidationType.Type:
                     return "Type";
             }
             return null;
         }
 
-        internal static Schemas166? ParseSchemas166(this string value)
+        internal static ValidationType? ParseValidationType(this string value)
         {
             switch( value )
             {
                 case "Length":
-                    return Schemas166.Length;
+                    return ValidationType.Length;
                 case "Range":
-                    return Schemas166.Range;
+                    return ValidationType.Range;
                 case "Regex":
-                    return Schemas166.Regex;
+                    return ValidationType.Regex;
                 case "Required":
-                    return Schemas166.Required;
+                    return ValidationType.Required;
                 case "Type":
-                    return Schemas166.Type;
+                    return ValidationType.Type;
             }
             return null;
         }
