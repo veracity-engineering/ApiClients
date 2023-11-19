@@ -7,8 +7,6 @@
 namespace DNV.ApiClients.Veracity.Identity.ServicesApi
 {
     using Models;
-    using System.Collections;
-    using System.Collections.Generic;
     using System.Threading;
     using System.Threading.Tasks;
 
@@ -34,7 +32,7 @@ namespace DNV.ApiClients.Veracity.Identity.ServicesApi
             /// <param name='ocpApimSubscriptionKey'>
             /// Veracity api management subscription key
             /// </param>
-            public static IList<ItemReference> GetDataContainers(this IDataContainerService operations, string serviceId, string xSupportCode = default(string), string ocpApimSubscriptionKey = default(string))
+            public static object GetDataContainers(this IDataContainerService operations, string serviceId, string xSupportCode = default, string ocpApimSubscriptionKey = default)
             {
                 return operations.GetDataContainersAsync(serviceId, xSupportCode, ocpApimSubscriptionKey).GetAwaiter().GetResult();
             }
@@ -59,7 +57,7 @@ namespace DNV.ApiClients.Veracity.Identity.ServicesApi
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task<IList<ItemReference>> GetDataContainersAsync(this IDataContainerService operations, string serviceId, string xSupportCode = default(string), string ocpApimSubscriptionKey = default(string), CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<object> GetDataContainersAsync(this IDataContainerService operations, string serviceId, string xSupportCode = default, string ocpApimSubscriptionKey = default, CancellationToken cancellationToken = default)
             {
                 using (var _result = await operations.GetDataContainersWithHttpMessagesAsync(serviceId, xSupportCode, ocpApimSubscriptionKey, null, cancellationToken).ConfigureAwait(false))
                 {
@@ -88,7 +86,7 @@ namespace DNV.ApiClients.Veracity.Identity.ServicesApi
             /// <param name='ocpApimSubscriptionKey'>
             /// Veracity api management subscription key
             /// </param>
-            public static string CreateDataContainer(this IDataContainerService operations, string serviceId, string id, string name, string xSupportCode = default(string), string ocpApimSubscriptionKey = default(string))
+            public static object CreateDataContainer(this IDataContainerService operations, string serviceId, string id, string name, string xSupportCode = default, string ocpApimSubscriptionKey = default)
             {
                 return operations.CreateDataContainerAsync(serviceId, id, name, xSupportCode, ocpApimSubscriptionKey).GetAwaiter().GetResult();
             }
@@ -117,7 +115,7 @@ namespace DNV.ApiClients.Veracity.Identity.ServicesApi
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task<string> CreateDataContainerAsync(this IDataContainerService operations, string serviceId, string id, string name, string xSupportCode = default(string), string ocpApimSubscriptionKey = default(string), CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<object> CreateDataContainerAsync(this IDataContainerService operations, string serviceId, string id, string name, string xSupportCode = default, string ocpApimSubscriptionKey = default, CancellationToken cancellationToken = default)
             {
                 using (var _result = await operations.CreateDataContainerWithHttpMessagesAsync(serviceId, id, name, xSupportCode, ocpApimSubscriptionKey, null, cancellationToken).ConfigureAwait(false))
                 {
@@ -144,7 +142,7 @@ namespace DNV.ApiClients.Veracity.Identity.ServicesApi
             /// <param name='ocpApimSubscriptionKey'>
             /// Veracity api management subscription key
             /// </param>
-            public static DataContainerServiceDeleteDataContainerHeaders DeleteDataContainer(this IDataContainerService operations, string serviceId, string id, string xSupportCode = default(string), string ocpApimSubscriptionKey = default(string))
+            public static DataContainerServiceDeleteDataContainerHeaders DeleteDataContainer(this IDataContainerService operations, string serviceId, string id, string xSupportCode = default, string ocpApimSubscriptionKey = default)
             {
                 return operations.DeleteDataContainerAsync(serviceId, id, xSupportCode, ocpApimSubscriptionKey).GetAwaiter().GetResult();
             }
@@ -171,7 +169,7 @@ namespace DNV.ApiClients.Veracity.Identity.ServicesApi
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task<DataContainerServiceDeleteDataContainerHeaders> DeleteDataContainerAsync(this IDataContainerService operations, string serviceId, string id, string xSupportCode = default(string), string ocpApimSubscriptionKey = default(string), CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<DataContainerServiceDeleteDataContainerHeaders> DeleteDataContainerAsync(this IDataContainerService operations, string serviceId, string id, string xSupportCode = default, string ocpApimSubscriptionKey = default, CancellationToken cancellationToken = default)
             {
                 using (var _result = await operations.DeleteDataContainerWithHttpMessagesAsync(serviceId, id, xSupportCode, ocpApimSubscriptionKey, null, cancellationToken).ConfigureAwait(false))
                 {

@@ -30,7 +30,7 @@ namespace DNV.ApiClients.Veracity.Identity.ServicesApi.Models
         /// value if the sendEmail flag is false.</param>
         /// <param name="identity">The relative path to the resource
         /// details</param>
-        public UserCreationReference(bool activated, string confirmationUrl = default(string), string identity = default(string), string email = default(string), string name = default(string), string id = default(string))
+        public UserCreationReference(bool activated, string confirmationUrl = default, string identity = default, string email = default, string name = default, string id = default)
         {
             ConfirmationUrl = confirmationUrl;
             Identity = identity;

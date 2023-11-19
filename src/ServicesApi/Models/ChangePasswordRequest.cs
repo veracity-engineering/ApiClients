@@ -22,7 +22,7 @@ namespace DNV.ApiClients.Veracity.Identity.ServicesApi.Models
         /// <summary>
         /// Initializes a new instance of the ChangePasswordRequest class.
         /// </summary>
-        public ChangePasswordRequest(string oldPassword = default(string), string newPassword = default(string), string newPasswordRepeat = default(string))
+        public ChangePasswordRequest(string oldPassword = default, string newPassword = default, string newPasswordRepeat = default)
         {
             OldPassword = oldPassword;
             NewPassword = newPassword;

@@ -22,7 +22,7 @@ namespace DNV.ApiClients.Veracity.Identity.ServicesApi.Models
         /// <summary>
         /// Initializes a new instance of the SubscriptionDetails class.
         /// </summary>
-        public SubscriptionDetails(ServiceReference service = default(ServiceReference), UserReference user = default(UserReference), RoleReference role = default(RoleReference), SubscriptionState subscriptionState = default(SubscriptionState))
+        public SubscriptionDetails(ServiceReference service = default, UserReference user = default, RoleReference role = default, SubscriptionState subscriptionState = default)
         {
             Service = service;
             User = user;

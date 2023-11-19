@@ -28,7 +28,7 @@ namespace DNV.ApiClients.Veracity.Identity.ServicesApi.Models
         /// <param name="acceptPlatformTerms">Platform terms accepted</param>
         /// <param name="acceptServiceTerms">Service terms accepted</param>
         /// <param name="serviceId">The service id of the service terms</param>
-        public AcceptPlatformTermsRequest(bool acceptPlatformTerms, bool acceptServiceTerms, string serviceId = default(string))
+        public AcceptPlatformTermsRequest(bool acceptPlatformTerms, bool acceptServiceTerms, string serviceId = default)
         {
             AcceptPlatformTerms = acceptPlatformTerms;
             AcceptServiceTerms = acceptServiceTerms;

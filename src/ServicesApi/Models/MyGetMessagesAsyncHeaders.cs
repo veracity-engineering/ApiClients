@@ -27,7 +27,7 @@ namespace DNV.ApiClients.Veracity.Identity.ServicesApi.Models
         /// </summary>
         /// <param name="xSupportCode">correlation token for log
         /// lookup.</param>
-        public MyGetMessagesAsyncHeaders(string xSupportCode = default(string))
+        public MyGetMessagesAsyncHeaders(string xSupportCode = default)
         {
             XSupportCode = xSupportCode;
             CustomInit();

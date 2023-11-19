@@ -35,12 +35,6 @@ namespace DNV.ApiClients.Veracity.Identity.ServicesApi
         /// </summary>
         JsonSerializerSettings DeserializationSettings { get; }
 
-        /// <summary>
-        /// Subscription credentials which uniquely identify client
-        /// subscription.
-        /// </summary>
-        ServiceClientCredentials Credentials { get; }
-
 
         /// <summary>
         /// Gets the ICompaniesDirectory.
@@ -104,7 +98,7 @@ namespace DNV.ApiClients.Veracity.Identity.ServicesApi
         /// <param name='cancellationToken'>
         /// The cancellation token.
         /// </param>
-        Task<HttpOperationResponse<IList<SubscriptionDetails>,SixThreefSevenSixedffTwoFiveTwoTwoeOneEightcEightdThreebZeroFiveFiveHyphenMinusHeaders>> SixThreefSevenSixedffTwoFiveTwoTwoeOneEightcEightdThreebZeroFiveFiveWithHttpMessagesAsync(string id, string filter, int pageNo, string xSupportCode = default(string), string ocpApimSubscriptionKey = default(string), Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        Task<HttpOperationResponse<object,SixThreefSevenSixedffTwoFiveTwoTwoeOneEightcEightdThreebZeroFiveFiveHyphenMinusHeaders>> SixThreefSevenSixedffTwoFiveTwoTwoeOneEightcEightdThreebZeroFiveFiveWithHttpMessagesAsync(string id, string filter, int pageNo, string xSupportCode = default, string ocpApimSubscriptionKey = default, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default);
 
     }
 }

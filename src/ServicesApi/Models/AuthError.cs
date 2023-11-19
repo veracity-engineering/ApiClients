@@ -22,7 +22,7 @@ namespace DNV.ApiClients.Veracity.Identity.ServicesApi.Models
         /// <summary>
         /// Initializes a new instance of the AuthError class.
         /// </summary>
-        public AuthError(string message = default(string))
+        public AuthError(string message = default)
         {
             Message = message;
             CustomInit();

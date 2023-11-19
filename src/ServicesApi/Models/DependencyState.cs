@@ -112,7 +112,7 @@ namespace DNV.ApiClients.Veracity.Identity.ServicesApi.Models
         /// top-level
         /// element, this field SHOULD be omitted for "pass" state of a
         /// downstream dependency.</param>
-        public DependencyState(HealthStateTypes status, int weight, bool critical, string componentId = default(string), string componentType = default(string), object observedValue = default(object), string observedUnit = default(string), IList<string> affectedEndpoints = default(IList<string>), System.DateTime? time = default(System.DateTime?), string output = default(string))
+        public DependencyState(HealthStateTypes status, int weight, bool critical, string componentId = default, string componentType = default, object observedValue = default, string observedUnit = default, IList<string> affectedEndpoints = default, System.DateTime? time = default, string output = default)
         {
             ComponentId = componentId;
             ComponentType = componentType;

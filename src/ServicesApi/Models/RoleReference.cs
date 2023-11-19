@@ -27,7 +27,7 @@ namespace DNV.ApiClients.Veracity.Identity.ServicesApi.Models
         /// </summary>
         /// <param name="identity">The relative path to the resource
         /// details</param>
-        public RoleReference(string identity = default(string), string type = default(string), string name = default(string), string id = default(string))
+        public RoleReference(string identity = default, string type = default, string name = default, string id = default)
         {
             Identity = identity;
             Type = type;

@@ -22,7 +22,7 @@ namespace DNV.ApiClients.Veracity.Identity.ServicesApi.Models
         /// <summary>
         /// Initializes a new instance of the Widget class.
         /// </summary>
-        public Widget(System.Guid id, bool showTitle, bool supportsMobile, System.Guid serviceId, int sequenceNo, string url = default(string), string name = default(string), string description = default(string), string logoUrl = default(string), string pictogramUrl = default(string), string type = default(string), string color = default(string))
+        public Widget(System.Guid id, bool showTitle, bool supportsMobile, System.Guid serviceId, int sequenceNo, string url = default, string name = default, string description = default, string logoUrl = default, string pictogramUrl = default, string type = default, string color = default)
         {
             Id = id;
             Url = url;

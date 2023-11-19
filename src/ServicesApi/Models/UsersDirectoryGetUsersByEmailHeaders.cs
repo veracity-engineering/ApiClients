@@ -29,7 +29,7 @@ namespace DNV.ApiClients.Veracity.Identity.ServicesApi.Models
         /// </summary>
         /// <param name="xSupportCode">correlation token for log
         /// lookup.</param>
-        public UsersDirectoryGetUsersByEmailHeaders(string xSupportCode = default(string))
+        public UsersDirectoryGetUsersByEmailHeaders(string xSupportCode = default)
         {
             XSupportCode = xSupportCode;
             CustomInit();

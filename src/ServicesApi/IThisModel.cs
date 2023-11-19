@@ -49,7 +49,7 @@ namespace DNV.ApiClients.Veracity.Identity.ServicesApi
         /// <exception cref="Microsoft.Rest.SerializationException">
         /// Thrown when unable to deserialize the response
         /// </exception>
-        Task<HttpOperationResponse<IList<ServiceReference>,ThisGetServicesHeaders>> GetServicesWithHttpMessagesAsync(int page, int pageSize, string xSupportCode = default(string), string ocpApimSubscriptionKey = default(string), Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        Task<HttpOperationResponse<object,ThisGetServicesHeaders>> GetServicesWithHttpMessagesAsync(int page, int pageSize, string xSupportCode = default, string ocpApimSubscriptionKey = default, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default);
         /// <summary>
         /// This_GetUsers
         /// </summary>
@@ -82,7 +82,7 @@ namespace DNV.ApiClients.Veracity.Identity.ServicesApi
         /// <exception cref="Microsoft.Rest.SerializationException">
         /// Thrown when unable to deserialize the response
         /// </exception>
-        Task<HttpOperationResponse<object,ThisGetUsersHeaders>> GetUsersWithHttpMessagesAsync(int page, int pageSize, string xSupportCode = default(string), string ocpApimSubscriptionKey = default(string), Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        Task<HttpOperationResponse<object,ThisGetUsersHeaders>> GetUsersWithHttpMessagesAsync(int page, int pageSize, string xSupportCode = default, string ocpApimSubscriptionKey = default, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default);
         /// <summary>
         /// This_GetServiceUser
         /// </summary>
@@ -114,7 +114,7 @@ namespace DNV.ApiClients.Veracity.Identity.ServicesApi
         /// <exception cref="Microsoft.Rest.ValidationException">
         /// Thrown when a required parameter is null
         /// </exception>
-        Task<HttpOperationResponse<object,ThisGetServiceUserHeaders>> GetServiceUserWithHttpMessagesAsync(string userId, string xSupportCode = default(string), string ocpApimSubscriptionKey = default(string), Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        Task<HttpOperationResponse<object,ThisGetServiceUserHeaders>> GetServiceUserWithHttpMessagesAsync(string userId, string xSupportCode = default, string ocpApimSubscriptionKey = default, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default);
         /// <summary>
         /// This_AddUserAsync
         /// </summary>
@@ -144,7 +144,7 @@ namespace DNV.ApiClients.Veracity.Identity.ServicesApi
         /// <exception cref="Microsoft.Rest.ValidationException">
         /// Thrown when a required parameter is null
         /// </exception>
-        Task<HttpOperationHeaderResponse<ThisAddUserAsyncHeaders>> AddUserAsyncWithHttpMessagesAsync(string userId, SubscriptionOptions body = default(SubscriptionOptions), string xSupportCode = default(string), string ocpApimSubscriptionKey = default(string), Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        Task<HttpOperationHeaderResponse<ThisAddUserAsyncHeaders>> AddUserAsyncWithHttpMessagesAsync(string userId, SubscriptionOptions body = default, string xSupportCode = default, string ocpApimSubscriptionKey = default, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default);
         /// <summary>
         /// This_RemoveUser
         /// </summary>
@@ -171,7 +171,7 @@ namespace DNV.ApiClients.Veracity.Identity.ServicesApi
         /// <exception cref="Microsoft.Rest.ValidationException">
         /// Thrown when a required parameter is null
         /// </exception>
-        Task<HttpOperationHeaderResponse<ThisRemoveUserHeaders>> RemoveUserWithHttpMessagesAsync(string userId, string xSupportCode = default(string), string ocpApimSubscriptionKey = default(string), Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        Task<HttpOperationHeaderResponse<ThisRemoveUserHeaders>> RemoveUserWithHttpMessagesAsync(string userId, string xSupportCode = default, string ocpApimSubscriptionKey = default, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default);
         /// <summary>
         /// This_GetUserForService
         /// </summary>
@@ -204,7 +204,7 @@ namespace DNV.ApiClients.Veracity.Identity.ServicesApi
         /// <exception cref="Microsoft.Rest.ValidationException">
         /// Thrown when a required parameter is null
         /// </exception>
-        Task<HttpOperationResponse<SubscriptionReference,ThisGetUserForServiceHeaders>> GetUserForServiceWithHttpMessagesAsync(string serviceId, string userId, string xSupportCode = default(string), string ocpApimSubscriptionKey = default(string), Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        Task<HttpOperationResponse<object,ThisGetUserForServiceHeaders>> GetUserForServiceWithHttpMessagesAsync(string serviceId, string userId, string xSupportCode = default, string ocpApimSubscriptionKey = default, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default);
         /// <summary>
         /// This_AddServiceUser
         /// </summary>
@@ -236,7 +236,7 @@ namespace DNV.ApiClients.Veracity.Identity.ServicesApi
         /// <exception cref="Microsoft.Rest.ValidationException">
         /// Thrown when a required parameter is null
         /// </exception>
-        Task<HttpOperationHeaderResponse<ThisAddServiceUserHeaders>> AddServiceUserWithHttpMessagesAsync(string userId, string serviceId, SubscriptionOptions body = default(SubscriptionOptions), string xSupportCode = default(string), string ocpApimSubscriptionKey = default(string), Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        Task<HttpOperationHeaderResponse<ThisAddServiceUserHeaders>> AddServiceUserWithHttpMessagesAsync(string userId, string serviceId, SubscriptionOptions body = default, string xSupportCode = default, string ocpApimSubscriptionKey = default, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default);
         /// <summary>
         /// This_RemoveServiceUser
         /// </summary>
@@ -268,7 +268,7 @@ namespace DNV.ApiClients.Veracity.Identity.ServicesApi
         /// <exception cref="Microsoft.Rest.ValidationException">
         /// Thrown when a required parameter is null
         /// </exception>
-        Task<HttpOperationHeaderResponse<ThisRemoveServiceUserHeaders>> RemoveServiceUserWithHttpMessagesAsync(string userId, string serviceId, string suppressNotification = default(string), string xSupportCode = default(string), string ocpApimSubscriptionKey = default(string), Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        Task<HttpOperationHeaderResponse<ThisRemoveServiceUserHeaders>> RemoveServiceUserWithHttpMessagesAsync(string userId, string serviceId, string suppressNotification = default, string xSupportCode = default, string ocpApimSubscriptionKey = default, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default);
         /// <summary>
         /// This_GetUserProfilePicture
         /// </summary>
@@ -301,7 +301,7 @@ namespace DNV.ApiClients.Veracity.Identity.ServicesApi
         /// <exception cref="Microsoft.Rest.ValidationException">
         /// Thrown when a required parameter is null
         /// </exception>
-        Task<HttpOperationResponse<ProfilePicture,ThisGetUserProfilePictureHeaders>> GetUserProfilePictureWithHttpMessagesAsync(string serviceId, string userId, string xSupportCode = default(string), string ocpApimSubscriptionKey = default(string), Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        Task<HttpOperationResponse<object,ThisGetUserProfilePictureHeaders>> GetUserProfilePictureWithHttpMessagesAsync(string serviceId, string userId, string xSupportCode = default, string ocpApimSubscriptionKey = default, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default);
         /// <summary>
         /// This_GetUsersForService
         /// </summary>
@@ -338,7 +338,7 @@ namespace DNV.ApiClients.Veracity.Identity.ServicesApi
         /// <exception cref="Microsoft.Rest.ValidationException">
         /// Thrown when a required parameter is null
         /// </exception>
-        Task<HttpOperationResponse<IList<UserReference>,ThisGetUsersForServiceHeaders>> GetUsersForServiceWithHttpMessagesAsync(string serviceId, int page, int pageSize, string xSupportCode = default(string), string ocpApimSubscriptionKey = default(string), Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        Task<HttpOperationResponse<object,ThisGetUsersForServiceHeaders>> GetUsersForServiceWithHttpMessagesAsync(string serviceId, int page, int pageSize, string xSupportCode = default, string ocpApimSubscriptionKey = default, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default);
         /// <summary>
         /// This_ResolveUser
         /// </summary>
@@ -369,7 +369,7 @@ namespace DNV.ApiClients.Veracity.Identity.ServicesApi
         /// <exception cref="Microsoft.Rest.ValidationException">
         /// Thrown when a required parameter is null
         /// </exception>
-        Task<HttpOperationResponse<IList<UserReference>,ThisResolveUserHeaders>> ResolveUserWithHttpMessagesAsync(string email, string xSupportCode = default(string), string ocpApimSubscriptionKey = default(string), Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        Task<HttpOperationResponse<object,ThisResolveUserHeaders>> ResolveUserWithHttpMessagesAsync(string email, string xSupportCode = default, string ocpApimSubscriptionKey = default, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default);
         /// <summary>
         /// This_CreateUser
         /// </summary>
@@ -396,7 +396,7 @@ namespace DNV.ApiClients.Veracity.Identity.ServicesApi
         /// <exception cref="Microsoft.Rest.SerializationException">
         /// Thrown when unable to deserialize the response
         /// </exception>
-        Task<HttpOperationResponse<UserCreationReference,ThisCreateUserHeaders>> CreateUserWithHttpMessagesAsync(UserRegistration body = default(UserRegistration), string xSupportCode = default(string), string ocpApimSubscriptionKey = default(string), Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        Task<HttpOperationResponse<object,ThisCreateUserHeaders>> CreateUserWithHttpMessagesAsync(UserRegistration body = default, string xSupportCode = default, string ocpApimSubscriptionKey = default, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default);
         /// <summary>
         /// This_CreateUsers
         /// </summary>
@@ -423,7 +423,7 @@ namespace DNV.ApiClients.Veracity.Identity.ServicesApi
         /// <exception cref="Microsoft.Rest.SerializationException">
         /// Thrown when unable to deserialize the response
         /// </exception>
-        Task<HttpOperationResponse<IList<UserCreationReference>,ThisCreateUsersHeaders>> CreateUsersWithHttpMessagesAsync(IList<UserRegistration> body = default(IList<UserRegistration>), string xSupportCode = default(string), string ocpApimSubscriptionKey = default(string), Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        Task<HttpOperationResponse<object,ThisCreateUsersHeaders>> CreateUsersWithHttpMessagesAsync(IList<UserRegistration> body = default, string xSupportCode = default, string ocpApimSubscriptionKey = default, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default);
         /// <summary>
         /// This_NotifyUsers
         /// </summary>
@@ -455,7 +455,7 @@ namespace DNV.ApiClients.Veracity.Identity.ServicesApi
         /// <exception cref="Microsoft.Rest.ValidationException">
         /// Thrown when a required parameter is null
         /// </exception>
-        Task<HttpOperationHeaderResponse<ThisNotifyUsersHeaders>> NotifyUsersWithHttpMessagesAsync(string serviceId, NotificationMessage body = default(NotificationMessage), string channelId = default(string), string xSupportCode = default(string), string ocpApimSubscriptionKey = default(string), Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        Task<HttpOperationHeaderResponse<ThisNotifyUsersHeaders>> NotifyUsersWithHttpMessagesAsync(string serviceId, NotificationMessage body = default, string channelId = default, string xSupportCode = default, string ocpApimSubscriptionKey = default, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default);
         /// <summary>
         /// This_VerifySubscriberPolicy
         /// </summary>
@@ -485,6 +485,6 @@ namespace DNV.ApiClients.Veracity.Identity.ServicesApi
         /// <exception cref="Microsoft.Rest.ValidationException">
         /// Thrown when a required parameter is null
         /// </exception>
-        Task<HttpOperationHeaderResponse<ThisVerifySubscriberPolicyHeaders>> VerifySubscriberPolicyWithHttpMessagesAsync(string serviceId, string userId, string returnUrl = default(string), string skipSubscriptionCheck = default(string), string xSupportCode = default(string), string ocpApimSubscriptionKey = default(string), Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        Task<HttpOperationHeaderResponse<ThisVerifySubscriberPolicyHeaders>> VerifySubscriberPolicyWithHttpMessagesAsync(string serviceId, string userId, string returnUrl = default, string skipSubscriptionCheck = default, string xSupportCode = default, string ocpApimSubscriptionKey = default, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default);
     }
 }

@@ -24,7 +24,7 @@ namespace DNV.ApiClients.Veracity.Identity.ServicesApi.Models
         /// </summary>
         /// <param name="type">Use 1 for Veracity notification center and 3 for
         /// email.</param>
-        public Message(int type, string name = default(string), string content = default(string), string id = default(string), string timeStamp = default(string), string channelId = default(string))
+        public Message(int type, string name = default, string content = default, string id = default, string timeStamp = default, string channelId = default)
         {
             Name = name;
             Content = content;

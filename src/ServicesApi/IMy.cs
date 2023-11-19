@@ -43,7 +43,7 @@ namespace DNV.ApiClients.Veracity.Identity.ServicesApi
         /// <exception cref="Microsoft.Rest.SerializationException">
         /// Thrown when unable to deserialize the response
         /// </exception>
-        Task<HttpOperationResponse<MyUserInfo,MyInfoHeaders>> InfoWithHttpMessagesAsync(string xSupportCode = default(string), string ocpApimSubscriptionKey = default(string), Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        Task<HttpOperationResponse<object,MyInfoHeaders>> InfoWithHttpMessagesAsync(string xSupportCode = default, string ocpApimSubscriptionKey = default, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default);
         /// <summary>
         /// My_ProfilePicture
         /// </summary>
@@ -69,7 +69,7 @@ namespace DNV.ApiClients.Veracity.Identity.ServicesApi
         /// <exception cref="Microsoft.Rest.SerializationException">
         /// Thrown when unable to deserialize the response
         /// </exception>
-        Task<HttpOperationResponse<ProfilePicture,MyProfilePictureHeaders>> ProfilePictureMethodWithHttpMessagesAsync(string xSupportCode = default(string), string ocpApimSubscriptionKey = default(string), Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        Task<HttpOperationResponse<object,MyProfilePictureHeaders>> ProfilePictureMethodWithHttpMessagesAsync(string xSupportCode = default, string ocpApimSubscriptionKey = default, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default);
         /// <summary>
         /// My_GetMessageCount
         /// </summary>
@@ -94,7 +94,7 @@ namespace DNV.ApiClients.Veracity.Identity.ServicesApi
         /// <exception cref="Microsoft.Rest.SerializationException">
         /// Thrown when unable to deserialize the response
         /// </exception>
-        Task<HttpOperationResponse<int?,MyGetMessageCountHeaders>> GetMessageCountWithHttpMessagesAsync(string xSupportCode = default(string), string ocpApimSubscriptionKey = default(string), Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        Task<HttpOperationResponse<object,MyGetMessageCountHeaders>> GetMessageCountWithHttpMessagesAsync(string xSupportCode = default, string ocpApimSubscriptionKey = default, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default);
         /// <summary>
         /// My_GetMessagesAsync
         /// </summary>
@@ -121,7 +121,7 @@ namespace DNV.ApiClients.Veracity.Identity.ServicesApi
         /// <exception cref="Microsoft.Rest.SerializationException">
         /// Thrown when unable to deserialize the response
         /// </exception>
-        Task<HttpOperationResponse<IList<MessageReference>,MyGetMessagesAsyncHeaders>> GetMessagesAsyncWithHttpMessagesAsync(bool all, string xSupportCode = default(string), string ocpApimSubscriptionKey = default(string), Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        Task<HttpOperationResponse<object,MyGetMessagesAsyncHeaders>> GetMessagesAsyncWithHttpMessagesAsync(bool all, string xSupportCode = default, string ocpApimSubscriptionKey = default, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default);
         /// <summary>
         /// My_MarkAllMessagesAsRead
         /// </summary>
@@ -143,7 +143,7 @@ namespace DNV.ApiClients.Veracity.Identity.ServicesApi
         /// <exception cref="Microsoft.Rest.HttpOperationException">
         /// Thrown when the operation returned an invalid status code
         /// </exception>
-        Task<HttpOperationHeaderResponse<MyMarkAllMessagesAsReadHeaders>> MarkAllMessagesAsReadWithHttpMessagesAsync(string xSupportCode = default(string), string ocpApimSubscriptionKey = default(string), Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        Task<HttpOperationHeaderResponse<MyMarkAllMessagesAsReadHeaders>> MarkAllMessagesAsReadWithHttpMessagesAsync(string xSupportCode = default, string ocpApimSubscriptionKey = default, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default);
         /// <summary>
         /// My_GetMyCompanies
         /// </summary>
@@ -168,7 +168,7 @@ namespace DNV.ApiClients.Veracity.Identity.ServicesApi
         /// <exception cref="Microsoft.Rest.SerializationException">
         /// Thrown when unable to deserialize the response
         /// </exception>
-        Task<HttpOperationResponse<IList<CompanyReference>,MyGetMyCompaniesHeaders>> GetMyCompaniesWithHttpMessagesAsync(string xSupportCode = default(string), string ocpApimSubscriptionKey = default(string), Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        Task<HttpOperationResponse<object,MyGetMyCompaniesHeaders>> GetMyCompaniesWithHttpMessagesAsync(string xSupportCode = default, string ocpApimSubscriptionKey = default, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default);
         /// <summary>
         /// My_ValidatePolicy
         /// </summary>
@@ -200,7 +200,7 @@ namespace DNV.ApiClients.Veracity.Identity.ServicesApi
         /// <exception cref="Microsoft.Rest.ValidationException">
         /// Thrown when a required parameter is null
         /// </exception>
-        Task<HttpOperationHeaderResponse<MyValidatePolicyHeaders>> ValidatePolicyWithHttpMessagesAsync(string serviceId, string returnUrl = default(string), string skipSubscriptionCheck = default(string), string xSupportCode = default(string), string ocpApimSubscriptionKey = default(string), Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        Task<HttpOperationHeaderResponse<MyValidatePolicyHeaders>> ValidatePolicyWithHttpMessagesAsync(string serviceId, string returnUrl = default, string skipSubscriptionCheck = default, string xSupportCode = default, string ocpApimSubscriptionKey = default, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default);
         /// <summary>
         /// My_ValidatePolicies
         /// </summary>
@@ -225,7 +225,7 @@ namespace DNV.ApiClients.Veracity.Identity.ServicesApi
         /// <exception cref="Microsoft.Rest.HttpOperationException">
         /// Thrown when the operation returned an invalid status code
         /// </exception>
-        Task<HttpOperationHeaderResponse<MyValidatePoliciesHeaders>> ValidatePoliciesWithHttpMessagesAsync(string returnUrl = default(string), string xSupportCode = default(string), string ocpApimSubscriptionKey = default(string), Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        Task<HttpOperationHeaderResponse<MyValidatePoliciesHeaders>> ValidatePoliciesWithHttpMessagesAsync(string returnUrl = default, string xSupportCode = default, string ocpApimSubscriptionKey = default, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default);
         /// <summary>
         /// My_MyServices
         /// </summary>
@@ -250,7 +250,7 @@ namespace DNV.ApiClients.Veracity.Identity.ServicesApi
         /// <exception cref="Microsoft.Rest.SerializationException">
         /// Thrown when unable to deserialize the response
         /// </exception>
-        Task<HttpOperationResponse<IList<MyServiceReference>,MyMyServicesHeaders>> MyServicesWithHttpMessagesAsync(string xSupportCode = default(string), string ocpApimSubscriptionKey = default(string), Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        Task<HttpOperationResponse<object,MyMyServicesHeaders>> MyServicesWithHttpMessagesAsync(string xSupportCode = default, string ocpApimSubscriptionKey = default, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default);
         /// <summary>
         /// My_GetMyWidgets
         /// </summary>
@@ -276,6 +276,6 @@ namespace DNV.ApiClients.Veracity.Identity.ServicesApi
         /// <exception cref="Microsoft.Rest.SerializationException">
         /// Thrown when unable to deserialize the response
         /// </exception>
-        Task<HttpOperationResponse<IList<Widget>,MyGetMyWidgetsHeaders>> GetMyWidgetsWithHttpMessagesAsync(string xSupportCode = default(string), string ocpApimSubscriptionKey = default(string), Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        Task<HttpOperationResponse<object,MyGetMyWidgetsHeaders>> GetMyWidgetsWithHttpMessagesAsync(string xSupportCode = default, string ocpApimSubscriptionKey = default, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default);
     }
 }

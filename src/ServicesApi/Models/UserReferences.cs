@@ -24,7 +24,7 @@ namespace DNV.ApiClients.Veracity.Identity.ServicesApi.Models
         /// <summary>
         /// Initializes a new instance of the UserReferences class.
         /// </summary>
-        public UserReferences(IList<CompanyReference> userCompanies = default(IList<CompanyReference>), IList<string> adminForCompanies = default(IList<string>), IList<ServiceReference> services = default(IList<ServiceReference>), IList<SubscriptionDetails> subscriptions = default(IList<SubscriptionDetails>))
+        public UserReferences(IList<CompanyReference> userCompanies = default, IList<string> adminForCompanies = default, IList<ServiceReference> services = default, IList<SubscriptionDetails> subscriptions = default)
         {
             UserCompanies = userCompanies;
             AdminForCompanies = adminForCompanies;

@@ -29,7 +29,7 @@ namespace DNV.ApiClients.Veracity.Identity.ServicesApi.Models
         /// </summary>
         /// <param name="xSupportCode">correlation token for log
         /// lookup.</param>
-        public DataContainerServiceDeleteDataContainerHeaders(string xSupportCode = default(string))
+        public DataContainerServiceDeleteDataContainerHeaders(string xSupportCode = default)
         {
             XSupportCode = xSupportCode;
             CustomInit();

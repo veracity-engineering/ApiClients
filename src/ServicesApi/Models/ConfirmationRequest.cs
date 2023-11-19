@@ -22,7 +22,7 @@ namespace DNV.ApiClients.Veracity.Identity.ServicesApi.Models
         /// <summary>
         /// Initializes a new instance of the ConfirmationRequest class.
         /// </summary>
-        public ConfirmationRequest(string activationCode = default(string), string address = default(string))
+        public ConfirmationRequest(string activationCode = default, string address = default)
         {
             ActivationCode = activationCode;
             Address = address;

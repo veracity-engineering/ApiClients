@@ -47,7 +47,7 @@ namespace DNV.ApiClients.Veracity.Identity.ServicesApi
         /// <exception cref="Microsoft.Rest.ValidationException">
         /// Thrown when a required parameter is null
         /// </exception>
-        Task<HttpOperationResponse<CompanyInfo,CompaniesDirectoryCompanyByIdHeaders>> CompanyByIdWithHttpMessagesAsync(string id, string xSupportCode = default(string), string ocpApimSubscriptionKey = default(string), Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        Task<HttpOperationResponse<object,CompaniesDirectoryCompanyByIdHeaders>> CompanyByIdWithHttpMessagesAsync(string id, string xSupportCode = default, string ocpApimSubscriptionKey = default, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default);
         /// <summary>
         /// CompaniesDirectory_GetUsersByCompany
         /// </summary>
@@ -84,6 +84,6 @@ namespace DNV.ApiClients.Veracity.Identity.ServicesApi
         /// <exception cref="Microsoft.Rest.ValidationException">
         /// Thrown when a required parameter is null
         /// </exception>
-        Task<HttpOperationResponse<IList<UserReference>,CompaniesDirectoryGetUsersByCompanyHeaders>> GetUsersByCompanyWithHttpMessagesAsync(string id, int page, int pageSize, string xSupportCode = default(string), string ocpApimSubscriptionKey = default(string), Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        Task<HttpOperationResponse<object,CompaniesDirectoryGetUsersByCompanyHeaders>> GetUsersByCompanyWithHttpMessagesAsync(string id, int page, int pageSize, string xSupportCode = default, string ocpApimSubscriptionKey = default, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default);
     }
 }

@@ -27,7 +27,7 @@ namespace DNV.ApiClients.Veracity.Identity.ServicesApi.Models
         /// </summary>
         /// <param name="identity">The relative path to the resource
         /// details</param>
-        public UserReference(bool activated, string identity = default(string), string email = default(string), string name = default(string), string id = default(string))
+        public UserReference(bool activated, string identity = default, string email = default, string name = default, string id = default)
         {
             Identity = identity;
             Email = email;

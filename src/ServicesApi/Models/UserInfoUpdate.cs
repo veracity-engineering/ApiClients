@@ -26,7 +26,7 @@ namespace DNV.ApiClients.Veracity.Identity.ServicesApi.Models
         /// <param name="lastName">The lastname</param>
         /// <param name="displayName">Optional, if left empty lastName,
         /// firstName is used</param>
-        public UserInfoUpdate(string firstName = default(string), string lastName = default(string), string displayName = default(string), string countryCode = default(string))
+        public UserInfoUpdate(string firstName = default, string lastName = default, string displayName = default, string countryCode = default)
         {
             FirstName = firstName;
             LastName = lastName;

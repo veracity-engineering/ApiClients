@@ -32,7 +32,7 @@ namespace DNV.ApiClients.Veracity.Identity.ServicesApi
             /// <param name='ocpApimSubscriptionKey'>
             /// Veracity api management subscription key
             /// </param>
-            public static HealthStatus GetServiceHealthStatus(this IStatusService operations, string xSupportCode = default(string), string ocpApimSubscriptionKey = default(string))
+            public static object GetServiceHealthStatus(this IStatusService operations, string xSupportCode = default, string ocpApimSubscriptionKey = default)
             {
                 return operations.GetServiceHealthStatusAsync(xSupportCode, ocpApimSubscriptionKey).GetAwaiter().GetResult();
             }
@@ -57,7 +57,7 @@ namespace DNV.ApiClients.Veracity.Identity.ServicesApi
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task<HealthStatus> GetServiceHealthStatusAsync(this IStatusService operations, string xSupportCode = default(string), string ocpApimSubscriptionKey = default(string), CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<object> GetServiceHealthStatusAsync(this IStatusService operations, string xSupportCode = default, string ocpApimSubscriptionKey = default, CancellationToken cancellationToken = default)
             {
                 using (var _result = await operations.GetServiceHealthStatusWithHttpMessagesAsync(xSupportCode, ocpApimSubscriptionKey, null, cancellationToken).ConfigureAwait(false))
                 {

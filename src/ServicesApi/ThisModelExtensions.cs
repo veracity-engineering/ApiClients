@@ -39,7 +39,7 @@ namespace DNV.ApiClients.Veracity.Identity.ServicesApi
             /// <param name='ocpApimSubscriptionKey'>
             /// Veracity api management subscription key
             /// </param>
-            public static IList<ServiceReference> GetServices(this IThisModel operations, int page, int pageSize, string xSupportCode = default(string), string ocpApimSubscriptionKey = default(string))
+            public static object GetServices(this IThisModel operations, int page, int pageSize, string xSupportCode = default, string ocpApimSubscriptionKey = default)
             {
                 return operations.GetServicesAsync(page, pageSize, xSupportCode, ocpApimSubscriptionKey).GetAwaiter().GetResult();
             }
@@ -69,7 +69,7 @@ namespace DNV.ApiClients.Veracity.Identity.ServicesApi
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task<IList<ServiceReference>> GetServicesAsync(this IThisModel operations, int page, int pageSize, string xSupportCode = default(string), string ocpApimSubscriptionKey = default(string), CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<object> GetServicesAsync(this IThisModel operations, int page, int pageSize, string xSupportCode = default, string ocpApimSubscriptionKey = default, CancellationToken cancellationToken = default)
             {
                 using (var _result = await operations.GetServicesWithHttpMessagesAsync(page, pageSize, xSupportCode, ocpApimSubscriptionKey, null, cancellationToken).ConfigureAwait(false))
                 {
@@ -100,7 +100,7 @@ namespace DNV.ApiClients.Veracity.Identity.ServicesApi
             /// <param name='ocpApimSubscriptionKey'>
             /// Veracity api management subscription key
             /// </param>
-            public static object GetUsers(this IThisModel operations, int page, int pageSize, string xSupportCode = default(string), string ocpApimSubscriptionKey = default(string))
+            public static object GetUsers(this IThisModel operations, int page, int pageSize, string xSupportCode = default, string ocpApimSubscriptionKey = default)
             {
                 return operations.GetUsersAsync(page, pageSize, xSupportCode, ocpApimSubscriptionKey).GetAwaiter().GetResult();
             }
@@ -131,7 +131,7 @@ namespace DNV.ApiClients.Veracity.Identity.ServicesApi
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task<object> GetUsersAsync(this IThisModel operations, int page, int pageSize, string xSupportCode = default(string), string ocpApimSubscriptionKey = default(string), CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<object> GetUsersAsync(this IThisModel operations, int page, int pageSize, string xSupportCode = default, string ocpApimSubscriptionKey = default, CancellationToken cancellationToken = default)
             {
                 using (var _result = await operations.GetUsersWithHttpMessagesAsync(page, pageSize, xSupportCode, ocpApimSubscriptionKey, null, cancellationToken).ConfigureAwait(false))
                 {
@@ -158,7 +158,7 @@ namespace DNV.ApiClients.Veracity.Identity.ServicesApi
             /// <param name='ocpApimSubscriptionKey'>
             /// Veracity api management subscription key
             /// </param>
-            public static object GetServiceUser(this IThisModel operations, string userId, string xSupportCode = default(string), string ocpApimSubscriptionKey = default(string))
+            public static object GetServiceUser(this IThisModel operations, string userId, string xSupportCode = default, string ocpApimSubscriptionKey = default)
             {
                 return operations.GetServiceUserAsync(userId, xSupportCode, ocpApimSubscriptionKey).GetAwaiter().GetResult();
             }
@@ -185,7 +185,7 @@ namespace DNV.ApiClients.Veracity.Identity.ServicesApi
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task<object> GetServiceUserAsync(this IThisModel operations, string userId, string xSupportCode = default(string), string ocpApimSubscriptionKey = default(string), CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<object> GetServiceUserAsync(this IThisModel operations, string userId, string xSupportCode = default, string ocpApimSubscriptionKey = default, CancellationToken cancellationToken = default)
             {
                 using (var _result = await operations.GetServiceUserWithHttpMessagesAsync(userId, xSupportCode, ocpApimSubscriptionKey, null, cancellationToken).ConfigureAwait(false))
                 {
@@ -213,7 +213,7 @@ namespace DNV.ApiClients.Veracity.Identity.ServicesApi
             /// <param name='ocpApimSubscriptionKey'>
             /// Veracity api management subscription key
             /// </param>
-            public static ThisAddUserAsyncHeaders AddUserAsync(this IThisModel operations, string userId, SubscriptionOptions body = default(SubscriptionOptions), string xSupportCode = default(string), string ocpApimSubscriptionKey = default(string))
+            public static ThisAddUserAsyncHeaders AddUserAsync(this IThisModel operations, string userId, SubscriptionOptions body = default, string xSupportCode = default, string ocpApimSubscriptionKey = default)
             {
                 return operations.AddUserAsyncAsync(userId, body, xSupportCode, ocpApimSubscriptionKey).GetAwaiter().GetResult();
             }
@@ -241,7 +241,7 @@ namespace DNV.ApiClients.Veracity.Identity.ServicesApi
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task<ThisAddUserAsyncHeaders> AddUserAsyncAsync(this IThisModel operations, string userId, SubscriptionOptions body = default(SubscriptionOptions), string xSupportCode = default(string), string ocpApimSubscriptionKey = default(string), CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<ThisAddUserAsyncHeaders> AddUserAsyncAsync(this IThisModel operations, string userId, SubscriptionOptions body = default, string xSupportCode = default, string ocpApimSubscriptionKey = default, CancellationToken cancellationToken = default)
             {
                 using (var _result = await operations.AddUserAsyncWithHttpMessagesAsync(userId, body, xSupportCode, ocpApimSubscriptionKey, null, cancellationToken).ConfigureAwait(false))
                 {
@@ -266,7 +266,7 @@ namespace DNV.ApiClients.Veracity.Identity.ServicesApi
             /// <param name='ocpApimSubscriptionKey'>
             /// Veracity api management subscription key
             /// </param>
-            public static ThisRemoveUserHeaders RemoveUser(this IThisModel operations, string userId, string xSupportCode = default(string), string ocpApimSubscriptionKey = default(string))
+            public static ThisRemoveUserHeaders RemoveUser(this IThisModel operations, string userId, string xSupportCode = default, string ocpApimSubscriptionKey = default)
             {
                 return operations.RemoveUserAsync(userId, xSupportCode, ocpApimSubscriptionKey).GetAwaiter().GetResult();
             }
@@ -291,7 +291,7 @@ namespace DNV.ApiClients.Veracity.Identity.ServicesApi
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task<ThisRemoveUserHeaders> RemoveUserAsync(this IThisModel operations, string userId, string xSupportCode = default(string), string ocpApimSubscriptionKey = default(string), CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<ThisRemoveUserHeaders> RemoveUserAsync(this IThisModel operations, string userId, string xSupportCode = default, string ocpApimSubscriptionKey = default, CancellationToken cancellationToken = default)
             {
                 using (var _result = await operations.RemoveUserWithHttpMessagesAsync(userId, xSupportCode, ocpApimSubscriptionKey, null, cancellationToken).ConfigureAwait(false))
                 {
@@ -319,7 +319,7 @@ namespace DNV.ApiClients.Veracity.Identity.ServicesApi
             /// <param name='ocpApimSubscriptionKey'>
             /// Veracity api management subscription key
             /// </param>
-            public static SubscriptionReference GetUserForService(this IThisModel operations, string serviceId, string userId, string xSupportCode = default(string), string ocpApimSubscriptionKey = default(string))
+            public static object GetUserForService(this IThisModel operations, string serviceId, string userId, string xSupportCode = default, string ocpApimSubscriptionKey = default)
             {
                 return operations.GetUserForServiceAsync(serviceId, userId, xSupportCode, ocpApimSubscriptionKey).GetAwaiter().GetResult();
             }
@@ -347,7 +347,7 @@ namespace DNV.ApiClients.Veracity.Identity.ServicesApi
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task<SubscriptionReference> GetUserForServiceAsync(this IThisModel operations, string serviceId, string userId, string xSupportCode = default(string), string ocpApimSubscriptionKey = default(string), CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<object> GetUserForServiceAsync(this IThisModel operations, string serviceId, string userId, string xSupportCode = default, string ocpApimSubscriptionKey = default, CancellationToken cancellationToken = default)
             {
                 using (var _result = await operations.GetUserForServiceWithHttpMessagesAsync(serviceId, userId, xSupportCode, ocpApimSubscriptionKey, null, cancellationToken).ConfigureAwait(false))
                 {
@@ -377,7 +377,7 @@ namespace DNV.ApiClients.Veracity.Identity.ServicesApi
             /// <param name='ocpApimSubscriptionKey'>
             /// Veracity api management subscription key
             /// </param>
-            public static ThisAddServiceUserHeaders AddServiceUser(this IThisModel operations, string userId, string serviceId, SubscriptionOptions body = default(SubscriptionOptions), string xSupportCode = default(string), string ocpApimSubscriptionKey = default(string))
+            public static ThisAddServiceUserHeaders AddServiceUser(this IThisModel operations, string userId, string serviceId, SubscriptionOptions body = default, string xSupportCode = default, string ocpApimSubscriptionKey = default)
             {
                 return operations.AddServiceUserAsync(userId, serviceId, body, xSupportCode, ocpApimSubscriptionKey).GetAwaiter().GetResult();
             }
@@ -407,7 +407,7 @@ namespace DNV.ApiClients.Veracity.Identity.ServicesApi
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task<ThisAddServiceUserHeaders> AddServiceUserAsync(this IThisModel operations, string userId, string serviceId, SubscriptionOptions body = default(SubscriptionOptions), string xSupportCode = default(string), string ocpApimSubscriptionKey = default(string), CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<ThisAddServiceUserHeaders> AddServiceUserAsync(this IThisModel operations, string userId, string serviceId, SubscriptionOptions body = default, string xSupportCode = default, string ocpApimSubscriptionKey = default, CancellationToken cancellationToken = default)
             {
                 using (var _result = await operations.AddServiceUserWithHttpMessagesAsync(userId, serviceId, body, xSupportCode, ocpApimSubscriptionKey, null, cancellationToken).ConfigureAwait(false))
                 {
@@ -437,7 +437,7 @@ namespace DNV.ApiClients.Veracity.Identity.ServicesApi
             /// <param name='ocpApimSubscriptionKey'>
             /// Veracity api management subscription key
             /// </param>
-            public static ThisRemoveServiceUserHeaders RemoveServiceUser(this IThisModel operations, string userId, string serviceId, string suppressNotification = default(string), string xSupportCode = default(string), string ocpApimSubscriptionKey = default(string))
+            public static ThisRemoveServiceUserHeaders RemoveServiceUser(this IThisModel operations, string userId, string serviceId, string suppressNotification = default, string xSupportCode = default, string ocpApimSubscriptionKey = default)
             {
                 return operations.RemoveServiceUserAsync(userId, serviceId, suppressNotification, xSupportCode, ocpApimSubscriptionKey).GetAwaiter().GetResult();
             }
@@ -467,7 +467,7 @@ namespace DNV.ApiClients.Veracity.Identity.ServicesApi
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task<ThisRemoveServiceUserHeaders> RemoveServiceUserAsync(this IThisModel operations, string userId, string serviceId, string suppressNotification = default(string), string xSupportCode = default(string), string ocpApimSubscriptionKey = default(string), CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<ThisRemoveServiceUserHeaders> RemoveServiceUserAsync(this IThisModel operations, string userId, string serviceId, string suppressNotification = default, string xSupportCode = default, string ocpApimSubscriptionKey = default, CancellationToken cancellationToken = default)
             {
                 using (var _result = await operations.RemoveServiceUserWithHttpMessagesAsync(userId, serviceId, suppressNotification, xSupportCode, ocpApimSubscriptionKey, null, cancellationToken).ConfigureAwait(false))
                 {
@@ -495,7 +495,7 @@ namespace DNV.ApiClients.Veracity.Identity.ServicesApi
             /// <param name='ocpApimSubscriptionKey'>
             /// Veracity api management subscription key
             /// </param>
-            public static ProfilePicture GetUserProfilePicture(this IThisModel operations, string serviceId, string userId, string xSupportCode = default(string), string ocpApimSubscriptionKey = default(string))
+            public static object GetUserProfilePicture(this IThisModel operations, string serviceId, string userId, string xSupportCode = default, string ocpApimSubscriptionKey = default)
             {
                 return operations.GetUserProfilePictureAsync(serviceId, userId, xSupportCode, ocpApimSubscriptionKey).GetAwaiter().GetResult();
             }
@@ -523,7 +523,7 @@ namespace DNV.ApiClients.Veracity.Identity.ServicesApi
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task<ProfilePicture> GetUserProfilePictureAsync(this IThisModel operations, string serviceId, string userId, string xSupportCode = default(string), string ocpApimSubscriptionKey = default(string), CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<object> GetUserProfilePictureAsync(this IThisModel operations, string serviceId, string userId, string xSupportCode = default, string ocpApimSubscriptionKey = default, CancellationToken cancellationToken = default)
             {
                 using (var _result = await operations.GetUserProfilePictureWithHttpMessagesAsync(serviceId, userId, xSupportCode, ocpApimSubscriptionKey, null, cancellationToken).ConfigureAwait(false))
                 {
@@ -555,7 +555,7 @@ namespace DNV.ApiClients.Veracity.Identity.ServicesApi
             /// <param name='ocpApimSubscriptionKey'>
             /// Veracity api management subscription key
             /// </param>
-            public static IList<UserReference> GetUsersForService(this IThisModel operations, string serviceId, int page, int pageSize, string xSupportCode = default(string), string ocpApimSubscriptionKey = default(string))
+            public static object GetUsersForService(this IThisModel operations, string serviceId, int page, int pageSize, string xSupportCode = default, string ocpApimSubscriptionKey = default)
             {
                 return operations.GetUsersForServiceAsync(serviceId, page, pageSize, xSupportCode, ocpApimSubscriptionKey).GetAwaiter().GetResult();
             }
@@ -587,7 +587,7 @@ namespace DNV.ApiClients.Veracity.Identity.ServicesApi
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task<IList<UserReference>> GetUsersForServiceAsync(this IThisModel operations, string serviceId, int page, int pageSize, string xSupportCode = default(string), string ocpApimSubscriptionKey = default(string), CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<object> GetUsersForServiceAsync(this IThisModel operations, string serviceId, int page, int pageSize, string xSupportCode = default, string ocpApimSubscriptionKey = default, CancellationToken cancellationToken = default)
             {
                 using (var _result = await operations.GetUsersForServiceWithHttpMessagesAsync(serviceId, page, pageSize, xSupportCode, ocpApimSubscriptionKey, null, cancellationToken).ConfigureAwait(false))
                 {
@@ -613,7 +613,7 @@ namespace DNV.ApiClients.Veracity.Identity.ServicesApi
             /// <param name='ocpApimSubscriptionKey'>
             /// Veracity api management subscription key
             /// </param>
-            public static IList<UserReference> ResolveUser(this IThisModel operations, string email, string xSupportCode = default(string), string ocpApimSubscriptionKey = default(string))
+            public static object ResolveUser(this IThisModel operations, string email, string xSupportCode = default, string ocpApimSubscriptionKey = default)
             {
                 return operations.ResolveUserAsync(email, xSupportCode, ocpApimSubscriptionKey).GetAwaiter().GetResult();
             }
@@ -639,7 +639,7 @@ namespace DNV.ApiClients.Veracity.Identity.ServicesApi
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task<IList<UserReference>> ResolveUserAsync(this IThisModel operations, string email, string xSupportCode = default(string), string ocpApimSubscriptionKey = default(string), CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<object> ResolveUserAsync(this IThisModel operations, string email, string xSupportCode = default, string ocpApimSubscriptionKey = default, CancellationToken cancellationToken = default)
             {
                 using (var _result = await operations.ResolveUserWithHttpMessagesAsync(email, xSupportCode, ocpApimSubscriptionKey, null, cancellationToken).ConfigureAwait(false))
                 {
@@ -664,7 +664,7 @@ namespace DNV.ApiClients.Veracity.Identity.ServicesApi
             /// <param name='ocpApimSubscriptionKey'>
             /// Veracity api management subscription key
             /// </param>
-            public static UserCreationReference CreateUser(this IThisModel operations, UserRegistration body = default(UserRegistration), string xSupportCode = default(string), string ocpApimSubscriptionKey = default(string))
+            public static object CreateUser(this IThisModel operations, UserRegistration body = default, string xSupportCode = default, string ocpApimSubscriptionKey = default)
             {
                 return operations.CreateUserAsync(body, xSupportCode, ocpApimSubscriptionKey).GetAwaiter().GetResult();
             }
@@ -689,7 +689,7 @@ namespace DNV.ApiClients.Veracity.Identity.ServicesApi
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task<UserCreationReference> CreateUserAsync(this IThisModel operations, UserRegistration body = default(UserRegistration), string xSupportCode = default(string), string ocpApimSubscriptionKey = default(string), CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<object> CreateUserAsync(this IThisModel operations, UserRegistration body = default, string xSupportCode = default, string ocpApimSubscriptionKey = default, CancellationToken cancellationToken = default)
             {
                 using (var _result = await operations.CreateUserWithHttpMessagesAsync(body, xSupportCode, ocpApimSubscriptionKey, null, cancellationToken).ConfigureAwait(false))
                 {
@@ -714,7 +714,7 @@ namespace DNV.ApiClients.Veracity.Identity.ServicesApi
             /// <param name='ocpApimSubscriptionKey'>
             /// Veracity api management subscription key
             /// </param>
-            public static IList<UserCreationReference> CreateUsers(this IThisModel operations, IList<UserRegistration> body = default(IList<UserRegistration>), string xSupportCode = default(string), string ocpApimSubscriptionKey = default(string))
+            public static object CreateUsers(this IThisModel operations, IList<UserRegistration> body = default, string xSupportCode = default, string ocpApimSubscriptionKey = default)
             {
                 return operations.CreateUsersAsync(body, xSupportCode, ocpApimSubscriptionKey).GetAwaiter().GetResult();
             }
@@ -739,7 +739,7 @@ namespace DNV.ApiClients.Veracity.Identity.ServicesApi
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task<IList<UserCreationReference>> CreateUsersAsync(this IThisModel operations, IList<UserRegistration> body = default(IList<UserRegistration>), string xSupportCode = default(string), string ocpApimSubscriptionKey = default(string), CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<object> CreateUsersAsync(this IThisModel operations, IList<UserRegistration> body = default, string xSupportCode = default, string ocpApimSubscriptionKey = default, CancellationToken cancellationToken = default)
             {
                 using (var _result = await operations.CreateUsersWithHttpMessagesAsync(body, xSupportCode, ocpApimSubscriptionKey, null, cancellationToken).ConfigureAwait(false))
                 {
@@ -768,7 +768,7 @@ namespace DNV.ApiClients.Veracity.Identity.ServicesApi
             /// <param name='ocpApimSubscriptionKey'>
             /// Veracity api management subscription key
             /// </param>
-            public static ThisNotifyUsersHeaders NotifyUsers(this IThisModel operations, string serviceId, NotificationMessage body = default(NotificationMessage), string channelId = default(string), string xSupportCode = default(string), string ocpApimSubscriptionKey = default(string))
+            public static ThisNotifyUsersHeaders NotifyUsers(this IThisModel operations, string serviceId, NotificationMessage body = default, string channelId = default, string xSupportCode = default, string ocpApimSubscriptionKey = default)
             {
                 return operations.NotifyUsersAsync(serviceId, body, channelId, xSupportCode, ocpApimSubscriptionKey).GetAwaiter().GetResult();
             }
@@ -797,7 +797,7 @@ namespace DNV.ApiClients.Veracity.Identity.ServicesApi
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task<ThisNotifyUsersHeaders> NotifyUsersAsync(this IThisModel operations, string serviceId, NotificationMessage body = default(NotificationMessage), string channelId = default(string), string xSupportCode = default(string), string ocpApimSubscriptionKey = default(string), CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<ThisNotifyUsersHeaders> NotifyUsersAsync(this IThisModel operations, string serviceId, NotificationMessage body = default, string channelId = default, string xSupportCode = default, string ocpApimSubscriptionKey = default, CancellationToken cancellationToken = default)
             {
                 using (var _result = await operations.NotifyUsersWithHttpMessagesAsync(serviceId, body, channelId, xSupportCode, ocpApimSubscriptionKey, null, cancellationToken).ConfigureAwait(false))
                 {
@@ -825,7 +825,7 @@ namespace DNV.ApiClients.Veracity.Identity.ServicesApi
             /// <param name='ocpApimSubscriptionKey'>
             /// Veracity api management subscription key
             /// </param>
-            public static ThisVerifySubscriberPolicyHeaders VerifySubscriberPolicy(this IThisModel operations, string serviceId, string userId, string returnUrl = default(string), string skipSubscriptionCheck = default(string), string xSupportCode = default(string), string ocpApimSubscriptionKey = default(string))
+            public static ThisVerifySubscriberPolicyHeaders VerifySubscriberPolicy(this IThisModel operations, string serviceId, string userId, string returnUrl = default, string skipSubscriptionCheck = default, string xSupportCode = default, string ocpApimSubscriptionKey = default)
             {
                 return operations.VerifySubscriberPolicyAsync(serviceId, userId, returnUrl, skipSubscriptionCheck, xSupportCode, ocpApimSubscriptionKey).GetAwaiter().GetResult();
             }
@@ -853,7 +853,7 @@ namespace DNV.ApiClients.Veracity.Identity.ServicesApi
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task<ThisVerifySubscriberPolicyHeaders> VerifySubscriberPolicyAsync(this IThisModel operations, string serviceId, string userId, string returnUrl = default(string), string skipSubscriptionCheck = default(string), string xSupportCode = default(string), string ocpApimSubscriptionKey = default(string), CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<ThisVerifySubscriberPolicyHeaders> VerifySubscriberPolicyAsync(this IThisModel operations, string serviceId, string userId, string returnUrl = default, string skipSubscriptionCheck = default, string xSupportCode = default, string ocpApimSubscriptionKey = default, CancellationToken cancellationToken = default)
             {
                 using (var _result = await operations.VerifySubscriberPolicyWithHttpMessagesAsync(serviceId, userId, returnUrl, skipSubscriptionCheck, xSupportCode, ocpApimSubscriptionKey, null, cancellationToken).ConfigureAwait(false))
                 {

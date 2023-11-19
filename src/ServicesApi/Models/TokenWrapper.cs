@@ -30,7 +30,7 @@ namespace DNV.ApiClients.Veracity.Identity.ServicesApi.Models
         /// 'me/pending/activation' and 'me/activate'</param>
         /// <param name="issuedBy">A unique string representing the issuer of
         /// the token</param>
-        public TokenWrapper(long expiry, long issued, string authToken = default(string), string issuedBy = default(string))
+        public TokenWrapper(long expiry, long issued, string authToken = default, string issuedBy = default)
         {
             Expiry = expiry;
             Issued = issued;

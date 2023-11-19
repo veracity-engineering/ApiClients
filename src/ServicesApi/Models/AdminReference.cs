@@ -27,7 +27,7 @@ namespace DNV.ApiClients.Veracity.Identity.ServicesApi.Models
         /// </summary>
         /// <param name="identity">The relative path to the resource
         /// details</param>
-        public AdminReference(bool activated, string accessLevelUrl = default(string), string serviceId = default(string), string identity = default(string), string email = default(string), string name = default(string), string id = default(string))
+        public AdminReference(bool activated, string accessLevelUrl = default, string serviceId = default, string identity = default, string email = default, string name = default, string id = default)
         {
             AccessLevelUrl = accessLevelUrl;
             ServiceId = serviceId;

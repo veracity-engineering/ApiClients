@@ -22,7 +22,7 @@ namespace DNV.ApiClients.Veracity.Identity.ServicesApi.Models
         /// <summary>
         /// Initializes a new instance of the ServiceInfo class.
         /// </summary>
-        public ServiceInfo(bool publicProperty, bool inherited, bool selfSubscribe, string name = default(string), string shortDescription = default(string), string description = default(string), string apiAudience = default(string), string category = default(string), string id = default(string), string serviceOwner = default(string), string termsOfUse = default(string), System.DateTime? lastUpdated = default(System.DateTime?), string parentUrl = default(string), string parentId = default(string), string childrenUrl = default(string), string servicerUrl = default(string))
+        public ServiceInfo(bool publicProperty, bool inherited, bool selfSubscribe, string name = default, string shortDescription = default, string description = default, string apiAudience = default, string category = default, string id = default, string serviceOwner = default, string termsOfUse = default, System.DateTime? lastUpdated = default, string parentUrl = default, string parentId = default, string childrenUrl = default, string servicerUrl = default)
         {
             Name = name;
             ShortDescription = shortDescription;
