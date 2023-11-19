@@ -24,7 +24,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi.Models
         /// </summary>
         /// <param name="operationType">Possible values include: 'Add',
         /// 'Remove', 'Replace', 'Move', 'Copy', 'Test', 'Invalid'</param>
-        public Operation(string operationType = default, string path = default, string op = default, string fromProperty = default, object value = default)
+        public Operation(Schemas71? operationType = default, string path = default, string op = default, string fromProperty = default, object value = default)
         {
             OperationType = operationType;
             Path = path;
@@ -44,7 +44,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi.Models
         /// 'Move', 'Copy', 'Test', 'Invalid'
         /// </summary>
         [JsonProperty(PropertyName = "operationType")]
-        public string OperationType { get; set; }
+        public Schemas71? OperationType { get; set; }
 
         /// <summary>
         /// </summary>

@@ -26,7 +26,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi.Models
         /// </summary>
         /// <param name="severity">Possible values include: 'Error', 'Warning',
         /// 'Correction'</param>
-        public ColumnValidatorColumnReadDTO(int? schemaColumnId = default, int? columnValidatorId = default, string validatorName = default, string severity = default)
+        public ColumnValidatorColumnReadDTO(int? schemaColumnId = default, int? columnValidatorId = default, string validatorName = default, Schemas157? severity = default)
         {
             SchemaColumnId = schemaColumnId;
             ColumnValidatorId = columnValidatorId;
@@ -60,7 +60,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi.Models
         /// 'Correction'
         /// </summary>
         [JsonProperty(PropertyName = "severity")]
-        public string Severity { get; set; }
+        public Schemas157? Severity { get; set; }
 
     }
 }

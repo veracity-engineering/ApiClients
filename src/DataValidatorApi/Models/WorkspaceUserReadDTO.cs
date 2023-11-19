@@ -24,7 +24,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi.Models
         /// </summary>
         /// <param name="role">Possible values include: 'Admin', 'Contributor',
         /// 'Reader'</param>
-        public WorkspaceUserReadDTO(System.Guid? workspaceId = default, System.Guid? userId = default, string name = default, string email = default, string role = default)
+        public WorkspaceUserReadDTO(System.Guid? workspaceId = default, System.Guid? userId = default, string name = default, string email = default, Schemas72? role = default)
         {
             WorkspaceId = workspaceId;
             UserId = userId;
@@ -64,7 +64,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi.Models
         /// 'Reader'
         /// </summary>
         [JsonProperty(PropertyName = "role")]
-        public string Role { get; set; }
+        public Schemas72? Role { get; set; }
 
     }
 }
