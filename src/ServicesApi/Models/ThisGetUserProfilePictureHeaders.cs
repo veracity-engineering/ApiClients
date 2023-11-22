@@ -29,7 +29,7 @@ namespace DNV.ApiClients.Veracity.Identity.ServicesApi.Models
         /// </summary>
         /// <param name="xSupportCode">correlation token for log
         /// lookup.</param>
-        public ThisGetUserProfilePictureHeaders(string xSupportCode = default(string))
+        public ThisGetUserProfilePictureHeaders(string xSupportCode = default)
         {
             XSupportCode = xSupportCode;
             CustomInit();

@@ -45,7 +45,7 @@ namespace DNV.ApiClients.Veracity.Identity.ServicesApi.Models
         /// emailLink. Possible values include: 'emailLink', 'otp'</param>
         /// <param name="userCreationOptions">Possible values include: 'all',
         /// 'onlyInvited', 'onlyNew'</param>
-        public RegistrationOptions(bool? sendMail = default(bool?), bool? createSubscription = default(bool?), string serviceId = default(string), string role = default(string), IList<SubscriptionRequest> subscriptions = default(IList<SubscriptionRequest>), string returnUrl = default(string), string contactEmail = default(string), string contactName = default(string), ActivationTypes? activationType = default(ActivationTypes?), UserCreationOptionTypes? userCreationOptions = default(UserCreationOptionTypes?), string inviteMessage = default(string))
+        public RegistrationOptions(bool? sendMail = default, bool? createSubscription = default, string serviceId = default, string role = default, IList<SubscriptionRequest> subscriptions = default, string returnUrl = default, string contactEmail = default, string contactName = default, ActivationTypes? activationType = default, UserCreationOptionTypes? userCreationOptions = default, string inviteMessage = default)
         {
             SendMail = sendMail;
             CreateSubscription = createSubscription;

@@ -7,8 +7,6 @@
 namespace DNV.ApiClients.Veracity.Identity.ServicesApi
 {
     using Models;
-    using System.Collections;
-    using System.Collections.Generic;
     using System.Threading;
     using System.Threading.Tasks;
 
@@ -32,7 +30,7 @@ namespace DNV.ApiClients.Veracity.Identity.ServicesApi
             /// <param name='ocpApimSubscriptionKey'>
             /// Veracity api management subscription key
             /// </param>
-            public static IDictionary<string, string> ServiceStatus(this IOptions operations, string xSupportCode = default(string), string ocpApimSubscriptionKey = default(string))
+            public static object ServiceStatus(this IOptions operations, string xSupportCode = default, string ocpApimSubscriptionKey = default)
             {
                 return operations.ServiceStatusAsync(xSupportCode, ocpApimSubscriptionKey).GetAwaiter().GetResult();
             }
@@ -55,7 +53,7 @@ namespace DNV.ApiClients.Veracity.Identity.ServicesApi
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task<IDictionary<string, string>> ServiceStatusAsync(this IOptions operations, string xSupportCode = default(string), string ocpApimSubscriptionKey = default(string), CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<object> ServiceStatusAsync(this IOptions operations, string xSupportCode = default, string ocpApimSubscriptionKey = default, CancellationToken cancellationToken = default)
             {
                 using (var _result = await operations.ServiceStatusWithHttpMessagesAsync(xSupportCode, ocpApimSubscriptionKey, null, cancellationToken).ConfigureAwait(false))
                 {
@@ -80,7 +78,7 @@ namespace DNV.ApiClients.Veracity.Identity.ServicesApi
             /// <param name='ocpApimSubscriptionKey'>
             /// Veracity api management subscription key
             /// </param>
-            public static OptionsInvalidateCacheHeaders InvalidateCache(this IOptions operations, string id, string xSupportCode = default(string), string ocpApimSubscriptionKey = default(string))
+            public static OptionsInvalidateCacheHeaders InvalidateCache(this IOptions operations, string id, string xSupportCode = default, string ocpApimSubscriptionKey = default)
             {
                 return operations.InvalidateCacheAsync(id, xSupportCode, ocpApimSubscriptionKey).GetAwaiter().GetResult();
             }
@@ -105,7 +103,7 @@ namespace DNV.ApiClients.Veracity.Identity.ServicesApi
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task<OptionsInvalidateCacheHeaders> InvalidateCacheAsync(this IOptions operations, string id, string xSupportCode = default(string), string ocpApimSubscriptionKey = default(string), CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<OptionsInvalidateCacheHeaders> InvalidateCacheAsync(this IOptions operations, string id, string xSupportCode = default, string ocpApimSubscriptionKey = default, CancellationToken cancellationToken = default)
             {
                 using (var _result = await operations.InvalidateCacheWithHttpMessagesAsync(id, xSupportCode, ocpApimSubscriptionKey, null, cancellationToken).ConfigureAwait(false))
                 {

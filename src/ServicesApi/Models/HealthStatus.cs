@@ -93,7 +93,7 @@ namespace DNV.ApiClients.Veracity.Identity.ServicesApi.Models
         /// <param name="output">output: (optional) raw error output, in case
         /// of "fail" or "warn"
         /// states.This field SHOULD be omitted for "pass" state.</param>
-        public HealthStatus(HealthStateTypes status, int subCode, IList<DependencyState> checks = default(IList<DependencyState>), string serviceId = default(string), string releaseId = default(string), string version = default(string), string description = default(string), IList<string> notes = default(IList<string>), string output = default(string), string message = default(string), string information = default(string), string supportCode = default(string))
+        public HealthStatus(HealthStateTypes status, int subCode, IList<DependencyState> checks = default, string serviceId = default, string releaseId = default, string version = default, string description = default, IList<string> notes = default, string output = default, string message = default, string information = default, string supportCode = default)
         {
             Checks = checks;
             Status = status;

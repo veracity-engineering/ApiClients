@@ -38,7 +38,7 @@ namespace DNV.ApiClients.Veracity.Identity.ServicesApi.Models
         /// <param name="language">Contains the perfered language for the user.
         /// If your service support multi-language use this.
         /// [Deprecated]</param>
-        public MyUserInfo(int companies, bool verifiedEmail, bool verifiedPhone, bool managedAccount, bool activated, string profilePageUrl = default(string), string messagesUrl = default(string), string identity = default(string), string servicesUrl = default(string), string companiesUrl = default(string), string name = default(string), string email = default(string), string id = default(string), string language = default(string), string phone = default(string), string firstName = default(string), string lastName = default(string), string countryCode = default(string))
+        public MyUserInfo(int companies, bool verifiedEmail, bool verifiedPhone, bool managedAccount, bool activated, string profilePageUrl = default, string messagesUrl = default, string identity = default, string servicesUrl = default, string companiesUrl = default, string name = default, string email = default, string id = default, string language = default, string phone = default, string firstName = default, string lastName = default, string countryCode = default)
         {
             ProfilePageUrl = profilePageUrl;
             MessagesUrl = messagesUrl;

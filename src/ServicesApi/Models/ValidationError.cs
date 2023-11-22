@@ -24,7 +24,7 @@ namespace DNV.ApiClients.Veracity.Identity.ServicesApi.Models
         /// <summary>
         /// Initializes a new instance of the ValidationError class.
         /// </summary>
-        public ValidationError(int subCode, string url = default(string), IList<string> violatedPolicies = default(IList<string>), bool? subscriptionMissing = default(bool?), string message = default(string), string information = default(string), string supportCode = default(string))
+        public ValidationError(int subCode, string url = default, IList<string> violatedPolicies = default, bool? subscriptionMissing = default, string message = default, string information = default, string supportCode = default)
         {
             Url = url;
             ViolatedPolicies = violatedPolicies;

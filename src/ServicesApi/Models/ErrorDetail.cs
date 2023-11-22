@@ -22,7 +22,7 @@ namespace DNV.ApiClients.Veracity.Identity.ServicesApi.Models
         /// <summary>
         /// Initializes a new instance of the ErrorDetail class.
         /// </summary>
-        public ErrorDetail(int subCode, string message = default(string), string information = default(string), string supportCode = default(string))
+        public ErrorDetail(int subCode, string message = default, string information = default, string supportCode = default)
         {
             Message = message;
             Information = information;

@@ -22,7 +22,7 @@ namespace DNV.ApiClients.Veracity.Identity.ServicesApi.Models
         /// <summary>
         /// Initializes a new instance of the ChangeAddressRequest class.
         /// </summary>
-        public ChangeAddressRequest(string oldAddress = default(string), string newAddress = default(string))
+        public ChangeAddressRequest(string oldAddress = default, string newAddress = default)
         {
             OldAddress = oldAddress;
             NewAddress = newAddress;

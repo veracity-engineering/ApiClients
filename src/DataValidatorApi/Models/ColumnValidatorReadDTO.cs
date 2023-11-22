@@ -24,7 +24,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi.Models
         /// </summary>
         /// <param name="validationType">Possible values include: 'Length',
         /// 'Range', 'Regex', 'Required', 'Type'</param>
-        public ColumnValidatorReadDTO(int? columnValidatorId = default, string message = default, string name = default, bool? isPredefined = default, System.Guid? workspaceId = default, string validationType = default, double? max = default, double? min = default, string regex = default, string type = default, System.Guid? createdBy = default, System.DateTime? createdOn = default)
+        public ColumnValidatorReadDTO(int? columnValidatorId = default, string message = default, string name = default, bool? isPredefined = default, System.Guid? workspaceId = default, ValidationType? validationType = default, double? max = default, double? min = default, string regex = default, string type = default, System.Guid? createdBy = default, System.DateTime? createdOn = default)
         {
             ColumnValidatorId = columnValidatorId;
             Message = message;
@@ -76,7 +76,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi.Models
         /// 'Required', 'Type'
         /// </summary>
         [JsonProperty(PropertyName = "validationType")]
-        public string ValidationType { get; set; }
+        public ValidationType? ValidationType { get; set; }
 
         /// <summary>
         /// </summary>

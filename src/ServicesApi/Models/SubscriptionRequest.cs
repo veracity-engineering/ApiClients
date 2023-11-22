@@ -29,7 +29,7 @@ namespace DNV.ApiClients.Veracity.Identity.ServicesApi.Models
         /// <param name="overrideNotificationSettings">Optional, only to use if
         /// you need to override the service configuration. Possible values
         /// include: 'send', 'suppress', 'none'</param>
-        public SubscriptionRequest(string serviceId = default(string), string role = default(string), string sku = default(string), OverrideTypes? overrideNotificationSettings = default(OverrideTypes?))
+        public SubscriptionRequest(string serviceId = default, string role = default, string sku = default, OverrideTypes? overrideNotificationSettings = default)
         {
             ServiceId = serviceId;
             Role = role;

@@ -24,7 +24,7 @@ namespace DNV.ApiClients.Veracity.Identity.ServicesApi.Models
         /// <summary>
         /// Initializes a new instance of the NotificationMessage class.
         /// </summary>
-        public NotificationMessage(bool highPriority, Message message = default(Message), IList<string> recipients = default(IList<string>))
+        public NotificationMessage(bool highPriority, Message message = default, IList<string> recipients = default)
         {
             Message = message;
             Recipients = recipients;

@@ -24,7 +24,7 @@ namespace DNV.ApiClients.Veracity.Identity.ServicesApi.Models
         /// <summary>
         /// Initializes a new instance of the CompanyInfo class.
         /// </summary>
-        public CompanyInfo(int employee, int requests, string name = default(string), string url = default(string), string usersUrl = default(string), IList<string> addressLines = default(IList<string>), string id = default(string), string city = default(string), string country = default(string), string countryCode = default(string), string zipCode = default(string), string domains = default(string), string email = default(string), string internalId = default(string), string vat = default(string))
+        public CompanyInfo(int employee, int requests, string name = default, string url = default, string usersUrl = default, IList<string> addressLines = default, string id = default, string city = default, string country = default, string countryCode = default, string zipCode = default, string domains = default, string email = default, string internalId = default, string vat = default)
         {
             Name = name;
             Url = url;

@@ -22,7 +22,7 @@ namespace DNV.ApiClients.Veracity.Identity.ServicesApi.Models
         /// <summary>
         /// Initializes a new instance of the UserRegistration class.
         /// </summary>
-        public UserRegistration(string firstName = default(string), string lastName = default(string), string email = default(string), string phone = default(string), string countryCode = default(string), RegistrationOptions options = default(RegistrationOptions))
+        public UserRegistration(string firstName = default, string lastName = default, string email = default, string phone = default, string countryCode = default, RegistrationOptions options = default)
         {
             FirstName = firstName;
             LastName = lastName;

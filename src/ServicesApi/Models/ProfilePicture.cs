@@ -22,7 +22,7 @@ namespace DNV.ApiClients.Veracity.Identity.ServicesApi.Models
         /// <summary>
         /// Initializes a new instance of the ProfilePicture class.
         /// </summary>
-        public ProfilePicture(byte[] image = default(byte[]), string mimeType = default(string))
+        public ProfilePicture(byte[] image = default, string mimeType = default)
         {
             Image = image;
             MimeType = mimeType;

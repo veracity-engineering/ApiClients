@@ -27,7 +27,7 @@ namespace DNV.ApiClients.Veracity.Identity.ServicesApi.Models
         /// </summary>
         /// <param name="identity">The relative path to the resource
         /// details</param>
-        public ServiceReference(bool productionService, string identity = default(string), string name = default(string), string id = default(string), string description = default(string))
+        public ServiceReference(bool productionService, string identity = default, string name = default, string id = default, string description = default)
         {
             Identity = identity;
             ProductionService = productionService;

@@ -32,7 +32,7 @@ namespace DNV.ApiClients.Veracity.Identity.ServicesApi.Models
         /// validation, editing this will not change the email address of the
         /// user.</param>
         /// <param name="serviceId">The service id of the service terms</param>
-        public ActivationRequest(bool acceptPlatformTerms, bool acceptServiceTerms, string password = default(string), string passwordRepeat = default(string), string userId = default(string), UserInfoUpdate userDetails = default(UserInfoUpdate), string email = default(string), string serviceId = default(string))
+        public ActivationRequest(bool acceptPlatformTerms, bool acceptServiceTerms, string password = default, string passwordRepeat = default, string userId = default, UserInfoUpdate userDetails = default, string email = default, string serviceId = default)
         {
             Password = password;
             PasswordRepeat = passwordRepeat;

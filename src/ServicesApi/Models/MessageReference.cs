@@ -28,7 +28,7 @@ namespace DNV.ApiClients.Veracity.Identity.ServicesApi.Models
         /// <param name="deliverTime">The deliver time in utc</param>
         /// <param name="identity">The relative path to the resource
         /// details</param>
-        public MessageReference(System.DateTime deliverTime, bool important, string identity = default(string), string fromProperty = default(string), string name = default(string), string id = default(string), string description = default(string))
+        public MessageReference(System.DateTime deliverTime, bool important, string identity = default, string fromProperty = default, string name = default, string id = default, string description = default)
         {
             Identity = identity;
             DeliverTime = deliverTime;

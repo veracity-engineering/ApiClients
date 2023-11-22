@@ -44,7 +44,7 @@ namespace DNV.ApiClients.Veracity.Identity.ServicesApi.Models
         /// service lits</param>
         /// <param name="companiesUrl">Gets the relative url to the users
         /// companies lits</param>
-        public AdminInfo(int companies, bool verifiedEmail, bool verifiedPhone, bool managedAccount, bool activated, IList<RoleReference> roles = default(IList<RoleReference>), string name = default(string), string email = default(string), string id = default(string), string language = default(string), string identity = default(string), string phone = default(string), string servicesUrl = default(string), string companiesUrl = default(string), string firstName = default(string), string lastName = default(string), string countryCode = default(string))
+        public AdminInfo(int companies, bool verifiedEmail, bool verifiedPhone, bool managedAccount, bool activated, IList<RoleReference> roles = default, string name = default, string email = default, string id = default, string language = default, string identity = default, string phone = default, string servicesUrl = default, string companiesUrl = default, string firstName = default, string lastName = default, string countryCode = default)
         {
             Roles = roles;
             Name = name;
