@@ -90,7 +90,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.ProvisionApi
                 ServiceClientTracing.Enter(_invocationId, this, "ProvisionAzureBlobContainer", tracingParameters);
             }
             // Construct URL
-            var _baseUrl = Client.BaseUri.AbsoluteUri;
+            var _baseUrl = Client.HttpClient.BaseAddress?.AbsoluteUri ?? Client.BaseUri.AbsoluteUri;
             var _url = new System.Uri(new System.Uri(_baseUrl + (_baseUrl.EndsWith("/") ? "" : "/")), "api/1/container").ToString();
             // Create HTTP transport objects
             var _httpRequest = new HttpRequestMessage();
@@ -134,7 +134,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.ProvisionApi
             HttpStatusCode _statusCode = _httpResponse.StatusCode;
             cancellationToken.ThrowIfCancellationRequested();
             string _responseContent = null;
-            if ((int)_statusCode != 202 && (int)_statusCode != 400 && (int)_statusCode != 409 && (int)_statusCode != 502)
+            if ((int)_statusCode != 202)
             {
                 var ex = new HttpOperationException(string.Format("Operation returned an invalid status code '{0}'", _statusCode));
                 if (_httpResponse.Content != null) {
@@ -265,7 +265,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.ProvisionApi
                 ServiceClientTracing.Enter(_invocationId, this, "UpdateMetadata", tracingParameters);
             }
             // Construct URL
-            var _baseUrl = Client.BaseUri.AbsoluteUri;
+            var _baseUrl = Client.HttpClient.BaseAddress?.AbsoluteUri ?? Client.BaseUri.AbsoluteUri;
             var _url = new System.Uri(new System.Uri(_baseUrl + (_baseUrl.EndsWith("/") ? "" : "/")), "api/1/container/{id}/metadata").ToString();
             _url = _url.Replace("{id}", System.Uri.EscapeDataString(id));
             // Create HTTP transport objects
@@ -310,7 +310,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.ProvisionApi
             HttpStatusCode _statusCode = _httpResponse.StatusCode;
             cancellationToken.ThrowIfCancellationRequested();
             string _responseContent = null;
-            if ((int)_statusCode != 200 && (int)_statusCode != 403 && (int)_statusCode != 404 && (int)_statusCode != 500)
+            if ((int)_statusCode != 200)
             {
                 var ex = new HttpOperationException(string.Format("Operation returned an invalid status code '{0}'", _statusCode));
                 if (_httpResponse.Content != null) {
@@ -412,7 +412,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.ProvisionApi
                 ServiceClientTracing.Enter(_invocationId, this, "DeleteAzureBlobContainer", tracingParameters);
             }
             // Construct URL
-            var _baseUrl = Client.BaseUri.AbsoluteUri;
+            var _baseUrl = Client.HttpClient.BaseAddress?.AbsoluteUri ?? Client.BaseUri.AbsoluteUri;
             var _url = new System.Uri(new System.Uri(_baseUrl + (_baseUrl.EndsWith("/") ? "" : "/")), "api/1/container/{id}").ToString();
             _url = _url.Replace("{id}", System.Uri.EscapeDataString(id));
             // Create HTTP transport objects
@@ -451,7 +451,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.ProvisionApi
             HttpStatusCode _statusCode = _httpResponse.StatusCode;
             cancellationToken.ThrowIfCancellationRequested();
             string _responseContent = null;
-            if ((int)_statusCode != 202 && (int)_statusCode != 403 && (int)_statusCode != 404 && (int)_statusCode != 500)
+            if ((int)_statusCode != 202)
             {
                 var ex = new HttpOperationException(string.Format("Operation returned an invalid status code '{0}'", _statusCode));
                 if (_httpResponse.Content != null) {
@@ -542,7 +542,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.ProvisionApi
                 ServiceClientTracing.Enter(_invocationId, this, "CopyContainer", tracingParameters);
             }
             // Construct URL
-            var _baseUrl = Client.BaseUri.AbsoluteUri;
+            var _baseUrl = Client.HttpClient.BaseAddress?.AbsoluteUri ?? Client.BaseUri.AbsoluteUri;
             var _url = new System.Uri(new System.Uri(_baseUrl + (_baseUrl.EndsWith("/") ? "" : "/")), "api/1/container/copycontainer").ToString();
             List<string> _queryParameters = new List<string>();
             if (accessId != null)
@@ -595,7 +595,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.ProvisionApi
             HttpStatusCode _statusCode = _httpResponse.StatusCode;
             cancellationToken.ThrowIfCancellationRequested();
             string _responseContent = null;
-            if ((int)_statusCode != 202 && (int)_statusCode != 400)
+            if ((int)_statusCode != 202)
             {
                 var ex = new HttpOperationException(string.Format("Operation returned an invalid status code '{0}'", _statusCode));
                 if (_httpResponse.Content != null) {
@@ -687,7 +687,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.ProvisionApi
                 ServiceClientTracing.Enter(_invocationId, this, "SubscribeToAzureBlobContainerEvents", tracingParameters);
             }
             // Construct URL
-            var _baseUrl = Client.BaseUri.AbsoluteUri;
+            var _baseUrl = Client.HttpClient.BaseAddress?.AbsoluteUri ?? Client.BaseUri.AbsoluteUri;
             var _url = new System.Uri(new System.Uri(_baseUrl + (_baseUrl.EndsWith("/") ? "" : "/")), "api/1/container/SubscribeToBlobContainerEvents").ToString();
             // Create HTTP transport objects
             var _httpRequest = new HttpRequestMessage();
@@ -731,7 +731,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.ProvisionApi
             HttpStatusCode _statusCode = _httpResponse.StatusCode;
             cancellationToken.ThrowIfCancellationRequested();
             string _responseContent = null;
-            if ((int)_statusCode != 202 && (int)_statusCode != 400 && (int)_statusCode != 409 && (int)_statusCode != 502)
+            if ((int)_statusCode != 202)
             {
                 var ex = new HttpOperationException(string.Format("Operation returned an invalid status code '{0}'", _statusCode));
                 if (_httpResponse.Content != null) {
@@ -803,7 +803,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.ProvisionApi
                 ServiceClientTracing.Enter(_invocationId, this, "UnsubscribeFromCustomEvents", tracingParameters);
             }
             // Construct URL
-            var _baseUrl = Client.BaseUri.AbsoluteUri;
+            var _baseUrl = Client.HttpClient.BaseAddress?.AbsoluteUri ?? Client.BaseUri.AbsoluteUri;
             var _url = new System.Uri(new System.Uri(_baseUrl + (_baseUrl.EndsWith("/") ? "" : "/")), "api/1/container/SubscribeToBlobContainerEvents").ToString();
             // Create HTTP transport objects
             var _httpRequest = new HttpRequestMessage();
@@ -847,7 +847,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.ProvisionApi
             HttpStatusCode _statusCode = _httpResponse.StatusCode;
             cancellationToken.ThrowIfCancellationRequested();
             string _responseContent = null;
-            if ((int)_statusCode != 202 && (int)_statusCode != 400 && (int)_statusCode != 409 && (int)_statusCode != 502)
+            if ((int)_statusCode != 202)
             {
                 var ex = new HttpOperationException(string.Format("Operation returned an invalid status code '{0}'", _statusCode));
                 if (_httpResponse.Content != null) {
@@ -919,7 +919,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.ProvisionApi
                 ServiceClientTracing.Enter(_invocationId, this, "UnsubscribeFromAzureBlobContainerEvents", tracingParameters);
             }
             // Construct URL
-            var _baseUrl = Client.BaseUri.AbsoluteUri;
+            var _baseUrl = Client.HttpClient.BaseAddress?.AbsoluteUri ?? Client.BaseUri.AbsoluteUri;
             var _url = new System.Uri(new System.Uri(_baseUrl + (_baseUrl.EndsWith("/") ? "" : "/")), "api/1/container/SubscribeToCustomEvents").ToString();
             // Create HTTP transport objects
             var _httpRequest = new HttpRequestMessage();
@@ -963,7 +963,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.ProvisionApi
             HttpStatusCode _statusCode = _httpResponse.StatusCode;
             cancellationToken.ThrowIfCancellationRequested();
             string _responseContent = null;
-            if ((int)_statusCode != 202 && (int)_statusCode != 400 && (int)_statusCode != 409 && (int)_statusCode != 502)
+            if ((int)_statusCode != 202)
             {
                 var ex = new HttpOperationException(string.Format("Operation returned an invalid status code '{0}'", _statusCode));
                 if (_httpResponse.Content != null) {
@@ -1037,7 +1037,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.ProvisionApi
                 ServiceClientTracing.Enter(_invocationId, this, "SubscribeToCustomEvents", tracingParameters);
             }
             // Construct URL
-            var _baseUrl = Client.BaseUri.AbsoluteUri;
+            var _baseUrl = Client.HttpClient.BaseAddress?.AbsoluteUri ?? Client.BaseUri.AbsoluteUri;
             var _url = new System.Uri(new System.Uri(_baseUrl + (_baseUrl.EndsWith("/") ? "" : "/")), "api/1/container/SubscribeToCustomEvents").ToString();
             // Create HTTP transport objects
             var _httpRequest = new HttpRequestMessage();
@@ -1081,7 +1081,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.ProvisionApi
             HttpStatusCode _statusCode = _httpResponse.StatusCode;
             cancellationToken.ThrowIfCancellationRequested();
             string _responseContent = null;
-            if ((int)_statusCode != 202 && (int)_statusCode != 400 && (int)_statusCode != 409 && (int)_statusCode != 502)
+            if ((int)_statusCode != 202)
             {
                 var ex = new HttpOperationException(string.Format("Operation returned an invalid status code '{0}'", _statusCode));
                 if (_httpResponse.Content != null) {

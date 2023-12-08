@@ -27,7 +27,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.ProvisionApi.Models
         /// Initializes a new instance of the
         /// ContainerCustomSubscriptionRequestVm class.
         /// </summary>
-        public ContainerCustomSubscriptionRequestVm(string subscriptionName, string callback, IList<string> regions)
+        public ContainerCustomSubscriptionRequestVm(string subscriptionName, string callback, IEnumerable<string> regions)
         {
             SubscriptionName = subscriptionName;
             Callback = callback;
@@ -60,7 +60,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.ProvisionApi.Models
         /// <summary>
         /// </summary>
         [JsonProperty(PropertyName = "regions")]
-        public IList<string> Regions { get; set; }
+        public IEnumerable<string> Regions { get; set; }
 
         /// <summary>
         /// </summary>

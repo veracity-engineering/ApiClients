@@ -26,7 +26,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.ProvisionApi
             /// <param name='operations'>
             /// The operations group for this extension method.
             /// </param>
-            public static IList<StorageRegion> Get(this IV10Regions operations)
+            public static IEnumerable<StorageRegion> Get(this IV10Regions operations)
             {
                 return operations.GetAsync().GetAwaiter().GetResult();
             }
@@ -43,7 +43,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.ProvisionApi
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task<IList<StorageRegion>> GetAsync(this IV10Regions operations, CancellationToken cancellationToken = default)
+            public static async Task<IEnumerable<StorageRegion>> GetAsync(this IV10Regions operations, CancellationToken cancellationToken = default)
             {
                 using (var _result = await operations.GetWithHttpMessagesAsync(null, cancellationToken).ConfigureAwait(false))
                 {

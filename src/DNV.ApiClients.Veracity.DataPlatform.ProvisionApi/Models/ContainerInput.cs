@@ -42,7 +42,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.ProvisionApi.Models
         /// <param name="title">A title of the container</param>
         /// <param name="description">A description of the container</param>
         /// <param name="tags">List of container tags</param>
-        public ContainerInput(string storageLocation, bool mayContainPersonalData, string containerShortName = default, string title = default, string description = default, Icon icon = default, IList<MetadataTag> tags = default)
+        public ContainerInput(string storageLocation, bool mayContainPersonalData, string containerShortName = default, string title = default, string description = default, Icon icon = default, IEnumerable<MetadataTag> tags = default)
         {
             StorageLocation = storageLocation;
             ContainerShortName = containerShortName;
@@ -105,7 +105,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.ProvisionApi.Models
         /// Gets or sets list of container tags
         /// </summary>
         [JsonProperty(PropertyName = "tags")]
-        public IList<MetadataTag> Tags { get; set; }
+        public IEnumerable<MetadataTag> Tags { get; set; }
 
         /// <summary>
         /// Validate the object.

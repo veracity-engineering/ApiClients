@@ -36,6 +36,6 @@ namespace DNV.ApiClients.Veracity.DataPlatform.ProvisionApi
         /// <exception cref="Microsoft.Rest.SerializationException">
         /// Thrown when unable to deserialize the response
         /// </exception>
-        Task<HttpOperationResponse<IList<StorageRegion>>> GetWithHttpMessagesAsync(Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default);
+        Task<HttpOperationResponse<IEnumerable<StorageRegion>>> GetWithHttpMessagesAsync(Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default);
     }
 }

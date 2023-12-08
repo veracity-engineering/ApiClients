@@ -67,7 +67,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.ProvisionApi
         /// <return>
         /// A response object containing the response body and response headers.
         /// </return>
-        public async Task<HttpOperationResponse<IList<StorageRegion>>> GetWithHttpMessagesAsync(Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default)
+        public async Task<HttpOperationResponse<IEnumerable<StorageRegion>>> GetWithHttpMessagesAsync(Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default)
         {
             // Tracing
             bool _shouldTrace = ServiceClientTracing.IsEnabled;
@@ -80,7 +80,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.ProvisionApi
                 ServiceClientTracing.Enter(_invocationId, this, "Get", tracingParameters);
             }
             // Construct URL
-            var _baseUrl = Client.BaseUri.AbsoluteUri;
+            var _baseUrl = Client.HttpClient.BaseAddress?.AbsoluteUri ?? Client.BaseUri.AbsoluteUri;
             var _url = new System.Uri(new System.Uri(_baseUrl + (_baseUrl.EndsWith("/") ? "" : "/")), "api/1/regions").ToString();
             // Create HTTP transport objects
             var _httpRequest = new HttpRequestMessage();
@@ -141,7 +141,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.ProvisionApi
                 throw ex;
             }
             // Create Result
-            var _result = new HttpOperationResponse<IList<StorageRegion>>();
+            var _result = new HttpOperationResponse<IEnumerable<StorageRegion>>();
             _result.Request = _httpRequest;
             _result.Response = _httpResponse;
             // Deserialize Response
@@ -150,7 +150,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.ProvisionApi
                 _responseContent = await _httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
                 try
                 {
-                    _result.Body = Microsoft.Rest.Serialization.SafeJsonConvert.DeserializeObject<IList<StorageRegion>>(_responseContent, Client.DeserializationSettings);
+                    _result.Body = Microsoft.Rest.Serialization.SafeJsonConvert.DeserializeObject<IEnumerable<StorageRegion>>(_responseContent, Client.DeserializationSettings);
                 }
                 catch (JsonException ex)
                 {

@@ -42,7 +42,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.ProvisionApi.Models
         /// <param name="copyResourceDescription">A description of the
         /// container</param>
         /// <param name="copyResourceTags">List of container tags</param>
-        public CopyContainerInputVM(System.Guid sourceResourceId, bool copyResourceMayContainPersonalData, System.Guid? groupId = default, string copyResourceShortName = default, string copyResourceTitle = default, string copyResourceDescription = default, Icon copyResourceIcon = default, IList<MetadataTag> copyResourceTags = default)
+        public CopyContainerInputVM(System.Guid sourceResourceId, bool copyResourceMayContainPersonalData, System.Guid? groupId = default, string copyResourceShortName = default, string copyResourceTitle = default, string copyResourceDescription = default, Icon copyResourceIcon = default, IEnumerable<MetadataTag> copyResourceTags = default)
         {
             SourceResourceId = sourceResourceId;
             GroupId = groupId;
@@ -112,7 +112,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.ProvisionApi.Models
         /// Gets or sets list of container tags
         /// </summary>
         [JsonProperty(PropertyName = "copyResourceTags")]
-        public IList<MetadataTag> CopyResourceTags { get; set; }
+        public IEnumerable<MetadataTag> CopyResourceTags { get; set; }
 
         /// <summary>
         /// Validate the object.

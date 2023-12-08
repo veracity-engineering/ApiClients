@@ -26,7 +26,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.ProvisionApi.Models
         /// Initializes a new instance of the JsonPatchDocumentResourceMetadata
         /// class.
         /// </summary>
-        public JsonPatchDocumentResourceMetadata(IList<OperationResourceMetadata> operations = default)
+        public JsonPatchDocumentResourceMetadata(IEnumerable<OperationResourceMetadata> operations = default)
         {
             Operations = operations;
             CustomInit();
@@ -40,7 +40,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.ProvisionApi.Models
         /// <summary>
         /// </summary>
         [JsonProperty(PropertyName = "operations")]
-        public IList<OperationResourceMetadata> Operations { get; private set; }
+        public IEnumerable<OperationResourceMetadata> Operations { get; private set; }
 
     }
 }

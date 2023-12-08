@@ -11,7 +11,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.ProvisionApi
     using Models;
     using Newtonsoft.Json;
 
-    /// <summary>
+/// <summary>
     /// </summary>
     public partial interface IProvisionApiClient : AutoRest.ApiClients.Common.IApiClient, System.IDisposable
     {

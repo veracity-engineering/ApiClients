@@ -27,7 +27,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.ProvisionApi.Models
         /// Initializes a new instance of the
         /// ContainerSystemSubscriptionRequestVm class.
         /// </summary>
-        public ContainerSystemSubscriptionRequestVm(string subscriptionName, System.Guid containerId, IList<string> subscriptionTypes, string callback)
+        public ContainerSystemSubscriptionRequestVm(string subscriptionName, System.Guid containerId, IEnumerable<ContainerSystemSubscriptionRequestVmSubscriptionTypesItem?> subscriptionTypes, string callback)
         {
             SubscriptionName = subscriptionName;
             ContainerId = containerId;
@@ -54,7 +54,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.ProvisionApi.Models
         /// <summary>
         /// </summary>
         [JsonProperty(PropertyName = "subscriptionTypes")]
-        public IList<string> SubscriptionTypes { get; set; }
+        public IEnumerable<ContainerSystemSubscriptionRequestVmSubscriptionTypesItem?> SubscriptionTypes { get; set; }
 
         /// <summary>
         /// </summary>

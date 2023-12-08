@@ -24,7 +24,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.ProvisionApi.Models
         /// <summary>
         /// Initializes a new instance of the ResourceMetadata class.
         /// </summary>
-        public ResourceMetadata(string title = default, string description = default, Icon icon = default, IList<Tag> tags = default)
+        public ResourceMetadata(string title = default, string description = default, Icon icon = default, IEnumerable<Tag> tags = default)
         {
             Title = title;
             Description = description;
@@ -56,7 +56,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.ProvisionApi.Models
         /// <summary>
         /// </summary>
         [JsonProperty(PropertyName = "tags")]
-        public IList<Tag> Tags { get; set; }
+        public IEnumerable<Tag> Tags { get; set; }
 
     }
 }

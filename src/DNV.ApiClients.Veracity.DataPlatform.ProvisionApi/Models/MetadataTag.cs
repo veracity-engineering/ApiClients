@@ -24,7 +24,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.ProvisionApi.Models
         /// </summary>
         /// <param name="type">Possible values include: 'userTag',
         /// 'systemTag'</param>
-        public MetadataTag(string title = default, string type = default)
+        public MetadataTag(string title = default, MetadataTagType? type = default)
         {
             Title = title;
             Type = type;
@@ -45,7 +45,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.ProvisionApi.Models
         /// Gets or sets possible values include: 'userTag', 'systemTag'
         /// </summary>
         [JsonProperty(PropertyName = "type")]
-        public string Type { get; set; }
+        public MetadataTagType? Type { get; set; }
 
     }
 }
