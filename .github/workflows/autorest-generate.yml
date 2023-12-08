@@ -54,8 +54,8 @@ jobs:
           echo '# Confiugration cleaned up' > $RESOURCE_FOLDER/plugin-python.md
           echo '# Confiugration cleaned up' > $RESOURCE_FOLDER/plugin-typescript.md
 
-          rm  ${{ inputs.output-folder }}/*.cs
-          rm  ${{ inputs.output-folder }}/Models/*.cs
+          rm -f ${{ inputs.output-folder }}/*.cs
+          rm -f ${{ inputs.output-folder }}/Models/*.cs
 
           autorest \
             --input-file:${{ inputs.input-file }} \
