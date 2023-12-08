@@ -1,0 +1,55 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.1.32421.90
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{1BDFDD5F-8628-4585-B135-EA82DEF8ABC6}"
+	ProjectSection(SolutionItems) = preProject
+		Directory.Build.props = Directory.Build.props
+		Directory.Packages.props = Directory.Packages.props
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DNV.ApiClients.Veracity.DataPlatform.DataApi", "src\DNV.ApiClients.Veracity.DataPlatform.DataApi\DNV.ApiClients.Veracity.DataPlatform.DataApi.csproj", "{02710C79-2BD0-46D4-ACCE-E9E8A8BF9F6A}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi", "src\DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi\DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi.csproj", "{1623B4C4-5A68-4C14-B2B5-ADAFE2D4FECF}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DNV.ApiClients.Veracity.DataPlatform.ProvisionApi", "src\DNV.ApiClients.Veracity.DataPlatform.ProvisionApi\DNV.ApiClients.Veracity.DataPlatform.ProvisionApi.csproj", "{7298DB03-9F6B-4C51-A1B2-3DFB647BEAA2}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DNV.ApiClients.Veracity.Identity.ServicesApi", "src\DNV.ApiClients.Veracity.Identity.ServicesApi\DNV.ApiClients.Veracity.Identity.ServicesApi.csproj", "{DEE55C3C-7B77-4403-98AE-6245AFB32A7A}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DNV.ApiClients.Veracity.DataPlatform.DataWorkbenchApi", "src\DNV.ApiClients.Veracity.DataPlatform.DataWorkbenchApi\DNV.ApiClients.Veracity.DataPlatform.DataWorkbenchApi.csproj", "{AD0B679A-4B7A-400B-A9A7-EEA561F70B69}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{02710C79-2BD0-46D4-ACCE-E9E8A8BF9F6A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{02710C79-2BD0-46D4-ACCE-E9E8A8BF9F6A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{02710C79-2BD0-46D4-ACCE-E9E8A8BF9F6A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{02710C79-2BD0-46D4-ACCE-E9E8A8BF9F6A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1623B4C4-5A68-4C14-B2B5-ADAFE2D4FECF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1623B4C4-5A68-4C14-B2B5-ADAFE2D4FECF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1623B4C4-5A68-4C14-B2B5-ADAFE2D4FECF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1623B4C4-5A68-4C14-B2B5-ADAFE2D4FECF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7298DB03-9F6B-4C51-A1B2-3DFB647BEAA2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7298DB03-9F6B-4C51-A1B2-3DFB647BEAA2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7298DB03-9F6B-4C51-A1B2-3DFB647BEAA2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7298DB03-9F6B-4C51-A1B2-3DFB647BEAA2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DEE55C3C-7B77-4403-98AE-6245AFB32A7A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DEE55C3C-7B77-4403-98AE-6245AFB32A7A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DEE55C3C-7B77-4403-98AE-6245AFB32A7A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DEE55C3C-7B77-4403-98AE-6245AFB32A7A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AD0B679A-4B7A-400B-A9A7-EEA561F70B69}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AD0B679A-4B7A-400B-A9A7-EEA561F70B69}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AD0B679A-4B7A-400B-A9A7-EEA561F70B69}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AD0B679A-4B7A-400B-A9A7-EEA561F70B69}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {6FF7F662-C8D1-4C7D-9164-3106E6539DDE}
+	EndGlobalSection
+EndGlobal
