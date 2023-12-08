@@ -23,6 +23,7 @@ jobs:
       output-folder: src/DNV.ApiClients.Veracity.DataPlatform.DataApi
       client-name: DataApiClient
       namespace: DNV.ApiClients.Veracity.DataPlatform.DataApi
+      interface: AutoRest.ApiClients.Common.IApiClient
   nuget-publish:
     uses: ./.github/workflows/nuget-publish.yml
     with:

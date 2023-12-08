@@ -23,6 +23,7 @@ jobs:
       output-folder: src/DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi
       client-name: DataValidatorApiClient
       namespace: DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi
+      interface: AutoRest.ApiClients.Common.IApiClient
   nuget-publish:
     uses: ./.github/workflows/nuget-publish.yml
     with:

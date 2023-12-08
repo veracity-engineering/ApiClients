@@ -23,6 +23,7 @@ jobs:
       output-folder: src/DNV.ApiClients.Veracity.Identity.ServicesApi
       client-name: ServicesApiClient
       namespace: DNV.ApiClients.Veracity.Identity.ServicesApi
+      interface: AutoRest.ApiClients.Common.IApiClient
   nuget-publish:
     uses: ./.github/workflows/nuget-publish.yml
     with:
