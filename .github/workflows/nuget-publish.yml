@@ -20,7 +20,7 @@ on:
 jobs:
   nuget-publish:
     name: NuGet Publish
-    if: ${{ github.event.label.name == 'Publish' }}
+    if: ${{ github.event.label.name == 'Publish' || github.event_name == 'workflow_dispatch' }}
     runs-on: ubuntu-latest
 
     steps:
