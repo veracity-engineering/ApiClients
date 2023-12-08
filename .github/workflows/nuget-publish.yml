@@ -2,12 +2,16 @@ env:
   RELEASE: false
   NUGET_OUTPUT: nuget-output
 on:
-  workflow_call:
+  workflow_dispatch:
     inputs:
       source-path:
         required: true
         type: string
-      
+  workflow_call:
+    inputs:
+      source-path:
+        required: true
+        type: string      
     secrets:
       NUGET_API_KEY :
         required: true
