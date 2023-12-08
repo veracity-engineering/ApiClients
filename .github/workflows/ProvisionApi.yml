@@ -20,11 +20,11 @@ jobs:
       input-file: 'https://api-portal.veracity.com/docs/services/5a72f224978c230c4c13aadb/export?DocumentFormat=OpenApiJson'
       api-name: 'ProvisionApi'
       csharp: true
-      output-folder: src/ProvisionApi
+      output-folder: src/DNV.ApiClients.Veracity.DataPlatform.ProvisionApi
       client-name: ProvisionApiClient
       namespace: DNV.ApiClients.Veracity.DataPlatform.ProvisionApi
-  # nuget-publish:
-  #   uses: ./.github/workflows/nuget-publish.yml
-  #   with:
-  #     source-path: 'src/ProvisionApi'
-  #   secrets: inherit
+  nuget-publish:
+    uses: ./.github/workflows/nuget-publish.yml
+    with:
+      source-path: src/DNV.ApiClients.Veracity.DataPlatform.ProvisionApi
+    secrets: inherit

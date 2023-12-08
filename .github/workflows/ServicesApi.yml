@@ -20,11 +20,11 @@ jobs:
       input-file: 'https://api-portal.veracity.com/docs/services/veracity-myservices-v3/export?DocumentFormat=OpenApiJson'
       api-name: 'ServicesApi'
       csharp: true
-      output-folder: src/ServicesApi
+      output-folder: src/DNV.ApiClients.Veracity.Identity.ServicesApi
       client-name: ServicesApiClient
       namespace: DNV.ApiClients.Veracity.Identity.ServicesApi
-  # nuget-publish:
-  #   uses: ./.github/workflows/nuget-publish.yml
-  #   with:
-  #     source-path: 'src/ServicesApi'
-  #   secrets: inherit
+  nuget-publish:
+    uses: ./.github/workflows/nuget-publish.yml
+    with:
+      source-path: src/DNV.ApiClients.Veracity.Identity.ServicesApi
+    secrets: inherit

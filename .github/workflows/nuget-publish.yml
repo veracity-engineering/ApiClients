@@ -16,6 +16,7 @@ on:
 jobs:
   nuget-publish:
     name: NuGet Publish
+    if: ${{ github.event.label.name == 'Publish' }}
     runs-on: ubuntu-latest
 
     steps:
@@ -28,7 +29,7 @@ jobs:
 
       - name: Pack
         working-directory: ${{ inputs.source-path }}
-        run: dotnet pack --configuration Release -o ${{ env.NUGET_OUTPUT }}
+        run: dotnet pack -c Release -o ${{ env.NUGET_OUTPUT }} --include-symbols --include-source
 
       - name: Publish
         working-directory: ${{ inputs.source-path }}

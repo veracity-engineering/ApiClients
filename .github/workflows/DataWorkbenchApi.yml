@@ -1,0 +1,30 @@
+name: DNV.ApiClients.Veracity.DataPlatform.DataWorkbenchApi
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+    - main
+    paths:
+    - 'src/DataWorkbenchApi/**'
+    - '.github/workflows/DataWorkbenchApi.yml'
+  pull_request:
+    types: [ closed ]
+    paths:
+    - 'src/DataWorkbenchApi/**'
+    - '.github/workflows/DataWorkbenchApi.yml'
+jobs:
+  autorest-generate:
+    uses: ./.github/workflows/autorest-generate.yml
+    with:
+      input-file: src/DNV.ApiClients.Veracity.DataPlatform.DataWorkbenchApi/swagger.json
+      api-name: 'DataApi'
+      csharp: true
+      output-folder: src/DNV.ApiClients.Veracity.DataPlatform.DataWorkbenchApi
+      client-name: DataWorkbenchApiClient
+      namespace: DNV.ApiClients.Veracity.DataPlatform.DataWorkbenchApi
+  nuget-publish:
+    uses: ./.github/workflows/nuget-publish.yml
+    with:
+      source-path: src/DNV.ApiClients.Veracity.DataPlatform.DataWorkbenchApi
+    secrets: inherit

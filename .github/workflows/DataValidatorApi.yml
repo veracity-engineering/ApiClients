@@ -20,11 +20,11 @@ jobs:
       input-file: 'https://api-portal.veracity.com/docs/services/DataValidatorApi/export?DocumentFormat=OpenApiJson'
       api-name: 'DataValidatorApi'
       csharp: true
-      output-folder: src/DataValidatorApi
+      output-folder: src/DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi
       client-name: DataValidatorApiClient
       namespace: DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi
-  # nuget-publish:
-  #   uses: ./.github/workflows/nuget-publish.yml
-  #   with:
-  #     source-path: 'src/DataValidatorApi'
-  #   secrets: inherit
+  nuget-publish:
+    uses: ./.github/workflows/nuget-publish.yml
+    with:
+      source-path: src/DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi
+    secrets: inherit
