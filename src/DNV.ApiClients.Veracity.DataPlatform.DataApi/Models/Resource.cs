@@ -28,7 +28,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataApi.Models
         /// 'expired', 'available', 'active'</param>
         /// <param name="mayContainPersonalData">Possible values include:
         /// 'unknown', 'true', 'false'</param>
-        public Resource(System.Guid? id = default(System.Guid?), string reference = default(string), string url = default(string), System.DateTime? lastModifiedUTC = default(System.DateTime?), System.DateTime? creationDateTimeUTC = default(System.DateTime?), System.Guid? ownerId = default(System.Guid?), string accessLevel = default(string), string region = default(string), string keyStatus = default(string), string mayContainPersonalData = default(string), ResourceMetadata metadata = default(ResourceMetadata))
+        public Resource(System.Guid? id = default, string reference = default, string url = default, System.DateTime? lastModifiedUTC = default, System.DateTime? creationDateTimeUTC = default, System.Guid? ownerId = default, ResourceAccessLevel? accessLevel = default, string region = default, ResourceKeyStatus? keyStatus = default, ResourceMayContainPersonalData? mayContainPersonalData = default, ResourceMetadata metadata = default)
         {
             Id = id;
             Reference = reference;
@@ -84,7 +84,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataApi.Models
         /// 'consumer'
         /// </summary>
         [JsonProperty(PropertyName = "accessLevel")]
-        public string AccessLevel { get; set; }
+        public ResourceAccessLevel? AccessLevel { get; set; }
 
         /// <summary>
         /// </summary>
@@ -96,13 +96,13 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataApi.Models
         /// 'available', 'active'
         /// </summary>
         [JsonProperty(PropertyName = "keyStatus")]
-        public string KeyStatus { get; set; }
+        public ResourceKeyStatus? KeyStatus { get; set; }
 
         /// <summary>
         /// Gets or sets possible values include: 'unknown', 'true', 'false'
         /// </summary>
         [JsonProperty(PropertyName = "mayContainPersonalData")]
-        public string MayContainPersonalData { get; set; }
+        public ResourceMayContainPersonalData? MayContainPersonalData { get; set; }
 
         /// <summary>
         /// </summary>

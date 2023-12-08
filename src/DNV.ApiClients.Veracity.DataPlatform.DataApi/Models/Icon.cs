@@ -22,7 +22,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataApi.Models
         /// <summary>
         /// Initializes a new instance of the Icon class.
         /// </summary>
-        public Icon(string id = default(string), string backgroundColor = default(string))
+        public Icon(string id = default, string backgroundColor = default)
         {
             Id = id;
             BackgroundColor = backgroundColor;

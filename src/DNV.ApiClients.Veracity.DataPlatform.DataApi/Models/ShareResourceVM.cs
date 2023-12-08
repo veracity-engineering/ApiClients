@@ -22,7 +22,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataApi.Models
         /// <summary>
         /// Initializes a new instance of the ShareResourceVM class.
         /// </summary>
-        public ShareResourceVM(System.Guid? accessSharingId = default(System.Guid?))
+        public ShareResourceVM(System.Guid? accessSharingId = default)
         {
             AccessSharingId = accessSharingId;
             CustomInit();

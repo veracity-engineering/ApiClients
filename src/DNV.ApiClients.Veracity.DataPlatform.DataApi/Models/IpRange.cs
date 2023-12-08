@@ -22,7 +22,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataApi.Models
         /// <summary>
         /// Initializes a new instance of the IpRange class.
         /// </summary>
-        public IpRange(string startIp = default(string), string endIp = default(string))
+        public IpRange(string startIp = default, string endIp = default)
         {
             StartIp = startIp;
             EndIp = endIp;

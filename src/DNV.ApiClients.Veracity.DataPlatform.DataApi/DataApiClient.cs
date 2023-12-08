@@ -33,54 +33,49 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataApi
         public JsonSerializerSettings DeserializationSettings { get; private set; }
 
         /// <summary>
-        /// Subscription credentials which uniquely identify client subscription.
+        /// Gets the IV10Access.
         /// </summary>
-        public ServiceClientCredentials Credentials { get; private set; }
+        public virtual IV10Access V10Access { get; private set; }
 
         /// <summary>
-        /// Gets the IAccess.
+        /// Gets the IV10Application.
         /// </summary>
-        public virtual IAccess Access { get; private set; }
+        public virtual IV10Application V10Application { get; private set; }
 
         /// <summary>
-        /// Gets the IApplicationOperations.
+        /// Gets the IV10DataStewards.
         /// </summary>
-        public virtual IApplicationOperations Application { get; private set; }
+        public virtual IV10DataStewards V10DataStewards { get; private set; }
 
         /// <summary>
-        /// Gets the IDataStewards.
+        /// Gets the IV10KeyTemplates.
         /// </summary>
-        public virtual IDataStewards DataStewards { get; private set; }
+        public virtual IV10KeyTemplates V10KeyTemplates { get; private set; }
 
         /// <summary>
-        /// Gets the IKeyTemplates.
+        /// Gets the IV10Ledger.
         /// </summary>
-        public virtual IKeyTemplates KeyTemplates { get; private set; }
+        public virtual IV10Ledger V10Ledger { get; private set; }
 
         /// <summary>
-        /// Gets the ILedger.
+        /// Gets the IV10Resources.
         /// </summary>
-        public virtual ILedger Ledger { get; private set; }
+        public virtual IV10Resources V10Resources { get; private set; }
 
         /// <summary>
-        /// Gets the IResources.
+        /// Gets the IV10Tags.
         /// </summary>
-        public virtual IResources Resources { get; private set; }
+        public virtual IV10Tags V10Tags { get; private set; }
 
         /// <summary>
-        /// Gets the ITags.
+        /// Gets the IV10Users.
         /// </summary>
-        public virtual ITags Tags { get; private set; }
+        public virtual IV10Users V10Users { get; private set; }
 
         /// <summary>
-        /// Gets the IUsers.
+        /// Gets the IV10Groups.
         /// </summary>
-        public virtual IUsers Users { get; private set; }
-
-        /// <summary>
-        /// Gets the IGroups.
-        /// </summary>
-        public virtual IGroups Groups { get; private set; }
+        public virtual IV10Groups V10Groups { get; private set; }
 
         /// <summary>
         /// Initializes a new instance of the DataApiClient class.
@@ -90,7 +85,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataApi
         /// </param>
         /// <param name='disposeHttpClient'>
         /// True: will dispose the provided httpClient on calling DataApiClient.Dispose(). False: will not dispose provided httpClient</param>
-        protected DataApiClient(HttpClient httpClient, bool disposeHttpClient) : base(httpClient, disposeHttpClient)
+        public DataApiClient(HttpClient httpClient, bool disposeHttpClient) : base(httpClient, disposeHttpClient)
         {
             Initialize();
         }
@@ -101,7 +96,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataApi
         /// <param name='handlers'>
         /// Optional. The delegating handlers to add to the http client pipeline.
         /// </param>
-        protected DataApiClient(params DelegatingHandler[] handlers) : base(handlers)
+        public DataApiClient(params DelegatingHandler[] handlers) : base(handlers)
         {
             Initialize();
         }
@@ -115,7 +110,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataApi
         /// <param name='handlers'>
         /// Optional. The delegating handlers to add to the http client pipeline.
         /// </param>
-        protected DataApiClient(HttpClientHandler rootHandler, params DelegatingHandler[] handlers) : base(rootHandler, handlers)
+        public DataApiClient(HttpClientHandler rootHandler, params DelegatingHandler[] handlers) : base(rootHandler, handlers)
         {
             Initialize();
         }
@@ -132,7 +127,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataApi
         /// <exception cref="System.ArgumentNullException">
         /// Thrown when a required parameter is null
         /// </exception>
-        protected DataApiClient(System.Uri baseUri, params DelegatingHandler[] handlers) : this(handlers)
+        public DataApiClient(System.Uri baseUri, params DelegatingHandler[] handlers) : this(handlers)
         {
             if (baseUri == null)
             {
@@ -156,162 +151,13 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataApi
         /// <exception cref="System.ArgumentNullException">
         /// Thrown when a required parameter is null
         /// </exception>
-        protected DataApiClient(System.Uri baseUri, HttpClientHandler rootHandler, params DelegatingHandler[] handlers) : this(rootHandler, handlers)
+        public DataApiClient(System.Uri baseUri, HttpClientHandler rootHandler, params DelegatingHandler[] handlers) : this(rootHandler, handlers)
         {
             if (baseUri == null)
             {
                 throw new System.ArgumentNullException("baseUri");
             }
             BaseUri = baseUri;
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the DataApiClient class.
-        /// </summary>
-        /// <param name='credentials'>
-        /// Required. Subscription credentials which uniquely identify client subscription.
-        /// </param>
-        /// <param name='handlers'>
-        /// Optional. The delegating handlers to add to the http client pipeline.
-        /// </param>
-        /// <exception cref="System.ArgumentNullException">
-        /// Thrown when a required parameter is null
-        /// </exception>
-        public DataApiClient(ServiceClientCredentials credentials, params DelegatingHandler[] handlers) : this(handlers)
-        {
-            if (credentials == null)
-            {
-                throw new System.ArgumentNullException("credentials");
-            }
-            Credentials = credentials;
-            if (Credentials != null)
-            {
-                Credentials.InitializeServiceClient(this);
-            }
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the DataApiClient class.
-        /// </summary>
-        /// <param name='credentials'>
-        /// Required. Subscription credentials which uniquely identify client subscription.
-        /// </param>
-        /// <param name='httpClient'>
-        /// HttpClient to be used
-        /// </param>
-        /// <param name='disposeHttpClient'>
-        /// True: will dispose the provided httpClient on calling DataApiClient.Dispose(). False: will not dispose provided httpClient</param>
-        /// <exception cref="System.ArgumentNullException">
-        /// Thrown when a required parameter is null
-        /// </exception>
-        public DataApiClient(ServiceClientCredentials credentials, HttpClient httpClient, bool disposeHttpClient) : this(httpClient, disposeHttpClient)
-        {
-            if (credentials == null)
-            {
-                throw new System.ArgumentNullException("credentials");
-            }
-            Credentials = credentials;
-            if (Credentials != null)
-            {
-                Credentials.InitializeServiceClient(this);
-            }
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the DataApiClient class.
-        /// </summary>
-        /// <param name='credentials'>
-        /// Required. Subscription credentials which uniquely identify client subscription.
-        /// </param>
-        /// <param name='rootHandler'>
-        /// Optional. The http client handler used to handle http transport.
-        /// </param>
-        /// <param name='handlers'>
-        /// Optional. The delegating handlers to add to the http client pipeline.
-        /// </param>
-        /// <exception cref="System.ArgumentNullException">
-        /// Thrown when a required parameter is null
-        /// </exception>
-        public DataApiClient(ServiceClientCredentials credentials, HttpClientHandler rootHandler, params DelegatingHandler[] handlers) : this(rootHandler, handlers)
-        {
-            if (credentials == null)
-            {
-                throw new System.ArgumentNullException("credentials");
-            }
-            Credentials = credentials;
-            if (Credentials != null)
-            {
-                Credentials.InitializeServiceClient(this);
-            }
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the DataApiClient class.
-        /// </summary>
-        /// <param name='baseUri'>
-        /// Optional. The base URI of the service.
-        /// </param>
-        /// <param name='credentials'>
-        /// Required. Subscription credentials which uniquely identify client subscription.
-        /// </param>
-        /// <param name='handlers'>
-        /// Optional. The delegating handlers to add to the http client pipeline.
-        /// </param>
-        /// <exception cref="System.ArgumentNullException">
-        /// Thrown when a required parameter is null
-        /// </exception>
-        public DataApiClient(System.Uri baseUri, ServiceClientCredentials credentials, params DelegatingHandler[] handlers) : this(handlers)
-        {
-            if (baseUri == null)
-            {
-                throw new System.ArgumentNullException("baseUri");
-            }
-            if (credentials == null)
-            {
-                throw new System.ArgumentNullException("credentials");
-            }
-            BaseUri = baseUri;
-            Credentials = credentials;
-            if (Credentials != null)
-            {
-                Credentials.InitializeServiceClient(this);
-            }
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the DataApiClient class.
-        /// </summary>
-        /// <param name='baseUri'>
-        /// Optional. The base URI of the service.
-        /// </param>
-        /// <param name='credentials'>
-        /// Required. Subscription credentials which uniquely identify client subscription.
-        /// </param>
-        /// <param name='rootHandler'>
-        /// Optional. The http client handler used to handle http transport.
-        /// </param>
-        /// <param name='handlers'>
-        /// Optional. The delegating handlers to add to the http client pipeline.
-        /// </param>
-        /// <exception cref="System.ArgumentNullException">
-        /// Thrown when a required parameter is null
-        /// </exception>
-        public DataApiClient(System.Uri baseUri, ServiceClientCredentials credentials, HttpClientHandler rootHandler, params DelegatingHandler[] handlers) : this(rootHandler, handlers)
-        {
-            if (baseUri == null)
-            {
-                throw new System.ArgumentNullException("baseUri");
-            }
-            if (credentials == null)
-            {
-                throw new System.ArgumentNullException("credentials");
-            }
-            BaseUri = baseUri;
-            Credentials = credentials;
-            if (Credentials != null)
-            {
-                Credentials.InitializeServiceClient(this);
-            }
         }
 
         /// <summary>
@@ -323,15 +169,15 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataApi
         /// </summary>
         private void Initialize()
         {
-            Access = new Access(this);
-            Application = new ApplicationOperations(this);
-            DataStewards = new DataStewards(this);
-            KeyTemplates = new KeyTemplates(this);
-            Ledger = new Ledger(this);
-            Resources = new Resources(this);
-            Tags = new Tags(this);
-            Users = new Users(this);
-            Groups = new Groups(this);
+            V10Access = new V10Access(this);
+            V10Application = new V10Application(this);
+            V10DataStewards = new V10DataStewards(this);
+            V10KeyTemplates = new V10KeyTemplates(this);
+            V10Ledger = new V10Ledger(this);
+            V10Resources = new V10Resources(this);
+            V10Tags = new V10Tags(this);
+            V10Users = new V10Users(this);
+            V10Groups = new V10Groups(this);
             BaseUri = new System.Uri("https://api.veracity.com/veracity/datafabric/data");
             SerializationSettings = new JsonSerializerSettings
             {

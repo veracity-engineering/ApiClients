@@ -22,7 +22,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataApi.Models
         /// <summary>
         /// Initializes a new instance of the KeyTemplateVM class.
         /// </summary>
-        public KeyTemplateVM(System.Guid? id = default(System.Guid?), string name = default(string), int? totalHours = default(int?), bool? isSystemKey = default(bool?), string description = default(string), bool? attribute1 = default(bool?), bool? attribute2 = default(bool?), bool? attribute3 = default(bool?), bool? attribute4 = default(bool?))
+        public KeyTemplateVM(System.Guid? id = default, string name = default, int? totalHours = default, bool? isSystemKey = default, string description = default, bool? attribute1 = default, bool? attribute2 = default, bool? attribute3 = default, bool? attribute4 = default)
         {
             Id = id;
             Name = name;

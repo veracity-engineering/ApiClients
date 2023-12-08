@@ -29,7 +29,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataApi.Models
         /// <param name="accessKeyTemplateId">Id of the sharing template from
         /// GET /api/1/keytemplates</param>
         /// <param name="comment">Optional comment field</param>
-        public SharingResourceInputData(System.Guid userId, System.Guid accessKeyTemplateId, string comment = default(string), IpRange ipRange = default(IpRange))
+        public SharingResourceInputData(System.Guid userId, System.Guid accessKeyTemplateId, string comment = default, IpRange ipRange = default)
         {
             UserId = userId;
             AccessKeyTemplateId = accessKeyTemplateId;

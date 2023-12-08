@@ -22,7 +22,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataApi.Models
         /// <summary>
         /// Initializes a new instance of the Application class.
         /// </summary>
-        public Application(System.Guid? id = default(System.Guid?), System.Guid? companyId = default(System.Guid?), string role = default(string))
+        public Application(System.Guid? id = default, System.Guid? companyId = default, string role = default)
         {
             Id = id;
             CompanyId = companyId;

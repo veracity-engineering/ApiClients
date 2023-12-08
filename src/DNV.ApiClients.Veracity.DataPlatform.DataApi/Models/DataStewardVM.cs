@@ -22,7 +22,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataApi.Models
         /// <summary>
         /// Initializes a new instance of the DataStewardVM class.
         /// </summary>
-        public DataStewardVM(System.Guid userId, System.Guid resourceId, System.Guid grantedBy, string comment = default(string))
+        public DataStewardVM(System.Guid userId, System.Guid resourceId, System.Guid grantedBy, string comment = default)
         {
             UserId = userId;
             ResourceId = resourceId;

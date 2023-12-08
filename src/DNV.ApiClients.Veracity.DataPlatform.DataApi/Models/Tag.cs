@@ -22,7 +22,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataApi.Models
         /// <summary>
         /// Initializes a new instance of the Tag class.
         /// </summary>
-        public Tag(System.Guid? id = default(System.Guid?), string title = default(string))
+        public Tag(System.Guid? id = default, string title = default)
         {
             Id = id;
             Title = title;

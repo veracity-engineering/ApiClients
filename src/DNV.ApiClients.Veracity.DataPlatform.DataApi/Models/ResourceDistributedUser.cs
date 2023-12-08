@@ -22,7 +22,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataApi.Models
         /// <summary>
         /// Initializes a new instance of the ResourceDistributedUser class.
         /// </summary>
-        public ResourceDistributedUser(System.Guid? userId = default(System.Guid?))
+        public ResourceDistributedUser(System.Guid? userId = default)
         {
             UserId = userId;
             CustomInit();

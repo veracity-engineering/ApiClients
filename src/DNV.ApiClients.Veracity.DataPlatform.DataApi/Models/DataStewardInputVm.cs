@@ -22,7 +22,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataApi.Models
         /// <summary>
         /// Initializes a new instance of the DataStewardInputVm class.
         /// </summary>
-        public DataStewardInputVm(string comment = default(string))
+        public DataStewardInputVm(string comment = default)
         {
             Comment = comment;
             CustomInit();

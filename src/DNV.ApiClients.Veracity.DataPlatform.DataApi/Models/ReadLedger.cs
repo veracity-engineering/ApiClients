@@ -22,7 +22,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataApi.Models
         /// <summary>
         /// Initializes a new instance of the ReadLedger class.
         /// </summary>
-        public ReadLedger(string entityId = default(string), string entityType = default(string), string companyId = default(string), string containerName = default(string), System.DateTime? dateOfEvent = default(System.DateTime?), string category = default(string), string ledgerSubCategory = default(string), string description = default(string), string region = default(string), string affectedEntityId = default(string), string affectedEntityType = default(string), string affectedCompanyId = default(string), string fileName = default(string), string ipAddress = default(string))
+        public ReadLedger(string entityId = default, string entityType = default, string companyId = default, string containerName = default, System.DateTime? dateOfEvent = default, string category = default, string ledgerSubCategory = default, string description = default, string region = default, string affectedEntityId = default, string affectedEntityType = default, string affectedCompanyId = default, string fileName = default, string ipAddress = default)
         {
             EntityId = entityId;
             EntityType = entityType;

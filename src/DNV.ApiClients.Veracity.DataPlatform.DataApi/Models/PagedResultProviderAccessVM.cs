@@ -26,7 +26,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataApi.Models
         /// Initializes a new instance of the PagedResultProviderAccessVM
         /// class.
         /// </summary>
-        public PagedResultProviderAccessVM(IList<ProviderAccessVM> results = default(IList<ProviderAccessVM>), int? page = default(int?), int? resultsPerPage = default(int?), int? totalPages = default(int?), long? totalResults = default(long?))
+        public PagedResultProviderAccessVM(IEnumerable<ProviderAccessVM> results = default, int? page = default, int? resultsPerPage = default, int? totalPages = default, long? totalResults = default)
         {
             Results = results;
             Page = page;
@@ -44,7 +44,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataApi.Models
         /// <summary>
         /// </summary>
         [JsonProperty(PropertyName = "results")]
-        public IList<ProviderAccessVM> Results { get; private set; }
+        public IEnumerable<ProviderAccessVM> Results { get; private set; }
 
         /// <summary>
         /// </summary>

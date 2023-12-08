@@ -22,7 +22,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataApi.Models
         /// <summary>
         /// Initializes a new instance of the SASToken class.
         /// </summary>
-        public SASToken(string sasKey = default(string), string sasuRi = default(string), string fullKey = default(string), System.DateTime? sasKeyExpiryTimeUTC = default(System.DateTime?), bool? isKeyExpired = default(bool?), bool? autoRefreshed = default(bool?), IpRange ipRange = default(IpRange))
+        public SASToken(string sasKey = default, string sasuRi = default, string fullKey = default, System.DateTime? sasKeyExpiryTimeUTC = default, bool? isKeyExpired = default, bool? autoRefreshed = default, IpRange ipRange = default)
         {
             SasKey = sasKey;
             SasuRi = sasuRi;

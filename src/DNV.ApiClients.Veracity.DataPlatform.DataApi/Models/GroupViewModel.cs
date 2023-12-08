@@ -24,7 +24,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataApi.Models
         /// <summary>
         /// Initializes a new instance of the GroupViewModel class.
         /// </summary>
-        public GroupViewModel(System.Guid? id = default(System.Guid?), string title = default(string), string description = default(string), IList<System.Guid?> resourceIds = default(IList<System.Guid?>), double? sortingOrder = default(double?))
+        public GroupViewModel(System.Guid? id = default, string title = default, string description = default, IEnumerable<System.Guid?> resourceIds = default, double? sortingOrder = default)
         {
             Id = id;
             Title = title;
@@ -57,7 +57,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataApi.Models
         /// <summary>
         /// </summary>
         [JsonProperty(PropertyName = "resourceIds")]
-        public IList<System.Guid?> ResourceIds { get; set; }
+        public IEnumerable<System.Guid?> ResourceIds { get; set; }
 
         /// <summary>
         /// </summary>

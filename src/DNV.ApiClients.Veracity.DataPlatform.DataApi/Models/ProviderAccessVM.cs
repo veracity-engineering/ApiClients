@@ -22,7 +22,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataApi.Models
         /// <summary>
         /// Initializes a new instance of the ProviderAccessVM class.
         /// </summary>
-        public ProviderAccessVM(System.Guid? userId = default(System.Guid?), System.Guid? ownerId = default(System.Guid?), System.Guid? grantedById = default(System.Guid?), System.Guid? accessSharingId = default(System.Guid?), bool? keyCreated = default(bool?), bool? autoRefreshed = default(bool?), System.DateTime? keyCreatedTimeUTC = default(System.DateTime?), System.DateTime? keyExpiryTimeUTC = default(System.DateTime?), string resourceType = default(string), int? accessHours = default(int?), System.Guid? accessKeyTemplateId = default(System.Guid?), bool? attribute1 = default(bool?), bool? attribute2 = default(bool?), bool? attribute3 = default(bool?), bool? attribute4 = default(bool?), System.Guid? resourceId = default(System.Guid?), IpRange ipRange = default(IpRange), string comment = default(string))
+        public ProviderAccessVM(System.Guid? userId = default, System.Guid? ownerId = default, System.Guid? grantedById = default, System.Guid? accessSharingId = default, bool? keyCreated = default, bool? autoRefreshed = default, System.DateTime? keyCreatedTimeUTC = default, System.DateTime? keyExpiryTimeUTC = default, string resourceType = default, int? accessHours = default, System.Guid? accessKeyTemplateId = default, bool? attribute1 = default, bool? attribute2 = default, bool? attribute3 = default, bool? attribute4 = default, System.Guid? resourceId = default, IpRange ipRange = default, string comment = default)
         {
             UserId = userId;
             OwnerId = ownerId;

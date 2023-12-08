@@ -6,15 +6,12 @@
 
 namespace DNV.ApiClients.Veracity.DataPlatform.DataApi
 {
-    using AutoRest.ApiClients;
-    using AutoRest.ApiClients.Common;
-    using Microsoft.Rest;
     using Models;
     using Newtonsoft.Json;
 
-    /// <summary>
+/// <summary>
     /// </summary>
-    public partial interface IDataApiClient : AutoRest.ApiClients.Common.IApiClient, System.IDisposable
+    public partial interface IDataApiClient : System.IDisposable
     {
         /// <summary>
         /// The base URI of the service.
@@ -31,57 +28,51 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataApi
         /// </summary>
         JsonSerializerSettings DeserializationSettings { get; }
 
-        /// <summary>
-        /// Subscription credentials which uniquely identify client
-        /// subscription.
-        /// </summary>
-        ServiceClientCredentials Credentials { get; }
-
 
         /// <summary>
-        /// Gets the IAccess.
+        /// Gets the IV10Access.
         /// </summary>
-        IAccess Access { get; }
+        IV10Access V10Access { get; }
 
         /// <summary>
-        /// Gets the IApplicationOperations.
+        /// Gets the IV10Application.
         /// </summary>
-        IApplicationOperations Application { get; }
+        IV10Application V10Application { get; }
 
         /// <summary>
-        /// Gets the IDataStewards.
+        /// Gets the IV10DataStewards.
         /// </summary>
-        IDataStewards DataStewards { get; }
+        IV10DataStewards V10DataStewards { get; }
 
         /// <summary>
-        /// Gets the IKeyTemplates.
+        /// Gets the IV10KeyTemplates.
         /// </summary>
-        IKeyTemplates KeyTemplates { get; }
+        IV10KeyTemplates V10KeyTemplates { get; }
 
         /// <summary>
-        /// Gets the ILedger.
+        /// Gets the IV10Ledger.
         /// </summary>
-        ILedger Ledger { get; }
+        IV10Ledger V10Ledger { get; }
 
         /// <summary>
-        /// Gets the IResources.
+        /// Gets the IV10Resources.
         /// </summary>
-        IResources Resources { get; }
+        IV10Resources V10Resources { get; }
 
         /// <summary>
-        /// Gets the ITags.
+        /// Gets the IV10Tags.
         /// </summary>
-        ITags Tags { get; }
+        IV10Tags V10Tags { get; }
 
         /// <summary>
-        /// Gets the IUsers.
+        /// Gets the IV10Users.
         /// </summary>
-        IUsers Users { get; }
+        IV10Users V10Users { get; }
 
         /// <summary>
-        /// Gets the IGroups.
+        /// Gets the IV10Groups.
         /// </summary>
-        IGroups Groups { get; }
+        IV10Groups V10Groups { get; }
 
     }
 }

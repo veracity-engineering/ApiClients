@@ -27,7 +27,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataApi.Models
         /// Initializes a new instance of the GroupCreationInputParameters
         /// class.
         /// </summary>
-        public GroupCreationInputParameters(string title, string description, IList<System.Guid?> resourceIds, double? sortingOrder = default(double?))
+        public GroupCreationInputParameters(string title, string description, IEnumerable<System.Guid?> resourceIds, double? sortingOrder = default)
         {
             Title = title;
             Description = description;
@@ -54,7 +54,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataApi.Models
         /// <summary>
         /// </summary>
         [JsonProperty(PropertyName = "resourceIds")]
-        public IList<System.Guid?> ResourceIds { get; set; }
+        public IEnumerable<System.Guid?> ResourceIds { get; set; }
 
         /// <summary>
         /// </summary>

@@ -24,7 +24,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataApi.Models
         /// </summary>
         /// <param name="mayContainPersonalData">Possible values include:
         /// 'unknown', 'true', 'false'</param>
-        public StorageResourcesVM(System.Guid? resourceId = default(System.Guid?), string resourceName = default(string), string resourceUrl = default(string), System.DateTime? lastModifiedUTC = default(System.DateTime?), System.DateTime? creationDateTimeUTC = default(System.DateTime?), System.Guid? ownerId = default(System.Guid?), string resourceType = default(string), string resourceRegion = default(string), string mayContainPersonalData = default(string), ResourceMetadata metadata = default(ResourceMetadata))
+        public StorageResourcesVM(System.Guid? resourceId = default, string resourceName = default, string resourceUrl = default, System.DateTime? lastModifiedUTC = default, System.DateTime? creationDateTimeUTC = default, System.Guid? ownerId = default, string resourceType = default, string resourceRegion = default, StorageResourcesVMMayContainPersonalData? mayContainPersonalData = default, ResourceMetadata metadata = default)
         {
             ResourceId = resourceId;
             ResourceName = resourceName;
@@ -88,7 +88,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataApi.Models
         /// Gets or sets possible values include: 'unknown', 'true', 'false'
         /// </summary>
         [JsonProperty(PropertyName = "mayContainPersonalData")]
-        public string MayContainPersonalData { get; set; }
+        public StorageResourcesVMMayContainPersonalData? MayContainPersonalData { get; set; }
 
         /// <summary>
         /// </summary>
