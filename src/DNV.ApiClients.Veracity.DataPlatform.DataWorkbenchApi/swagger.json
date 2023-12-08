@@ -1,0 +1,1317 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "DW Gateway",
+    "version": "v2"
+  },
+  "paths": {
+    "/gateway/api/v2/workspaces/{workspaceId}/Analysis/executions": {
+      "post": {
+        "tags": [
+          "Analysis"
+        ],
+        "summary": "Execute Python on a dataset, upon completion a notificaiton will be triggered to user",
+        "operationId": "Analysis_ExecutePython",
+        "parameters": [
+          {
+            "name": "workspaceId",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "x-nullable": false
+            },
+            "x-nullable": false
+          }
+        ],
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ExecutionWriteDTO"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "202": {
+            "description": "Execution Started"
+          },
+          "400": {
+            "description": "Invalid Model"
+          }
+        }
+      }
+    },
+    "/gateway/api/v2/workspaces/{workspaceId}/Connections": {
+      "get": {
+        "tags": [
+          "Connections"
+        ],
+        "summary": "List all active connections in workspace",
+        "operationId": "Connections_GetConnections",
+        "parameters": [
+          {
+            "name": "workspaceId",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "x-nullable": false
+            },
+            "x-nullable": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Connection"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/gateway/api/v2/workspaces/{workspaceId}/Connectors": {
+      "get": {
+        "tags": [
+          "Connectors"
+        ],
+        "summary": "List all connectors in workspace",
+        "operationId": "Connectors_GetConnectors",
+        "parameters": [
+          {
+            "name": "workspaceId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "x-nullable": false
+            },
+            "x-nullable": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Connector"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/gateway/api/v2/workspaces/{workspaceId}/DataOrders": {
+      "post": {
+        "tags": [
+          "DataOrders"
+        ],
+        "summary": "Create Data Order",
+        "description": "Sample request For GPM Provider:\r\n            \r\n    POST {workspaceId}/DataOrder\r\n            {\r\n               \"datasetName\":\"string\",\r\n               \"providerType\":\"GPM\",\r\n               \"properties\":{\r\n                \"portfolioId\" : \"b259ccb2-5c07-46f8-afa2-ed0f21d912e4\",\r\n            \t\"siteId\": \"EnergySite\",\r\n            \t\"deviceParameters\": [\r\n            \t\t{\r\n            \t\t\t\"deviceIds\": [\r\n            \t\t\t\t\"97c65480-9512-4067-8c2a-ef64a0ebb7db\",\r\n            \t\t\t\t\"b1c80fc9-f548-47c7-a8a0-d41c635f6949\"\r\n            \t\t\t],\r\n            \t\t\t\"parameters\": [\r\n            \t\t\t\t{\r\n            \t\t\t\t\t\"Name\": \"Energy\",\r\n            \t\t\t\t\t\"Aggregation\": \"DEFAULT\"\r\n            \t\t\t\t},\r\n            \t\t\t\t{\r\n            \t\t\t\t\t\"Name\": \"Power\",\r\n            \t\t\t\t\t\"Aggregation\": \"LAST\"\r\n            \t\t\t\t}\r\n            \t\t\t]\r\n            \t\t}\r\n            \t],\r\n            \t\"granularity\": 1,\r\n            \t\"granularityUnit\": \"Hour\",\r\n            \t\"interval\": {\r\n            \t\t\"start\": \"2023-01-01T15:00:00\",\r\n            \t\t\"end\": \"2023-01-01T20:00:00\"\r\n               }\r\n             }\r\n         }",
+        "operationId": "DataOrders_CreateOrder",
+        "parameters": [
+          {
+            "name": "workspaceId",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "x-nullable": false
+            },
+            "x-nullable": false
+          }
+        ],
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OrderWriteDTO"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Returns Ledgers Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrderReadDTO"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid Model",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/gateway/api/v2/workspaces/{workspaceId}/DataOrders/{orderId}": {
+      "get": {
+        "tags": [
+          "DataOrders"
+        ],
+        "summary": "Get Order By Id",
+        "operationId": "DataOrders_GetOrder",
+        "parameters": [
+          {
+            "name": "workspaceId",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "x-nullable": false
+            },
+            "x-nullable": false
+          },
+          {
+            "name": "orderId",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "x-nullable": false
+            },
+            "x-nullable": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns Ledgers Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrderReadDTO"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/gateway/api/v2/workspaces/{workspaceId}/Datasets": {
+      "get": {
+        "tags": [
+          "Datasets"
+        ],
+        "summary": "Get all data sets for a specific workspace. Supports pagination, filtering and sorting.",
+        "operationId": "Datasets_GetDataCatalogs",
+        "parameters": [
+          {
+            "name": "workspaceId",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "x-nullable": false
+            },
+            "x-nullable": false
+          },
+          {
+            "name": "isBaseDataset",
+            "in": "query",
+            "description": "",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "pageIndex",
+            "in": "query",
+            "description": "",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "description": "",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "sortColumn",
+            "in": "query",
+            "description": "",
+            "schema": {
+              "type": "string",
+              "x-nullable": false
+            },
+            "x-nullable": false
+          },
+          {
+            "name": "sortDirection",
+            "in": "query",
+            "description": "",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/SortDirection"
+            },
+            "x-nullable": false
+          },
+          {
+            "name": "datasetName",
+            "in": "query",
+            "description": "Case insensitive and uses contains logic",
+            "schema": {
+              "type": "string",
+              "x-nullable": false
+            },
+            "x-nullable": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns DataSets Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DataCatalogReadDTOV2PaginatedResult"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid Model"
+          }
+        },
+        "deprecated": true
+      }
+    },
+    "/gateway/api/v2/workspaces/{workspaceId}/Datasets/{datasetId}": {
+      "get": {
+        "tags": [
+          "Datasets"
+        ],
+        "summary": "Gets a specific data set by Workspace Id and DataSet Id",
+        "operationId": "Datasets_GetDataCatalogById",
+        "parameters": [
+          {
+            "name": "workspaceId",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "x-nullable": false
+            },
+            "x-nullable": false
+          },
+          {
+            "name": "datasetId",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "x-nullable": false
+            },
+            "x-nullable": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns DataSet Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DataCatalogReadDTOV2"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid Model"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/gateway/api/v2/workspaces/{workspaceId}/Datasets/{datasetId}/query": {
+      "post": {
+        "tags": [
+          "Datasets"
+        ],
+        "summary": "Query for data by Workspace Id and DataSet Id with optional filters",
+        "operationId": "Datasets_QueryDataSet",
+        "parameters": [
+          {
+            "name": "workspaceId",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "x-nullable": false
+            },
+            "x-nullable": false
+          },
+          {
+            "name": "datasetId",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "x-nullable": false
+            },
+            "x-nullable": false
+          }
+        ],
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/QuerySpecificationV2"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Returns DataSet Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/QueryData"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid Model"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/gateway/api/v2/workspaces/{workspaceId}/Datasets/query": {
+      "post": {
+        "tags": [
+          "Datasets"
+        ],
+        "summary": "Get all data sets for a specific workspace. Supports pagination, filtering and sorting.",
+        "operationId": "Datasets_GetDataCatalogsQuery",
+        "parameters": [
+          {
+            "name": "workspaceId",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "x-nullable": false
+            },
+            "x-nullable": false
+          }
+        ],
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DataCatalogQueryDTO"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Returns DataSets Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DataCatalogReadDTOV2PaginatedResult"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid Model"
+          }
+        }
+      }
+    },
+    "/gateway/api/v2/workspaces/{workspaceId}/Ingest": {
+      "post": {
+        "tags": [
+          "Ingest"
+        ],
+        "summary": "Get data ingest endpoint for current workspace",
+        "operationId": "Ingest_GenerateByodStorage",
+        "parameters": [
+          {
+            "name": "workspaceId",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "x-nullable": false
+            },
+            "x-nullable": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns SAS token for created folder, SAS token will be valid for only 15 mins",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string",
+                  "format": "uri"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/gateway/api/v2/workspaces/{workspaceId}/Ledger": {
+      "get": {
+        "tags": [
+          "Ledger"
+        ],
+        "summary": "Gets Workspace Ledger based on workspaceId",
+        "operationId": "Ledger_GetWorkspaceLedger",
+        "parameters": [
+          {
+            "name": "workspaceId",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "x-nullable": false
+            },
+            "x-nullable": false
+          },
+          {
+            "name": "PageSize",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "PageIndex",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns Ledgers Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LedgerQueryDtoPaginatedResult"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid Model",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Connection": {
+        "type": "object",
+        "properties": {
+          "connectionId": {
+            "type": "string",
+            "format": "uuid",
+            "x-nullable": false
+          },
+          "connectionName": {
+            "type": "string",
+            "x-nullable": false
+          },
+          "connector": {
+            "$ref": "#/components/schemas/Connector"
+          },
+          "schemaSupport": {
+            "$ref": "#/components/schemas/Connections_SchemaSupport"
+          },
+          "connectionConfiguration": {
+            "$ref": "#/components/schemas/ConnectionConfiguration"
+          }
+        }
+      },
+      "ConnectionConfiguration": {
+        "type": "object",
+        "properties": {
+          "connectionSettingValues": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ConnectionSettingValue"
+            },
+            "x-nullable": false
+          }
+        }
+      },
+      "ConnectionSetting": {
+        "type": "object",
+        "properties": {
+          "key": {
+            "type": "string",
+            "x-nullable": false
+          },
+          "name": {
+            "type": "string",
+            "x-nullable": false
+          },
+          "description": {
+            "type": "string",
+            "x-nullable": false
+          }
+        }
+      },
+      "ConnectionSettingValue": {
+        "type": "object",
+        "properties": {
+          "key": {
+            "type": "string",
+            "x-nullable": false
+          },
+          "value": {
+            "type": "string",
+            "x-nullable": false
+          }
+        }
+      },
+      "Connections_SchemaSupport": {
+        "type": "object",
+        "properties": {
+          "supportedSchemaVersions": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Connections_SchemaVersion"
+            },
+            "x-nullable": false
+          }
+        }
+      },
+      "Connections_SchemaVersion": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "x-nullable": false
+          },
+          "schemaVersionName": {
+            "type": "string",
+            "x-nullable": false
+          }
+        }
+      },
+      "Connector": {
+        "type": "object",
+        "properties": {
+          "connectorId": {
+            "type": "string",
+            "format": "uuid",
+            "x-nullable": false
+          },
+          "name": {
+            "type": "string",
+            "x-nullable": false
+          },
+          "connectorType": {
+            "type": "string",
+            "x-nullable": false
+          },
+          "description": {
+            "type": "string",
+            "x-nullable": false
+          },
+          "dataProvider": {
+            "type": "string",
+            "x-nullable": false
+          },
+          "connectorConfiguration": {
+            "$ref": "#/components/schemas/ConnectorConfiguration"
+          },
+          "schemaSupport": {
+            "$ref": "#/components/schemas/SchemaSupport"
+          }
+        }
+      },
+      "ConnectorConfiguration": {
+        "type": "object",
+        "properties": {
+          "connectionSettings": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ConnectionSetting"
+            },
+            "x-nullable": false
+          }
+        }
+      },
+      "DataCatalogQueryDTO": {
+        "type": "object",
+        "properties": {
+          "isBaseDataset": {
+            "type": "boolean",
+            "nullable": true,
+            "x-nullable": true
+          },
+          "pageIndex": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true,
+            "x-nullable": true
+          },
+          "pageSize": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true,
+            "x-nullable": true
+          },
+          "sortColumn": {
+            "type": "string",
+            "nullable": true,
+            "x-nullable": true
+          },
+          "sortDirection": {
+            "$ref": "#/components/schemas/SortDirection"
+          },
+          "datasetName": {
+            "type": "string",
+            "nullable": true,
+            "x-nullable": true
+          },
+          "tags": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "nullable": true,
+            "x-nullable": true
+          },
+          "createdAfter": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true,
+            "x-nullable": true
+          },
+          "createdBefore": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true,
+            "x-nullable": true
+          },
+          "schemaVersionIds": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "uuid",
+              "nullable": true,
+              "x-nullable": true
+            },
+            "nullable": true,
+            "x-nullable": true
+          }
+        }
+      },
+      "DataCatalogReadDTOV2": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "x-nullable": false
+          },
+          "name": {
+            "type": "string",
+            "x-nullable": false
+          },
+          "description": {
+            "type": "string",
+            "x-nullable": false
+          },
+          "workspaceId": {
+            "type": "string",
+            "format": "uuid",
+            "x-nullable": false
+          },
+          "connectionId": {
+            "type": "string",
+            "format": "uuid",
+            "x-nullable": false
+          },
+          "createdBy": {
+            "type": "string",
+            "format": "uuid",
+            "x-nullable": false
+          },
+          "createdOn": {
+            "type": "string",
+            "format": "date-time",
+            "x-nullable": false
+          },
+          "lastModifiedBy": {
+            "type": "string",
+            "format": "uuid",
+            "x-nullable": false
+          },
+          "lastModifiedOn": {
+            "type": "string",
+            "format": "date-time",
+            "x-nullable": false
+          },
+          "schemaInfo": {
+            "$ref": "#/components/schemas/SchemaInfoDTO"
+          },
+          "queries": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/QueryFilter"
+            },
+            "x-nullable": false
+          },
+          "columns": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "x-nullable": false
+            },
+            "x-nullable": false
+          },
+          "isBaseDataset": {
+            "type": "boolean",
+            "x-nullable": false
+          },
+          "tags": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "nullable": true,
+            "x-nullable": true
+          }
+        }
+      },
+      "DataCatalogReadDTOV2PaginatedResult": {
+        "type": "object",
+        "properties": {
+          "pageIndex": {
+            "type": "integer"
+          },
+          "pageSize": {
+            "type": "integer"
+          },
+          "totalCount": {
+            "type": "integer"
+          },
+          "totalPages": {
+            "type": "integer"
+          },
+          "result": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/DataCatalogReadDTOV2"
+            }
+          }
+        }
+      },
+      "ExecutionWriteDTO": {
+        "type": "object",
+        "properties": {
+          "datasetIds": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "uuid",
+              "x-nullable": false
+            },
+            "x-nullable": false
+          },
+          "provider": {
+            "type": "string",
+            "x-nullable": false
+          },
+          "script": {
+            "type": "string",
+            "x-nullable": false
+          },
+          "outputDatasetName": {
+            "type": "string",
+            "x-nullable": false
+          }
+        }
+      },
+      "FilterType": {
+        "enum": [
+          "List",
+          "Equals",
+          "Greater",
+          "GreaterOrEqual",
+          "Less",
+          "LessOrEqual",
+          "NonFromList",
+          "StringContains"
+        ],
+        "type": "string"
+      },
+      "KeyValueSetting": {
+        "type": "object",
+        "properties": {
+          "key": {
+            "type": "string",
+            "x-nullable": false
+          },
+          "value": {
+            "type": "string",
+            "x-nullable": false
+          },
+          "type": {
+            "type": "string",
+            "x-nullable": false
+          },
+          "description": {
+            "type": "string",
+            "x-nullable": false
+          }
+        }
+      },
+      "LedgerQueryDto": {
+        "type": "object",
+        "properties": {
+          "pageSize": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true,
+            "x-nullable": true
+          },
+          "pageIndex": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true,
+            "x-nullable": true
+          }
+        }
+      },
+      "LedgerQueryDtoPaginatedResult": {
+        "type": "object",
+        "properties": {
+          "pageIndex": {
+            "type": "integer"
+          },
+          "pageSize": {
+            "type": "integer"
+          },
+          "totalCount": {
+            "type": "integer"
+          },
+          "totalPages": {
+            "type": "integer"
+          },
+          "result": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/LedgerQueryDto"
+            }
+          }
+        }
+      },
+      "OrderReadDTO": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "x-nullable": false
+          },
+          "workspaceId": {
+            "type": "string",
+            "format": "uuid",
+            "x-nullable": false
+          },
+          "datasetName": {
+            "type": "string",
+            "x-nullable": false
+          },
+          "status": {
+            "type": "string",
+            "x-nullable": false
+          },
+          "provider": {
+            "$ref": "#/components/schemas/ProviderType"
+          },
+          "createdDate": {
+            "type": "string",
+            "format": "date-time",
+            "x-nullable": false
+          },
+          "lastModifiedDate": {
+            "type": "string",
+            "format": "date-time",
+            "x-nullable": false
+          },
+          "createdDatasetsId": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "x-nullable": false
+            },
+            "x-nullable": false
+          },
+          "properties": {
+            "x-nullable": false
+          }
+        }
+      },
+      "OrderWriteDTO": {
+        "type": "object",
+        "properties": {
+          "datasetName": {
+            "type": "string",
+            "x-nullable": false
+          },
+          "providerType": {
+            "$ref": "#/components/schemas/ProviderType"
+          },
+          "properties": {
+            "x-nullable": false
+          }
+        }
+      },
+      "Pagination": {
+        "type": "object",
+        "properties": {
+          "pageIndex": {
+            "type": "integer",
+            "format": "int32",
+            "x-nullable": false
+          },
+          "pageSize": {
+            "type": "integer",
+            "format": "int32",
+            "x-nullable": false
+          },
+          "totalPages": {
+            "type": "integer",
+            "format": "int32",
+            "x-nullable": false
+          },
+          "totalCount": {
+            "type": "integer",
+            "format": "int32",
+            "x-nullable": false
+          }
+        }
+      },
+      "ProblemDetails": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "nullable": true,
+            "x-nullable": true
+          },
+          "title": {
+            "type": "string",
+            "nullable": true,
+            "x-nullable": true
+          },
+          "status": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true,
+            "x-nullable": true
+          },
+          "detail": {
+            "type": "string",
+            "nullable": true,
+            "x-nullable": true
+          },
+          "instance": {
+            "type": "string",
+            "nullable": true,
+            "x-nullable": true
+          }
+        },
+        "additionalProperties": { }
+      },
+      "ProviderType": {
+        "enum": [
+          "GPM"
+        ],
+        "type": "string"
+      },
+      "QueryData": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "x-nullable": false
+            },
+            "x-nullable": false
+          },
+          "pagination": {
+            "$ref": "#/components/schemas/Pagination"
+          }
+        }
+      },
+      "QueryFilter": {
+        "type": "object",
+        "properties": {
+          "column": {
+            "type": "string",
+            "x-nullable": false
+          },
+          "filterType": {
+            "$ref": "#/components/schemas/FilterType"
+          },
+          "filterValues": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "x-nullable": false
+            },
+            "x-nullable": false
+          }
+        }
+      },
+      "QuerySpecificationV2": {
+        "type": "object",
+        "properties": {
+          "pageIndex": {
+            "type": "integer",
+            "format": "int32",
+            "x-nullable": false
+          },
+          "pageSize": {
+            "type": "integer",
+            "format": "int32",
+            "x-nullable": false
+          },
+          "queryFilters": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/QueryFilter"
+            },
+            "nullable": true,
+            "x-nullable": true
+          },
+          "columnFilter": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "nullable": true,
+              "x-nullable": true
+            },
+            "nullable": true,
+            "x-nullable": true
+          },
+          "sorting": {
+            "$ref": "#/components/schemas/Sorting"
+          }
+        }
+      },
+      "SchemaInfoDTO": {
+        "type": "object",
+        "properties": {
+          "schemaVersionId": {
+            "type": "string",
+            "format": "uuid",
+            "x-nullable": false
+          },
+          "schemaName": {
+            "type": "string",
+            "x-nullable": false
+          }
+        }
+      },
+      "SchemaSupport": {
+        "type": "object",
+        "properties": {
+          "supportedSchemaVersions": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SchemaVersion"
+            },
+            "x-nullable": false
+          }
+        }
+      },
+      "SchemaVersion": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "x-nullable": false
+          },
+          "schemaVersionName": {
+            "type": "string",
+            "x-nullable": false
+          },
+          "settings": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/KeyValueSetting"
+            },
+            "x-nullable": false
+          }
+        }
+      },
+      "SortDirection": {
+        "enum": [
+          "Ascending",
+          "Descending"
+        ],
+        "type": "string"
+      },
+      "Sorting": {
+        "type": "object",
+        "properties": {
+          "column": {
+            "type": "string",
+            "x-nullable": false
+          },
+          "order": {
+            "$ref": "#/components/schemas/SortingOrder"
+          }
+        }
+      },
+      "SortingOrder": {
+        "enum": [
+          "Ascending",
+          "Descending"
+        ],
+        "type": "string"
+      }
+    },
+    "securitySchemes": {
+      "OAuth2": {
+        "type": "oauth2",
+        "flows": {
+          "clientCredentials": {
+            "tokenUrl": "/swagger/token",
+            "scopes": {
+              "https://dnvglb2ctest.onmicrosoft.com/a4a8e726-c1cc-407c-83a0-4ce37f1ce130/.default": "scope 1"
+            }
+          },
+          "authorizationCode": {
+            "authorizationUrl": "https://logintest.veracity.com/ed815121-cdfa-4097-b524-e2b23cd36eb6/b2c_1a_signinwithadfsidp/oauth2/v2.0/authorize",
+            "tokenUrl": "https://logintest.veracity.com/ed815121-cdfa-4097-b524-e2b23cd36eb6/b2c_1a_signinwithadfsidp/oauth2/v2.0/token",
+            "scopes": {
+              "https://dnvglb2ctest.onmicrosoft.com/a4a8e726-c1cc-407c-83a0-4ce37f1ce130/user_impersonation": "Gateway"
+            }
+          }
+        }
+      },
+      "Bearer": {
+        "type": "http",
+        "scheme": "Bearer"
+      }
+    }
+  },
+  "security": [
+    {
+      "OAuth2": [ ]
+    },
+    {
+      "Bearer": [ ]
+    }
+  ]
+}

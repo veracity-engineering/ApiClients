@@ -22,6 +22,9 @@ on:
         type: string
       namespace:
         type: string
+      interface:
+        type: string
+        default: ''
 
 jobs:
   autorest_generate:
@@ -63,6 +66,7 @@ jobs:
             --override-client-name:${{ inputs.client-name }} \
             --namespace:${{ inputs.namespace }} \
             --csharp:${{ inputs.csharp }} \
+            --interface:${{ inputs.interface }} \
             --typescript:${{ inputs.typescript }} \
             --python:${{ inputs.python }} \
             --use:@cuteribs/autorest.csharp@latest \
