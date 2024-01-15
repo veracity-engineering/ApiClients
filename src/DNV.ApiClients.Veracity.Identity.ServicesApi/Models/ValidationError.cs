@@ -4,13 +4,13 @@
 // regenerated.
 // </auto-generated>
 
+using System.Linq;
+
 namespace DNV.ApiClients.Veracity.Identity.ServicesApi.Models
 {
     using Newtonsoft.Json;
     using System.Collections;
     using System.Collections.Generic;
-    using System.Linq;
-
     public partial class ValidationError
     {
         /// <summary>
@@ -24,7 +24,7 @@ namespace DNV.ApiClients.Veracity.Identity.ServicesApi.Models
         /// <summary>
         /// Initializes a new instance of the ValidationError class.
         /// </summary>
-        public ValidationError(int subCode, string url = default, IList<string> violatedPolicies = default, bool? subscriptionMissing = default, string message = default, string information = default, string supportCode = default)
+        public ValidationError(int subCode, string url = default, IEnumerable<string> violatedPolicies = default, bool? subscriptionMissing = default, string message = default, string information = default, string supportCode = default)
         {
             Url = url;
             ViolatedPolicies = violatedPolicies;
@@ -49,7 +49,7 @@ namespace DNV.ApiClients.Veracity.Identity.ServicesApi.Models
         /// <summary>
         /// </summary>
         [JsonProperty(PropertyName = "violatedPolicies")]
-        public IList<string> ViolatedPolicies { get; set; }
+        public IEnumerable<string> ViolatedPolicies { get; set; }
 
         /// <summary>
         /// </summary>

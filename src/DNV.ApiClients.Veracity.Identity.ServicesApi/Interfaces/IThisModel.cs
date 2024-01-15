@@ -4,7 +4,7 @@
 // regenerated.
 // </auto-generated>
 
-namespace DNV.ApiClients.Veracity.Identity.ServicesApi
+namespace DNV.ApiClients.Veracity.Identity.ServicesApi.Interfaces
 {
     using Microsoft.Rest;
     using Models;
@@ -14,17 +14,84 @@ namespace DNV.ApiClients.Veracity.Identity.ServicesApi
     using System.Threading.Tasks;
 
     /// <summary>
-    /// UsersDirectory operations.
+    /// ThisModel operations.
     /// </summary>
-    public partial interface IUsersDirectory
+    public partial interface IThisModel
     {
         /// <summary>
-        /// UsersDirectory_GetUsersByEmail
+        /// This_GetServices
         /// </summary>
         /// <remarks>
-        /// Gets a list of users with a given email address
+        /// Get all services the service principal has access to. Currently not
+        /// 100% accurate. Paged query: uses 0 based page index
         /// </remarks>
-        /// <param name='email'>
+        /// <param name='page'>
+        /// Format - int32.
+        /// </param>
+        /// <param name='pageSize'>
+        /// Format - int32.
+        /// </param>
+        /// <param name='xSupportCode'>
+        /// Provide a correlation token for log lookup. This is optional.
+        /// </param>
+        /// <param name='ocpApimSubscriptionKey'>
+        /// Veracity api management subscription key
+        /// </param>
+        /// <param name='customHeaders'>
+        /// The headers that will be added to request.
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        /// <exception cref="Microsoft.Rest.HttpOperationException">
+        /// Thrown when the operation returned an invalid status code
+        /// </exception>
+        /// <exception cref="Microsoft.Rest.SerializationException">
+        /// Thrown when unable to deserialize the response
+        /// </exception>
+        Task<HttpOperationResponse<IEnumerable<ServiceReference>,ThisGetServicesHeaders>> GetServicesWithHttpMessagesAsync(int page, int pageSize, string xSupportCode = default, string ocpApimSubscriptionKey = default, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default);
+        /// <summary>
+        /// This_GetUsers
+        /// </summary>
+        /// <remarks>
+        /// Get all users with a subscription to this service. Paged query:
+        /// uses 0 based page index .Warning: returns http 300 Ambiguous if
+        /// service account is linked to multiple services
+        /// </remarks>
+        /// <param name='page'>
+        /// Format - int32.
+        /// </param>
+        /// <param name='pageSize'>
+        /// Format - int32.
+        /// </param>
+        /// <param name='xSupportCode'>
+        /// Provide a correlation token for log lookup. This is optional.
+        /// </param>
+        /// <param name='ocpApimSubscriptionKey'>
+        /// Veracity api management subscription key
+        /// </param>
+        /// <param name='customHeaders'>
+        /// The headers that will be added to request.
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        /// <exception cref="Microsoft.Rest.HttpOperationException">
+        /// Thrown when the operation returned an invalid status code
+        /// </exception>
+        /// <exception cref="Microsoft.Rest.SerializationException">
+        /// Thrown when unable to deserialize the response
+        /// </exception>
+        Task<HttpOperationResponse<IEnumerable<UserReference>,ThisGetUsersHeaders>> GetUsersWithHttpMessagesAsync(int page, int pageSize, string xSupportCode = default, string ocpApimSubscriptionKey = default, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default);
+        /// <summary>
+        /// This_GetServiceUser
+        /// </summary>
+        /// <remarks>
+        /// Get all users with a subscription to this service. Paged query:
+        /// uses 0 based page index. Warning: returns http 300 Ambiguous if
+        /// service account is linked to multiple services
+        /// </remarks>
+        /// <param name='userId'>
         /// </param>
         /// <param name='xSupportCode'>
         /// Provide a correlation token for log lookup. This is optional.
@@ -47,70 +114,16 @@ namespace DNV.ApiClients.Veracity.Identity.ServicesApi
         /// <exception cref="Microsoft.Rest.ValidationException">
         /// Thrown when a required parameter is null
         /// </exception>
-        Task<HttpOperationResponse<object,UsersDirectoryGetUsersByEmailHeaders>> GetUsersByEmailWithHttpMessagesAsync(string email, string xSupportCode = default, string ocpApimSubscriptionKey = default, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default);
+        Task<HttpOperationResponse<SubscriptionReference,ThisGetServiceUserHeaders>> GetServiceUserWithHttpMessagesAsync(string userId, string xSupportCode = default, string ocpApimSubscriptionKey = default, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default);
         /// <summary>
-        /// UsersDirectory_GetUser
+        /// This_AddUserAsync
         /// </summary>
         /// <remarks>
-        /// Returns the full profile for the user with the provided id
+        /// Add a user subscription to the service. Warning: returns http 300
+        /// Ambiguous if service account is linked to multiple services
         /// </remarks>
-        /// <param name='userid'>
+        /// <param name='userId'>
         /// </param>
-        /// <param name='xSupportCode'>
-        /// Provide a correlation token for log lookup. This is optional.
-        /// </param>
-        /// <param name='ocpApimSubscriptionKey'>
-        /// Veracity api management subscription key
-        /// </param>
-        /// <param name='customHeaders'>
-        /// The headers that will be added to request.
-        /// </param>
-        /// <param name='cancellationToken'>
-        /// The cancellation token.
-        /// </param>
-        /// <exception cref="Microsoft.Rest.HttpOperationException">
-        /// Thrown when the operation returned an invalid status code
-        /// </exception>
-        /// <exception cref="Microsoft.Rest.SerializationException">
-        /// Thrown when unable to deserialize the response
-        /// </exception>
-        /// <exception cref="Microsoft.Rest.ValidationException">
-        /// Thrown when a required parameter is null
-        /// </exception>
-        Task<HttpOperationResponse<object,UsersDirectoryGetUserHeaders>> GetUserWithHttpMessagesAsync(string userid, string xSupportCode = default, string ocpApimSubscriptionKey = default, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default);
-        /// <summary>
-        /// UsersDirectory_DeleteUser
-        /// </summary>
-        /// <remarks>
-        /// Delete user
-        /// </remarks>
-        /// <param name='userid'>
-        /// </param>
-        /// <param name='xSupportCode'>
-        /// Provide a correlation token for log lookup. This is optional.
-        /// </param>
-        /// <param name='ocpApimSubscriptionKey'>
-        /// Veracity api management subscription key
-        /// </param>
-        /// <param name='customHeaders'>
-        /// The headers that will be added to request.
-        /// </param>
-        /// <param name='cancellationToken'>
-        /// The cancellation token.
-        /// </param>
-        /// <exception cref="Microsoft.Rest.HttpOperationException">
-        /// Thrown when the operation returned an invalid status code
-        /// </exception>
-        /// <exception cref="Microsoft.Rest.ValidationException">
-        /// Thrown when a required parameter is null
-        /// </exception>
-        Task<HttpOperationHeaderResponse<UsersDirectoryDeleteUserHeaders>> DeleteUserWithHttpMessagesAsync(string userid, string xSupportCode = default, string ocpApimSubscriptionKey = default, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default);
-        /// <summary>
-        /// UsersDirectory_GetUsersIn
-        /// </summary>
-        /// <remarks>
-        /// Get full user profiles for a list of userid's
-        /// </remarks>
         /// <param name='body'>
         /// </param>
         /// <param name='xSupportCode'>
@@ -128,17 +141,47 @@ namespace DNV.ApiClients.Veracity.Identity.ServicesApi
         /// <exception cref="Microsoft.Rest.HttpOperationException">
         /// Thrown when the operation returned an invalid status code
         /// </exception>
-        /// <exception cref="Microsoft.Rest.SerializationException">
-        /// Thrown when unable to deserialize the response
+        /// <exception cref="Microsoft.Rest.ValidationException">
+        /// Thrown when a required parameter is null
         /// </exception>
-        Task<HttpOperationResponse<object,UsersDirectoryGetUsersInHeaders>> GetUsersInWithHttpMessagesAsync(IList<string> body = default, string xSupportCode = default, string ocpApimSubscriptionKey = default, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default);
+        Task<HttpOperationHeaderResponse<ThisAddUserAsyncHeaders>> AddUserAsyncWithHttpMessagesAsync(string userId, SubscriptionOptions body = default, string xSupportCode = default, string ocpApimSubscriptionKey = default, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default);
         /// <summary>
-        /// UsersDirectory_GetUserCompanies
+        /// This_RemoveUser
         /// </summary>
         /// <remarks>
-        /// Returns a list of companies tied to a spescified user.
+        /// Remove servive subscription from the user
         /// </remarks>
-        /// <param name='userid'>
+        /// <param name='userId'>
+        /// </param>
+        /// <param name='xSupportCode'>
+        /// Provide a correlation token for log lookup. This is optional.
+        /// </param>
+        /// <param name='ocpApimSubscriptionKey'>
+        /// Veracity api management subscription key
+        /// </param>
+        /// <param name='customHeaders'>
+        /// The headers that will be added to request.
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        /// <exception cref="Microsoft.Rest.HttpOperationException">
+        /// Thrown when the operation returned an invalid status code
+        /// </exception>
+        /// <exception cref="Microsoft.Rest.ValidationException">
+        /// Thrown when a required parameter is null
+        /// </exception>
+        Task<HttpOperationHeaderResponse<ThisRemoveUserHeaders>> RemoveUserWithHttpMessagesAsync(string userId, string xSupportCode = default, string ocpApimSubscriptionKey = default, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default);
+        /// <summary>
+        /// This_GetUserForService
+        /// </summary>
+        /// <remarks>
+        /// Checks if a user has a subscription to the service and the access
+        /// level if any.
+        /// </remarks>
+        /// <param name='serviceId'>
+        /// </param>
+        /// <param name='userId'>
         /// </param>
         /// <param name='xSupportCode'>
         /// Provide a correlation token for log lookup. This is optional.
@@ -161,15 +204,112 @@ namespace DNV.ApiClients.Veracity.Identity.ServicesApi
         /// <exception cref="Microsoft.Rest.ValidationException">
         /// Thrown when a required parameter is null
         /// </exception>
-        Task<HttpOperationResponse<object,UsersDirectoryGetUserCompaniesHeaders>> GetUserCompaniesWithHttpMessagesAsync(string userid, string xSupportCode = default, string ocpApimSubscriptionKey = default, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default);
+        Task<HttpOperationResponse<SubscriptionReference,ThisGetUserForServiceHeaders>> GetUserForServiceWithHttpMessagesAsync(string serviceId, string userId, string xSupportCode = default, string ocpApimSubscriptionKey = default, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default);
         /// <summary>
-        /// UsersDirectory_GetUserServices
+        /// This_AddServiceUser
         /// </summary>
         /// <remarks>
-        /// Get a list of the users servcies. Paged query: uses 0 based page
-        /// index
+        /// Add a user subscription to the service with the provided id .Only
+        /// available for the root service for nested services
         /// </remarks>
-        /// <param name='userid'>
+        /// <param name='userId'>
+        /// </param>
+        /// <param name='serviceId'>
+        /// </param>
+        /// <param name='body'>
+        /// </param>
+        /// <param name='xSupportCode'>
+        /// Provide a correlation token for log lookup. This is optional.
+        /// </param>
+        /// <param name='ocpApimSubscriptionKey'>
+        /// Veracity api management subscription key
+        /// </param>
+        /// <param name='customHeaders'>
+        /// The headers that will be added to request.
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        /// <exception cref="Microsoft.Rest.HttpOperationException">
+        /// Thrown when the operation returned an invalid status code
+        /// </exception>
+        /// <exception cref="Microsoft.Rest.ValidationException">
+        /// Thrown when a required parameter is null
+        /// </exception>
+        Task<HttpOperationHeaderResponse<ThisAddServiceUserHeaders>> AddServiceUserWithHttpMessagesAsync(string userId, string serviceId, SubscriptionOptions body = default, string xSupportCode = default, string ocpApimSubscriptionKey = default, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default);
+        /// <summary>
+        /// This_RemoveServiceUser
+        /// </summary>
+        /// <remarks>
+        /// Remove servive subscription from the user .Only available for the
+        /// root service for nested services
+        /// </remarks>
+        /// <param name='userId'>
+        /// </param>
+        /// <param name='serviceId'>
+        /// </param>
+        /// <param name='suppressNotification'>
+        /// </param>
+        /// <param name='xSupportCode'>
+        /// Provide a correlation token for log lookup. This is optional.
+        /// </param>
+        /// <param name='ocpApimSubscriptionKey'>
+        /// Veracity api management subscription key
+        /// </param>
+        /// <param name='customHeaders'>
+        /// The headers that will be added to request.
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        /// <exception cref="Microsoft.Rest.HttpOperationException">
+        /// Thrown when the operation returned an invalid status code
+        /// </exception>
+        /// <exception cref="Microsoft.Rest.ValidationException">
+        /// Thrown when a required parameter is null
+        /// </exception>
+        Task<HttpOperationHeaderResponse<ThisRemoveServiceUserHeaders>> RemoveServiceUserWithHttpMessagesAsync(string userId, string serviceId, string suppressNotification = default, string xSupportCode = default, string ocpApimSubscriptionKey = default, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default);
+        /// <summary>
+        /// This_GetUserProfilePicture
+        /// </summary>
+        /// <remarks>
+        /// Gets the profile picture of the user if there is a subscription and
+        /// the user has uploaded a profile picture to veracity
+        /// </remarks>
+        /// <param name='serviceId'>
+        /// </param>
+        /// <param name='userId'>
+        /// </param>
+        /// <param name='xSupportCode'>
+        /// Provide a correlation token for log lookup. This is optional.
+        /// </param>
+        /// <param name='ocpApimSubscriptionKey'>
+        /// Veracity api management subscription key
+        /// </param>
+        /// <param name='customHeaders'>
+        /// The headers that will be added to request.
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        /// <exception cref="Microsoft.Rest.HttpOperationException">
+        /// Thrown when the operation returned an invalid status code
+        /// </exception>
+        /// <exception cref="Microsoft.Rest.SerializationException">
+        /// Thrown when unable to deserialize the response
+        /// </exception>
+        /// <exception cref="Microsoft.Rest.ValidationException">
+        /// Thrown when a required parameter is null
+        /// </exception>
+        Task<HttpOperationResponse<ProfilePicture,ThisGetUserProfilePictureHeaders>> GetUserProfilePictureWithHttpMessagesAsync(string serviceId, string userId, string xSupportCode = default, string ocpApimSubscriptionKey = default, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default);
+        /// <summary>
+        /// This_GetUsersForService
+        /// </summary>
+        /// <remarks>
+        /// Get all users with a subscription to this service. Paged query:
+        /// uses 0 based page index
+        /// </remarks>
+        /// <param name='serviceId'>
         /// </param>
         /// <param name='page'>
         /// Format - int32.
@@ -198,221 +338,104 @@ namespace DNV.ApiClients.Veracity.Identity.ServicesApi
         /// <exception cref="Microsoft.Rest.ValidationException">
         /// Thrown when a required parameter is null
         /// </exception>
-        Task<HttpOperationResponse<object,UsersDirectoryGetUserServicesHeaders>> GetUserServicesWithHttpMessagesAsync(string userid, int page, int pageSize, string xSupportCode = default, string ocpApimSubscriptionKey = default, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default);
+        Task<HttpOperationResponse<IEnumerable<UserReference>,ThisGetUsersForServiceHeaders>> GetUsersForServiceWithHttpMessagesAsync(string serviceId, int page, int pageSize, string xSupportCode = default, string ocpApimSubscriptionKey = default, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default);
         /// <summary>
-        /// UsersDirectory_GetUserSubscriptionDetails
+        /// This_ResolveUser
         /// </summary>
         /// <remarks>
-        /// Gets the subscription state for a user with respect to the service
-        /// provided.
+        /// Get the user id from the email address. Note that an email address
+        /// may be connected to more than one user account
         /// </remarks>
-        /// <param name='userid'>
+        /// <param name='email'>
         /// </param>
+        /// <param name='xSupportCode'>
+        /// Provide a correlation token for log lookup. This is optional.
+        /// </param>
+        /// <param name='ocpApimSubscriptionKey'>
+        /// Veracity api management subscription key
+        /// </param>
+        /// <param name='customHeaders'>
+        /// The headers that will be added to request.
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        /// <exception cref="Microsoft.Rest.HttpOperationException">
+        /// Thrown when the operation returned an invalid status code
+        /// </exception>
+        /// <exception cref="Microsoft.Rest.SerializationException">
+        /// Thrown when unable to deserialize the response
+        /// </exception>
+        /// <exception cref="Microsoft.Rest.ValidationException">
+        /// Thrown when a required parameter is null
+        /// </exception>
+        Task<HttpOperationResponse<IEnumerable<UserReference>,ThisResolveUserHeaders>> ResolveUserWithHttpMessagesAsync(string email, string xSupportCode = default, string ocpApimSubscriptionKey = default, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default);
+        /// <summary>
+        /// This_CreateUser
+        /// </summary>
+        /// <remarks>
+        /// Create a user in Veracity
+        /// </remarks>
+        /// <param name='body'>
+        /// </param>
+        /// <param name='xSupportCode'>
+        /// Provide a correlation token for log lookup. This is optional.
+        /// </param>
+        /// <param name='ocpApimSubscriptionKey'>
+        /// Veracity api management subscription key
+        /// </param>
+        /// <param name='customHeaders'>
+        /// The headers that will be added to request.
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        /// <exception cref="Microsoft.Rest.HttpOperationException">
+        /// Thrown when the operation returned an invalid status code
+        /// </exception>
+        /// <exception cref="Microsoft.Rest.SerializationException">
+        /// Thrown when unable to deserialize the response
+        /// </exception>
+        Task<HttpOperationResponse<UserCreationReference,ThisCreateUserHeaders>> CreateUserWithHttpMessagesAsync(UserRegistration body = default, string xSupportCode = default, string ocpApimSubscriptionKey = default, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default);
+        /// <summary>
+        /// This_CreateUsers
+        /// </summary>
+        /// <remarks>
+        /// Create a users in Veracity
+        /// </remarks>
+        /// <param name='body'>
+        /// </param>
+        /// <param name='xSupportCode'>
+        /// Provide a correlation token for log lookup. This is optional.
+        /// </param>
+        /// <param name='ocpApimSubscriptionKey'>
+        /// Veracity api management subscription key
+        /// </param>
+        /// <param name='customHeaders'>
+        /// The headers that will be added to request.
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        /// <exception cref="Microsoft.Rest.HttpOperationException">
+        /// Thrown when the operation returned an invalid status code
+        /// </exception>
+        /// <exception cref="Microsoft.Rest.SerializationException">
+        /// Thrown when unable to deserialize the response
+        /// </exception>
+        Task<HttpOperationResponse<IEnumerable<UserCreationReference>,ThisCreateUsersHeaders>> CreateUsersWithHttpMessagesAsync(IEnumerable<UserRegistration> body = default, string xSupportCode = default, string ocpApimSubscriptionKey = default, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default);
+        /// <summary>
+        /// This_NotifyUsers
+        /// </summary>
+        /// <remarks>
+        /// Send notification to your users through the Veracity notification
+        /// service
+        /// </remarks>
         /// <param name='serviceId'>
         /// </param>
-        /// <param name='xSupportCode'>
-        /// Provide a correlation token for log lookup. This is optional.
-        /// </param>
-        /// <param name='ocpApimSubscriptionKey'>
-        /// Veracity api management subscription key
-        /// </param>
-        /// <param name='customHeaders'>
-        /// The headers that will be added to request.
-        /// </param>
-        /// <param name='cancellationToken'>
-        /// The cancellation token.
-        /// </param>
-        /// <exception cref="Microsoft.Rest.HttpOperationException">
-        /// Thrown when the operation returned an invalid status code
-        /// </exception>
-        /// <exception cref="Microsoft.Rest.SerializationException">
-        /// Thrown when unable to deserialize the response
-        /// </exception>
-        /// <exception cref="Microsoft.Rest.ValidationException">
-        /// Thrown when a required parameter is null
-        /// </exception>
-        Task<HttpOperationResponse<object,UsersDirectoryGetUserSubscriptionDetailsHeaders>> GetUserSubscriptionDetailsWithHttpMessagesAsync(string userid, string serviceId, string xSupportCode = default, string ocpApimSubscriptionKey = default, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default);
-        /// <summary>
-        /// UsersDirectory_UpdateCurrentUser
-        /// </summary>
-        /// <remarks>
-        /// Update the profile for the logged in user. This cannot be used to
-        /// edit a random user, you need to have a valid user token
-        /// </remarks>
         /// <param name='body'>
         /// </param>
-        /// <param name='xSupportCode'>
-        /// Provide a correlation token for log lookup. This is optional.
-        /// </param>
-        /// <param name='ocpApimSubscriptionKey'>
-        /// Veracity api management subscription key
-        /// </param>
-        /// <param name='customHeaders'>
-        /// The headers that will be added to request.
-        /// </param>
-        /// <param name='cancellationToken'>
-        /// The cancellation token.
-        /// </param>
-        /// <exception cref="Microsoft.Rest.HttpOperationException">
-        /// Thrown when the operation returned an invalid status code
-        /// </exception>
-        Task<HttpOperationHeaderResponse<UsersDirectoryUpdateCurrentUserHeaders>> UpdateCurrentUserWithHttpMessagesAsync(UserInfoUpdate body = default, string xSupportCode = default, string ocpApimSubscriptionKey = default, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default);
-        /// <summary>
-        /// UsersDirectory_UpdateCurrentUsersPassword
-        /// </summary>
-        /// <remarks>
-        /// Changes the password for the logged in user.
-        /// </remarks>
-        /// <param name='body'>
-        /// </param>
-        /// <param name='xSupportCode'>
-        /// Provide a correlation token for log lookup. This is optional.
-        /// </param>
-        /// <param name='ocpApimSubscriptionKey'>
-        /// Veracity api management subscription key
-        /// </param>
-        /// <param name='customHeaders'>
-        /// The headers that will be added to request.
-        /// </param>
-        /// <param name='cancellationToken'>
-        /// The cancellation token.
-        /// </param>
-        /// <exception cref="Microsoft.Rest.HttpOperationException">
-        /// Thrown when the operation returned an invalid status code
-        /// </exception>
-        Task<HttpOperationHeaderResponse<UsersDirectoryUpdateCurrentUsersPasswordHeaders>> UpdateCurrentUsersPasswordWithHttpMessagesAsync(ChangePasswordRequest body = default, string xSupportCode = default, string ocpApimSubscriptionKey = default, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default);
-        /// <summary>
-        /// UsersDirectory_UpdateCurrentUsersEmailOrPhone
-        /// </summary>
-        /// <remarks>
-        /// change and validate phone or email. The type parameter can be email
-        /// or phone
-        /// </remarks>
-        /// <param name='type'>
-        /// </param>
-        /// <param name='body'>
-        /// </param>
-        /// <param name='authToken'>
-        /// </param>
-        /// <param name='xSupportCode'>
-        /// Provide a correlation token for log lookup. This is optional.
-        /// </param>
-        /// <param name='ocpApimSubscriptionKey'>
-        /// Veracity api management subscription key
-        /// </param>
-        /// <param name='customHeaders'>
-        /// The headers that will be added to request.
-        /// </param>
-        /// <param name='cancellationToken'>
-        /// The cancellation token.
-        /// </param>
-        /// <exception cref="Microsoft.Rest.HttpOperationException">
-        /// Thrown when the operation returned an invalid status code
-        /// </exception>
-        /// <exception cref="Microsoft.Rest.SerializationException">
-        /// Thrown when unable to deserialize the response
-        /// </exception>
-        /// <exception cref="Microsoft.Rest.ValidationException">
-        /// Thrown when a required parameter is null
-        /// </exception>
-        Task<HttpOperationResponse<object,UsersDirectoryUpdateCurrentUsersEmailOrPhoneHeaders>> UpdateCurrentUsersEmailOrPhoneWithHttpMessagesAsync(string type, ChangeAddressRequest body = default, string authToken = default, string xSupportCode = default, string ocpApimSubscriptionKey = default, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default);
-        /// <summary>
-        /// UsersDirectory_ActivateUserAccount
-        /// </summary>
-        /// <remarks>
-        /// Activates a user by providing the activation token obtained in
-        /// 'me/exchange/otp'
-        /// </remarks>
-        /// <param name='body'>
-        /// </param>
-        /// <param name='authToken'>
-        /// </param>
-        /// <param name='xSupportCode'>
-        /// Provide a correlation token for log lookup. This is optional.
-        /// </param>
-        /// <param name='ocpApimSubscriptionKey'>
-        /// Veracity api management subscription key
-        /// </param>
-        /// <param name='customHeaders'>
-        /// The headers that will be added to request.
-        /// </param>
-        /// <param name='cancellationToken'>
-        /// The cancellation token.
-        /// </param>
-        /// <exception cref="Microsoft.Rest.HttpOperationException">
-        /// Thrown when the operation returned an invalid status code
-        /// </exception>
-        Task<HttpOperationHeaderResponse<UsersDirectoryActivateUserAccountHeaders>> ActivateUserAccountWithHttpMessagesAsync(ActivationRequest body = default, string authToken = default, string xSupportCode = default, string ocpApimSubscriptionKey = default, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default);
-        /// <summary>
-        /// UsersDirectory_GetPendingUserActivation
-        /// </summary>
-        /// <remarks>
-        /// Get the data currently registered on the new user
-        /// </remarks>
-        /// <param name='authToken'>
-        /// </param>
-        /// <param name='emailAddress'>
-        /// </param>
-        /// <param name='xSupportCode'>
-        /// Provide a correlation token for log lookup. This is optional.
-        /// </param>
-        /// <param name='ocpApimSubscriptionKey'>
-        /// Veracity api management subscription key
-        /// </param>
-        /// <param name='customHeaders'>
-        /// The headers that will be added to request.
-        /// </param>
-        /// <param name='cancellationToken'>
-        /// The cancellation token.
-        /// </param>
-        /// <exception cref="Microsoft.Rest.HttpOperationException">
-        /// Thrown when the operation returned an invalid status code
-        /// </exception>
-        /// <exception cref="Microsoft.Rest.SerializationException">
-        /// Thrown when unable to deserialize the response
-        /// </exception>
-        Task<HttpOperationResponse<object,UsersDirectoryGetPendingUserActivationHeaders>> GetPendingUserActivationWithHttpMessagesAsync(string authToken = default, string emailAddress = default, string xSupportCode = default, string ocpApimSubscriptionKey = default, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default);
-        /// <summary>
-        /// UsersDirectory_ExchangeOtpCode
-        /// </summary>
-        /// <remarks>
-        /// Exchange the otp code with an activation token
-        /// </remarks>
-        /// <param name='otpAuthCode'>
-        /// </param>
-        /// <param name='emailAddress'>
-        /// </param>
-        /// <param name='xSupportCode'>
-        /// Provide a correlation token for log lookup. This is optional.
-        /// </param>
-        /// <param name='ocpApimSubscriptionKey'>
-        /// Veracity api management subscription key
-        /// </param>
-        /// <param name='customHeaders'>
-        /// The headers that will be added to request.
-        /// </param>
-        /// <param name='cancellationToken'>
-        /// The cancellation token.
-        /// </param>
-        /// <exception cref="Microsoft.Rest.HttpOperationException">
-        /// Thrown when the operation returned an invalid status code
-        /// </exception>
-        /// <exception cref="Microsoft.Rest.SerializationException">
-        /// Thrown when unable to deserialize the response
-        /// </exception>
-        Task<HttpOperationResponse<object,UsersDirectoryExchangeOtpCodeHeaders>> ExchangeOtpCodeWithHttpMessagesAsync(string otpAuthCode = default, string emailAddress = default, string xSupportCode = default, string ocpApimSubscriptionKey = default, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default);
-        /// <summary>
-        /// UsersDirectory_ValidateEmailOrPhone
-        /// </summary>
-        /// <remarks>
-        /// Verify that the user is the rightfull owner of the email/phone. The
-        /// type parameter can be email or phone
-        /// </remarks>
-        /// <param name='type'>
-        /// </param>
-        /// <param name='body'>
-        /// </param>
-        /// <param name='authToken'>
+        /// <param name='channelId'>
         /// </param>
         /// <param name='xSupportCode'>
         /// Provide a correlation token for log lookup. This is optional.
@@ -432,41 +455,17 @@ namespace DNV.ApiClients.Veracity.Identity.ServicesApi
         /// <exception cref="Microsoft.Rest.ValidationException">
         /// Thrown when a required parameter is null
         /// </exception>
-        Task<HttpOperationHeaderResponse<UsersDirectoryValidateEmailOrPhoneHeaders>> ValidateEmailOrPhoneWithHttpMessagesAsync(string type, ConfirmationRequest body = default, string authToken = default, string xSupportCode = default, string ocpApimSubscriptionKey = default, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default);
+        Task<HttpOperationHeaderResponse<ThisNotifyUsersHeaders>> NotifyUsersWithHttpMessagesAsync(string serviceId, NotificationMessage body = default, string channelId = default, string xSupportCode = default, string ocpApimSubscriptionKey = default, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default);
         /// <summary>
-        /// UsersDirectory_AcceptTerms
+        /// This_VerifySubscriberPolicy
         /// </summary>
-        /// <remarks>
-        /// Accept the service and platform terms on behalf of the logged in
-        /// user
-        /// </remarks>
-        /// <param name='body'>
+        /// <param name='serviceId'>
         /// </param>
-        /// <param name='xSupportCode'>
-        /// Provide a correlation token for log lookup. This is optional.
-        /// </param>
-        /// <param name='ocpApimSubscriptionKey'>
-        /// Veracity api management subscription key
-        /// </param>
-        /// <param name='customHeaders'>
-        /// The headers that will be added to request.
-        /// </param>
-        /// <param name='cancellationToken'>
-        /// The cancellation token.
-        /// </param>
-        /// <exception cref="Microsoft.Rest.HttpOperationException">
-        /// Thrown when the operation returned an invalid status code
-        /// </exception>
-        Task<HttpOperationHeaderResponse<UsersDirectoryAcceptTermsHeaders>> AcceptTermsWithHttpMessagesAsync(AcceptPlatformTermsRequest body = default, string xSupportCode = default, string ocpApimSubscriptionKey = default, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default);
-        /// <summary>
-        /// UsersDirectory_UpdateUserEmail
-        /// </summary>
-        /// <remarks>
-        /// Change email address for a user
-        /// </remarks>
         /// <param name='userId'>
         /// </param>
-        /// <param name='body'>
+        /// <param name='returnUrl'>
+        /// </param>
+        /// <param name='skipSubscriptionCheck'>
         /// </param>
         /// <param name='xSupportCode'>
         /// Provide a correlation token for log lookup. This is optional.
@@ -486,36 +485,6 @@ namespace DNV.ApiClients.Veracity.Identity.ServicesApi
         /// <exception cref="Microsoft.Rest.ValidationException">
         /// Thrown when a required parameter is null
         /// </exception>
-        Task<HttpOperationHeaderResponse<UsersDirectoryUpdateUserEmailHeaders>> UpdateUserEmailWithHttpMessagesAsync(string userId, ChangeAddressRequest body = default, string xSupportCode = default, string ocpApimSubscriptionKey = default, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default);
-        /// <summary>
-        /// UsersDirectory_GetUserResyncData
-        /// </summary>
-        /// <remarks>
-        /// Change email address for a user
-        /// </remarks>
-        /// <param name='userId'>
-        /// </param>
-        /// <param name='xSupportCode'>
-        /// Provide a correlation token for log lookup. This is optional.
-        /// </param>
-        /// <param name='ocpApimSubscriptionKey'>
-        /// Veracity api management subscription key
-        /// </param>
-        /// <param name='customHeaders'>
-        /// The headers that will be added to request.
-        /// </param>
-        /// <param name='cancellationToken'>
-        /// The cancellation token.
-        /// </param>
-        /// <exception cref="Microsoft.Rest.HttpOperationException">
-        /// Thrown when the operation returned an invalid status code
-        /// </exception>
-        /// <exception cref="Microsoft.Rest.SerializationException">
-        /// Thrown when unable to deserialize the response
-        /// </exception>
-        /// <exception cref="Microsoft.Rest.ValidationException">
-        /// Thrown when a required parameter is null
-        /// </exception>
-        Task<HttpOperationResponse<object,UsersDirectoryGetUserResyncDataHeaders>> GetUserResyncDataWithHttpMessagesAsync(string userId, string xSupportCode = default, string ocpApimSubscriptionKey = default, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default);
+        Task<HttpOperationHeaderResponse<ThisVerifySubscriberPolicyHeaders>> VerifySubscriberPolicyWithHttpMessagesAsync(string serviceId, string userId, string returnUrl = default, string skipSubscriptionCheck = default, string xSupportCode = default, string ocpApimSubscriptionKey = default, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default);
     }
 }

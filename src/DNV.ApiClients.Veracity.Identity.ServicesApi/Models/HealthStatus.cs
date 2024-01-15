@@ -4,13 +4,13 @@
 // regenerated.
 // </auto-generated>
 
+using System.Linq;
+
 namespace DNV.ApiClients.Veracity.Identity.ServicesApi.Models
 {
     using Newtonsoft.Json;
     using System.Collections;
     using System.Collections.Generic;
-    using System.Linq;
-
     public partial class HealthStatus
     {
         /// <summary>
@@ -93,7 +93,7 @@ namespace DNV.ApiClients.Veracity.Identity.ServicesApi.Models
         /// <param name="output">output: (optional) raw error output, in case
         /// of "fail" or "warn"
         /// states.This field SHOULD be omitted for "pass" state.</param>
-        public HealthStatus(HealthStateTypes status, int subCode, IList<DependencyState> checks = default, string serviceId = default, string releaseId = default, string version = default, string description = default, IList<string> notes = default, string output = default, string message = default, string information = default, string supportCode = default)
+        public HealthStatus(HealthStateTypes status, int subCode, IEnumerable<DependencyState> checks = default, string serviceId = default, string releaseId = default, string version = default, string description = default, IEnumerable<string> notes = default, string output = default, string message = default, string information = default, string supportCode = default)
         {
             Checks = checks;
             Status = status;
@@ -120,7 +120,7 @@ namespace DNV.ApiClients.Veracity.Identity.ServicesApi.Models
         /// and such
         /// </summary>
         [JsonProperty(PropertyName = "checks")]
-        public IList<DependencyState> Checks { get; set; }
+        public IEnumerable<DependencyState> Checks { get; set; }
 
         /// <summary>
         /// Gets or sets  status: (required) indicates whether the service
@@ -213,7 +213,7 @@ namespace DNV.ApiClients.Veracity.Identity.ServicesApi.Models
         /// state of health
         /// </summary>
         [JsonProperty(PropertyName = "notes")]
-        public IList<string> Notes { get; set; }
+        public IEnumerable<string> Notes { get; set; }
 
         /// <summary>
         /// Gets or sets output: (optional) raw error output, in case of "fail"

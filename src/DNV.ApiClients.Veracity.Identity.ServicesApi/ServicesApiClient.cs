@@ -4,6 +4,9 @@
 // regenerated.
 // </auto-generated>
 
+using Microsoft.Rest;
+using DNV.ApiClients.Veracity.Identity.ServicesApi.Interfaces;
+
 namespace DNV.ApiClients.Veracity.Identity.ServicesApi
 {
     using Microsoft.Rest;
@@ -239,7 +242,7 @@ namespace DNV.ApiClients.Veracity.Identity.ServicesApi
         /// <return>
         /// A response object containing the response body and response headers.
         /// </return>
-        public async Task<HttpOperationResponse<object,SixThreefSevenSixedffTwoFiveTwoTwoeOneEightcEightdThreebZeroFiveFiveHyphenMinusHeaders>> SixThreefSevenSixedffTwoFiveTwoTwoeOneEightcEightdThreebZeroFiveFiveWithHttpMessagesAsync(string id, string filter, int pageNo, string xSupportCode = default, string ocpApimSubscriptionKey = default, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default)
+        public async Task<HttpOperationResponse<IEnumerable<SubscriptionDetails>,SixThreefSevenSixedffTwoFiveTwoTwoeOneEightcEightdThreebZeroFiveFiveHyphenMinusHeaders>> SixThreefSevenSixedffTwoFiveTwoTwoeOneEightcEightdThreebZeroFiveFiveWithHttpMessagesAsync(string id, string filter, int pageNo, string xSupportCode = default, string ocpApimSubscriptionKey = default, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default)
         {
             if (id == null)
             {
@@ -265,7 +268,7 @@ namespace DNV.ApiClients.Veracity.Identity.ServicesApi
                 ServiceClientTracing.Enter(_invocationId, this, "SixThreefSevenSixedffTwoFiveTwoTwoeOneEightcEightdThreebZeroFiveFive", tracingParameters);
             }
             // Construct URL
-            var _baseUrl = BaseUri.AbsoluteUri;
+            var _baseUrl = HttpClient.BaseAddress?.AbsoluteUri ?? BaseUri.AbsoluteUri;
             var _url = new System.Uri(new System.Uri(_baseUrl + (_baseUrl.EndsWith("/") ? "" : "/")), "directory/services/{id}/subscribers").ToString();
             _url = _url.Replace("{id}", System.Uri.EscapeDataString(id));
             List<string> _queryParameters = new List<string>();
@@ -274,7 +277,7 @@ namespace DNV.ApiClients.Veracity.Identity.ServicesApi
                 _queryParameters.Add(string.Format("filter={0}", System.Uri.EscapeDataString(filter)));
             }
             _queryParameters.Add(string.Format("pageNo={0}", System.Uri.EscapeDataString(SafeJsonConvert.SerializeObject(pageNo, SerializationSettings).Trim('"'))));
-            if (_queryParameters.Count > 0)
+            if (_queryParameters.Any())
             {
                 _url += "?" + string.Join("&", _queryParameters);
             }
@@ -330,7 +333,7 @@ namespace DNV.ApiClients.Veracity.Identity.ServicesApi
             HttpStatusCode _statusCode = _httpResponse.StatusCode;
             cancellationToken.ThrowIfCancellationRequested();
             string _responseContent = null;
-            if ((int)_statusCode != 200 && (int)_statusCode != 400 && (int)_statusCode != 401 && (int)_statusCode != 403 && (int)_statusCode != 404 && (int)_statusCode != 500 && (int)_statusCode != 502)
+            if ((int)_statusCode != 200)
             {
                 var ex = new HttpOperationException(string.Format("Operation returned an invalid status code '{0}'", _statusCode));
                 if (_httpResponse.Content != null) {
@@ -353,7 +356,7 @@ namespace DNV.ApiClients.Veracity.Identity.ServicesApi
                 throw ex;
             }
             // Create Result
-            var _result = new HttpOperationResponse<object,SixThreefSevenSixedffTwoFiveTwoTwoeOneEightcEightdThreebZeroFiveFiveHyphenMinusHeaders>();
+            var _result = new HttpOperationResponse<IEnumerable<SubscriptionDetails>,SixThreefSevenSixedffTwoFiveTwoTwoeOneEightcEightdThreebZeroFiveFiveHyphenMinusHeaders>();
             _result.Request = _httpRequest;
             _result.Response = _httpResponse;
             // Deserialize Response
@@ -362,115 +365,7 @@ namespace DNV.ApiClients.Veracity.Identity.ServicesApi
                 _responseContent = await _httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
                 try
                 {
-                    _result.Body = SafeJsonConvert.DeserializeObject<IList<SubscriptionDetails>>(_responseContent, DeserializationSettings);
-                }
-                catch (JsonException ex)
-                {
-                    _httpRequest.Dispose();
-                    if (_httpResponse != null)
-                    {
-                        _httpResponse.Dispose();
-                    }
-                    throw new SerializationException("Unable to deserialize the response.", _responseContent, ex);
-                }
-            }
-            // Deserialize Response
-            if ((int)_statusCode == 400)
-            {
-                _responseContent = await _httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
-                try
-                {
-                    _result.Body = SafeJsonConvert.DeserializeObject<ErrorDetail>(_responseContent, DeserializationSettings);
-                }
-                catch (JsonException ex)
-                {
-                    _httpRequest.Dispose();
-                    if (_httpResponse != null)
-                    {
-                        _httpResponse.Dispose();
-                    }
-                    throw new SerializationException("Unable to deserialize the response.", _responseContent, ex);
-                }
-            }
-            // Deserialize Response
-            if ((int)_statusCode == 401)
-            {
-                _responseContent = await _httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
-                try
-                {
-                    _result.Body = SafeJsonConvert.DeserializeObject<AuthError>(_responseContent, DeserializationSettings);
-                }
-                catch (JsonException ex)
-                {
-                    _httpRequest.Dispose();
-                    if (_httpResponse != null)
-                    {
-                        _httpResponse.Dispose();
-                    }
-                    throw new SerializationException("Unable to deserialize the response.", _responseContent, ex);
-                }
-            }
-            // Deserialize Response
-            if ((int)_statusCode == 403)
-            {
-                _responseContent = await _httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
-                try
-                {
-                    _result.Body = SafeJsonConvert.DeserializeObject<AuthError>(_responseContent, DeserializationSettings);
-                }
-                catch (JsonException ex)
-                {
-                    _httpRequest.Dispose();
-                    if (_httpResponse != null)
-                    {
-                        _httpResponse.Dispose();
-                    }
-                    throw new SerializationException("Unable to deserialize the response.", _responseContent, ex);
-                }
-            }
-            // Deserialize Response
-            if ((int)_statusCode == 404)
-            {
-                _responseContent = await _httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
-                try
-                {
-                    _result.Body = SafeJsonConvert.DeserializeObject<ErrorDetail>(_responseContent, DeserializationSettings);
-                }
-                catch (JsonException ex)
-                {
-                    _httpRequest.Dispose();
-                    if (_httpResponse != null)
-                    {
-                        _httpResponse.Dispose();
-                    }
-                    throw new SerializationException("Unable to deserialize the response.", _responseContent, ex);
-                }
-            }
-            // Deserialize Response
-            if ((int)_statusCode == 500)
-            {
-                _responseContent = await _httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
-                try
-                {
-                    _result.Body = SafeJsonConvert.DeserializeObject<ErrorDetail>(_responseContent, DeserializationSettings);
-                }
-                catch (JsonException ex)
-                {
-                    _httpRequest.Dispose();
-                    if (_httpResponse != null)
-                    {
-                        _httpResponse.Dispose();
-                    }
-                    throw new SerializationException("Unable to deserialize the response.", _responseContent, ex);
-                }
-            }
-            // Deserialize Response
-            if ((int)_statusCode == 502)
-            {
-                _responseContent = await _httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
-                try
-                {
-                    _result.Body = SafeJsonConvert.DeserializeObject<ErrorDetail>(_responseContent, DeserializationSettings);
+                    _result.Body = SafeJsonConvert.DeserializeObject<IEnumerable<SubscriptionDetails>>(_responseContent, DeserializationSettings);
                 }
                 catch (JsonException ex)
                 {

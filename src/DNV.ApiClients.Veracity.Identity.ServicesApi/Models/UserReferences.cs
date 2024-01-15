@@ -4,13 +4,13 @@
 // regenerated.
 // </auto-generated>
 
+using System.Linq;
+
 namespace DNV.ApiClients.Veracity.Identity.ServicesApi.Models
 {
     using Newtonsoft.Json;
     using System.Collections;
     using System.Collections.Generic;
-    using System.Linq;
-
     public partial class UserReferences
     {
         /// <summary>
@@ -24,7 +24,7 @@ namespace DNV.ApiClients.Veracity.Identity.ServicesApi.Models
         /// <summary>
         /// Initializes a new instance of the UserReferences class.
         /// </summary>
-        public UserReferences(IList<CompanyReference> userCompanies = default, IList<string> adminForCompanies = default, IList<ServiceReference> services = default, IList<SubscriptionDetails> subscriptions = default)
+        public UserReferences(IEnumerable<CompanyReference> userCompanies = default, IEnumerable<string> adminForCompanies = default, IEnumerable<ServiceReference> services = default, IEnumerable<SubscriptionDetails> subscriptions = default)
         {
             UserCompanies = userCompanies;
             AdminForCompanies = adminForCompanies;
@@ -41,22 +41,22 @@ namespace DNV.ApiClients.Veracity.Identity.ServicesApi.Models
         /// <summary>
         /// </summary>
         [JsonProperty(PropertyName = "UserCompanies")]
-        public IList<CompanyReference> UserCompanies { get; set; }
+        public IEnumerable<CompanyReference> UserCompanies { get; set; }
 
         /// <summary>
         /// </summary>
         [JsonProperty(PropertyName = "AdminForCompanies")]
-        public IList<string> AdminForCompanies { get; set; }
+        public IEnumerable<string> AdminForCompanies { get; set; }
 
         /// <summary>
         /// </summary>
         [JsonProperty(PropertyName = "Services")]
-        public IList<ServiceReference> Services { get; set; }
+        public IEnumerable<ServiceReference> Services { get; set; }
 
         /// <summary>
         /// </summary>
         [JsonProperty(PropertyName = "Subscriptions")]
-        public IList<SubscriptionDetails> Subscriptions { get; set; }
+        public IEnumerable<SubscriptionDetails> Subscriptions { get; set; }
 
     }
 }

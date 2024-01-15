@@ -4,13 +4,13 @@
 // regenerated.
 // </auto-generated>
 
+using System.Linq;
+
 namespace DNV.ApiClients.Veracity.Identity.ServicesApi.Models
 {
     using Newtonsoft.Json;
     using System.Collections;
     using System.Collections.Generic;
-    using System.Linq;
-
     public partial class RegistrationOptions
     {
         /// <summary>
@@ -45,7 +45,7 @@ namespace DNV.ApiClients.Veracity.Identity.ServicesApi.Models
         /// emailLink. Possible values include: 'emailLink', 'otp'</param>
         /// <param name="userCreationOptions">Possible values include: 'all',
         /// 'onlyInvited', 'onlyNew'</param>
-        public RegistrationOptions(bool? sendMail = default, bool? createSubscription = default, string serviceId = default, string role = default, IList<SubscriptionRequest> subscriptions = default, string returnUrl = default, string contactEmail = default, string contactName = default, ActivationTypes? activationType = default, UserCreationOptionTypes? userCreationOptions = default, string inviteMessage = default)
+        public RegistrationOptions(bool? sendMail = default, bool? createSubscription = default, string serviceId = default, string role = default, IEnumerable<SubscriptionRequest> subscriptions = default, string returnUrl = default, string contactEmail = default, string contactName = default, ActivationTypes? activationType = default, UserCreationOptionTypes? userCreationOptions = default, string inviteMessage = default)
         {
             SendMail = sendMail;
             CreateSubscription = createSubscription;
@@ -99,7 +99,7 @@ namespace DNV.ApiClients.Veracity.Identity.ServicesApi.Models
         /// evaluated
         /// </summary>
         [JsonProperty(PropertyName = "subscriptions")]
-        public IList<SubscriptionRequest> Subscriptions { get; set; }
+        public IEnumerable<SubscriptionRequest> Subscriptions { get; set; }
 
         /// <summary>
         /// Gets or sets specify the location to send the newly created user to

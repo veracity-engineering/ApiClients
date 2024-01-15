@@ -4,7 +4,7 @@
 // regenerated.
 // </auto-generated>
 
-namespace DNV.ApiClients.Veracity.Identity.ServicesApi
+namespace DNV.ApiClients.Veracity.Identity.ServicesApi.Interfaces
 {
     using Microsoft.Rest;
     using Models;
@@ -47,7 +47,7 @@ namespace DNV.ApiClients.Veracity.Identity.ServicesApi
         /// <exception cref="Microsoft.Rest.ValidationException">
         /// Thrown when a required parameter is null
         /// </exception>
-        Task<HttpOperationResponse<object,DataContainerServiceGetDataContainersHeaders>> GetDataContainersWithHttpMessagesAsync(string serviceId, string xSupportCode = default, string ocpApimSubscriptionKey = default, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default);
+        Task<HttpOperationResponse<IEnumerable<ItemReference>,DataContainerServiceGetDataContainersHeaders>> GetDataContainersWithHttpMessagesAsync(string serviceId, string xSupportCode = default, string ocpApimSubscriptionKey = default, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default);
         /// <summary>
         /// DataContainerService_CreateDataContainer
         /// </summary>
@@ -81,7 +81,7 @@ namespace DNV.ApiClients.Veracity.Identity.ServicesApi
         /// <exception cref="Microsoft.Rest.ValidationException">
         /// Thrown when a required parameter is null
         /// </exception>
-        Task<HttpOperationResponse<object,DataContainerServiceCreateDataContainerHeaders>> CreateDataContainerWithHttpMessagesAsync(string serviceId, string id, string name, string xSupportCode = default, string ocpApimSubscriptionKey = default, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default);
+        Task<HttpOperationResponse<string,DataContainerServiceCreateDataContainerHeaders>> CreateDataContainerWithHttpMessagesAsync(string serviceId, string id, string name, string xSupportCode = default, string ocpApimSubscriptionKey = default, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default);
         /// <summary>
         /// DataContainerService_DeleteDataContainer
         /// </summary>
@@ -110,6 +110,6 @@ namespace DNV.ApiClients.Veracity.Identity.ServicesApi
         /// <exception cref="Microsoft.Rest.ValidationException">
         /// Thrown when a required parameter is null
         /// </exception>
-        Task<HttpOperationHeaderResponse<DataContainerServiceDeleteDataContainerHeaders>> DeleteDataContainerWithHttpMessagesAsync(string serviceId, string id, string xSupportCode = default, string ocpApimSubscriptionKey = default, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default);
+        Task<HttpOperationHeaderResponse<DataContainerServiceDeleteDataContainerHeaders>> DeleteDataContainerWithHttpMessagesAsync(string serviceId, string id, string xSupportCode = default, string ocpApimSubscriptionKey = default, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default);
     }
 }

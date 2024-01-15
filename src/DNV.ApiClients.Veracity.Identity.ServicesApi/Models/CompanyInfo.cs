@@ -4,13 +4,13 @@
 // regenerated.
 // </auto-generated>
 
+using System.Linq;
+
 namespace DNV.ApiClients.Veracity.Identity.ServicesApi.Models
 {
     using Newtonsoft.Json;
     using System.Collections;
     using System.Collections.Generic;
-    using System.Linq;
-
     public partial class CompanyInfo
     {
         /// <summary>
@@ -24,7 +24,7 @@ namespace DNV.ApiClients.Veracity.Identity.ServicesApi.Models
         /// <summary>
         /// Initializes a new instance of the CompanyInfo class.
         /// </summary>
-        public CompanyInfo(int employee, int requests, string name = default, string url = default, string usersUrl = default, IList<string> addressLines = default, string id = default, string city = default, string country = default, string countryCode = default, string zipCode = default, string domains = default, string email = default, string internalId = default, string vat = default)
+        public CompanyInfo(int employee, int requests, string name = default, string url = default, string usersUrl = default, IEnumerable<string> addressLines = default, string id = default, string city = default, string country = default, string countryCode = default, string zipCode = default, string domains = default, string email = default, string internalId = default, string vat = default)
         {
             Name = name;
             Url = url;
@@ -67,7 +67,7 @@ namespace DNV.ApiClients.Veracity.Identity.ServicesApi.Models
         /// <summary>
         /// </summary>
         [JsonProperty(PropertyName = "addressLines")]
-        public IList<string> AddressLines { get; set; }
+        public IEnumerable<string> AddressLines { get; set; }
 
         /// <summary>
         /// </summary>

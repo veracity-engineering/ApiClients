@@ -4,10 +4,8 @@
 // regenerated.
 // </auto-generated>
 
-namespace DNV.ApiClients.Veracity.Identity.ServicesApi
+namespace DNV.ApiClients.Veracity.Identity.ServicesApi.Interfaces
 {
-    using AutoRest.ApiClients;
-    using AutoRest.ApiClients.Common;
     using Microsoft.Rest;
     using Models;
     using Newtonsoft.Json;
@@ -18,7 +16,7 @@ namespace DNV.ApiClients.Veracity.Identity.ServicesApi
 
     /// <summary>
     /// </summary>
-    public partial interface IServicesApiClient : AutoRest.ApiClients.Common.IApiClient, System.IDisposable
+    public partial interface IServicesApiClient : System.IDisposable
     {
         /// <summary>
         /// The base URI of the service.
@@ -98,7 +96,7 @@ namespace DNV.ApiClients.Veracity.Identity.ServicesApi
         /// <param name='cancellationToken'>
         /// The cancellation token.
         /// </param>
-        Task<HttpOperationResponse<object,SixThreefSevenSixedffTwoFiveTwoTwoeOneEightcEightdThreebZeroFiveFiveHyphenMinusHeaders>> SixThreefSevenSixedffTwoFiveTwoTwoeOneEightcEightdThreebZeroFiveFiveWithHttpMessagesAsync(string id, string filter, int pageNo, string xSupportCode = default, string ocpApimSubscriptionKey = default, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default);
+        Task<HttpOperationResponse<IEnumerable<SubscriptionDetails>,SixThreefSevenSixedffTwoFiveTwoTwoeOneEightcEightdThreebZeroFiveFiveHyphenMinusHeaders>> SixThreefSevenSixedffTwoFiveTwoTwoeOneEightcEightdThreebZeroFiveFiveWithHttpMessagesAsync(string id, string filter, int pageNo, string xSupportCode = default, string ocpApimSubscriptionKey = default, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default);
 
     }
 }

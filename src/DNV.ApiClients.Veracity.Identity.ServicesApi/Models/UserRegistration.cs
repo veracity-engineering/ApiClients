@@ -4,11 +4,11 @@
 // regenerated.
 // </auto-generated>
 
+using System.Linq;
+
 namespace DNV.ApiClients.Veracity.Identity.ServicesApi.Models
 {
     using Newtonsoft.Json;
-    using System.Linq;
-
     public partial class UserRegistration
     {
         /// <summary>

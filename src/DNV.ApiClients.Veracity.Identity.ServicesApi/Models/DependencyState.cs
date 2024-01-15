@@ -4,13 +4,13 @@
 // regenerated.
 // </auto-generated>
 
+using System.Linq;
+
 namespace DNV.ApiClients.Veracity.Identity.ServicesApi.Models
 {
     using Newtonsoft.Json;
     using System.Collections;
     using System.Collections.Generic;
-    using System.Linq;
-
     public partial class DependencyState
     {
         /// <summary>
@@ -112,7 +112,7 @@ namespace DNV.ApiClients.Veracity.Identity.ServicesApi.Models
         /// top-level
         /// element, this field SHOULD be omitted for "pass" state of a
         /// downstream dependency.</param>
-        public DependencyState(HealthStateTypes status, int weight, bool critical, string componentId = default, string componentType = default, object observedValue = default, string observedUnit = default, IList<string> affectedEndpoints = default, System.DateTime? time = default, string output = default)
+        public DependencyState(HealthStateTypes status, int weight, bool critical, string componentId = default, string componentType = default, object observedValue = default, string observedUnit = default, IEnumerable<string> affectedEndpoints = default, System.DateTime? time = default, string output = default)
         {
             ComponentId = componentId;
             ComponentType = componentType;
@@ -232,7 +232,7 @@ namespace DNV.ApiClients.Veracity.Identity.ServicesApi.Models
         /// troubles vs.other endpoints that may be fine.
         /// </summary>
         [JsonProperty(PropertyName = "affectedEndpoints")]
-        public IList<string> AffectedEndpoints { get; set; }
+        public IEnumerable<string> AffectedEndpoints { get; set; }
 
         /// <summary>
         /// Gets or sets time (optional) is the date-time, in ISO8601 format,

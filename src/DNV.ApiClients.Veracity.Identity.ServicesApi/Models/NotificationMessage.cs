@@ -4,13 +4,13 @@
 // regenerated.
 // </auto-generated>
 
+using System.Linq;
+
 namespace DNV.ApiClients.Veracity.Identity.ServicesApi.Models
 {
     using Newtonsoft.Json;
     using System.Collections;
     using System.Collections.Generic;
-    using System.Linq;
-
     public partial class NotificationMessage
     {
         /// <summary>
@@ -24,7 +24,7 @@ namespace DNV.ApiClients.Veracity.Identity.ServicesApi.Models
         /// <summary>
         /// Initializes a new instance of the NotificationMessage class.
         /// </summary>
-        public NotificationMessage(bool highPriority, Message message = default, IList<string> recipients = default)
+        public NotificationMessage(bool highPriority, Message message = default, IEnumerable<string> recipients = default)
         {
             Message = message;
             Recipients = recipients;
@@ -45,7 +45,7 @@ namespace DNV.ApiClients.Veracity.Identity.ServicesApi.Models
         /// <summary>
         /// </summary>
         [JsonProperty(PropertyName = "recipients")]
-        public IList<string> Recipients { get; set; }
+        public IEnumerable<string> Recipients { get; set; }
 
         /// <summary>
         /// </summary>
