@@ -4,7 +4,7 @@
 // regenerated.
 // </auto-generated>
 
-namespace DNV.ApiClients.Veracity.Identity.ServicesApi
+namespace DNV.ApiClients.Veracity.Identity.ServicesApi.Interfaces
 {
     using Microsoft.Rest;
     using Models;
@@ -44,6 +44,6 @@ namespace DNV.ApiClients.Veracity.Identity.ServicesApi
         /// <exception cref="Microsoft.Rest.SerializationException">
         /// Thrown when unable to deserialize the response
         /// </exception>
-        Task<HttpOperationResponse<object,StatusServiceGetServiceHealthStatusHeaders>> GetServiceHealthStatusWithHttpMessagesAsync(string xSupportCode = default, string ocpApimSubscriptionKey = default, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default);
+        Task<HttpOperationResponse<HealthStatus,StatusServiceGetServiceHealthStatusHeaders>> GetServiceHealthStatusWithHttpMessagesAsync(string xSupportCode = default, string ocpApimSubscriptionKey = default, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default);
     }
 }

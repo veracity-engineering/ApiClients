@@ -4,11 +4,11 @@
 // regenerated.
 // </auto-generated>
 
+using System.Linq;
+
 namespace DNV.ApiClients.Veracity.Identity.ServicesApi.Models
 {
     using Newtonsoft.Json;
-    using System.Linq;
-
     /// <summary>
     /// Defines headers for 63f76edff2522e18c8d3b055 operation.
     /// </summary>

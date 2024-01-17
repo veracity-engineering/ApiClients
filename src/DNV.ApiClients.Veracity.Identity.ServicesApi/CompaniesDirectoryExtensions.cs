@@ -4,9 +4,13 @@
 // regenerated.
 // </auto-generated>
 
+using DNV.ApiClients.Veracity.Identity.ServicesApi.Interfaces;
+
 namespace DNV.ApiClients.Veracity.Identity.ServicesApi
 {
     using Models;
+    using System.Collections;
+    using System.Collections.Generic;
     using System.Threading;
     using System.Threading.Tasks;
 
@@ -32,7 +36,7 @@ namespace DNV.ApiClients.Veracity.Identity.ServicesApi
             /// <param name='ocpApimSubscriptionKey'>
             /// Veracity api management subscription key
             /// </param>
-            public static object CompanyById(this ICompaniesDirectory operations, string id, string xSupportCode = default, string ocpApimSubscriptionKey = default)
+            public static CompanyInfo CompanyById(this ICompaniesDirectory operations, string id, string xSupportCode = default, string ocpApimSubscriptionKey = default)
             {
                 return operations.CompanyByIdAsync(id, xSupportCode, ocpApimSubscriptionKey).GetAwaiter().GetResult();
             }
@@ -57,7 +61,7 @@ namespace DNV.ApiClients.Veracity.Identity.ServicesApi
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task<object> CompanyByIdAsync(this ICompaniesDirectory operations, string id, string xSupportCode = default, string ocpApimSubscriptionKey = default, CancellationToken cancellationToken = default)
+            public static async Task<CompanyInfo> CompanyByIdAsync(this ICompaniesDirectory operations, string id, string xSupportCode = default, string ocpApimSubscriptionKey = default, CancellationToken cancellationToken = default)
             {
                 using (var _result = await operations.CompanyByIdWithHttpMessagesAsync(id, xSupportCode, ocpApimSubscriptionKey, null, cancellationToken).ConfigureAwait(false))
                 {
@@ -88,7 +92,7 @@ namespace DNV.ApiClients.Veracity.Identity.ServicesApi
             /// <param name='ocpApimSubscriptionKey'>
             /// Veracity api management subscription key
             /// </param>
-            public static object GetUsersByCompany(this ICompaniesDirectory operations, string id, int page, int pageSize, string xSupportCode = default, string ocpApimSubscriptionKey = default)
+            public static IEnumerable<UserReference> GetUsersByCompany(this ICompaniesDirectory operations, string id, int page, int pageSize, string xSupportCode = default, string ocpApimSubscriptionKey = default)
             {
                 return operations.GetUsersByCompanyAsync(id, page, pageSize, xSupportCode, ocpApimSubscriptionKey).GetAwaiter().GetResult();
             }
@@ -119,7 +123,7 @@ namespace DNV.ApiClients.Veracity.Identity.ServicesApi
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task<object> GetUsersByCompanyAsync(this ICompaniesDirectory operations, string id, int page, int pageSize, string xSupportCode = default, string ocpApimSubscriptionKey = default, CancellationToken cancellationToken = default)
+            public static async Task<IEnumerable<UserReference>> GetUsersByCompanyAsync(this ICompaniesDirectory operations, string id, int page, int pageSize, string xSupportCode = default, string ocpApimSubscriptionKey = default, CancellationToken cancellationToken = default)
             {
                 using (var _result = await operations.GetUsersByCompanyWithHttpMessagesAsync(id, page, pageSize, xSupportCode, ocpApimSubscriptionKey, null, cancellationToken).ConfigureAwait(false))
                 {
