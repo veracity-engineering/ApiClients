@@ -18,7 +18,6 @@ jobs:
     uses: ./.github/workflows/autorest-generate.yml
     with:
       input-file: 'https://api-portal.veracity.com/docs/services/DataValidatorApi/export?DocumentFormat=OpenApiJson'
-      api-name: 'DataValidatorApi'
       csharp: true
       output-folder: src/DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi
       client-name: DataValidatorApiClient

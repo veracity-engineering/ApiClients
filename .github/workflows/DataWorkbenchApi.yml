@@ -18,7 +18,6 @@ jobs:
     uses: ./.github/workflows/autorest-generate.yml
     with:
       input-file: src/DNV.ApiClients.Veracity.DataPlatform.DataWorkbenchApi/swagger.json
-      api-name: 'DataApi'
       csharp: true
       output-folder: src/DNV.ApiClients.Veracity.DataPlatform.DataWorkbenchApi
       client-name: DataWorkbenchApiClient
