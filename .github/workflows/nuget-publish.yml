@@ -47,7 +47,7 @@ jobs:
             -o ${{ env.NUGET_OUTPUT }} \
             --include-symbols \
             --include-source \
-            -p:VersionPrefix=${{ env.VERSION }}
+            -p:VersionPrefix=${{ env.VERSION_PREFIX }}
 
           dotnet pack ${{ inputs.project }}.csproj \
             -c Release \
