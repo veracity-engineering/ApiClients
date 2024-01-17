@@ -4,12 +4,12 @@
 // regenerated.
 // </auto-generated>
 
+using System.Linq;
+
 namespace DNV.ApiClients.Veracity.DataPlatform.ProvisionApi.Models
 {
     using Microsoft.Rest;
     using Newtonsoft.Json;
-    using System.Linq;
-
     public partial class DeleteContainerSubscriptionRequestVm
     {
         /// <summary>
