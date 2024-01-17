@@ -4,7 +4,7 @@
 // regenerated.
 // </auto-generated>
 
-namespace DNV.ApiClients.Veracity.DataPlatform.DataApi
+namespace DNV.ApiClients.Veracity.DataPlatform.DataApi.Interfaces
 {
     using Microsoft.Rest;
     using Models;
@@ -14,32 +14,16 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataApi
     using System.Threading.Tasks;
 
     /// <summary>
-    /// V10Access operations.
+    /// V10Groups operations.
     /// </summary>
-    public partial interface IV10Access
+    public partial interface IV10Groups
     {
         /// <summary>
-        /// Retrieves a list of Providers that have access to a specified
-        /// resource.
+        /// Retrieve a list of all groups for the User.
         /// </summary>
         /// <remarks>
-        /// Get a list of all providers with accesses for a given storage item
-        /// per page, using a page number and page size.
-        /// Note the variable keyCreatedTimeUTC is the time the SAS key
-        /// generated is valid from,
-        /// this is set one hour in the past from the time created this to
-        /// avoid azure time skew issues.
+        /// Retrieve a list of all groups for the User.
         /// </remarks>
-        /// <param name='resourceId'>
-        /// Format - uuid. Azure resource
-        /// </param>
-        /// <param name='pageNo'>
-        /// Format - int32. Page number. Defaults to 1.
-        /// </param>
-        /// <param name='pageSize'>
-        /// Format - int32. Number of results per page. Defaults to 50. If this
-        /// is a negative number, all results will be fetched
-        /// </param>
         /// <param name='customHeaders'>
         /// The headers that will be added to request.
         /// </param>
@@ -52,22 +36,13 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataApi
         /// <exception cref="Microsoft.Rest.SerializationException">
         /// Thrown when unable to deserialize the response
         /// </exception>
-        /// <exception cref="Microsoft.Rest.ValidationException">
-        /// Thrown when a required parameter is null
-        /// </exception>
-        Task<HttpOperationResponse<PagedResultProviderAccessVM>> GetWithHttpMessagesAsync(string resourceId, int? pageNo = default, int? pageSize = default, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default);
+        Task<HttpOperationResponse<IEnumerable<GroupViewModel>>> GetWithHttpMessagesAsync(Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default);
         /// <summary>
-        /// Share access to another user for the specified resource
+        /// Creates a Group from the input parameters for User.
         /// </summary>
         /// <remarks>
-        /// Share access to another user for the specified resource
+        /// Creates a Group from the input parameters for User.
         /// </remarks>
-        /// <param name='resourceId'>
-        /// Format - uuid. Azure resource
-        /// </param>
-        /// <param name='autoRefreshed'>
-        /// Should a renewed key be issued to the shared party after it expires
-        /// </param>
         /// <param name='body'>
         /// </param>
         /// <param name='customHeaders'>
@@ -82,46 +57,15 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataApi
         /// <exception cref="Microsoft.Rest.SerializationException">
         /// Thrown when unable to deserialize the response
         /// </exception>
-        /// <exception cref="Microsoft.Rest.ValidationException">
-        /// Thrown when a required parameter is null
-        /// </exception>
-        Task<HttpOperationResponse<ShareResourceVM>> PostWithHttpMessagesAsync(string resourceId, bool autoRefreshed, SharingResourceInputData body = default, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default);
+        Task<HttpOperationResponse<GroupViewModel>> PostWithHttpMessagesAsync(GroupCreationInputParameters body = default, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default);
         /// <summary>
-        /// Revoke an users ability to refresh keys on a resource
+        /// Retrieve Group by Id for the User.
         /// </summary>
         /// <remarks>
-        /// Revoke an users ability to refresh keys on a resource
+        /// Retrieve Group by Id for the User.
         /// </remarks>
-        /// <param name='resourceId'>
-        /// Format - uuid. Azure resource
-        /// </param>
-        /// <param name='accessId'>
-        /// Format - uuid. Access ID
-        /// </param>
-        /// <param name='customHeaders'>
-        /// The headers that will be added to request.
-        /// </param>
-        /// <param name='cancellationToken'>
-        /// The cancellation token.
-        /// </param>
-        /// <exception cref="Microsoft.Rest.HttpOperationException">
-        /// Thrown when the operation returned an invalid status code
-        /// </exception>
-        /// <exception cref="Microsoft.Rest.ValidationException">
-        /// Thrown when a required parameter is null
-        /// </exception>
-        Task<HttpOperationResponse> PutWithHttpMessagesAsync(string resourceId, string accessId, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default);
-        /// <summary>
-        /// Fetch a SAS key to access the storage item shared with you
-        /// </summary>
-        /// <remarks>
-        /// Fetch a SAS key to access the storage item shared with you
-        /// </remarks>
-        /// <param name='resourceId'>
-        /// Format - uuid. Resource Id
-        /// </param>
-        /// <param name='accessId'>
-        /// Format - uuid. Access Id
+        /// <param name='id'>
+        /// Format - uuid. The GUID of the group.
         /// </param>
         /// <param name='customHeaders'>
         /// The headers that will be added to request.
@@ -138,6 +82,55 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataApi
         /// <exception cref="Microsoft.Rest.ValidationException">
         /// Thrown when a required parameter is null
         /// </exception>
-        Task<HttpOperationResponse<SASToken>> ClaimKeyWithHttpMessagesAsync(string resourceId, string accessId, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default);
+        Task<HttpOperationResponse<GroupViewModel>> GetByIdWithHttpMessagesAsync(string id, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default);
+        /// <summary>
+        /// Updates the given group with the parameters from the request body.
+        /// </summary>
+        /// <remarks>
+        /// Updates the given group with the parameters from the request body.
+        /// </remarks>
+        /// <param name='id'>
+        /// Format - uuid. The GUID of the Group
+        /// </param>
+        /// <param name='body'>
+        /// The group parameters.
+        /// </param>
+        /// <param name='customHeaders'>
+        /// The headers that will be added to request.
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        /// <exception cref="Microsoft.Rest.HttpOperationException">
+        /// Thrown when the operation returned an invalid status code
+        /// </exception>
+        /// <exception cref="Microsoft.Rest.ValidationException">
+        /// Thrown when a required parameter is null
+        /// </exception>
+        Task<HttpOperationResponse> PutWithHttpMessagesAsync(string id, GroupCreationInputParameters body = default, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default);
+        /// <summary>
+        /// Will delete the Users given group, and remove references to
+        /// resources, will NOT delete resources.
+        /// </summary>
+        /// <remarks>
+        /// Will delete the Users given group, and remove references to
+        /// resources, will NOT delete resources.
+        /// </remarks>
+        /// <param name='id'>
+        /// Format - uuid. The GUID of the group.
+        /// </param>
+        /// <param name='customHeaders'>
+        /// The headers that will be added to request.
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        /// <exception cref="Microsoft.Rest.HttpOperationException">
+        /// Thrown when the operation returned an invalid status code
+        /// </exception>
+        /// <exception cref="Microsoft.Rest.ValidationException">
+        /// Thrown when a required parameter is null
+        /// </exception>
+        Task<HttpOperationResponse> DeleteWithHttpMessagesAsync(string id, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default);
     }
 }

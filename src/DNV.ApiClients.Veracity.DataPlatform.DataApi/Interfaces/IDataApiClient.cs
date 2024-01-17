@@ -4,12 +4,12 @@
 // regenerated.
 // </auto-generated>
 
-namespace DNV.ApiClients.Veracity.DataPlatform.DataApi
+namespace DNV.ApiClients.Veracity.DataPlatform.DataApi.Interfaces
 {
     using Models;
     using Newtonsoft.Json;
 
-/// <summary>
+    /// <summary>
     /// </summary>
     public partial interface IDataApiClient : System.IDisposable
     {

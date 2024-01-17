@@ -4,7 +4,7 @@
 // regenerated.
 // </auto-generated>
 
-namespace DNV.ApiClients.Veracity.DataPlatform.DataApi
+namespace DNV.ApiClients.Veracity.DataPlatform.DataApi.Interfaces
 {
     using Microsoft.Rest;
     using Models;
@@ -42,7 +42,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataApi
         /// <exception cref="Microsoft.Rest.SerializationException">
         /// Thrown when unable to deserialize the response
         /// </exception>
-        Task<HttpOperationResponse<IEnumerable<Tag>>> GetTagsWithHttpMessagesAsync(bool? includeDeleted = default, bool? includeNonVeracityApproved = default, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default);
+        Task<HttpOperationResponse<IEnumerable<Tag>>> GetTagsWithHttpMessagesAsync(bool? includeDeleted = default, bool? includeNonVeracityApproved = default, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default);
         /// <summary>
         /// Inserts tags and returns the inserted new inserted tags with ID's
         /// &lt;remarks&gt;
@@ -69,6 +69,6 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataApi
         /// <exception cref="Microsoft.Rest.SerializationException">
         /// Thrown when unable to deserialize the response
         /// </exception>
-        Task<HttpOperationResponse<IEnumerable<Tag>>> InsertTagsWithHttpMessagesAsync(IEnumerable<Tag> body = default, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default);
+        Task<HttpOperationResponse<IEnumerable<Tag>>> InsertTagsWithHttpMessagesAsync(IEnumerable<Tag> body = default, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default);
     }
 }

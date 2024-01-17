@@ -4,11 +4,11 @@
 // regenerated.
 // </auto-generated>
 
+using System.Linq;
+
 namespace DNV.ApiClients.Veracity.DataPlatform.DataApi.Models
 {
     using Newtonsoft.Json;
-    using System.Linq;
-
     public partial class DataStewardVM
     {
         /// <summary>

@@ -4,7 +4,7 @@
 // regenerated.
 // </auto-generated>
 
-namespace DNV.ApiClients.Veracity.DataPlatform.DataApi
+namespace DNV.ApiClients.Veracity.DataPlatform.DataApi.Interfaces
 {
     using Microsoft.Rest;
     using Models;
@@ -14,18 +14,31 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataApi
     using System.Threading.Tasks;
 
     /// <summary>
-    /// V10DataStewards operations.
+    /// V10Access operations.
     /// </summary>
-    public partial interface IV10DataStewards
+    public partial interface IV10Access
     {
         /// <summary>
-        /// Retrieve a list of data stewards for the resource
+        /// Retrieves a list of Providers that have access to a specified
+        /// resource.
         /// </summary>
         /// <remarks>
-        /// Retrieve a list of data stewards for the resource
+        /// Get a list of all providers with accesses for a given storage item
+        /// per page, using a page number and page size.
+        /// Note the variable keyCreatedTimeUTC is the time the SAS key
+        /// generated is valid from,
+        /// this is set one hour in the past from the time created this to
+        /// avoid azure time skew issues.
         /// </remarks>
         /// <param name='resourceId'>
-        /// Format - uuid. The Id of the resource
+        /// Format - uuid. Azure resource
+        /// </param>
+        /// <param name='pageNo'>
+        /// Format - int32. Page number. Defaults to 1.
+        /// </param>
+        /// <param name='pageSize'>
+        /// Format - int32. Number of results per page. Defaults to 50. If this
+        /// is a negative number, all results will be fetched
         /// </param>
         /// <param name='customHeaders'>
         /// The headers that will be added to request.
@@ -42,62 +55,20 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataApi
         /// <exception cref="Microsoft.Rest.ValidationException">
         /// Thrown when a required parameter is null
         /// </exception>
-        Task<HttpOperationResponse<IEnumerable<DataStewardVM>>> GetDataStewardsByResourceIdWithHttpMessagesAsync(string resourceId, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default);
+        Task<HttpOperationResponse<PagedResultProviderAccessVM>> GetWithHttpMessagesAsync(string resourceId, int? pageNo = default, int? pageSize = default, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default);
         /// <summary>
-        /// Transfer the ownership of the Azure resource to a specified user.
-        /// Both previous and the new owner should be affiliated with the same
-        /// company.
+        /// Share access to another user for the specified resource
         /// </summary>
         /// <remarks>
-        /// Returns the Azure resource with updated OwnerId field.
+        /// Share access to another user for the specified resource
         /// </remarks>
         /// <param name='resourceId'>
-        /// Format - uuid. The Id of the resource
+        /// Format - uuid. Azure resource
         /// </param>
-        /// <param name='userId'>
-        /// Format - uuid. The Id of the user with role of Data Manager that
-        /// ownership will be transfered to.
-        /// </param>
-        /// <param name='keepAccessAsDataSteward'>
-        /// The endpoint specified below will be updated with an Input flag.
-        /// When the "SetPreviousOwnerAsDataSteward" flag is set to true. If it
-        /// is false, then the previous owner will not be assigned as Data
-        /// Steward.
-        /// </param>
-        /// <param name='customHeaders'>
-        /// The headers that will be added to request.
-        /// </param>
-        /// <param name='cancellationToken'>
-        /// The cancellation token.
-        /// </param>
-        /// <exception cref="Microsoft.Rest.HttpOperationException">
-        /// Thrown when the operation returned an invalid status code
-        /// </exception>
-        /// <exception cref="Microsoft.Rest.SerializationException">
-        /// Thrown when unable to deserialize the response
-        /// </exception>
-        /// <exception cref="Microsoft.Rest.ValidationException">
-        /// Thrown when a required parameter is null
-        /// </exception>
-        Task<HttpOperationResponse<StorageResourcesVM>> TransferOwnershipWithHttpMessagesAsync(string resourceId, string userId, bool? keepAccessAsDataSteward = default, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default);
-        /// <summary>
-        /// Delegate the rights to use the Azure resource to another Veracity
-        /// user.
-        /// </summary>
-        /// <remarks>
-        /// If a DataSteward with this user id exist on this resource, it will
-        /// be updated.
-        /// Returns the Users that DataSteward for the provided resource was
-        /// assigned to.
-        /// </remarks>
-        /// <param name='resourceId'>
-        /// Format - uuid. The Id of the resource
-        /// </param>
-        /// <param name='userId'>
-        /// Format - uuid. A Data Steward user Id
+        /// <param name='autoRefreshed'>
+        /// Should a renewed key be issued to the shared party after it expires
         /// </param>
         /// <param name='body'>
-        /// Data-stewardship optional details
         /// </param>
         /// <param name='customHeaders'>
         /// The headers that will be added to request.
@@ -114,19 +85,18 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataApi
         /// <exception cref="Microsoft.Rest.ValidationException">
         /// Thrown when a required parameter is null
         /// </exception>
-        Task<HttpOperationResponse<DataStewardVM>> PostWithHttpMessagesAsync(string resourceId, string userId, DataStewardInputVm body = default, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default);
+        Task<HttpOperationResponse<ShareResourceVM>> PostWithHttpMessagesAsync(string resourceId, bool autoRefreshed, SharingResourceInputData body = default, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default);
         /// <summary>
-        /// Delete a data stewards
+        /// Revoke an users ability to refresh keys on a resource
         /// </summary>
         /// <remarks>
-        /// The user must be the owner of the resource to be able to delete
-        /// datastewards
+        /// Revoke an users ability to refresh keys on a resource
         /// </remarks>
         /// <param name='resourceId'>
-        /// Format - uuid. The Id of the resource
+        /// Format - uuid. Azure resource
         /// </param>
-        /// <param name='userId'>
-        /// Format - uuid.
+        /// <param name='accessId'>
+        /// Format - uuid. Access ID
         /// </param>
         /// <param name='customHeaders'>
         /// The headers that will be added to request.
@@ -140,6 +110,34 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataApi
         /// <exception cref="Microsoft.Rest.ValidationException">
         /// Thrown when a required parameter is null
         /// </exception>
-        Task<HttpOperationResponse> DeleteWithHttpMessagesAsync(string resourceId, string userId, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default);
+        Task<HttpOperationResponse> PutWithHttpMessagesAsync(string resourceId, string accessId, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default);
+        /// <summary>
+        /// Fetch a SAS key to access the storage item shared with you
+        /// </summary>
+        /// <remarks>
+        /// Fetch a SAS key to access the storage item shared with you
+        /// </remarks>
+        /// <param name='resourceId'>
+        /// Format - uuid. Resource Id
+        /// </param>
+        /// <param name='accessId'>
+        /// Format - uuid. Access Id
+        /// </param>
+        /// <param name='customHeaders'>
+        /// The headers that will be added to request.
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        /// <exception cref="Microsoft.Rest.HttpOperationException">
+        /// Thrown when the operation returned an invalid status code
+        /// </exception>
+        /// <exception cref="Microsoft.Rest.SerializationException">
+        /// Thrown when unable to deserialize the response
+        /// </exception>
+        /// <exception cref="Microsoft.Rest.ValidationException">
+        /// Thrown when a required parameter is null
+        /// </exception>
+        Task<HttpOperationResponse<SASToken>> ClaimKeyWithHttpMessagesAsync(string resourceId, string accessId, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default);
     }
 }
