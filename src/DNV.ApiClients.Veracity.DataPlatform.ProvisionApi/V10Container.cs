@@ -4,6 +4,11 @@
 // regenerated.
 // </auto-generated>
 
+using System.Linq;
+using System.IO;
+using Microsoft.Rest;
+using DNV.ApiClients.Veracity.DataPlatform.ProvisionApi.Interfaces;
+
 namespace DNV.ApiClients.Veracity.DataPlatform.ProvisionApi
 {
     using Microsoft.Rest;
@@ -11,8 +16,6 @@ namespace DNV.ApiClients.Veracity.DataPlatform.ProvisionApi
     using Newtonsoft.Json;
     using System.Collections;
     using System.Collections.Generic;
-    using System.IO;
-    using System.Linq;
     using System.Net;
     using System.Net.Http;
     using System.Threading;
@@ -72,7 +75,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.ProvisionApi
         /// <return>
         /// A response object containing the response body and response headers.
         /// </return>
-        public async Task<HttpOperationResponse<System.Guid?>> ProvisionAzureBlobContainerWithHttpMessagesAsync(ContainerInput body = default, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default)
+        public async Task<HttpOperationResponse<System.Guid?>> ProvisionAzureBlobContainerWithHttpMessagesAsync(ContainerInput body = default, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default)
         {
             if (body != null)
             {
@@ -245,7 +248,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.ProvisionApi
         /// <return>
         /// A response object containing the response body and response headers.
         /// </return>
-        public async Task<HttpOperationResponse<Resource>> UpdateMetadataWithHttpMessagesAsync(string id, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default)
+        public async Task<HttpOperationResponse<Resource>> UpdateMetadataWithHttpMessagesAsync(string id, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default)
         {
             if (id == null)
             {
@@ -394,7 +397,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.ProvisionApi
         /// <return>
         /// A response object containing the response body and response headers.
         /// </return>
-        public async Task<HttpOperationResponse> DeleteAzureBlobContainerWithHttpMessagesAsync(string id, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default)
+        public async Task<HttpOperationResponse> DeleteAzureBlobContainerWithHttpMessagesAsync(string id, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default)
         {
             if (id == null)
             {
@@ -519,7 +522,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.ProvisionApi
         /// <return>
         /// A response object containing the response body and response headers.
         /// </return>
-        public async Task<HttpOperationResponse<System.Guid?>> CopyContainerWithHttpMessagesAsync(string accessId, CopyContainerInputVM body = default, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default)
+        public async Task<HttpOperationResponse<System.Guid?>> CopyContainerWithHttpMessagesAsync(string accessId, CopyContainerInputVM body = default, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default)
         {
             if (body != null)
             {
@@ -549,7 +552,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.ProvisionApi
             {
                 _queryParameters.Add(string.Format("accessId={0}", System.Uri.EscapeDataString(accessId)));
             }
-            if (_queryParameters.Count > 0)
+            if (_queryParameters.Any())
             {
                 _url += "?" + string.Join("&", _queryParameters);
             }
@@ -669,7 +672,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.ProvisionApi
         /// <return>
         /// A response object containing the response body and response headers.
         /// </return>
-        public async Task<HttpOperationResponse> SubscribeToAzureBlobContainerEventsWithHttpMessagesAsync(ContainerSystemSubscriptionRequestVm body = default, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default)
+        public async Task<HttpOperationResponse> SubscribeToAzureBlobContainerEventsWithHttpMessagesAsync(ContainerSystemSubscriptionRequestVm body = default, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default)
         {
             if (body != null)
             {
@@ -785,7 +788,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.ProvisionApi
         /// <return>
         /// A response object containing the response body and response headers.
         /// </return>
-        public async Task<HttpOperationResponse> UnsubscribeFromCustomEventsWithHttpMessagesAsync(DeleteContainerSubscriptionRequestVm body = default, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default)
+        public async Task<HttpOperationResponse> UnsubscribeFromCustomEventsWithHttpMessagesAsync(DeleteContainerSubscriptionRequestVm body = default, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default)
         {
             if (body != null)
             {
@@ -901,7 +904,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.ProvisionApi
         /// <return>
         /// A response object containing the response body and response headers.
         /// </return>
-        public async Task<HttpOperationResponse> UnsubscribeFromAzureBlobContainerEventsWithHttpMessagesAsync(DeleteContainerSubscriptionRequestVm body = default, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default)
+        public async Task<HttpOperationResponse> UnsubscribeFromAzureBlobContainerEventsWithHttpMessagesAsync(DeleteContainerSubscriptionRequestVm body = default, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default)
         {
             if (body != null)
             {
@@ -1019,7 +1022,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.ProvisionApi
         /// <return>
         /// A response object containing the response body and response headers.
         /// </return>
-        public async Task<HttpOperationResponse> SubscribeToCustomEventsWithHttpMessagesAsync(ContainerCustomSubscriptionRequestVm body = default, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default)
+        public async Task<HttpOperationResponse> SubscribeToCustomEventsWithHttpMessagesAsync(ContainerCustomSubscriptionRequestVm body = default, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default)
         {
             if (body != null)
             {

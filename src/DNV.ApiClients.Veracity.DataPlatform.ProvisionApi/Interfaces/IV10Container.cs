@@ -4,7 +4,7 @@
 // regenerated.
 // </auto-generated>
 
-namespace DNV.ApiClients.Veracity.DataPlatform.ProvisionApi
+namespace DNV.ApiClients.Veracity.DataPlatform.ProvisionApi.Interfaces
 {
     using Microsoft.Rest;
     using Models;
@@ -41,7 +41,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.ProvisionApi
         /// <exception cref="Microsoft.Rest.SerializationException">
         /// Thrown when unable to deserialize the response
         /// </exception>
-        Task<HttpOperationResponse<System.Guid?>> ProvisionAzureBlobContainerWithHttpMessagesAsync(ContainerInput body = default, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default);
+        Task<HttpOperationResponse<System.Guid?>> ProvisionAzureBlobContainerWithHttpMessagesAsync(ContainerInput body = default, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default);
         /// <summary>
         /// Update Metadata
         /// </summary>
@@ -96,7 +96,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.ProvisionApi
         /// <exception cref="Microsoft.Rest.ValidationException">
         /// Thrown when a required parameter is null
         /// </exception>
-        Task<HttpOperationResponse<Resource>> UpdateMetadataWithHttpMessagesAsync(string id, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default);
+        Task<HttpOperationResponse<Resource>> UpdateMetadataWithHttpMessagesAsync(string id, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default);
         /// <summary>
         /// Delete blob storage container
         /// </summary>
@@ -124,7 +124,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.ProvisionApi
         /// <exception cref="Microsoft.Rest.ValidationException">
         /// Thrown when a required parameter is null
         /// </exception>
-        Task<HttpOperationResponse> DeleteAzureBlobContainerWithHttpMessagesAsync(string id, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default);
+        Task<HttpOperationResponse> DeleteAzureBlobContainerWithHttpMessagesAsync(string id, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default);
         /// <summary>
         /// Copy container
         /// </summary>
@@ -154,7 +154,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.ProvisionApi
         /// <exception cref="Microsoft.Rest.ValidationException">
         /// Thrown when a required parameter is null
         /// </exception>
-        Task<HttpOperationResponse<System.Guid?>> CopyContainerWithHttpMessagesAsync(string accessId, CopyContainerInputVM body = default, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default);
+        Task<HttpOperationResponse<System.Guid?>> CopyContainerWithHttpMessagesAsync(string accessId, CopyContainerInputVM body = default, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default);
         /// <summary>
         /// Create subscription to changes in blob container
         /// </summary>
@@ -175,7 +175,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.ProvisionApi
         /// <exception cref="Microsoft.Rest.HttpOperationException">
         /// Thrown when the operation returned an invalid status code
         /// </exception>
-        Task<HttpOperationResponse> SubscribeToAzureBlobContainerEventsWithHttpMessagesAsync(ContainerSystemSubscriptionRequestVm body = default, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default);
+        Task<HttpOperationResponse> SubscribeToAzureBlobContainerEventsWithHttpMessagesAsync(ContainerSystemSubscriptionRequestVm body = default, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default);
         /// <summary>
         /// Delete subscription to changes in blob container
         /// </summary>
@@ -195,7 +195,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.ProvisionApi
         /// <exception cref="Microsoft.Rest.HttpOperationException">
         /// Thrown when the operation returned an invalid status code
         /// </exception>
-        Task<HttpOperationResponse> UnsubscribeFromCustomEventsWithHttpMessagesAsync(DeleteContainerSubscriptionRequestVm body = default, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default);
+        Task<HttpOperationResponse> UnsubscribeFromCustomEventsWithHttpMessagesAsync(DeleteContainerSubscriptionRequestVm body = default, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default);
         /// <summary>
         /// Delete subscription to changes in blob container
         /// </summary>
@@ -215,7 +215,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.ProvisionApi
         /// <exception cref="Microsoft.Rest.HttpOperationException">
         /// Thrown when the operation returned an invalid status code
         /// </exception>
-        Task<HttpOperationResponse> UnsubscribeFromAzureBlobContainerEventsWithHttpMessagesAsync(DeleteContainerSubscriptionRequestVm body = default, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default);
+        Task<HttpOperationResponse> UnsubscribeFromAzureBlobContainerEventsWithHttpMessagesAsync(DeleteContainerSubscriptionRequestVm body = default, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default);
         /// <summary>
         /// Create subscription for custom events
         /// </summary>
@@ -236,6 +236,6 @@ namespace DNV.ApiClients.Veracity.DataPlatform.ProvisionApi
         /// <exception cref="Microsoft.Rest.HttpOperationException">
         /// Thrown when the operation returned an invalid status code
         /// </exception>
-        Task<HttpOperationResponse> SubscribeToCustomEventsWithHttpMessagesAsync(ContainerCustomSubscriptionRequestVm body = default, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default);
+        Task<HttpOperationResponse> SubscribeToCustomEventsWithHttpMessagesAsync(ContainerCustomSubscriptionRequestVm body = default, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default);
     }
 }

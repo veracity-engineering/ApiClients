@@ -4,6 +4,11 @@
 // regenerated.
 // </auto-generated>
 
+using System.Linq;
+using System.IO;
+using Microsoft.Rest;
+using DNV.ApiClients.Veracity.DataPlatform.ProvisionApi.Interfaces;
+
 namespace DNV.ApiClients.Veracity.DataPlatform.ProvisionApi
 {
     using Microsoft.Rest;
@@ -11,8 +16,6 @@ namespace DNV.ApiClients.Veracity.DataPlatform.ProvisionApi
     using Newtonsoft.Json;
     using System.Collections;
     using System.Collections.Generic;
-    using System.IO;
-    using System.Linq;
     using System.Net;
     using System.Net.Http;
     using System.Threading;
@@ -67,7 +70,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.ProvisionApi
         /// <return>
         /// A response object containing the response body and response headers.
         /// </return>
-        public async Task<HttpOperationResponse<IEnumerable<StorageRegion>>> GetWithHttpMessagesAsync(Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default)
+        public async Task<HttpOperationResponse<IEnumerable<StorageRegion>>> GetWithHttpMessagesAsync(Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default)
         {
             // Tracing
             bool _shouldTrace = ServiceClientTracing.IsEnabled;

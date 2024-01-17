@@ -4,7 +4,7 @@
 // regenerated.
 // </auto-generated>
 
-namespace DNV.ApiClients.Veracity.DataPlatform.DataApi
+namespace DNV.ApiClients.Veracity.DataPlatform.DataApi.Interfaces
 {
     using Microsoft.Rest;
     using Models;
@@ -14,15 +14,15 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataApi
     using System.Threading.Tasks;
 
     /// <summary>
-    /// V10Application operations.
+    /// V10Users operations.
     /// </summary>
-    public partial interface IV10Application
+    public partial interface IV10Users
     {
         /// <summary>
-        /// Returns information about the current application.
+        /// Returns information about the current user.
         /// </summary>
         /// <remarks>
-        /// Returns information about the current application.
+        /// Returns information about the current user.
         /// </remarks>
         /// <param name='customHeaders'>
         /// The headers that will be added to request.
@@ -36,33 +36,15 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataApi
         /// <exception cref="Microsoft.Rest.SerializationException">
         /// Thrown when unable to deserialize the response
         /// </exception>
-        Task<HttpOperationResponse<Application>> MeWithHttpMessagesAsync(Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default);
+        Task<HttpOperationResponse<User>> MeWithHttpMessagesAsync(Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default);
         /// <summary>
-        /// Add a new application to Veracity data fabric.
+        /// Gets information about an user.
         /// </summary>
         /// <remarks>
-        /// Needs to have the role "DataAdmin" to perform this action
+        /// Gets information about an user.
         /// </remarks>
-        /// <param name='body'>
-        /// </param>
-        /// <param name='customHeaders'>
-        /// The headers that will be added to request.
-        /// </param>
-        /// <param name='cancellationToken'>
-        /// The cancellation token.
-        /// </param>
-        /// <exception cref="Microsoft.Rest.HttpOperationException">
-        /// Thrown when the operation returned an invalid status code
-        /// </exception>
-        Task<HttpOperationResponse> CreateWithHttpMessagesAsync(Application body = default, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default);
-        /// <summary>
-        /// Gets information about an application in Veracity data fabric.
-        /// </summary>
-        /// <remarks>
-        /// Gets information about an application in Veracity data fabric.
-        /// </remarks>
-        /// <param name='applicationId'>
-        /// Format - uuid. AAD B2C Application Id
+        /// <param name='userId'>
+        /// Format - uuid. My DNV GL Id
         /// </param>
         /// <param name='customHeaders'>
         /// The headers that will be added to request.
@@ -79,19 +61,15 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataApi
         /// <exception cref="Microsoft.Rest.ValidationException">
         /// Thrown when a required parameter is null
         /// </exception>
-        Task<HttpOperationResponse<Application>> GetWithHttpMessagesAsync(string applicationId, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default);
+        Task<HttpOperationResponse<User>> GetWithHttpMessagesAsync(string userId, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default);
         /// <summary>
-        /// Update role of a application on Veracity data fabric.
+        /// Get the list of the users with whom storage accounts shared.
         /// </summary>
         /// <remarks>
-        /// Needs to have the role "DataAdmin" to perform this action
+        /// Get the list of the users with whom storage accounts shared.
         /// </remarks>
-        /// <param name='applicationId'>
-        /// Format - uuid. AAD B2C Application Id
-        /// </param>
-        /// <param name='role'>
-        /// Role name. Possible values include: 'none', 'manager', 'consumer',
-        /// 'fullAll', 'identity', 'dataAdmin'
+        /// <param name='userId'>
+        /// Format - uuid. My DNV GL Id
         /// </param>
         /// <param name='customHeaders'>
         /// The headers that will be added to request.
@@ -102,9 +80,12 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataApi
         /// <exception cref="Microsoft.Rest.HttpOperationException">
         /// Thrown when the operation returned an invalid status code
         /// </exception>
+        /// <exception cref="Microsoft.Rest.SerializationException">
+        /// Thrown when unable to deserialize the response
+        /// </exception>
         /// <exception cref="Microsoft.Rest.ValidationException">
         /// Thrown when a required parameter is null
         /// </exception>
-        Task<HttpOperationResponse> UpdateRoleWithHttpMessagesAsync(string applicationId, string role, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default);
+        Task<HttpOperationResponse<ResourceDistributedUser>> ResourceDistributionListWithHttpMessagesAsync(string userId, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default);
     }
 }

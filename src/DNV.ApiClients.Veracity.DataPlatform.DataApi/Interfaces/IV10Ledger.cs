@@ -4,7 +4,7 @@
 // regenerated.
 // </auto-generated>
 
-namespace DNV.ApiClients.Veracity.DataPlatform.ProvisionApi
+namespace DNV.ApiClients.Veracity.DataPlatform.DataApi.Interfaces
 {
     using Microsoft.Rest;
     using Models;
@@ -14,16 +14,21 @@ namespace DNV.ApiClients.Veracity.DataPlatform.ProvisionApi
     using System.Threading.Tasks;
 
     /// <summary>
-    /// V10Regions operations.
+    /// V10Ledger operations.
     /// </summary>
-    public partial interface IV10Regions
+    public partial interface IV10Ledger
     {
         /// <summary>
-        /// List Active Regions
+        /// Returns a list of ledger records
         /// </summary>
         /// <remarks>
-        /// Returns list of active regions supported by Veracity
+        /// Endpoint returns a list of ledger records.
+        /// A ledger record is an action done to a container, ex; creating a
+        /// file, sharing a key.
         /// </remarks>
+        /// <param name='resourceId'>
+        /// Format - uuid. Veracity resource id
+        /// </param>
         /// <param name='customHeaders'>
         /// The headers that will be added to request.
         /// </param>
@@ -36,6 +41,9 @@ namespace DNV.ApiClients.Veracity.DataPlatform.ProvisionApi
         /// <exception cref="Microsoft.Rest.SerializationException">
         /// Thrown when unable to deserialize the response
         /// </exception>
-        Task<HttpOperationResponse<IEnumerable<StorageRegion>>> GetWithHttpMessagesAsync(Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default);
+        /// <exception cref="Microsoft.Rest.ValidationException">
+        /// Thrown when a required parameter is null
+        /// </exception>
+        Task<HttpOperationResponse<IEnumerable<ReadLedger>>> GetWithHttpMessagesAsync(string resourceId, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default);
     }
 }

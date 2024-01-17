@@ -4,7 +4,7 @@
 // regenerated.
 // </auto-generated>
 
-namespace DNV.ApiClients.Veracity.DataPlatform.DataApi
+namespace DNV.ApiClients.Veracity.DataPlatform.DataApi.Interfaces
 {
     using Microsoft.Rest;
     using Models;
@@ -14,15 +14,15 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataApi
     using System.Threading.Tasks;
 
     /// <summary>
-    /// V10Groups operations.
+    /// V10Application operations.
     /// </summary>
-    public partial interface IV10Groups
+    public partial interface IV10Application
     {
         /// <summary>
-        /// Retrieve a list of all groups for the User.
+        /// Returns information about the current application.
         /// </summary>
         /// <remarks>
-        /// Retrieve a list of all groups for the User.
+        /// Returns information about the current application.
         /// </remarks>
         /// <param name='customHeaders'>
         /// The headers that will be added to request.
@@ -36,12 +36,12 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataApi
         /// <exception cref="Microsoft.Rest.SerializationException">
         /// Thrown when unable to deserialize the response
         /// </exception>
-        Task<HttpOperationResponse<IEnumerable<GroupViewModel>>> GetWithHttpMessagesAsync(Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default);
+        Task<HttpOperationResponse<Application>> MeWithHttpMessagesAsync(Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default);
         /// <summary>
-        /// Creates a Group from the input parameters for User.
+        /// Add a new application to Veracity data fabric.
         /// </summary>
         /// <remarks>
-        /// Creates a Group from the input parameters for User.
+        /// Needs to have the role "DataAdmin" to perform this action
         /// </remarks>
         /// <param name='body'>
         /// </param>
@@ -54,18 +54,15 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataApi
         /// <exception cref="Microsoft.Rest.HttpOperationException">
         /// Thrown when the operation returned an invalid status code
         /// </exception>
-        /// <exception cref="Microsoft.Rest.SerializationException">
-        /// Thrown when unable to deserialize the response
-        /// </exception>
-        Task<HttpOperationResponse<GroupViewModel>> PostWithHttpMessagesAsync(GroupCreationInputParameters body = default, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default);
+        Task<HttpOperationResponse> CreateWithHttpMessagesAsync(Application body = default, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default);
         /// <summary>
-        /// Retrieve Group by Id for the User.
+        /// Gets information about an application in Veracity data fabric.
         /// </summary>
         /// <remarks>
-        /// Retrieve Group by Id for the User.
+        /// Gets information about an application in Veracity data fabric.
         /// </remarks>
-        /// <param name='id'>
-        /// Format - uuid. The GUID of the group.
+        /// <param name='applicationId'>
+        /// Format - uuid. AAD B2C Application Id
         /// </param>
         /// <param name='customHeaders'>
         /// The headers that will be added to request.
@@ -82,18 +79,19 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataApi
         /// <exception cref="Microsoft.Rest.ValidationException">
         /// Thrown when a required parameter is null
         /// </exception>
-        Task<HttpOperationResponse<GroupViewModel>> GetByIdWithHttpMessagesAsync(string id, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default);
+        Task<HttpOperationResponse<Application>> GetWithHttpMessagesAsync(string applicationId, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default);
         /// <summary>
-        /// Updates the given group with the parameters from the request body.
+        /// Update role of a application on Veracity data fabric.
         /// </summary>
         /// <remarks>
-        /// Updates the given group with the parameters from the request body.
+        /// Needs to have the role "DataAdmin" to perform this action
         /// </remarks>
-        /// <param name='id'>
-        /// Format - uuid. The GUID of the Group
+        /// <param name='applicationId'>
+        /// Format - uuid. AAD B2C Application Id
         /// </param>
-        /// <param name='body'>
-        /// The group parameters.
+        /// <param name='role'>
+        /// Role name. Possible values include: 'none', 'manager', 'consumer',
+        /// 'fullAll', 'identity', 'dataAdmin'
         /// </param>
         /// <param name='customHeaders'>
         /// The headers that will be added to request.
@@ -107,30 +105,6 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataApi
         /// <exception cref="Microsoft.Rest.ValidationException">
         /// Thrown when a required parameter is null
         /// </exception>
-        Task<HttpOperationResponse> PutWithHttpMessagesAsync(string id, GroupCreationInputParameters body = default, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default);
-        /// <summary>
-        /// Will delete the Users given group, and remove references to
-        /// resources, will NOT delete resources.
-        /// </summary>
-        /// <remarks>
-        /// Will delete the Users given group, and remove references to
-        /// resources, will NOT delete resources.
-        /// </remarks>
-        /// <param name='id'>
-        /// Format - uuid. The GUID of the group.
-        /// </param>
-        /// <param name='customHeaders'>
-        /// The headers that will be added to request.
-        /// </param>
-        /// <param name='cancellationToken'>
-        /// The cancellation token.
-        /// </param>
-        /// <exception cref="Microsoft.Rest.HttpOperationException">
-        /// Thrown when the operation returned an invalid status code
-        /// </exception>
-        /// <exception cref="Microsoft.Rest.ValidationException">
-        /// Thrown when a required parameter is null
-        /// </exception>
-        Task<HttpOperationResponse> DeleteWithHttpMessagesAsync(string id, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default);
+        Task<HttpOperationResponse> UpdateRoleWithHttpMessagesAsync(string applicationId, string role, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default);
     }
 }

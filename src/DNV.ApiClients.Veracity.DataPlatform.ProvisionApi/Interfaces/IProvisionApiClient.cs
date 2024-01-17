@@ -4,16 +4,14 @@
 // regenerated.
 // </auto-generated>
 
-namespace DNV.ApiClients.Veracity.DataPlatform.ProvisionApi
+namespace DNV.ApiClients.Veracity.DataPlatform.ProvisionApi.Interfaces
 {
-    using AutoRest.ApiClients;
-    using AutoRest.ApiClients.Common;
     using Models;
     using Newtonsoft.Json;
 
-/// <summary>
+    /// <summary>
     /// </summary>
-    public partial interface IProvisionApiClient : AutoRest.ApiClients.Common.IApiClient, System.IDisposable
+    public partial interface IProvisionApiClient : System.IDisposable
     {
         /// <summary>
         /// The base URI of the service.

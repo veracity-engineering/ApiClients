@@ -4,6 +4,9 @@
 // regenerated.
 // </auto-generated>
 
+using Microsoft.Rest;
+using DNV.ApiClients.Veracity.DataPlatform.DataApi.Interfaces;
+
 namespace DNV.ApiClients.Veracity.DataPlatform.DataApi
 {
     using Microsoft.Rest;

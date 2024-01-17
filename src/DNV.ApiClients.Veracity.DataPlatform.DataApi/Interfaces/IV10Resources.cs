@@ -4,7 +4,7 @@
 // regenerated.
 // </auto-generated>
 
-namespace DNV.ApiClients.Veracity.DataPlatform.DataApi
+namespace DNV.ApiClients.Veracity.DataPlatform.DataApi.Interfaces
 {
     using Microsoft.Rest;
     using Models;
@@ -36,7 +36,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataApi
         /// <exception cref="Microsoft.Rest.SerializationException">
         /// Thrown when unable to deserialize the response
         /// </exception>
-        Task<HttpOperationResponse<IEnumerable<Resource>>> GetWithHttpMessagesAsync(Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default);
+        Task<HttpOperationResponse<IEnumerable<Resource>>> GetWithHttpMessagesAsync(Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default);
         /// <summary>
         /// Returns a single resource
         /// </summary>
@@ -61,7 +61,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataApi
         /// <exception cref="Microsoft.Rest.ValidationException">
         /// Thrown when a required parameter is null
         /// </exception>
-        Task<HttpOperationResponse<Resource>> GetByIdWithHttpMessagesAsync(string resourceId, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default);
+        Task<HttpOperationResponse<Resource>> GetByIdWithHttpMessagesAsync(string resourceId, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default);
         /// <summary>
         /// Fetch a SAS key to access a storage item shared with you
         /// Deprecated. Please use PUT
@@ -93,6 +93,6 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataApi
         /// <exception cref="Microsoft.Rest.ValidationException">
         /// Thrown when a required parameter is null
         /// </exception>
-        Task<HttpOperationResponse<SASToken>> FetchKeyForStorageContainerWithHttpMessagesAsync(string resourceId, string accessSharingId, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default);
+        Task<HttpOperationResponse<SASToken>> FetchKeyForStorageContainerWithHttpMessagesAsync(string resourceId, string accessSharingId, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default);
     }
 }

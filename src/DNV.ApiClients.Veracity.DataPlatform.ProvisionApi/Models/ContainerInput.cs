@@ -4,14 +4,14 @@
 // regenerated.
 // </auto-generated>
 
+using System.Linq;
+
 namespace DNV.ApiClients.Veracity.DataPlatform.ProvisionApi.Models
 {
     using Microsoft.Rest;
     using Newtonsoft.Json;
     using System.Collections;
     using System.Collections.Generic;
-    using System.Linq;
-
     /// <summary>
     /// An input for provisioning a container
     /// </summary>

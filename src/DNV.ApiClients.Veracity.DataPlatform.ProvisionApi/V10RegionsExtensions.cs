@@ -4,6 +4,8 @@
 // regenerated.
 // </auto-generated>
 
+using DNV.ApiClients.Veracity.DataPlatform.ProvisionApi.Interfaces;
+
 namespace DNV.ApiClients.Veracity.DataPlatform.ProvisionApi
 {
     using Models;

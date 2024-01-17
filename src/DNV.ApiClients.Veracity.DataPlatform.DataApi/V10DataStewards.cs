@@ -4,6 +4,11 @@
 // regenerated.
 // </auto-generated>
 
+using System.Linq;
+using System.IO;
+using Microsoft.Rest;
+using DNV.ApiClients.Veracity.DataPlatform.DataApi.Interfaces;
+
 namespace DNV.ApiClients.Veracity.DataPlatform.DataApi
 {
     using Microsoft.Rest;
@@ -11,8 +16,6 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataApi
     using Newtonsoft.Json;
     using System.Collections;
     using System.Collections.Generic;
-    using System.IO;
-    using System.Linq;
     using System.Net;
     using System.Net.Http;
     using System.Threading;
@@ -76,7 +79,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataApi
         /// <return>
         /// A response object containing the response body and response headers.
         /// </return>
-        public async Task<HttpOperationResponse<IEnumerable<DataStewardVM>>> GetDataStewardsByResourceIdWithHttpMessagesAsync(string resourceId, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default)
+        public async Task<HttpOperationResponse<IEnumerable<DataStewardVM>>> GetDataStewardsByResourceIdWithHttpMessagesAsync(string resourceId, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default)
         {
             if (resourceId == null)
             {
@@ -224,7 +227,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataApi
         /// <return>
         /// A response object containing the response body and response headers.
         /// </return>
-        public async Task<HttpOperationResponse<StorageResourcesVM>> TransferOwnershipWithHttpMessagesAsync(string resourceId, string userId, bool? keepAccessAsDataSteward = default, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default)
+        public async Task<HttpOperationResponse<StorageResourcesVM>> TransferOwnershipWithHttpMessagesAsync(string resourceId, string userId, bool? keepAccessAsDataSteward = default, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default)
         {
             if (resourceId == null)
             {
@@ -260,7 +263,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataApi
             {
                 _queryParameters.Add(string.Format("keepAccessAsDataSteward={0}", System.Uri.EscapeDataString(Microsoft.Rest.Serialization.SafeJsonConvert.SerializeObject(keepAccessAsDataSteward, Client.SerializationSettings).Trim('"'))));
             }
-            if (_queryParameters.Count > 0)
+            if (_queryParameters.Any())
             {
                 _url += "?" + string.Join("&", _queryParameters);
             }
@@ -390,7 +393,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataApi
         /// <return>
         /// A response object containing the response body and response headers.
         /// </return>
-        public async Task<HttpOperationResponse<DataStewardVM>> PostWithHttpMessagesAsync(string resourceId, string userId, DataStewardInputVm body = default, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default)
+        public async Task<HttpOperationResponse<DataStewardVM>> PostWithHttpMessagesAsync(string resourceId, string userId, DataStewardInputVm body = default, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default)
         {
             if (resourceId == null)
             {
@@ -542,7 +545,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataApi
         /// <return>
         /// A response object containing the response body and response headers.
         /// </return>
-        public async Task<HttpOperationResponse> DeleteWithHttpMessagesAsync(string resourceId, string userId, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default)
+        public async Task<HttpOperationResponse> DeleteWithHttpMessagesAsync(string resourceId, string userId, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default)
         {
             if (resourceId == null)
             {
