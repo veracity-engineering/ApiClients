@@ -18,7 +18,6 @@ jobs:
     uses: ./.github/workflows/autorest-generate.yml
     with:
       input-file: 'https://api-portal.veracity.com/docs/services/data-api/export?DocumentFormat=OpenApiJson'
-      api-name: 'DataApi'
       csharp: true
       output-folder: src/DNV.ApiClients.Veracity.DataPlatform.DataApi
       client-name: DataApiClient
@@ -28,4 +27,5 @@ jobs:
     uses: ./.github/workflows/nuget-publish.yml
     with:
       source-path: src/DNV.ApiClients.Veracity.DataPlatform.DataApi
+      project: DNV.ApiClients.Veracity.DataPlatform.DataApi
     secrets: inherit

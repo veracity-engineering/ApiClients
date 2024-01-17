@@ -18,7 +18,6 @@ jobs:
     uses: ./.github/workflows/autorest-generate.yml
     with:
       input-file: 'https://api-portal.veracity.com/docs/services/veracity-myservices-v3/export?DocumentFormat=OpenApiJson'
-      api-name: 'ServicesApi'
       csharp: true
       output-folder: src/DNV.ApiClients.Veracity.Identity.ServicesApi
       client-name: ServicesApiClient
@@ -28,4 +27,5 @@ jobs:
     uses: ./.github/workflows/nuget-publish.yml
     with:
       source-path: src/DNV.ApiClients.Veracity.Identity.ServicesApi
+      project: DNV.ApiClients.Veracity.Identity.ServicesApi
     secrets: inherit

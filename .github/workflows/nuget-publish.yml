@@ -1,22 +1,30 @@
 env:
-  RELEASE: false
   NUGET_OUTPUT: nuget-output
+  VERSION_PREFIX: 1.0.${{ github.run_number }}
+  VERSION_SUFFIX: preview.${{ github.run_attempt }}
+
 on:
   workflow_dispatch:
     inputs:
       source-path:
         required: true
         type: string
+      project:
+        required: true
+        type: string
   workflow_call:
     inputs:
       source-path:
         required: true
-        type: string      
+        type: string
+      project:
+        required: true
+        type: string
     secrets:
-      NUGET_API_KEY :
+      NUGET_API_KEY:
         required: true
         description: "The Nuget API key"
-        
+
 jobs:
   nuget-publish:
     name: NuGet Publish
@@ -29,11 +37,24 @@ jobs:
       - name: Setup .Net
         uses: actions/setup-dotnet@v3
         with:
-          dotnet-version: '6.0.x'
+          dotnet-version: '8.0.x'
 
       - name: Pack
         working-directory: ${{ inputs.source-path }}
-        run: dotnet pack -c Release -o ${{ env.NUGET_OUTPUT }} --include-symbols --include-source
+        run: |
+          dotnet pack ${{ inputs.project }}.Abstractions.csproj \
+            -c Release \
+            -o ${{ env.NUGET_OUTPUT }} \
+            --include-symbols \
+            --include-source \
+            -p:VersionPrefix=${{ env.VERSION_PREFIX }}
+
+          dotnet pack ${{ inputs.project }}.csproj \
+            -c Release \
+            -o ${{ env.NUGET_OUTPUT }} \
+            --include-symbols \
+            --include-source \
+            -p:VersionPrefix=${{ env.VERSION_PREFIX }}
 
       - name: Publish
         working-directory: ${{ inputs.source-path }}

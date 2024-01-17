@@ -5,6 +5,7 @@ VisualStudioVersion = 17.1.32421.90
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{1BDFDD5F-8628-4585-B135-EA82DEF8ABC6}"
 	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
 		Directory.Build.props = Directory.Build.props
 		Directory.Packages.props = Directory.Packages.props
 	EndProjectSection
@@ -18,6 +19,22 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DNV.ApiClients.Veracity.Identity.ServicesApi", "src\DNV.ApiClients.Veracity.Identity.ServicesApi\DNV.ApiClients.Veracity.Identity.ServicesApi.csproj", "{DEE55C3C-7B77-4403-98AE-6245AFB32A7A}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DNV.ApiClients.Veracity.DataPlatform.DataWorkbenchApi", "src\DNV.ApiClients.Veracity.DataPlatform.DataWorkbenchApi\DNV.ApiClients.Veracity.DataPlatform.DataWorkbenchApi.csproj", "{AD0B679A-4B7A-400B-A9A7-EEA561F70B69}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "github-actions", "github-actions", "{5FF2746A-8741-4674-BEA4-7EC7D111D25E}"
+	ProjectSection(SolutionItems) = preProject
+		.github\workflows\autorest-generate.yml = .github\workflows\autorest-generate.yml
+		.github\workflows\DataApi.yml = .github\workflows\DataApi.yml
+		.github\workflows\DataValidatorApi.yml = .github\workflows\DataValidatorApi.yml
+		.github\workflows\DataWorkbenchApi.yml = .github\workflows\DataWorkbenchApi.yml
+		.github\workflows\nuget-publish.yml = .github\workflows\nuget-publish.yml
+		.github\workflows\ProvisionApi.yml = .github\workflows\ProvisionApi.yml
+		.github\workflows\ServicesApi.yml = .github\workflows\ServicesApi.yml
+		.github\workflows\sonarqube-scan.yml = .github\workflows\sonarqube-scan.yml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DNV.ApiClients.Veracity.Identity.ServicesApi", "DNV.ApiClients.Veracity.Identity.ServicesApi", "{E3BC215B-DEE6-422D-B302-0884A1222318}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DNV.ApiClients.Veracity.Identity.ServicesApi.Abstractions", "src\DNV.ApiClients.Veracity.Identity.ServicesApi\DNV.ApiClients.Veracity.Identity.ServicesApi.Abstractions.csproj", "{364FE168-6759-4937-9D00-3AA3D67388C4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,9 +62,17 @@ Global
 		{AD0B679A-4B7A-400B-A9A7-EEA561F70B69}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AD0B679A-4B7A-400B-A9A7-EEA561F70B69}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AD0B679A-4B7A-400B-A9A7-EEA561F70B69}.Release|Any CPU.Build.0 = Release|Any CPU
+		{364FE168-6759-4937-9D00-3AA3D67388C4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{364FE168-6759-4937-9D00-3AA3D67388C4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{364FE168-6759-4937-9D00-3AA3D67388C4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{364FE168-6759-4937-9D00-3AA3D67388C4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{DEE55C3C-7B77-4403-98AE-6245AFB32A7A} = {E3BC215B-DEE6-422D-B302-0884A1222318}
+		{364FE168-6759-4937-9D00-3AA3D67388C4} = {E3BC215B-DEE6-422D-B302-0884A1222318}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {6FF7F662-C8D1-4C7D-9164-3106E6539DDE}
