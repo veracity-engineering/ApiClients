@@ -1,7 +1,12 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<ItemGroup>
-		<PackageReference Include="AutoRest.ApiClients.Common" />
+		<Compile Remove="Interfaces\**" />
+		<Compile Remove="Models\**" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="DNV.ApiClients.Veracity.Identity.ServicesApi.Abstractions.csproj" />
 	</ItemGroup>
 
 </Project>

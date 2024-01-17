@@ -1,11 +1,12 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-	<PropertyGroup>
-		<VersionPrefix>1.0.2</VersionPrefix>
-	</PropertyGroup>
+	<ItemGroup>
+		<Compile Remove="Interfaces\**" />
+		<Compile Remove="Models\**" />
+	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="AutoRest.ApiClients.Common" />
+		<ProjectReference Include="DNV.ApiClients.Veracity.Identity.ServicesApi.Abstractions.csproj" />
 	</ItemGroup>
 
 </Project>

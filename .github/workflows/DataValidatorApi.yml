@@ -27,4 +27,5 @@ jobs:
     uses: ./.github/workflows/nuget-publish.yml
     with:
       source-path: src/DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi
+      project: DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi
     secrets: inherit
