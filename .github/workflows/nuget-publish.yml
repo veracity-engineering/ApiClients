@@ -40,8 +40,8 @@ jobs:
       - name: Pack
         working-directory: ${{ inputs.source-path }}
         run: |
-          dotnet pack ${{ inputs.project }}.csproj -c Release -o ${{ env.NUGET_OUTPUT }} --include-symbols --include-source
           dotnet pack ${{ inputs.project }}.Abstractions.csproj -c Release -o ${{ env.NUGET_OUTPUT }} --include-symbols --include-source
+          dotnet pack ${{ inputs.project }}.csproj -c Release -o ${{ env.NUGET_OUTPUT }} --include-symbols --include-source
 
       - name: Publish
         working-directory: ${{ inputs.source-path }}
