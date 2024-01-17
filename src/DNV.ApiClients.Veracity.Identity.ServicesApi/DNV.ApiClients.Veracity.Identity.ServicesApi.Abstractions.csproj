@@ -1,0 +1,11 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<ItemGroup>
+		<Compile Remove="*.cs" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="AutoRest.ApiClients.Common" />
+	</ItemGroup>
+
+</Project>

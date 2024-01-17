@@ -28,4 +28,5 @@ jobs:
     uses: ./.github/workflows/nuget-publish.yml
     with:
       source-path: src/DNV.ApiClients.Veracity.Identity.ServicesApi
+      project: DNV.ApiClients.Veracity.Identity.ServicesApi
     secrets: inherit

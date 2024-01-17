@@ -7,15 +7,12 @@ on:
       input-file:
         required: true
         type: string
-      api-name:
-        required: true
-        type: string
       csharp:
         type: boolean
-      typescript:
-        type: boolean
-      python:
-        type: boolean
+      # typescript:
+      #   type: boolean
+      # python:
+      #   type: boolean
       output-folder:
         type: string
       client-name:
@@ -36,7 +33,7 @@ jobs:
       - name: Setup .Net
         uses: actions/setup-dotnet@v3
         with:
-          dotnet-version: '6.0.x'
+          dotnet-version: '8.0.x'
 
       - name: Setup NodeJS
         uses: actions/setup-node@v4
@@ -54,10 +51,11 @@ jobs:
           # clean up the configuration files to avoid conflicts with the autorest version installed by the action
           RESOURCE_FOLDER=$HOME/.autorest/@autorest_core@3.5.1/node_modules/@autorest/core/dist/resources
           echo '# Confiugration cleaned up' > $RESOURCE_FOLDER/plugin-csharp.md
-          echo '# Confiugration cleaned up' > $RESOURCE_FOLDER/plugin-python.md
-          echo '# Confiugration cleaned up' > $RESOURCE_FOLDER/plugin-typescript.md
+          #echo '# Confiugration cleaned up' > $RESOURCE_FOLDER/plugin-python.md
+          #echo '# Confiugration cleaned up' > $RESOURCE_FOLDER/plugin-typescript.md
 
           rm -f ${{ inputs.output-folder }}/*.cs
+          rm -f ${{ inputs.output-folder }}/Interfaces/*.cs
           rm -f ${{ inputs.output-folder }}/Models/*.cs
 
           autorest \
@@ -70,9 +68,11 @@ jobs:
             --typescript:${{ inputs.typescript }} \
             --python:${{ inputs.python }} \
             --use:@cuteribs/autorest.csharp@latest \
-            --use:@cuteribs/autorest.python@latest \
-            --use:@cuteribs/autorest.typescript@latest \
+            # --use:@cuteribs/autorest.python@latest \
+            # --use:@cuteribs/autorest.typescript@latest \
             --version:3.5.1
+
+          rm -f ${{ inputs.output-folder }}/code-model-v1
 
           git config user.email "actions-bot@users.noreply.github.com"
           git config user.name "github actions bot"
