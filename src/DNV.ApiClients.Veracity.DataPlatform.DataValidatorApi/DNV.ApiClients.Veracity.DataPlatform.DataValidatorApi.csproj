@@ -6,7 +6,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="DNV.ApiClients.Veracity.Identity.ServicesApi.Abstractions.csproj" />
+		<ProjectReference Include="DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi.Abstractions.csproj" />
 	</ItemGroup>
 
 </Project>

@@ -36,6 +36,22 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DNV.ApiClients.Veracity.Ide
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DNV.ApiClients.Veracity.Identity.ServicesApi.Abstractions", "src\DNV.ApiClients.Veracity.Identity.ServicesApi\DNV.ApiClients.Veracity.Identity.ServicesApi.Abstractions.csproj", "{364FE168-6759-4937-9D00-3AA3D67388C4}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DNV.ApiClients.Veracity.DataPlatform.DataApi", "DNV.ApiClients.Veracity.DataPlatform.DataApi", "{F5A933BB-E885-4F8D-8CD8-4A615545511F}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DNV.ApiClients.Veracity.DataPlatform.DataApi.Abstractions", "src\DNV.ApiClients.Veracity.DataPlatform.DataApi\DNV.ApiClients.Veracity.DataPlatform.DataApi.Abstractions.csproj", "{F96A9EBD-3386-427F-A6CA-8B0EA9308DA4}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi", "DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi", "{F805D1B5-D82E-4F0C-8FF9-254EACFE8F53}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DNV.ApiClients.Veracity.DataPlatform.ProvisionApi", "DNV.ApiClients.Veracity.DataPlatform.ProvisionApi", "{CFF4FAE0-B899-48F2-84B1-99226F19E8BB}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DNV.ApiClients.Veracity.DataPlatform.DataWorkbenchApi", "DNV.ApiClients.Veracity.DataPlatform.DataWorkbenchApi", "{51AD7129-0A07-4355-9975-FF9D8AA413AE}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi.Abstractions", "src\DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi\DNV.ApiClients.Veracity.DataPlatform.DataValidatorApi.Abstractions.csproj", "{1C64A1C0-7884-4B37-A8D5-F0454C69D8B6}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DNV.ApiClients.Veracity.DataPlatform.ProvisionApi.Abstractions", "src\DNV.ApiClients.Veracity.DataPlatform.ProvisionApi\DNV.ApiClients.Veracity.DataPlatform.ProvisionApi.Abstractions.csproj", "{E5CB9318-2045-4A58-A2CF-E1F7C4F02F74}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DNV.ApiClients.Veracity.DataPlatform.DataWorkbenchApi.Abstractions", "src\DNV.ApiClients.Veracity.DataPlatform.DataWorkbenchApi\DNV.ApiClients.Veracity.DataPlatform.DataWorkbenchApi.Abstractions.csproj", "{EF3ED226-9DB3-42FE-8465-8D101B99B1E9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -66,13 +82,37 @@ Global
 		{364FE168-6759-4937-9D00-3AA3D67388C4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{364FE168-6759-4937-9D00-3AA3D67388C4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{364FE168-6759-4937-9D00-3AA3D67388C4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F96A9EBD-3386-427F-A6CA-8B0EA9308DA4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F96A9EBD-3386-427F-A6CA-8B0EA9308DA4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F96A9EBD-3386-427F-A6CA-8B0EA9308DA4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F96A9EBD-3386-427F-A6CA-8B0EA9308DA4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1C64A1C0-7884-4B37-A8D5-F0454C69D8B6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1C64A1C0-7884-4B37-A8D5-F0454C69D8B6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1C64A1C0-7884-4B37-A8D5-F0454C69D8B6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1C64A1C0-7884-4B37-A8D5-F0454C69D8B6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E5CB9318-2045-4A58-A2CF-E1F7C4F02F74}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E5CB9318-2045-4A58-A2CF-E1F7C4F02F74}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E5CB9318-2045-4A58-A2CF-E1F7C4F02F74}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E5CB9318-2045-4A58-A2CF-E1F7C4F02F74}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EF3ED226-9DB3-42FE-8465-8D101B99B1E9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EF3ED226-9DB3-42FE-8465-8D101B99B1E9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EF3ED226-9DB3-42FE-8465-8D101B99B1E9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EF3ED226-9DB3-42FE-8465-8D101B99B1E9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
+		{02710C79-2BD0-46D4-ACCE-E9E8A8BF9F6A} = {F5A933BB-E885-4F8D-8CD8-4A615545511F}
+		{1623B4C4-5A68-4C14-B2B5-ADAFE2D4FECF} = {F805D1B5-D82E-4F0C-8FF9-254EACFE8F53}
+		{7298DB03-9F6B-4C51-A1B2-3DFB647BEAA2} = {CFF4FAE0-B899-48F2-84B1-99226F19E8BB}
 		{DEE55C3C-7B77-4403-98AE-6245AFB32A7A} = {E3BC215B-DEE6-422D-B302-0884A1222318}
+		{AD0B679A-4B7A-400B-A9A7-EEA561F70B69} = {51AD7129-0A07-4355-9975-FF9D8AA413AE}
 		{364FE168-6759-4937-9D00-3AA3D67388C4} = {E3BC215B-DEE6-422D-B302-0884A1222318}
+		{F96A9EBD-3386-427F-A6CA-8B0EA9308DA4} = {F5A933BB-E885-4F8D-8CD8-4A615545511F}
+		{1C64A1C0-7884-4B37-A8D5-F0454C69D8B6} = {F805D1B5-D82E-4F0C-8FF9-254EACFE8F53}
+		{E5CB9318-2045-4A58-A2CF-E1F7C4F02F74} = {CFF4FAE0-B899-48F2-84B1-99226F19E8BB}
+		{EF3ED226-9DB3-42FE-8465-8D101B99B1E9} = {51AD7129-0A07-4355-9975-FF9D8AA413AE}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {6FF7F662-C8D1-4C7D-9164-3106E6539DDE}
