@@ -10,8 +10,4 @@
 		<NoWarn>$(NoWarn);1701;1702;1573;1591</NoWarn>
 	</PropertyGroup>
 
-	<PropertyGroup Condition=" '$(RELEASE)' != 'true'">
-		<VersionSuffix>preview.$([System.DateTime]::UtcNow.ToString("yyMMddHHmm"))</VersionSuffix>
-	</PropertyGroup>
-
 </Project>

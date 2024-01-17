@@ -1,7 +1,7 @@
 env:
-  RELEASE: true
   NUGET_OUTPUT: nuget-output
-  VERSION: ${{ github.run_id }}.${{ github.run_number }}.${{ github.run_attempt }}
+  VERSION_PREFIX: 1.0.${{ github.run_number }}
+  VERSION_SUFFIX: preview.${{ github.run_attempt }}
 
 on:
   workflow_dispatch:
@@ -54,7 +54,7 @@ jobs:
             -o ${{ env.NUGET_OUTPUT }} \
             --include-symbols \
             --include-source \
-            -p:VersionPrefix=${{ env.VERSION }}
+            -p:VersionPrefix=${{ env.VERSION_PREFIX }}
 
       - name: Publish
         working-directory: ${{ inputs.source-path }}
