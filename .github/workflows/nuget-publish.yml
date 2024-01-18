@@ -49,6 +49,8 @@ jobs:
             --include-source \
             -p:VersionPrefix=${{ env.VERSION_PREFIX }}
 
+          rm -rf bin obj
+
           dotnet pack ${{ inputs.project }}.csproj \
             -c Release \
             -o ${{ env.NUGET_OUTPUT }} \

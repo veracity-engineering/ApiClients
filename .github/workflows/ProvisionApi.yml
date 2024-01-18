@@ -24,6 +24,7 @@ jobs:
       namespace: DNV.ApiClients.Veracity.DataPlatform.ProvisionApi
       interface: AutoRest.ApiClients.Common.IApiClient
   nuget-publish:
+    needs: autorest-generate
     uses: ./.github/workflows/nuget-publish.yml
     with:
       source-path: src/DNV.ApiClients.Veracity.DataPlatform.ProvisionApi
