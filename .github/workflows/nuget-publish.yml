@@ -50,6 +50,7 @@ jobs:
             -p:VersionPrefix=${{ env.VERSION_PREFIX }}
 
           rm -rf bin obj
+          dotnet restore ${{ inputs.project }}.csproj
 
           dotnet pack ${{ inputs.project }}.csproj \
             -c Release \
