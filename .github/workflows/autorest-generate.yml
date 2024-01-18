@@ -54,6 +54,7 @@ jobs:
           # echo '# Confiugration cleaned up' > $RESOURCE_FOLDER/plugin-python.md
           # echo '# Confiugration cleaned up' > $RESOURCE_FOLDER/plugin-typescript.md
 
+          git pull  # make sure we have the latest version of the code in a rerun
           rm -f ${{ inputs.output-folder }}/*.cs
           rm -f ${{ inputs.output-folder }}/Interfaces/*.cs
           rm -f ${{ inputs.output-folder }}/Models/*.cs
