@@ -74,6 +74,10 @@ jobs:
             # --use:@cuteribs/autorest.typescript@latest \
 
           rm -f ${{ inputs.output-folder }}/code-model-v1
+          
+          mkdir Abstractions Implementation
+          mv Interfaces Models *Extensions.cs ${{ inputs.project }}.Abstractions.csproj Abstractions/
+          mv *.cs ${{ inputs.project }}.csproj Implementation/
 
           git config user.email "actions-bot@users.noreply.github.com"
           git config user.name "github actions bot"
