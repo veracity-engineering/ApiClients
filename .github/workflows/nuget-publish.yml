@@ -42,7 +42,11 @@ jobs:
       - name: Pack
         working-directory: ${{ inputs.source-path }}
         run: |
-          dotnet pack ${{ inputs.project }}.Abstractions.csproj \
+          mkdir Abstractions Implementation
+          mv Interfaces Models *Extensions.cs ${{ inputs.project }}.Abstractions.csproj Abstractions/
+          mv *.cs ${{ inputs.project }}.csproj Implementation/
+          
+          dotnet pack Abstractions/${{ inputs.project }}.Abstractions.csproj \
             -c Release \
             -o ${{ env.NUGET_OUTPUT }} \
             --include-symbols \
@@ -52,7 +56,7 @@ jobs:
           rm -rf bin obj
           dotnet restore ${{ inputs.project }}.csproj
 
-          dotnet pack ${{ inputs.project }}.csproj \
+          dotnet pack Implementation/${{ inputs.project }}.csproj \
             -c Release \
             -o ${{ env.NUGET_OUTPUT }} \
             --include-symbols \
