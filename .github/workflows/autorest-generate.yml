@@ -73,8 +73,9 @@ jobs:
 
           rm -f ${{ inputs.output-folder }}/code-model-v1
           
-          mv Interfaces Models *Extensions.cs ${{ inputs.output-folder }}/Abstractions/
-          mv *.cs ${{ inputs.output-folder }}/Implementation/
+          cd ${{ inputs.output-folder }}
+          mv Interfaces Models *Extensions.cs Abstractions/
+          mv *.cs Implementation/
 
           git config user.email "actions-bot@users.noreply.github.com"
           git config user.name "github actions bot"
