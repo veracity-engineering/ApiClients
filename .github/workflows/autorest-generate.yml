@@ -73,6 +73,7 @@ jobs:
 
           rm -f ${{ inputs.output-folder }}/code-model-v1
           
+          cd ${{ inputs.output-folder }}
           mkdir Abstractions Implementation
           mv Interfaces Models *Extensions.cs Abstractions/
           mv *.cs Implementation/
