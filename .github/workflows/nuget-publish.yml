@@ -53,9 +53,6 @@ jobs:
             --include-source \
             -p:VersionPrefix=${{ env.VERSION_PREFIX }}
 
-          rm -rf bin obj
-          dotnet restore ${{ inputs.project }}.csproj
-
           dotnet pack Implementation/${{ inputs.project }}.csproj \
             -c Release \
             -o ${{ env.NUGET_OUTPUT }} \
