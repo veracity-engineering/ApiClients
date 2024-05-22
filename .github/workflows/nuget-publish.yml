@@ -41,11 +41,7 @@ jobs:
 
       - name: Pack
         working-directory: ${{ inputs.source-path }}
-        run: |
-          mkdir Abstractions Implementation
-          mv Interfaces Models *Extensions.cs ${{ inputs.project }}.Abstractions.csproj Abstractions/
-          mv *.cs ${{ inputs.project }}.csproj Implementation/
-          
+        run: |          
           dotnet pack Abstractions/${{ inputs.project }}.Abstractions.csproj \
             -c Release \
             -o ${{ env.NUGET_OUTPUT }} \
