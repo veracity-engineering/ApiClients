@@ -130,6 +130,17 @@ namespace DNV.ApiClients.Veracity.Identity.ServicesApiV3
         /// <param name='httpClient'>
         /// HttpClient to be used
         /// </param>
+        public ServicesApiV3Client(HttpClient httpClient) : base(httpClient, true)
+        {
+            Initialize();
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the ServicesApiV3Client class.
+        /// </summary>
+        /// <param name='httpClient'>
+        /// HttpClient to be used
+        /// </param>
         /// <param name='disposeHttpClient'>
         /// True: will dispose the provided httpClient on calling ServicesApiV3Client.Dispose(). False: will not dispose provided httpClient</param>
         public ServicesApiV3Client(HttpClient httpClient, bool disposeHttpClient) : base(httpClient, disposeHttpClient)
