@@ -17,16 +17,14 @@ jobs:
   autorest-generate:
     uses: ./.github/workflows/autorest-generate.yml
     with:
-      input-file: 'https://api-portal.veracity.com/docs/services/veracity-myservices-v3/export?DocumentFormat=OpenApiJson'
-      csharp: true
-      output-folder: src/DNV.ApiClients.Veracity.Identity.ServicesApi
-      client-name: ServicesApiClient
-      namespace: DNV.ApiClients.Veracity.Identity.ServicesApi
-      interface: AutoRest.ApiClients.Common.IApiClient
+      config-file: .github/workflows/ServicesApiV3.yml
+      project-name: DNV.ApiClients.Veracity.Identity.ServicesApiV3.ApiClient
+      output-folder: src/DNV.ApiClients.Veracity.Identity.ServicesApiV3
   nuget-publish:
     needs: autorest-generate
     uses: ./.github/workflows/nuget-publish.yml
     with:
-      source-path: src/DNV.ApiClients.Veracity.Identity.ServicesApi
-      project: DNV.ApiClients.Veracity.Identity.ServicesApi
+      source-path: src/DNV.ApiClients.Veracity.Identity.ServicesApiV3
+      project-name: DNV.ApiClients.Veracity.Identity.ServicesApiV3
     secrets: inherit
+    
