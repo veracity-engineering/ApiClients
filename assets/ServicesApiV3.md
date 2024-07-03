@@ -3,7 +3,7 @@
 
 ```yaml
 
-input-file: ServicesApi.json
+input-file: ServicesApiV3.json
 
 use-extension:
   '@cuteribs/autorest.csharp': latest
