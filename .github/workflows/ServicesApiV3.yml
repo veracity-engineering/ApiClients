@@ -17,7 +17,7 @@ jobs:
   autorest-generate:
     uses: ./.github/workflows/autorest-generate.yml
     with:
-      config-file: .github/workflows/ServicesApiV3.yml
+      config-file: assets/ServicesApiV3.md
       project-name: DNV.ApiClients.Veracity.Identity.ServicesApiV3.ApiClient
       output-folder: src/DNV.ApiClients.Veracity.Identity.ServicesApiV3
   nuget-publish:
