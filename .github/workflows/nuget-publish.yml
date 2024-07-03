@@ -9,7 +9,7 @@ on:
       source-path:
         required: true
         type: string
-      project:
+      project-name:
         required: true
         type: string
   workflow_call:
@@ -17,7 +17,7 @@ on:
       source-path:
         required: true
         type: string
-      project:
+      project-name:
         required: true
         type: string
     secrets:
@@ -42,17 +42,14 @@ jobs:
       - name: Pack
         working-directory: ${{ inputs.source-path }}
         run: |
-          dotnet pack ${{ inputs.project }}.Abstractions.csproj \
+          dotnet pack Abstractions/${{ inputs.project-name }}.Abstractions.csproj \
             -c Release \
             -o ${{ env.NUGET_OUTPUT }} \
             --include-symbols \
             --include-source \
             -p:VersionPrefix=${{ env.VERSION_PREFIX }}
-
-          rm -rf bin obj
-          dotnet restore ${{ inputs.project }}.csproj
-
-          dotnet pack ${{ inputs.project }}.csproj \
+            
+          dotnet pack Implementation/${{ inputs.project-name }}.csproj \
             -c Release \
             -o ${{ env.NUGET_OUTPUT }} \
             --include-symbols \

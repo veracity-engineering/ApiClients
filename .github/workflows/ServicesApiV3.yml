@@ -1,4 +1,4 @@
-name: DNV.ApiClients.Veracity.Identity.ServicesApi
+name: DNV.ApiClients.Veracity.Identity.ServicesApiV3
 
 on:
   workflow_dispatch:
@@ -6,13 +6,13 @@ on:
     branches:
     - main
     paths:
-    - 'src/ServicesApi/**'
-    - '.github/workflows/ServicesApi.yml'
+    - 'src/ServicesApiV3/**'
+    - '.github/workflows/ServicesApiV3.yml'
   pull_request:
     types: [ closed ]
     paths:
-    - 'src/ServicesApi/**'
-    - '.github/workflows/ServicesApi.yml'
+    - 'src/ServicesApiV3/**'
+    - '.github/workflows/ServicesApiV3.yml'
 jobs:
   autorest-generate:
     uses: ./.github/workflows/autorest-generate.yml
