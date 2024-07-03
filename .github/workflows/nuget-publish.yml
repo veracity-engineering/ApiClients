@@ -42,14 +42,14 @@ jobs:
       - name: Pack
         working-directory: ${{ inputs.source-path }}
         run: |
-          dotnet pack Abstractions/${{ inputs.project-name }}.Abstractions.csproj \
+          dotnet pack Abstractions/${{ inputs.project-name }}.ApiClient.Abstractions.csproj \
             -c Release \
             -o ${{ env.NUGET_OUTPUT }} \
             --include-symbols \
             --include-source \
             -p:VersionPrefix=${{ env.VERSION_PREFIX }}
             
-          dotnet pack Implementation/${{ inputs.project-name }}.csproj \
+          dotnet pack Implementation/${{ inputs.project-name }}.ApiClient.csproj \
             -c Release \
             -o ${{ env.NUGET_OUTPUT }} \
             --include-symbols \
