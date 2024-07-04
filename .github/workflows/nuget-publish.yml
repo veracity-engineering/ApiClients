@@ -23,6 +23,9 @@ on:
       project-name:
         required: true
         type: string
+      require_publish:
+        type: boolean
+        default: false
     secrets:
       NUGET_API_KEY:
         required: true
