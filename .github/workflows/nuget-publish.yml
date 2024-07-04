@@ -12,6 +12,9 @@ on:
       project-name:
         required: true
         type: string
+      require_publish:
+        type: boolean
+        default: false
   workflow_call:
     inputs:
       source-path:
@@ -20,6 +23,9 @@ on:
       project-name:
         required: true
         type: string
+      require_publish:
+        type: boolean
+        default: false
     secrets:
       NUGET_API_KEY:
         required: true
@@ -56,6 +62,14 @@ jobs:
             --include-source \
             -p:VersionPrefix=${{ env.VERSION_PREFIX }}
 
+      - uses: actions/upload-artifact@v3
+        with:
+          name: nuget
+          if-no-files-found: error
+          retention-days: 7
+          path: ${{ env.NUGET_OUTPUT }}/*.symbols.nupkg
+
       - name: Publish
+        if: ${{ inputs.require_publish == true }}
         working-directory: ${{ inputs.source-path }}
         run: dotnet nuget push --skip-duplicate '${{ env.NUGET_OUTPUT }}/*.symbols.nupkg' --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json

@@ -30,5 +30,6 @@ jobs:
     with:
       source-path: src/DNV.ApiClients.Veracity.Identity.ServicesApiV3
       project-name: DNV.ApiClients.Veracity.Identity.ServicesApiV3
+      require_publish: ${{ inputs.require_publish }}
     secrets: inherit
     
