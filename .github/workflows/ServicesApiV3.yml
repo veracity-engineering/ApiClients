@@ -2,6 +2,10 @@ name: DNV.ApiClients.Veracity.Identity.ServicesApiV3
 
 on:
   workflow_dispatch:
+    inputs:
+      require_publish:
+        type: boolean
+        default: false
   push:
     branches:
     - main
