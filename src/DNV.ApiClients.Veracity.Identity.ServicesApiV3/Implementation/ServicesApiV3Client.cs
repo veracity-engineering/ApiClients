@@ -9,6 +9,8 @@ using DNV.ApiClients.Veracity.Identity.ServicesApiV3.Interfaces;
 
 namespace DNV.ApiClients.Veracity.Identity.ServicesApiV3
 {
+    using Microsoft.Extensions;
+    using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Rest;
     using Microsoft.Rest.Serialization;
     using Models;
@@ -130,9 +132,9 @@ namespace DNV.ApiClients.Veracity.Identity.ServicesApiV3
         /// <param name='httpClient'>
         /// HttpClient to be used
         /// </param>
-        public ServicesApiV3Client(HttpClient httpClient) : base(httpClient, true)
+        [Microsoft.Extensions.DependencyInjection.ActivatorUtilitiesConstructor]
+        public ServicesApiV3Client(HttpClient httpClient) : this(httpClient, true)
         {
-            Initialize();
         }
 
         /// <summary>
