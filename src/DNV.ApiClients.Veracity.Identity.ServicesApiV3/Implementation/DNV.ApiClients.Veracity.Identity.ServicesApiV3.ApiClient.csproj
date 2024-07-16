@@ -1,6 +1,5 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <ItemGroup>
   	<ProjectReference Include="../Abstractions/DNV.ApiClients.Veracity.Identity.ServicesApiV3.ApiClient.Abstractions.csproj" />
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" />
   </ItemGroup>
 </Project>

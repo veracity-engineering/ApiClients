@@ -9,8 +9,9 @@ using DNV.ApiClients.Veracity.Identity.ServicesApiV3.Interfaces;
 
 namespace DNV.ApiClients.Veracity.Identity.ServicesApiV3
 {
-	using Microsoft.Extensions.DependencyInjection;
-	using Microsoft.Rest;
+    using Microsoft.Extensions;
+    using Microsoft.Extensions.DependencyInjection;
+    using Microsoft.Rest;
     using Microsoft.Rest.Serialization;
     using Models;
     using Newtonsoft.Json;
@@ -125,14 +126,14 @@ namespace DNV.ApiClients.Veracity.Identity.ServicesApiV3
         /// </summary>
         public virtual IUsersDirectory UsersDirectory { get; private set; }
 
-		/// <summary>
-		/// Initializes a new instance of the ServicesApiV3Client class.
-		/// </summary>
-		/// <param name='httpClient'>
-		/// HttpClient to be used
-		/// </param>
-		[ActivatorUtilitiesConstructor]
-        public ServicesApiV3Client(HttpClient httpClient) : base(httpClient, true)
+        /// <summary>
+        /// Initializes a new instance of the ServicesApiV3Client class.
+        /// </summary>
+        /// <param name='httpClient'>
+        /// HttpClient to be used
+        /// </param>
+        [Microsoft.Extensions.DependencyInjection.ActivatorUtilitiesConstructor]
+        public ServicesApiV3Client(HttpClient httpClient) : this(httpClient, true)
         {
         }
 
