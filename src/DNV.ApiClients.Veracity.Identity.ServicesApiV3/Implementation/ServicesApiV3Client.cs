@@ -134,7 +134,6 @@ namespace DNV.ApiClients.Veracity.Identity.ServicesApiV3
 		[ActivatorUtilitiesConstructor]
         public ServicesApiV3Client(HttpClient httpClient) : base(httpClient, true)
         {
-            Initialize();
         }
 
         /// <summary>
