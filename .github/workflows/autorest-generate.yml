@@ -69,7 +69,8 @@ jobs:
           cat >> Implementation/${{ inputs.project-name }}.csproj << EOT
           <Project Sdk="Microsoft.NET.Sdk">
             <ItemGroup>
-            	<ProjectReference Include="../Abstractions/${{ inputs.project-name }}.Abstractions.csproj" />
+              <ProjectReference Include="../Abstractions/${{ inputs.project-name }}.Abstractions.csproj" />
+              <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" />
             </ItemGroup>
           </Project>
           EOT
