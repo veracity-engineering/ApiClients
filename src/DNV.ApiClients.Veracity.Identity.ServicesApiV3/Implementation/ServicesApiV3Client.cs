@@ -133,8 +133,9 @@ namespace DNV.ApiClients.Veracity.Identity.ServicesApiV3
         /// HttpClient to be used
         /// </param>
         [Microsoft.Extensions.DependencyInjection.ActivatorUtilitiesConstructor]
-        public ServicesApiV3Client(HttpClient httpClient) : this(httpClient, true)
+        public ServicesApiV3Client(HttpClient httpClient) :base(httpClient, disposeHttpClient)
         {
+            Initialize();
         }
 
         /// <summary>
