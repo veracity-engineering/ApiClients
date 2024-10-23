@@ -1,0 +1,35 @@
+name: DNV.ApiClients.Veracity.Identity.PlatformApiV4
+
+on:
+  workflow_dispatch:
+    inputs:
+      require_publish:
+        type: boolean
+        default: false
+  push:
+    branches:
+    - main
+    paths:
+    - 'src/PlatformApiV4/**'
+    - '.github/workflows/PlatformApiV4.yml'
+  pull_request:
+    types: [ closed ]
+    paths:
+    - 'src/PlatformApiV4/**'
+    - '.github/workflows/PlatformApiV4.yml'
+jobs:
+  autorest-generate:
+    uses: ./.github/workflows/autorest-generate.yml
+    with:
+      config-file: assets/PlatformApiV4.md
+      project-name: DNV.ApiClients.Veracity.Identity.PlatformApiV4.ApiClient
+      output-folder: src/DNV.ApiClients.Veracity.Identity.PlatformApiV4
+  nuget-publish:
+    needs: autorest-generate
+    uses: ./.github/workflows/nuget-publish.yml
+    with:
+      source-path: src/DNV.ApiClients.Veracity.Identity.PlatformApiV4
+      project-name: DNV.ApiClients.Veracity.Identity.PlatformApiV4
+      require_publish: ${{ inputs.require_publish == 'true' }}
+    secrets: inherit
+    
