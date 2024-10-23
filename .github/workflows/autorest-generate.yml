@@ -54,7 +54,7 @@ jobs:
         run: |
           rm -f code-model-v1
           mkdir Abstractions Implementation
-          mv Interfaces Models *Extensions.cs Abstractions/
+          mv Interfaces Models Abstractions/
           mv *.cs Implementation/
 
           cat >> Abstractions/${{ inputs.project-name }}.Abstractions.csproj << EOT
