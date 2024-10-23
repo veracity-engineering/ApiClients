@@ -14,6 +14,4 @@ csharp:
   output-folder: ../src/DNV.ApiClients.Veracity.Identity.PlatformApiV4
   clear-output-folder: true
 
-directive:
-
 ```
