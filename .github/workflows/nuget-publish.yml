@@ -44,10 +44,6 @@ jobs:
         uses: actions/setup-dotnet@v3
         with:
           dotnet-version: '8.0.x'
-      
-      - name: Test path
-        run: |
-          ls -la ${{ inputs.source-path }}
 
       - name: Pack
         working-directory: ${{ inputs.source-path }}
@@ -74,7 +70,7 @@ jobs:
           path: ${{ inputs.source-path }}/${{ env.NUGET_OUTPUT }}/*.symbols.nupkg
 
       - name: Publish
-        if: ${{ inputs.require_publish == 'true' }}
+        if: ${{ inputs.require_publish }}
         working-directory: ${{ inputs.source-path }}
         run: |
           dotnet nuget push --skip-duplicate '${{ env.NUGET_OUTPUT }}/*.symbols.nupkg' --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json
