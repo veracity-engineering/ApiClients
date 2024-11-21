@@ -30,6 +30,6 @@ jobs:
     with:
       source-path: src/DNV.ApiClients.Veracity.DataPlatform.DataWorkbenchApiV2
       project-name: DNV.ApiClients.Veracity.DataPlatform.DataWorkbenchApiV2
-      require_publish: ${{ inputs.require_publish == 'true' }}
+      require_publish: ${{ inputs.require_publish == true || inputs.require_publish == 'true' }}
     secrets: inherit
     
