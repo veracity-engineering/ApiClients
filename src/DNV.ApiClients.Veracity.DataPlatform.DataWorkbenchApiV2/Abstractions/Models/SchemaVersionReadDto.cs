@@ -24,7 +24,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataWorkbenchApiV2.Models
         /// <summary>
         /// Initializes a new instance of the SchemaVersionReadDto class.
         /// </summary>
-        public SchemaVersionReadDto(System.Guid id = default, string schemaVersionName = default, string description = default, IEnumerable<ColumnDto> columns = default, System.Guid schemaId = default, System.Guid workspaceId = default, System.Guid createdBy = default, System.DateTime createdOn = default, System.Guid lastModifiedBy = default, System.DateTime lastModifiedOn = default, bool isDefault = default, int avatarColor = default, int versionNumber = default, object extensions = default)
+        public SchemaVersionReadDto(System.Guid id = default, string schemaVersionName = default, string description = default, IEnumerable<ColumnDto> columns = default, System.Guid schemaId = default, System.Guid workspaceId = default, System.Guid createdBy = default, System.DateTime createdOn = default, System.Guid lastModifiedBy = default, System.DateTime lastModifiedOn = default, bool isDefault = default, int avatarColor = default, int versionNumber = default, object extensions = default, IEnumerable<RowValidatorDto> rowValidators = default)
         {
             Id = id;
             SchemaVersionName = schemaVersionName;
@@ -40,6 +40,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataWorkbenchApiV2.Models
             AvatarColor = avatarColor;
             VersionNumber = versionNumber;
             Extensions = extensions;
+            RowValidators = rowValidators;
             CustomInit();
         }
 
@@ -117,6 +118,11 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataWorkbenchApiV2.Models
         /// </summary>
         [JsonProperty(PropertyName = "extensions")]
         public object Extensions { get; set; }
+
+        /// <summary>
+        /// </summary>
+        [JsonProperty(PropertyName = "rowValidators")]
+        public IEnumerable<RowValidatorDto> RowValidators { get; set; }
 
     }
 }

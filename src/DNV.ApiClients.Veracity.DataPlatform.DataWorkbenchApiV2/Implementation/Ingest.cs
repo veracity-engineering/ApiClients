@@ -73,10 +73,10 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataWorkbenchApiV2
         /// </remarks>
         /// <param name='workspaceId'>
         /// </param>
+        /// <param name='datasetId'>
+        /// </param>
         /// <param name='type'>
         /// Possible values include: 'dfs', 'blob'
-        /// </param>
-        /// <param name='datasetId'>
         /// </param>
         /// <param name='customHeaders'>
         /// Headers that will be added to request.
@@ -90,21 +90,11 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataWorkbenchApiV2
         /// <exception cref="SerializationException">
         /// Thrown when unable to deserialize the response
         /// </exception>
-        /// <exception cref="ValidationException">
-        /// Thrown when a required parameter is null
-        /// </exception>
-        /// <exception cref="System.ArgumentNullException">
-        /// Thrown when a required parameter is null
-        /// </exception>
         /// <return>
         /// A response object containing the response body and response headers.
         /// </return>
-        public async Task<HttpOperationResponse<string>> GenerateByodStorageWithHttpMessagesAsync(System.Guid workspaceId, string type, System.Guid? datasetId = default, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default)
+        public async Task<HttpOperationResponse<string>> GenerateByodStorageWithHttpMessagesAsync(System.Guid workspaceId, System.Guid? datasetId = default, string type = default, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default)
         {
-            if (type == null)
-            {
-                throw new ValidationException(ValidationRules.CannotBeNull, "type");
-            }
             // Construct URL
             var _baseUrl = Client.HttpClient.BaseAddress?.AbsoluteUri ?? Client.BaseUri.AbsoluteUri;
             var _url = new System.Uri(new System.Uri(_baseUrl + (_baseUrl.EndsWith("/") ? "" : "/")), "workspaces/{workspaceId}/ingest").ToString();
@@ -216,17 +206,17 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataWorkbenchApiV2
         /// </remarks>
         /// <param name='workspaceId'>
         /// </param>
+        /// <param name='datasetId'>
+        /// </param>
         /// <param name='type'>
         /// Possible values include: 'dfs', 'blob'
-        /// </param>
-        /// <param name='datasetId'>
         /// </param>
         /// <param name='cancellationToken'>
         /// The cancellation token.
         /// </param>
-        public async Task<string> GenerateByodStorageAsync(System.Guid workspaceId, string type, System.Guid? datasetId = default, CancellationToken cancellationToken = default)
+        public async Task<string> GenerateByodStorageAsync(System.Guid workspaceId, System.Guid? datasetId = default, string type = default, CancellationToken cancellationToken = default)
         {
-            using (var _result = await GenerateByodStorageWithHttpMessagesAsync(workspaceId, type, datasetId, null, cancellationToken).ConfigureAwait(false))
+            using (var _result = await GenerateByodStorageWithHttpMessagesAsync(workspaceId, datasetId, type, null, cancellationToken).ConfigureAwait(false))
             {
                 return _result.Body;
             }

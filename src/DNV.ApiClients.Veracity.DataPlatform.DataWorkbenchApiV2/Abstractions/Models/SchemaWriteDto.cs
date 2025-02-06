@@ -24,12 +24,13 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataWorkbenchApiV2.Models
         /// <summary>
         /// Initializes a new instance of the SchemaWriteDto class.
         /// </summary>
-        public SchemaWriteDto(string name = default, string shortName = default, string description = default, IEnumerable<ColumnDto> columns = default)
+        public SchemaWriteDto(string name = default, string shortName = default, string description = default, IEnumerable<ColumnWriteDto> columns = default, IEnumerable<RowValidatorDto> rowValidators = default)
         {
             Name = name;
             ShortName = shortName;
             Description = description;
             Columns = columns;
+            RowValidators = rowValidators;
             CustomInit();
         }
 
@@ -56,7 +57,12 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataWorkbenchApiV2.Models
         /// <summary>
         /// </summary>
         [JsonProperty(PropertyName = "columns")]
-        public IEnumerable<ColumnDto> Columns { get; set; }
+        public IEnumerable<ColumnWriteDto> Columns { get; set; }
+
+        /// <summary>
+        /// </summary>
+        [JsonProperty(PropertyName = "rowValidators")]
+        public IEnumerable<RowValidatorDto> RowValidators { get; set; }
 
     }
 }

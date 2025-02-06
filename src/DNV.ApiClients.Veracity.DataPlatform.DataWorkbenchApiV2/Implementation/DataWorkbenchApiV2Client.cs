@@ -117,14 +117,14 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataWorkbenchApiV2
         public virtual ISchemas Schemas { get; private set; }
 
         /// <summary>
-        /// Gets the IShares.
-        /// </summary>
-        public virtual IShares Shares { get; private set; }
-
-        /// <summary>
         /// Gets the IStorages.
         /// </summary>
         public virtual IStorages Storages { get; private set; }
+
+        /// <summary>
+        /// Gets the IShares.
+        /// </summary>
+        public virtual IShares Shares { get; private set; }
 
         /// <summary>
         /// Initializes a new instance of the DataWorkbenchApiV2Client class.
@@ -236,9 +236,9 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataWorkbenchApiV2
             Ingest = new Ingest(this);
             Ledger = new Ledger(this);
             Schemas = new Schemas(this);
-            Shares = new Shares(this);
             Storages = new Storages(this);
-            BaseUri = new System.Uri("https://api.dw.veracity.com/gateway/api/v2");
+            Shares = new Shares(this);
+            BaseUri = new System.Uri("https://localhost:7135/gateway/api/v2");
             SerializationSettings = new JsonSerializerSettings
             {
                 Formatting = Newtonsoft.Json.Formatting.Indented,

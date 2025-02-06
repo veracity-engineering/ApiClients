@@ -19,76 +19,6 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataWorkbenchApiV2.Interfaces
     public partial interface IDatasets
     {
         /// <summary>
-        /// Download Statement of Compliance PDF file based on workspaceId,
-        /// datasetId and documentId
-        /// </summary>
-        /// <param name='body'>
-        /// </param>
-        /// <param name='workspaceId'>
-        /// </param>
-        /// <param name='customHeaders'>
-        /// The headers that will be added to request.
-        /// </param>
-        /// <param name='cancellationToken'>
-        /// The cancellation token.
-        /// </param>
-        /// <exception cref="Microsoft.Rest.HttpOperationException">
-        /// Thrown when the operation returned an invalid status code
-        /// </exception>
-        /// <exception cref="Microsoft.Rest.ValidationException">
-        /// Thrown when a required parameter is null
-        /// </exception>
-        Task<HttpOperationResponse> SocDownloadWithHttpMessagesAsync(DocumentRefDTO body, System.Guid workspaceId, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default);
-
-        /// <summary>
-        /// Download Statement of Compliance PDF file based on workspaceId,
-        /// datasetId and documentId
-        /// </summary>
-        /// <param name='body'>
-        /// </param>
-        /// <param name='workspaceId'>
-        /// </param>
-        /// <param name='cancellationToken'>
-        /// The cancellation token.
-        /// </param>
-        Task SocDownloadAsync(DocumentRefDTO body, System.Guid workspaceId, CancellationToken cancellationToken = default);
-
-        /// <summary>
-        /// Get all data sets for a specific workspace. Supports pagination,
-        /// enhanced filtering and sorting.
-        /// </summary>
-        /// <param name='workspaceId'>
-        /// </param>
-        /// <param name='body'>
-        /// </param>
-        /// <param name='customHeaders'>
-        /// The headers that will be added to request.
-        /// </param>
-        /// <param name='cancellationToken'>
-        /// The cancellation token.
-        /// </param>
-        /// <exception cref="Microsoft.Rest.HttpOperationException">
-        /// Thrown when the operation returned an invalid status code
-        /// </exception>
-        /// <exception cref="Microsoft.Rest.SerializationException">
-        /// Thrown when unable to deserialize the response
-        /// </exception>
-        Task<HttpOperationResponse<DataCatalogReadDtoV2PaginatedResult>> GetDataCatalogsQueryWithHttpMessagesAsync(System.Guid workspaceId, DataCatalogQueryDto body = default, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default);
-
-        /// <summary>
-        /// Get all data sets for a specific workspace. Supports pagination,
-        /// enhanced filtering and sorting.
-        /// </summary>
-        /// <param name='workspaceId'>
-        /// </param>
-        /// <param name='body'>
-        /// </param>
-        /// <param name='cancellationToken'>
-        /// The cancellation token.
-        /// </param>
-        Task<DataCatalogReadDtoV2PaginatedResult> GetDataCatalogsQueryAsync(System.Guid workspaceId, DataCatalogQueryDto body = default, CancellationToken cancellationToken = default);
-
-        /// <summary>
         /// Gets a specific data set by Workspace Id and DataSet Id
         /// </summary>
         /// <param name='workspaceId'>
@@ -244,6 +174,76 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataWorkbenchApiV2.Interfaces
         /// The cancellation token.
         /// </param>
         Task<string> GetDatasetFolderReadonlyTokenAsync(System.Guid workspaceId, System.Guid datasetId, int durationInMinutes, string type, CancellationToken cancellationToken = default);
+
+        /// <summary>
+        /// Download Statement of Compliance PDF file based on workspaceId,
+        /// datasetId and documentId
+        /// </summary>
+        /// <param name='body'>
+        /// </param>
+        /// <param name='workspaceId'>
+        /// </param>
+        /// <param name='customHeaders'>
+        /// The headers that will be added to request.
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        /// <exception cref="Microsoft.Rest.HttpOperationException">
+        /// Thrown when the operation returned an invalid status code
+        /// </exception>
+        /// <exception cref="Microsoft.Rest.ValidationException">
+        /// Thrown when a required parameter is null
+        /// </exception>
+        Task<HttpOperationResponse> SocDownloadWithHttpMessagesAsync(DocumentRefDTO body, System.Guid workspaceId, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default);
+
+        /// <summary>
+        /// Download Statement of Compliance PDF file based on workspaceId,
+        /// datasetId and documentId
+        /// </summary>
+        /// <param name='body'>
+        /// </param>
+        /// <param name='workspaceId'>
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        Task SocDownloadAsync(DocumentRefDTO body, System.Guid workspaceId, CancellationToken cancellationToken = default);
+
+        /// <summary>
+        /// Get all data sets for a specific workspace. Supports pagination,
+        /// enhanced filtering and sorting.
+        /// </summary>
+        /// <param name='workspaceId'>
+        /// </param>
+        /// <param name='body'>
+        /// </param>
+        /// <param name='customHeaders'>
+        /// The headers that will be added to request.
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        /// <exception cref="Microsoft.Rest.HttpOperationException">
+        /// Thrown when the operation returned an invalid status code
+        /// </exception>
+        /// <exception cref="Microsoft.Rest.SerializationException">
+        /// Thrown when unable to deserialize the response
+        /// </exception>
+        Task<HttpOperationResponse<DataCatalogReadDtoV2PaginatedResult>> GetDataCatalogsQueryWithHttpMessagesAsync(System.Guid workspaceId, DataCatalogQueryDto body = default, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default);
+
+        /// <summary>
+        /// Get all data sets for a specific workspace. Supports pagination,
+        /// enhanced filtering and sorting.
+        /// </summary>
+        /// <param name='workspaceId'>
+        /// </param>
+        /// <param name='body'>
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        Task<DataCatalogReadDtoV2PaginatedResult> GetDataCatalogsQueryAsync(System.Guid workspaceId, DataCatalogQueryDto body = default, CancellationToken cancellationToken = default);
 
     }
 }

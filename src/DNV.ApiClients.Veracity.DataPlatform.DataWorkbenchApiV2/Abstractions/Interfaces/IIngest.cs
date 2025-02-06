@@ -42,10 +42,10 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataWorkbenchApiV2.Interfaces
         /// </remarks>
         /// <param name='workspaceId'>
         /// </param>
+        /// <param name='datasetId'>
+        /// </param>
         /// <param name='type'>
         /// Possible values include: 'dfs', 'blob'
-        /// </param>
-        /// <param name='datasetId'>
         /// </param>
         /// <param name='customHeaders'>
         /// The headers that will be added to request.
@@ -59,10 +59,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataWorkbenchApiV2.Interfaces
         /// <exception cref="Microsoft.Rest.SerializationException">
         /// Thrown when unable to deserialize the response
         /// </exception>
-        /// <exception cref="Microsoft.Rest.ValidationException">
-        /// Thrown when a required parameter is null
-        /// </exception>
-        Task<HttpOperationResponse<string>> GenerateByodStorageWithHttpMessagesAsync(System.Guid workspaceId, string type, System.Guid? datasetId = default, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default);
+        Task<HttpOperationResponse<string>> GenerateByodStorageWithHttpMessagesAsync(System.Guid workspaceId, System.Guid? datasetId = default, string type = default, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default);
 
         /// <summary>
         /// Get data ingest endpoint for current workspace
@@ -88,15 +85,15 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataWorkbenchApiV2.Interfaces
         /// </remarks>
         /// <param name='workspaceId'>
         /// </param>
+        /// <param name='datasetId'>
+        /// </param>
         /// <param name='type'>
         /// Possible values include: 'dfs', 'blob'
-        /// </param>
-        /// <param name='datasetId'>
         /// </param>
         /// <param name='cancellationToken'>
         /// The cancellation token.
         /// </param>
-        Task<string> GenerateByodStorageAsync(System.Guid workspaceId, string type, System.Guid? datasetId = default, CancellationToken cancellationToken = default);
+        Task<string> GenerateByodStorageAsync(System.Guid workspaceId, System.Guid? datasetId = default, string type = default, CancellationToken cancellationToken = default);
 
         /// <summary>
         /// Retrieve the content of the BYOD status file

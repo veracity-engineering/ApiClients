@@ -108,14 +108,14 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataWorkbenchApiV2.Interfaces
         ISchemas Schemas { get; }
 
         /// <summary>
-        /// Gets the IShares.
-        /// </summary>
-        IShares Shares { get; }
-
-        /// <summary>
         /// Gets the IStorages.
         /// </summary>
         IStorages Storages { get; }
+
+        /// <summary>
+        /// Gets the IShares.
+        /// </summary>
+        IShares Shares { get; }
 
     }
 }

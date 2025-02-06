@@ -186,9 +186,9 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataWorkbenchApiV2
         /// }
         /// * Path – string, path of the resource you want to generate the SAS Token
         /// for. It is optional, if it is left empty or not provided, the default path
-        /// of internal storage will be considered.(which means ContainerName/SubFolder
-        /// which was specified while creating the internal storage). If provided, it
-        /// should be valid path pointing to a resource.
+        /// of internal storage will be considered.(which means ContainerName which was
+        /// specified while creating the internal storage). If provided, it should be
+        /// valid path pointing to a resource.
         /// * ReadOrWritePermission – string, type of permission you want to give on
         /// the resource, it can only have values Read/Write.
         /// * StartsOn – DateTime, datetime from which the SAS Token will be valid. It
@@ -337,9 +337,9 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataWorkbenchApiV2
         /// }
         /// * Path – string, path of the resource you want to generate the SAS Token
         /// for. It is optional, if it is left empty or not provided, the default path
-        /// of internal storage will be considered.(which means ContainerName/SubFolder
-        /// which was specified while creating the internal storage). If provided, it
-        /// should be valid path pointing to a resource.
+        /// of internal storage will be considered.(which means ContainerName which was
+        /// specified while creating the internal storage). If provided, it should be
+        /// valid path pointing to a resource.
         /// * ReadOrWritePermission – string, type of permission you want to give on
         /// the resource, it can only have values Read/Write.
         /// * StartsOn – DateTime, datetime from which the SAS Token will be valid. It

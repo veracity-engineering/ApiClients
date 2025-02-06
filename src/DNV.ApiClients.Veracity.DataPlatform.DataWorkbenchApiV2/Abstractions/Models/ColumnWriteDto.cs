@@ -12,18 +12,18 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataWorkbenchApiV2.Models
     using Newtonsoft.Json;
     using System.Collections;
     using System.Collections.Generic;
-    public partial class ColumnDto
+    public partial class ColumnWriteDto
     {
         /// <summary>
-        /// Initializes a new instance of the ColumnDto class.
+        /// Initializes a new instance of the ColumnWriteDto class.
         /// </summary>
-        public ColumnDto()
+        public ColumnWriteDto()
         {
             CustomInit();
         }
 
         /// <summary>
-        /// Initializes a new instance of the ColumnDto class.
+        /// Initializes a new instance of the ColumnWriteDto class.
         /// </summary>
         /// <param name="type">Possible values include: 'String', 'Boolean',
         /// 'Int32', 'Decimal', 'DateOnly', 'DateTime', 'Uri', 'Int64',
@@ -33,21 +33,21 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataWorkbenchApiV2.Models
         /// 'NonFromList', 'StringContains'</param>
         /// <param name="metaType">Possible values include: 'Validation',
         /// 'FallbackIndicator', 'Timestamp'</param>
-        public ColumnDto(string name, string displayName, ColumnTypes type, FilterType? filterType = default, IEnumerable<FilterType?> filterTypes = default, string format = default, bool isSortable = default, string description = default, bool? isFilterable = default, int order = default, bool isRequired = default, IEnumerable<ColumnValidationDto> validations = default, MetaType? metaType = default)
+        public ColumnWriteDto(string name, string displayName, ColumnTypes type, FilterType? filterType = default, string format = default, bool isRequired = default, IEnumerable<ColumnValidationWriteDto> validations = default, MetaType? metaType = default, bool isSortable = default, string description = default, bool? isFilterable = default, int order = default, IEnumerable<FilterType?> filterTypes = default)
         {
             Name = name;
             DisplayName = displayName;
             Type = type;
             FilterType = filterType;
-            FilterTypes = filterTypes;
             Format = format;
+            IsRequired = isRequired;
+            Validations = validations;
+            MetaType = metaType;
             IsSortable = isSortable;
             Description = description;
             IsFilterable = isFilterable;
             Order = order;
-            IsRequired = isRequired;
-            Validations = validations;
-            MetaType = metaType;
+            FilterTypes = filterTypes;
             CustomInit();
         }
 
@@ -83,13 +83,25 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataWorkbenchApiV2.Models
 
         /// <summary>
         /// </summary>
-        [JsonProperty(PropertyName = "filterTypes")]
-        public IEnumerable<FilterType?> FilterTypes { get; set; }
+        [JsonProperty(PropertyName = "format")]
+        public string Format { get; set; }
 
         /// <summary>
         /// </summary>
-        [JsonProperty(PropertyName = "format")]
-        public string Format { get; set; }
+        [JsonProperty(PropertyName = "isRequired")]
+        public bool IsRequired { get; set; }
+
+        /// <summary>
+        /// </summary>
+        [JsonProperty(PropertyName = "validations")]
+        public IEnumerable<ColumnValidationWriteDto> Validations { get; set; }
+
+        /// <summary>
+        /// Gets or sets possible values include: 'Validation',
+        /// 'FallbackIndicator', 'Timestamp'
+        /// </summary>
+        [JsonProperty(PropertyName = "metaType")]
+        public MetaType? MetaType { get; set; }
 
         /// <summary>
         /// </summary>
@@ -113,20 +125,8 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataWorkbenchApiV2.Models
 
         /// <summary>
         /// </summary>
-        [JsonProperty(PropertyName = "isRequired")]
-        public bool IsRequired { get; set; }
-
-        /// <summary>
-        /// </summary>
-        [JsonProperty(PropertyName = "validations")]
-        public IEnumerable<ColumnValidationDto> Validations { get; set; }
-
-        /// <summary>
-        /// Gets or sets possible values include: 'Validation',
-        /// 'FallbackIndicator', 'Timestamp'
-        /// </summary>
-        [JsonProperty(PropertyName = "metaType")]
-        public MetaType? MetaType { get; set; }
+        [JsonProperty(PropertyName = "filterTypes")]
+        public IEnumerable<FilterType?> FilterTypes { get; set; }
 
         /// <summary>
         /// Validate the object.

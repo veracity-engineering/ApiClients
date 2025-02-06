@@ -23,7 +23,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataWorkbenchApiV2.Models
         /// Initializes a new instance of the StatusLogModel class.
         /// </summary>
         /// <param name="status">Possible values include: 'Started',
-        /// 'Completed', 'Failed', 'StatusLogFileNotFound'</param>
+        /// 'Completed', 'Failed', 'StatusLogFileNotFound', 'Pending'</param>
         public StatusLogModel(LogStatus? status = default, System.Guid correlationId = default, string message = default, string fileName = default, string dataSetName = default, System.Guid? datasetId = default)
         {
             Status = status;
@@ -42,7 +42,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataWorkbenchApiV2.Models
 
         /// <summary>
         /// Gets or sets possible values include: 'Started', 'Completed',
-        /// 'Failed', 'StatusLogFileNotFound'
+        /// 'Failed', 'StatusLogFileNotFound', 'Pending'
         /// </summary>
         [JsonProperty(PropertyName = "status")]
         public LogStatus? Status { get; set; }

@@ -24,7 +24,9 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataWorkbenchApiV2.Models
         [EnumMember(Value = "Failed")]
         Failed,
         [EnumMember(Value = "StatusLogFileNotFound")]
-        StatusLogFileNotFound
+        StatusLogFileNotFound,
+        [EnumMember(Value = "Pending")]
+        Pending
     }
     internal static class LogStatusEnumExtension
     {
@@ -45,6 +47,8 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataWorkbenchApiV2.Models
                     return "Failed";
                 case LogStatus.StatusLogFileNotFound:
                     return "StatusLogFileNotFound";
+                case LogStatus.Pending:
+                    return "Pending";
             }
             return null;
         }
@@ -61,6 +65,8 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataWorkbenchApiV2.Models
                     return LogStatus.Failed;
                 case "StatusLogFileNotFound":
                     return LogStatus.StatusLogFileNotFound;
+                case "Pending":
+                    return LogStatus.Pending;
             }
             return null;
         }
