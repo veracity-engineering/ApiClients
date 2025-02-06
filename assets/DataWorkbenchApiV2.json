@@ -7,124 +7,10 @@
   },
   "servers": [
     {
-      "url": "https://tst-api.dw.veracity.com/gateway/api/v2"
+      "url": "https://localhost:7135/gateway/api/v2"
     }
   ],
   "paths": {
-    "/tenants/{tenantId}/users/invite": {
-      "post": {
-        "tags": [
-          "Tenants"
-        ],
-        "summary": "Invite user to tenant",
-        "description": "Sample request for user invite:\r\n\r\n    POST tenants/{tenantId:guid}/users/invite\r\n    {\r\n        \u0022email\u0022: \u0022email\u0022,\r\n        \u0022role\u0022: \u0022reader\u0022 or \u0022administrator\u0022\r\n    }",
-        "operationId": "Tenants_InviteUserToTenant",
-        "parameters": [
-          {
-            "name": "tenantId",
-            "in": "path",
-            "description": "",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid",
-              "x-nullable": false
-            },
-            "x-nullable": false
-          }
-        ],
-        "requestBody": {
-          "description": "",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/UserInviteDto"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "201": {
-            "description": "Return result of user invite",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/UserInviteResponseDto"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Invalid Model",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/tenants/{tenantId}/users/roles": {
-      "get": {
-        "tags": [
-          "Tenants"
-        ],
-        "summary": "Get users with role scopes in specified tenant",
-        "description": "Sample response for paginated result of user role scopes info:\r\n\r\n    {\r\n    \t\u0022result\u0022: [\r\n    \t\t{\r\n    \t\t\t\u0022userId\u0022: \u0022ddbf7526-abc3-45e2-bfd9-a2223a431a12\u0022,\r\n    \t\t\t\u0022email\u0022: \u0022Jane.Yao@dnv.com\u0022,\r\n    \t\t\t\u0022name\u0022: \u0022Jane Yao\u0022,\r\n    \t\t\t\u0022isServicePrincipal\u0022: false,\r\n    \t\t\t\u0022roleScope\u0022: {\r\n    \t\t\t\t\u0022role\u0022: \u0022administrator\u0022,\r\n    \t\t\t\t\u0022scopeType\u0022: \u0022Tenant\u0022,\r\n    \t\t\t\t\u0022scopeRef\u0022: \u0022c39867d7-a4c0-4ae2-8281-7d45936a3bec\u0022\r\n    \t\t\t}\r\n    \t\t},\r\n    \t\t{\r\n    \t\t\t\u0022userId\u0022: \u0022e574383d-994e-4a3d-9a7d-5d76755552e1\u0022,\r\n    \t\t\t\u0022email\u0022: \u0022Jork.Cao@dnv.com\u0022,\r\n    \t\t\t\u0022name\u0022: \u0022Jork Cao\u0022,\r\n    \t\t\t\u0022isServicePrincipal\u0022: false,\r\n    \t\t\t\u0022roleScope\u0022: {\r\n    \t\t\t\t\u0022role\u0022: \u0022reader\u0022,\r\n    \t\t\t\t\u0022scopeType\u0022: \u0022Tenant\u0022,\r\n    \t\t\t\t\u0022scopeRef\u0022: \u0022c39867d7-a4c0-4ae2-8281-7d45936a3bec\u0022\r\n    \t\t\t}\r\n    \t\t}\r\n    \t],\r\n    \t\u0022pageIndex\u0022: 1,\r\n    \t\u0022pageSize\u0022: 2,\r\n    \t\u0022totalCount\u0022: 65,\r\n    \t\u0022totalPages\u0022: 33\r\n    }",
-        "operationId": "Tenants_QueryTenantUserRoleScopes",
-        "parameters": [
-          {
-            "name": "tenantId",
-            "in": "path",
-            "description": "The tenant id which you want to get user role scopes",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid",
-              "x-nullable": false
-            },
-            "x-nullable": false
-          },
-          {
-            "name": "pageIndex",
-            "in": "query",
-            "description": "Index of the current page (optional)",
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          },
-          {
-            "name": "pageSize",
-            "in": "query",
-            "description": "Number of items per page (optional)",
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Returns paginated result of users with role scopes"
-          },
-          "400": {
-            "description": "Invalid Model",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
     "/tenants/{tenantId}/users/{userId}/role": {
       "put": {
         "tags": [
@@ -241,6 +127,120 @@
           },
           "400": {
             "description": "Failed"
+          }
+        }
+      }
+    },
+    "/tenants/{tenantId}/users/invite": {
+      "post": {
+        "tags": [
+          "Tenants"
+        ],
+        "summary": "Invite user to tenant",
+        "description": "Sample request for user invite:\r\n\r\n    POST tenants/{tenantId:guid}/users/invite\r\n    {\r\n        \u0022email\u0022: \u0022email\u0022,\r\n        \u0022role\u0022: \u0022reader\u0022 or \u0022administrator\u0022\r\n    }",
+        "operationId": "Tenants_InviteUserToTenant",
+        "parameters": [
+          {
+            "name": "tenantId",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "x-nullable": false
+            },
+            "x-nullable": false
+          }
+        ],
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserInviteDto"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Return result of user invite",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserInviteResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid Model",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/tenants/{tenantId}/users/roles": {
+      "get": {
+        "tags": [
+          "Tenants"
+        ],
+        "summary": "Get users with role scopes in specified tenant",
+        "description": "Sample response for paginated result of user role scopes info:\r\n\r\n    {\r\n    \t\u0022result\u0022: [\r\n    \t\t{\r\n    \t\t\t\u0022userId\u0022: \u0022ddbf7526-abc3-45e2-bfd9-a2223a431a12\u0022,\r\n    \t\t\t\u0022email\u0022: \u0022Jane.Yao@dnv.com\u0022,\r\n    \t\t\t\u0022name\u0022: \u0022Jane Yao\u0022,\r\n    \t\t\t\u0022isServicePrincipal\u0022: false,\r\n    \t\t\t\u0022roleScope\u0022: {\r\n    \t\t\t\t\u0022role\u0022: \u0022administrator\u0022,\r\n    \t\t\t\t\u0022scopeType\u0022: \u0022Tenant\u0022,\r\n    \t\t\t\t\u0022scopeRef\u0022: \u0022c39867d7-a4c0-4ae2-8281-7d45936a3bec\u0022\r\n    \t\t\t}\r\n    \t\t},\r\n    \t\t{\r\n    \t\t\t\u0022userId\u0022: \u0022e574383d-994e-4a3d-9a7d-5d76755552e1\u0022,\r\n    \t\t\t\u0022email\u0022: \u0022Jork.Cao@dnv.com\u0022,\r\n    \t\t\t\u0022name\u0022: \u0022Jork Cao\u0022,\r\n    \t\t\t\u0022isServicePrincipal\u0022: false,\r\n    \t\t\t\u0022roleScope\u0022: {\r\n    \t\t\t\t\u0022role\u0022: \u0022reader\u0022,\r\n    \t\t\t\t\u0022scopeType\u0022: \u0022Tenant\u0022,\r\n    \t\t\t\t\u0022scopeRef\u0022: \u0022c39867d7-a4c0-4ae2-8281-7d45936a3bec\u0022\r\n    \t\t\t}\r\n    \t\t}\r\n    \t],\r\n    \t\u0022pageIndex\u0022: 1,\r\n    \t\u0022pageSize\u0022: 2,\r\n    \t\u0022totalCount\u0022: 65,\r\n    \t\u0022totalPages\u0022: 33\r\n    }",
+        "operationId": "Tenants_QueryTenantUserRoleScopes",
+        "parameters": [
+          {
+            "name": "tenantId",
+            "in": "path",
+            "description": "The tenant id which you want to get user role scopes",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "x-nullable": false
+            },
+            "x-nullable": false
+          },
+          {
+            "name": "pageIndex",
+            "in": "query",
+            "description": "Index of the current page (optional)",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "description": "Number of items per page (optional)",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns paginated result of users with role scopes"
+          },
+          "400": {
+            "description": "Invalid Model",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
           }
         }
       }
@@ -627,133 +627,6 @@
         }
       }
     },
-    "/workspaces/{workspaceId}/datasets/documents/download": {
-      "post": {
-        "tags": [
-          "Datasets"
-        ],
-        "summary": "Download Statement of Compliance PDF file based on workspaceId, datasetId and documentId",
-        "operationId": "Datasets_SocDownload",
-        "parameters": [
-          {
-            "name": "workspaceId",
-            "in": "path",
-            "description": "",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid",
-              "x-nullable": false
-            },
-            "x-nullable": false
-          }
-        ],
-        "requestBody": {
-          "description": "",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/DocumentRefDTO"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "description": "Returns Statement of Compliance PDF file"
-          },
-          "400": {
-            "description": "Invalid Model",
-            "content": {
-              "application/pdf": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              }
-            }
-          },
-          "403": {
-            "description": "Forbidden",
-            "content": {
-              "application/pdf": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Not Found"
-          }
-        }
-      }
-    },
-    "/workspaces/{workspaceId}/datasets/query": {
-      "post": {
-        "tags": [
-          "Datasets"
-        ],
-        "summary": "Get all data sets for a specific workspace. Supports pagination, enhanced filtering and sorting.",
-        "operationId": "Datasets_GetDataCatalogsQuery",
-        "parameters": [
-          {
-            "name": "workspaceId",
-            "in": "path",
-            "description": "",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid",
-              "x-nullable": false
-            },
-            "x-nullable": false
-          }
-        ],
-        "requestBody": {
-          "description": "",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/DataCatalogQueryDto"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Returns DataSets Found",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/DataCatalogReadDtoV2PaginatedResult"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Invalid Model",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
     "/workspaces/{workspaceId}/datasets/{datasetId}": {
       "get": {
         "tags": [
@@ -1077,6 +950,133 @@
         }
       }
     },
+    "/workspaces/{workspaceId}/datasets/documents/download": {
+      "post": {
+        "tags": [
+          "Datasets"
+        ],
+        "summary": "Download Statement of Compliance PDF file based on workspaceId, datasetId and documentId",
+        "operationId": "Datasets_SocDownload",
+        "parameters": [
+          {
+            "name": "workspaceId",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "x-nullable": false
+            },
+            "x-nullable": false
+          }
+        ],
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DocumentRefDTO"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Returns Statement of Compliance PDF file"
+          },
+          "400": {
+            "description": "Invalid Model",
+            "content": {
+              "application/pdf": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/pdf": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/workspaces/{workspaceId}/datasets/query": {
+      "post": {
+        "tags": [
+          "Datasets"
+        ],
+        "summary": "Get all data sets for a specific workspace. Supports pagination, enhanced filtering and sorting.",
+        "operationId": "Datasets_GetDataCatalogsQuery",
+        "parameters": [
+          {
+            "name": "workspaceId",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "x-nullable": false
+            },
+            "x-nullable": false
+          }
+        ],
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DataCatalogQueryDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Returns DataSets Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DataCatalogReadDtoV2PaginatedResult"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid Model",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/workspaces/{workspaceId}/ingest": {
       "post": {
         "tags": [
@@ -1240,177 +1240,6 @@
         }
       }
     },
-    "/workspaces/{workspaceId}/revokesastoken": {
-      "delete": {
-        "tags": [
-          "Datasets"
-        ],
-        "summary": "Revoke all SAS tokens for the workspace container",
-        "operationId": "Datasets_RevokeAllSasTokensForContainer",
-        "parameters": [
-          {
-            "name": "workspaceId",
-            "in": "path",
-            "description": "",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid",
-              "x-nullable": false
-            },
-            "x-nullable": false
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "204": {
-            "description": "No Content"
-          },
-          "400": {
-            "description": "Bad Request",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              }
-            }
-          },
-          "403": {
-            "description": "Forbidden",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/workspaces/{workspaceId}/revokesastoken/{policyName}": {
-      "delete": {
-        "tags": [
-          "Datasets"
-        ],
-        "summary": "Revoke a SAS token for the workspace container",
-        "operationId": "Datasets_RevokeSasTokenForContainer",
-        "parameters": [
-          {
-            "name": "workspaceId",
-            "in": "path",
-            "description": "",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid",
-              "x-nullable": false
-            },
-            "x-nullable": false
-          },
-          {
-            "name": "policyName",
-            "in": "path",
-            "description": "",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "x-nullable": false
-            },
-            "x-nullable": false
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "204": {
-            "description": "No Content"
-          },
-          "400": {
-            "description": "Bad Request",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              }
-            }
-          },
-          "403": {
-            "description": "Forbidden",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/workspaces/{workspaceId}/saspolicies": {
-      "get": {
-        "tags": [
-          "Datasets"
-        ],
-        "summary": "Get a SAS policies for the workspace container",
-        "operationId": "Datasets_GetSasPoliciesForContainer",
-        "parameters": [
-          {
-            "name": "workspaceId",
-            "in": "path",
-            "description": "",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid",
-              "x-nullable": false
-            },
-            "x-nullable": false
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/SasPolicyReadDTO"
-                  }
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Bad Request",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              }
-            }
-          },
-          "403": {
-            "description": "Forbidden",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
     "/workspaces/{workspaceId}/schemas": {
       "get": {
         "tags": [
@@ -1456,6 +1285,280 @@
           },
           "400": {
             "description": "Invalid Model",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/workspaces/{workspaceId}/schemas/{schemaId}": {
+      "get": {
+        "tags": [
+          "Schemas"
+        ],
+        "summary": "Get a specific schema",
+        "operationId": "Schemas_GetSchemaById",
+        "parameters": [
+          {
+            "name": "workspaceId",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "x-nullable": false
+            },
+            "x-nullable": false
+          },
+          {
+            "name": "schemaId",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "x-nullable": false
+            },
+            "x-nullable": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns Schemas Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SchemaReadDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid Model",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "Schemas"
+        ],
+        "summary": "Patch Schema",
+        "operationId": "Schemas_UpdateSchema",
+        "parameters": [
+          {
+            "name": "workspaceId",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "x-nullable": false
+            },
+            "x-nullable": false
+          },
+          {
+            "name": "schemaId",
+            "in": "path",
+            "description": "Schema Id to edit",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "x-nullable": false
+            },
+            "x-nullable": false
+          }
+        ],
+        "requestBody": {
+          "description": "The input describing the schema",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SchemaPatchDto"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SchemaReadDto"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid Model",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/workspaces/{workspaceId}/schemas/{schemaId}/schemaversions/{schemaVersionId}": {
+      "patch": {
+        "tags": [
+          "Schemas"
+        ],
+        "summary": "Update schema version",
+        "operationId": "Schemas_PatchSchemaVersion",
+        "parameters": [
+          {
+            "name": "workspaceId",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "x-nullable": false
+            },
+            "x-nullable": false
+          },
+          {
+            "name": "schemaId",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "x-nullable": false
+            },
+            "x-nullable": false
+          },
+          {
+            "name": "schemaVersionId",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "x-nullable": false
+            },
+            "x-nullable": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SchemaVersionReadDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/workspaces/{workspaceId}/schemas/{schemaId}/schemaversions/{schemaVersionId}/activate": {
+      "post": {
+        "tags": [
+          "Schemas"
+        ],
+        "summary": "Activate schema version",
+        "operationId": "Schemas_ActivateSchemaVersion",
+        "parameters": [
+          {
+            "name": "workspaceId",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "x-nullable": false
+            },
+            "x-nullable": false
+          },
+          {
+            "name": "schemaId",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "x-nullable": false
+            },
+            "x-nullable": false
+          },
+          {
+            "name": "schemaVersionId",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "x-nullable": false
+            },
+            "x-nullable": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SchemaVersionReadDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
             "content": {
               "application/json": {
                 "schema": {
@@ -1606,62 +1709,6 @@
         }
       }
     },
-    "/workspaces/{workspaceId}/schemas/schemaversions/add": {
-      "post": {
-        "tags": [
-          "Schemas"
-        ],
-        "summary": "Add a new schema version",
-        "operationId": "Schemas_AddSchemaVersion",
-        "parameters": [
-          {
-            "name": "workspaceId",
-            "in": "path",
-            "description": "",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid",
-              "x-nullable": false
-            },
-            "x-nullable": false
-          }
-        ],
-        "requestBody": {
-          "description": "",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/SchemaVersionWriteDto"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "201": {
-            "description": "Created",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/SchemaVersionReadDto"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Bad Request",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
     "/workspaces/{workspaceId}/schemas/schemaversions/{schemaVersionId}": {
       "get": {
         "tags": [
@@ -1721,6 +1768,62 @@
           },
           "404": {
             "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/workspaces/{workspaceId}/schemas/schemaversions/add": {
+      "post": {
+        "tags": [
+          "Schemas"
+        ],
+        "summary": "Add a new schema version",
+        "operationId": "Schemas_AddSchemaVersion",
+        "parameters": [
+          {
+            "name": "workspaceId",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "x-nullable": false
+            },
+            "x-nullable": false
+          }
+        ],
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SchemaVersionWriteDto"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SchemaVersionReadDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
             "content": {
               "application/json": {
                 "schema": {
@@ -1829,53 +1932,6 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/ProblemDetails"
-                }
-              }
-            }
-          },
-          "403": {
-            "description": "Forbidden",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/workspaces/{workspaceId}/schemas/validators/global": {
-      "get": {
-        "tags": [
-          "Schemas"
-        ],
-        "summary": "Get list of global validators",
-        "description": "Sample response:\r\n\r\n     [\r\n         {\r\n             \u0022id\u0022: \u002210ffec78-4792-4364-babd-e9c45b6f94ab\u0022,\r\n             \u0022workspaceId\u0022: \u0022196a8ff4-dfbc-4ee7-ae08-4f38b84d9c86\u0022,\r\n             \u0022name\u0022: \u0022string 3\u0022,\r\n             \u0022notEmpty\u0022: true,\r\n             \u0022dataFormat\u0022: \u0022String\u0022,\r\n             \u0022minimum\u0022: 0,\r\n             \u0022maximum\u0022: 1,\r\n             \u0022exclusiveMinimum\u0022: true,\r\n             \u0022exclusiveMaximum\u0022: true,\r\n             \u0022minLength\u0022: 0,\r\n             \u0022maxLength\u0022: 1,\r\n             \u0022pattern\u0022: \u0022string\u0022,\r\n             \u0022errorMessage\u0022: \u0022string\u0022,\r\n             \u0022fallbackValue\u0022: \u0022string\u0022,\r\n             \u0022createdBy\u0022: \u002261cecec8-629b-4779-b593-6505e2b9443b\u0022,\r\n             \u0022createdOn\u0022: \u00222024-06-26T14:20:50.1444566Z\u0022,\r\n             \u0022lastModifiedBy\u0022: \u002261cecec8-629b-4779-b593-6505e2b9443b\u0022,\r\n             \u0022lastModifiedOn\u0022: \u00222024-06-26T14:20:50.1444566Z\u0022\r\n         },\r\n         {\r\n             \u0022id\u0022: \u0022834c7130-92bf-428e-acb2-c5567a540106\u0022,\r\n             \u0022workspaceId\u0022: \u0022196a8ff4-dfbc-4ee7-ae08-4f38b84d9c86\u0022,\r\n             \u0022name\u0022: \u0022string\u0022,\r\n             \u0022notEmpty\u0022: true,\r\n             \u0022dataFormat\u0022: \u0022String\u0022,\r\n             \u0022minimum\u0022: 1,\r\n             \u0022maximum\u0022: 3,\r\n             \u0022exclusiveMinimum\u0022: true,\r\n             \u0022exclusiveMaximum\u0022: true,\r\n             \u0022minLength\u0022: 1,\r\n             \u0022maxLength\u0022: 3,\r\n             \u0022pattern\u0022: \u0022string\u0022,\r\n             \u0022errorMessage\u0022: \u0022string\u0022,\r\n             \u0022fallbackValue\u0022: \u0022string\u0022,\r\n             \u0022createdBy\u0022: \u002261cecec8-629b-4779-b593-6505e2b9443b\u0022,\r\n             \u0022createdOn\u0022: \u00222024-06-27T09:55:58.1032117Z\u0022,\r\n             \u0022lastModifiedBy\u0022: \u002261cecec8-629b-4779-b593-6505e2b9443b\u0022,\r\n             \u0022lastModifiedOn\u0022: \u00222024-06-27T09:55:58.1032117Z\u0022\r\n         }\r\n     ]",
-        "operationId": "Schemas_GetValidatorsList",
-        "parameters": [
-          {
-            "name": "workspaceId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "x-nullable": false
-            },
-            "x-nullable": false
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/ColumnValidatorReadDto"
-                  }
                 }
               }
             }
@@ -2086,18 +2142,65 @@
         }
       }
     },
-    "/workspaces/{workspaceId}/schemas/{schemaId}": {
+    "/workspaces/{workspaceId}/schemas/validators/global": {
       "get": {
         "tags": [
           "Schemas"
         ],
-        "summary": "Get a specific schema",
-        "operationId": "Schemas_GetSchemaById",
+        "summary": "Get list of global validators",
+        "description": "Sample response:\r\n\r\n     [\r\n         {\r\n             \u0022id\u0022: \u002210ffec78-4792-4364-babd-e9c45b6f94ab\u0022,\r\n             \u0022workspaceId\u0022: \u0022196a8ff4-dfbc-4ee7-ae08-4f38b84d9c86\u0022,\r\n             \u0022name\u0022: \u0022string 3\u0022,\r\n             \u0022notEmpty\u0022: true,\r\n             \u0022dataFormat\u0022: \u0022String\u0022,\r\n             \u0022minimum\u0022: 0,\r\n             \u0022maximum\u0022: 1,\r\n             \u0022exclusiveMinimum\u0022: true,\r\n             \u0022exclusiveMaximum\u0022: true,\r\n             \u0022minLength\u0022: 0,\r\n             \u0022maxLength\u0022: 1,\r\n             \u0022pattern\u0022: \u0022string\u0022,\r\n             \u0022errorMessage\u0022: \u0022string\u0022,\r\n             \u0022fallbackValue\u0022: \u0022string\u0022,\r\n             \u0022createdBy\u0022: \u002261cecec8-629b-4779-b593-6505e2b9443b\u0022,\r\n             \u0022createdOn\u0022: \u00222024-06-26T14:20:50.1444566Z\u0022,\r\n             \u0022lastModifiedBy\u0022: \u002261cecec8-629b-4779-b593-6505e2b9443b\u0022,\r\n             \u0022lastModifiedOn\u0022: \u00222024-06-26T14:20:50.1444566Z\u0022\r\n         },\r\n         {\r\n             \u0022id\u0022: \u0022834c7130-92bf-428e-acb2-c5567a540106\u0022,\r\n             \u0022workspaceId\u0022: \u0022196a8ff4-dfbc-4ee7-ae08-4f38b84d9c86\u0022,\r\n             \u0022name\u0022: \u0022string\u0022,\r\n             \u0022notEmpty\u0022: true,\r\n             \u0022dataFormat\u0022: \u0022String\u0022,\r\n             \u0022minimum\u0022: 1,\r\n             \u0022maximum\u0022: 3,\r\n             \u0022exclusiveMinimum\u0022: true,\r\n             \u0022exclusiveMaximum\u0022: true,\r\n             \u0022minLength\u0022: 1,\r\n             \u0022maxLength\u0022: 3,\r\n             \u0022pattern\u0022: \u0022string\u0022,\r\n             \u0022errorMessage\u0022: \u0022string\u0022,\r\n             \u0022fallbackValue\u0022: \u0022string\u0022,\r\n             \u0022createdBy\u0022: \u002261cecec8-629b-4779-b593-6505e2b9443b\u0022,\r\n             \u0022createdOn\u0022: \u00222024-06-27T09:55:58.1032117Z\u0022,\r\n             \u0022lastModifiedBy\u0022: \u002261cecec8-629b-4779-b593-6505e2b9443b\u0022,\r\n             \u0022lastModifiedOn\u0022: \u00222024-06-27T09:55:58.1032117Z\u0022\r\n         }\r\n     ]",
+        "operationId": "Schemas_GetValidatorsList",
         "parameters": [
           {
             "name": "workspaceId",
             "in": "path",
-            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "x-nullable": false
+            },
+            "x-nullable": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ColumnValidatorReadDto"
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/workspaces/{workspaceId}/shares/{shareId}/storages/sas": {
+      "get": {
+        "tags": [
+          "Storages"
+        ],
+        "summary": "Get storage sas token by share id",
+        "operationId": "Storages_GetSASTokenForStorageDatasetByShareId",
+        "parameters": [
+          {
+            "name": "workspaceId",
+            "in": "path",
+            "description": "The id of the workspace",
             "required": true,
             "schema": {
               "type": "string",
@@ -2107,9 +2210,9 @@
             "x-nullable": false
           },
           {
-            "name": "schemaId",
+            "name": "shareId",
             "in": "path",
-            "description": "",
+            "description": "Share id of the dataset",
             "required": true,
             "schema": {
               "type": "string",
@@ -2121,11 +2224,11 @@
         ],
         "responses": {
           "200": {
-            "description": "Returns Schemas Found",
+            "description": "Returns sas token for storage",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/SchemaReadDto"
+                  "type": "string"
                 }
               }
             }
@@ -2136,230 +2239,12 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/ProblemDetails"
-                }
-              }
-            }
-          }
-        }
-      },
-      "patch": {
-        "tags": [
-          "Schemas"
-        ],
-        "summary": "Patch Schema",
-        "operationId": "Schemas_UpdateSchema",
-        "parameters": [
-          {
-            "name": "workspaceId",
-            "in": "path",
-            "description": "",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid",
-              "x-nullable": false
-            },
-            "x-nullable": false
-          },
-          {
-            "name": "schemaId",
-            "in": "path",
-            "description": "Schema Id to edit",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid",
-              "x-nullable": false
-            },
-            "x-nullable": false
-          }
-        ],
-        "requestBody": {
-          "description": "The input describing the schema",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/SchemaPatchDto"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "description": "Ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/SchemaReadDto"
                 }
               }
             }
           },
           "404": {
             "description": "Not Found",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Invalid Model",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              }
-            }
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
-      }
-    },
-    "/workspaces/{workspaceId}/schemas/{schemaId}/schemaversions/{schemaVersionId}": {
-      "patch": {
-        "tags": [
-          "Schemas"
-        ],
-        "summary": "Update schema version",
-        "operationId": "Schemas_PatchSchemaVersion",
-        "parameters": [
-          {
-            "name": "workspaceId",
-            "in": "path",
-            "description": "",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid",
-              "x-nullable": false
-            },
-            "x-nullable": false
-          },
-          {
-            "name": "schemaId",
-            "in": "path",
-            "description": "",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid",
-              "x-nullable": false
-            },
-            "x-nullable": false
-          },
-          {
-            "name": "schemaVersionId",
-            "in": "path",
-            "description": "",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid",
-              "x-nullable": false
-            },
-            "x-nullable": false
-          }
-        ],
-        "requestBody": {
-          "description": "",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/SchemaVersionUpdateDto"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/SchemaVersionReadDto"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Bad Request",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/workspaces/{workspaceId}/schemas/{schemaId}/schemaversions/{schemaVersionId}/activate": {
-      "post": {
-        "tags": [
-          "Schemas"
-        ],
-        "summary": "Activate schema version",
-        "operationId": "Schemas_ActivateSchemaVersion",
-        "parameters": [
-          {
-            "name": "workspaceId",
-            "in": "path",
-            "description": "",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid",
-              "x-nullable": false
-            },
-            "x-nullable": false
-          },
-          {
-            "name": "schemaId",
-            "in": "path",
-            "description": "",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid",
-              "x-nullable": false
-            },
-            "x-nullable": false
-          },
-          {
-            "name": "schemaVersionId",
-            "in": "path",
-            "description": "",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid",
-              "x-nullable": false
-            },
-            "x-nullable": false
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/SchemaVersionReadDto"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Bad Request",
             "content": {
               "application/json": {
                 "schema": {
@@ -2431,257 +2316,14 @@
         }
       }
     },
-    "/workspaces/{workspaceId}/shares/{shareId}/storages/sas": {
-      "get": {
-        "tags": [
-          "Storages"
-        ],
-        "summary": "Get storage sas token by share id",
-        "operationId": "Storages_GetSASTokenForStorageDatasetByShareIdV2",
-        "parameters": [
-          {
-            "name": "workspaceId",
-            "in": "path",
-            "description": "The id of the workspace",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid",
-              "x-nullable": false
-            },
-            "x-nullable": false
-          },
-          {
-            "name": "shareId",
-            "in": "path",
-            "description": "Share id of the dataset",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid",
-              "x-nullable": false
-            },
-            "x-nullable": false
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Returns sas token for storage",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/SasTokenResultDTO"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Invalid Model",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Not Found",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/workspaces/{workspaceId}/storages/external/policies": {
-      "post": {
-        "tags": [
-          "Storages"
-        ],
-        "summary": "List sas policies for current workspace.",
-        "description": "/// Sample request For Revoke Sas Token:\r\n\r\n    POST {workspaceId}/storages/external/policies\r\n            {\r\n              \u0022containerName\u0022: \u0022string\u0022,\r\n              \u0022connectionString\u0022: \u0022string\u0022                 \r\n            } \r\n* ContainerName is the name of the container for which the SAS policy needs to be revoked.\r\n* ConnectionString is the connection string of the external storage account.\r\n\r\nNotes - \r\n* This endpoint helps to list all the SAS policies for external storage which are active.",
-        "operationId": "Storages_ListExternalStorageSASPolicies",
-        "parameters": [
-          {
-            "name": "workspaceId",
-            "in": "path",
-            "description": "",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid",
-              "x-nullable": false
-            },
-            "x-nullable": false
-          }
-        ],
-        "requestBody": {
-          "description": "",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/ConnectionSettingsDTO"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "description": "List of sas policies for the workspace",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/SasPolicyDTO"
-                  }
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Bad Request",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/workspaces/{workspaceId}/storages/external/sas": {
-      "post": {
-        "tags": [
-          "Storages"
-        ],
-        "summary": "Get external storage sas token for current workspace",
-        "description": "Sample request For Storage Sas Token:\r\n\r\n    POST {workspaceId}/storages/sas\r\n            {\r\n                \u0022settings\u0022: {\r\n                  \u0022containerName\u0022: \u0022string\u0022,\r\n                  \u0022connectionString\u0022: \u0022string\u0022\r\n                },\r\n                \u0022filters\u0022: {\r\n                   \u0022path\u0022: \u002218a4a7ab-022c-4964-9d1b-6cc77e252a67/test.csv\u0022,\r\n                   \u0022readOrWritePermission\u0022: \u0022Read\u0022,\r\n                   \u0022startsOn\u0022: \u00222024-05-14T09:04:12.297Z\u0022,\r\n                   \u0022expiresOn\u0022: \u00222024-05-14T09:04:12.297Z\u0022,\r\n                   \u0022storageName\u0022: \u0022StorageDataset\u0022\r\n                }\r\n            }\r\n* ContainerName is the name of the container for which the SAS policy needs to be revoked.\r\n* ConnectionString is the connection string of the external storage account.\r\n* Path \u2013 string, path of the resource you want to generate the SAS Token for. It is optional, if it is left empty or not provided, the default path of internal storage will be considered.(which means ContainerName which was specified while creating the internal storage). If provided, it should be valid path pointing to a resource.\r\n* ReadOrWritePermission \u2013 string, type of permission you want to give on the resource, it can only have values Read/Write.\r\n* StartsOn \u2013 DateTime, datetime from which the SAS Token will be valid. It is optional, if not provided current UTC date time will be considered. If provided, it should not be a past date time.\r\n* ExpiresOn \u2013 DateTime, datetime till when the SAS Token will be valid.It should not be a past date time and should be greater than StartsOn.\r\n* StorageName - string, name of the storage for which the SAS token needs to be generated. It is optional, if not provided the default internal storage dataset will be considered. If it is provided it should be a valid storage dataset name.\r\n\r\nNotes - \r\n* A user of Workspace who has role of Reader can only generate tokens with Read permission, if he tries to generate token with Write permission, he will be unauthorized.\r\n* A user of Workspace who has role of Administrator can generate tokens with both Read/Write permissions.\r\n* Service Accounts should generate only Read token. If they need to generate Write SAS Token, they need to get access for it.\r\n\r\nSample response for new Storage Sas Token result\r\n               {\r\n                   \u0022sasToken\u0022: \u0022https://test.dfs.core.windows.net/\u0022,\r\n                   \u0022policy\u0022: {\r\n                   \u0022policyName\u0022: \u0022rl-policy\u0022,\r\n                       \u0022policyPermissions\u0022: [\r\n                         \u0022Read\u0022,\r\n                         \u0022List\u0022\r\n                       ]\r\n                    }\r\n                 }",
-        "operationId": "Storages_GetSASTokenForExternalStorage",
-        "parameters": [
-          {
-            "name": "workspaceId",
-            "in": "path",
-            "description": "",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid",
-              "x-nullable": false
-            },
-            "x-nullable": false
-          }
-        ],
-        "requestBody": {
-          "description": "",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/GetSasTokenForExternalDTO"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "description": "Returns sas token for storage",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/SasTokenResultDTO"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Invalid Model",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Not Found",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/workspaces/{workspaceId}/storages/policies": {
-      "get": {
-        "tags": [
-          "Storages"
-        ],
-        "summary": "List sas policies for current workspace.",
-        "description": "Notes - \r\n* This endpoint helps to list all the SAS policies for internal storage which are active.",
-        "operationId": "Storages_ListInternalStorageSASPolicies",
-        "parameters": [
-          {
-            "name": "workspaceId",
-            "in": "path",
-            "description": "",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid",
-              "x-nullable": false
-            },
-            "x-nullable": false
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "List of sas policies for the workspace",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/SasPolicyDTO"
-                  }
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Bad Request",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
     "/workspaces/{workspaceId}/storages/sas": {
       "post": {
         "tags": [
           "Storages"
         ],
-        "summary": "Get internal storage sas token for current workspace",
-        "description": "Sample request For Storage Sas Token:\r\n\r\n    POST {workspaceId}/storages/sas\r\n            {\r\n                \u0022path\u0022: \u002218a4a7ab-022c-4964-9d1b-6cc77e252a67/test.csv\u0022,\r\n                \u0022readOrWritePermission\u0022: \u0022Read\u0022,\r\n                \u0022startsOn\u0022: \u00222024-05-14T09:04:12.297Z\u0022,\r\n                \u0022expiresOn\u0022: \u00222024-05-14T09:04:12.297Z\u0022,\r\n                \u0022storageName\u0022: \u0022StorageDataset\u0022\r\n            }\r\n* Path \u2013 string, path of the resource you want to generate the SAS Token for. It is optional, if it is left empty or not provided, the default path of internal storage will be considered.(which means ContainerName which was specified while creating the internal storage). If provided, it should be valid path pointing to a resource.\r\n* ReadOrWritePermission \u2013 string, type of permission you want to give on the resource, it can only have values Read/Write.\r\n* StartsOn \u2013 DateTime, datetime from which the SAS Token will be valid. It is optional, if not provided current UTC date time will be considered. If provided, it should not be a past date time.\r\n* ExpiresOn \u2013 DateTime, datetime till when the SAS Token will be valid.It should not be a past date time and should be greater than StartsOn.\r\n* StorageName - string, name of the storage for which the SAS token needs to be generated. It is optional, if not provided the default internal storage dataset will be considered. If it is provided it should be a valid storage dataset name.\r\n\r\nNotes - \r\n* A user of Workspace who has role of Reader can only generate tokens with Read permission, if he tries to generate token with Write permission, he will be unauthorized.\r\n* A user of Workspace who has role of Administrator can generate tokens with both Read/Write permissions.\r\n* Service Accounts should generate only Read token. If they need to generate Write SAS Token, they need to get access for it.\r\n\r\nSample response for new Storage Sas Token result\r\n               {\r\n                   \u0022sasToken\u0022: \u0022https://test.dfs.core.windows.net/\u0022,\r\n                   \u0022policy\u0022: {\r\n                   \u0022policyName\u0022: \u0022rl-policy\u0022,\r\n                       \u0022policyPermissions\u0022: [\r\n                         \u0022Read\u0022,\r\n                         \u0022List\u0022\r\n                       ]\r\n                    }\r\n                 }",
-        "operationId": "Storages_GetSASTokenForInternalStorage",
+        "summary": "Get storage sas token for current workspace",
+        "description": "Sample request For Storage Sas Token:\r\n\r\n    POST {workspaceId}/storages/sas\r\n            {\r\n                \u0022path\u0022: \u002218a4a7ab-022c-4964-9d1b-6cc77e252a67/test.csv\u0022,\r\n                \u0022readOrWritePermission\u0022: \u0022Read\u0022,\r\n                \u0022startsOn\u0022: \u00222024-05-14T09:04:12.297Z\u0022,\r\n                \u0022expiresOn\u0022: \u00222024-05-14T09:04:12.297Z\u0022,\r\n                \u0022storageName\u0022: \u0022StorageDataset\u0022\r\n            }\r\n* Path \u2013 string, path of the resource you want to generate the SAS Token for. It is optional, if it is left empty or not provided, the default path of internal storage will be considered.(which means ContainerName which was specified while creating the internal storage). If provided, it should be valid path pointing to a resource.\r\n* ReadOrWritePermission \u2013 string, type of permission you want to give on the resource, it can only have values Read/Write.\r\n* StartsOn \u2013 DateTime, datetime from which the SAS Token will be valid. It is optional, if not provided current UTC date time will be considered. If provided, it should not be a past date time.\r\n* ExpiresOn \u2013 DateTime, datetime till when the SAS Token will be valid.It should not be a past date time and should be greater than StartsOn.\r\n* StorageName - string, name of the storage for which the SAS token needs to be generated. It is optional, if not provided the default internal storage dataset will be considered. If it is provided it should be a valid storage dataset name.\r\n\r\nNotes - \r\n* A user of Workspace who has role of Reader can only generate tokens with Read permission, if he tries to generate token with Write permission, he will be unauthorized.\r\n* A user of Workspace who has role of Administrator can generate tokens with both Read/Write permissions.\r\n* Service Accounts should generate only Read token. If they need to generate Write SAS Token, they need to get access for it.",
+        "operationId": "Storages_GetSASTokenForStorageDataset",
         "parameters": [
           {
             "name": "workspaceId",
@@ -2713,7 +2355,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/SasTokenResultDTO"
+                  "type": "string"
                 }
               }
             }
@@ -2730,105 +2372,6 @@
           },
           "404": {
             "description": "Not Found",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/workspaces/{workspaceId}/storages/sas/external/revoke": {
-      "delete": {
-        "tags": [
-          "Storages"
-        ],
-        "summary": "Revoke sas policy for current workspace or based on policy name.",
-        "description": "Sample request For Revoke Sas Token:\r\n\r\n    DELETE {workspaceId}/storages/sas/external/revoke\r\n            {\r\n                \u0022settings\u0022: {\r\n                    \u0022containerName\u0022: \u0022string\u0022,\r\n                    \u0022connectionString\u0022: \u0022string\u0022\r\n                },\r\n                \u0022policyName\u0022: \u0022string\u0022\r\n            } \r\n* ContainerName is the name of the container for which the SAS policy needs to be revoked.\r\n* ConnectionString is the connection string of the external storage account.\r\n\r\nNotes - \r\n* If policyName is not provided, all the SAS policies for the workspace for storage will be revoked.\r\n* If policyName is provided, only the SAS policy with that name will be revoked.\r\n* To see the policyNames for storage, call the POST endpoint - /gateway/api/v1/workspaces/{workspaceId}/storages/sas/external/policies endpoint.\r\n* A user of Workspace who has role of Reader can not revoke tokens.\r\n* A user of Workspace who has role of Administrator can only revoke tokens.\r\n* Service Accounts can\u0027t revoke tokens currently.",
-        "operationId": "Storages_RevokeExternalSASToken",
-        "parameters": [
-          {
-            "name": "workspaceId",
-            "in": "path",
-            "description": "",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid",
-              "x-nullable": false
-            },
-            "x-nullable": false
-          }
-        ],
-        "requestBody": {
-          "description": "",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/RevokeSasTokenExternalDTO"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "description": "Revokes sas policy for storage"
-          },
-          "400": {
-            "description": "Bad Request",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/workspaces/{workspaceId}/storages/sas/revoke": {
-      "delete": {
-        "tags": [
-          "Storages"
-        ],
-        "summary": "Revoke sas policy for current workspace or based on policy name.",
-        "description": "Notes - \r\n* If policyName is not provided, all the SAS policies for the workspace for storage will be revoked.\r\n* If policyName is provided, only the SAS policy with that name will be revoked.\r\n* To see the policyNames for storage, call the GET endpoint - /gateway/api/v1/workspaces/{workspaceId}/storages/sas/policies endpoint.\r\n* A user of Workspace who has role of Reader can not revoke tokens.\r\n* A user of Workspace who has role of Administrator can only revoke tokens.\r\n* Service Accounts can\u0027t revoke tokens currently.",
-        "operationId": "Storages_RevokeInternalSASToken",
-        "parameters": [
-          {
-            "name": "workspaceId",
-            "in": "path",
-            "description": "",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid",
-              "x-nullable": false
-            },
-            "x-nullable": false
-          },
-          {
-            "name": "policyToRevoke",
-            "in": "query",
-            "description": "",
-            "schema": {
-              "type": "string",
-              "x-nullable": false
-            },
-            "x-nullable": false
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Revokes sas policy for storage"
-          },
-          "400": {
-            "description": "Bad Request",
             "content": {
               "application/json": {
                 "schema": {
@@ -2868,120 +2411,6 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/DataCatalogReadDtoV2PaginatedResult"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/workspaces/{workspaceId}/users/invite": {
-      "post": {
-        "tags": [
-          "Tenants"
-        ],
-        "summary": "Invite user to workspace",
-        "description": "Sample request for user invite:\r\n\r\n    POST workspaces/{workspaceId:guid}/users/invite\r\n    {\r\n        \u0022email\u0022: \u0022email\u0022,\r\n        \u0022role\u0022: \u0022reader\u0022 or \u0022administrator\u0022\r\n    }",
-        "operationId": "Tenants_InviteUserToWorkspace",
-        "parameters": [
-          {
-            "name": "workspaceId",
-            "in": "path",
-            "description": "",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid",
-              "x-nullable": false
-            },
-            "x-nullable": false
-          }
-        ],
-        "requestBody": {
-          "description": "",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/UserInviteDto"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "201": {
-            "description": "Return result of user invite",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/UserInviteResponseDto"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Invalid Model",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/workspaces/{workspaceId}/users/roles": {
-      "get": {
-        "tags": [
-          "Tenants"
-        ],
-        "summary": "Get users with role scopes in specified workspace",
-        "description": "Sample response for paginated result of user role scopes info:\r\n\r\n    {\r\n    \t\u0022result\u0022: [\r\n    \t\t{\r\n    \t\t\t\u0022userId\u0022: \u00223e4d0494-0bad-41fb-aa1f-0c2e53516171\u0022,\r\n    \t\t\t\u0022email\u0022: \u0022Nana.Ouyang@dnv.com\u0022,\r\n    \t\t\t\u0022name\u0022: \u0022Nana Ouyang\u0022,\r\n    \t\t\t\u0022isServicePrincipal\u0022: false,\r\n    \t\t\t\u0022roleScope\u0022: {\r\n    \t\t\t\t\u0022role\u0022: \u0022administrator\u0022,\r\n    \t\t\t\t\u0022scopeType\u0022: \u0022Workspace\u0022,\r\n    \t\t\t\t\u0022scopeRef\u0022: \u0022961a8ff4-dfbc-4ee7-ae08-4f38b84d9c86\u0022\r\n    \t\t\t}\r\n    \t\t},\r\n    \t\t{\r\n    \t\t\t\u0022userId\u0022: \u0022cc4c079a-5411-6899-8dd4-b8783f9417a8\u0022,\r\n    \t\t\t\u0022email\u0022: \u0022Ina.Zhang@dnv.com\u0022,\r\n    \t\t\t\u0022name\u0022: \u0022Ina Zhang\u0022,\r\n    \t\t\t\u0022isServicePrincipal\u0022: false,\r\n    \t\t\t\u0022roleScope\u0022: {\r\n    \t\t\t\t\u0022role\u0022: \u0022reader\u0022,\r\n    \t\t\t\t\u0022scopeType\u0022: \u0022Workspace\u0022,\r\n    \t\t\t\t\u0022scopeRef\u0022: \u0022961a8ff4-dfbc-4ee7-ae08-4f38b84d9c86\u0022\r\n    \t\t\t}\r\n    \t\t}\r\n    \t],\r\n    \t\u0022pageIndex\u0022: 1,\r\n    \t\u0022pageSize\u0022: 2,\r\n    \t\u0022totalCount\u0022: 53,\r\n    \t\u0022totalPages\u0022: 27\r\n    }",
-        "operationId": "Tenants_QueryWorkspaceUserRoleScopes",
-        "parameters": [
-          {
-            "name": "workspaceId",
-            "in": "path",
-            "description": "The workspace id which you want to get user role scopes",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid",
-              "x-nullable": false
-            },
-            "x-nullable": false
-          },
-          {
-            "name": "pageIndex",
-            "in": "query",
-            "description": "Index of the current page (optional)",
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          },
-          {
-            "name": "pageSize",
-            "in": "query",
-            "description": "Number of items per page (optional)",
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Returns paginated result of users with role scopes"
-          },
-          "400": {
-            "description": "Invalid Model",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
                 }
               }
             }
@@ -3108,127 +2537,124 @@
           }
         }
       }
+    },
+    "/workspaces/{workspaceId}/users/invite": {
+      "post": {
+        "tags": [
+          "Tenants"
+        ],
+        "summary": "Invite user to workspace",
+        "description": "Sample request for user invite:\r\n\r\n    POST workspaces/{workspaceId:guid}/users/invite\r\n    {\r\n        \u0022email\u0022: \u0022email\u0022,\r\n        \u0022role\u0022: \u0022reader\u0022 or \u0022administrator\u0022\r\n    }",
+        "operationId": "Tenants_InviteUserToWorkspace",
+        "parameters": [
+          {
+            "name": "workspaceId",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "x-nullable": false
+            },
+            "x-nullable": false
+          }
+        ],
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserInviteDto"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Return result of user invite",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserInviteResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid Model",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/workspaces/{workspaceId}/users/roles": {
+      "get": {
+        "tags": [
+          "Tenants"
+        ],
+        "summary": "Get users with role scopes in specified workspace",
+        "description": "Sample response for paginated result of user role scopes info:\r\n\r\n    {\r\n    \t\u0022result\u0022: [\r\n    \t\t{\r\n    \t\t\t\u0022userId\u0022: \u00223e4d0494-0bad-41fb-aa1f-0c2e53516171\u0022,\r\n    \t\t\t\u0022email\u0022: \u0022Nana.Ouyang@dnv.com\u0022,\r\n    \t\t\t\u0022name\u0022: \u0022Nana Ouyang\u0022,\r\n    \t\t\t\u0022isServicePrincipal\u0022: false,\r\n    \t\t\t\u0022roleScope\u0022: {\r\n    \t\t\t\t\u0022role\u0022: \u0022administrator\u0022,\r\n    \t\t\t\t\u0022scopeType\u0022: \u0022Workspace\u0022,\r\n    \t\t\t\t\u0022scopeRef\u0022: \u0022961a8ff4-dfbc-4ee7-ae08-4f38b84d9c86\u0022\r\n    \t\t\t}\r\n    \t\t},\r\n    \t\t{\r\n    \t\t\t\u0022userId\u0022: \u0022cc4c079a-5411-6899-8dd4-b8783f9417a8\u0022,\r\n    \t\t\t\u0022email\u0022: \u0022Ina.Zhang@dnv.com\u0022,\r\n    \t\t\t\u0022name\u0022: \u0022Ina Zhang\u0022,\r\n    \t\t\t\u0022isServicePrincipal\u0022: false,\r\n    \t\t\t\u0022roleScope\u0022: {\r\n    \t\t\t\t\u0022role\u0022: \u0022reader\u0022,\r\n    \t\t\t\t\u0022scopeType\u0022: \u0022Workspace\u0022,\r\n    \t\t\t\t\u0022scopeRef\u0022: \u0022961a8ff4-dfbc-4ee7-ae08-4f38b84d9c86\u0022\r\n    \t\t\t}\r\n    \t\t}\r\n    \t],\r\n    \t\u0022pageIndex\u0022: 1,\r\n    \t\u0022pageSize\u0022: 2,\r\n    \t\u0022totalCount\u0022: 53,\r\n    \t\u0022totalPages\u0022: 27\r\n    }",
+        "operationId": "Tenants_QueryWorkspaceUserRoleScopes",
+        "parameters": [
+          {
+            "name": "workspaceId",
+            "in": "path",
+            "description": "The workspace id which you want to get user role scopes",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "x-nullable": false
+            },
+            "x-nullable": false
+          },
+          {
+            "name": "pageIndex",
+            "in": "query",
+            "description": "Index of the current page (optional)",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "description": "Number of items per page (optional)",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns paginated result of users with role scopes"
+          },
+          "400": {
+            "description": "Invalid Model",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
     "schemas": {
-      "Assembly": {
-        "type": "object",
-        "properties": {
-          "definedTypes": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/TypeInfo"
-            },
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "exportedTypes": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/Type"
-            },
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "codeBase": {
-            "type": "string",
-            "nullable": true,
-            "readOnly": true,
-            "deprecated": true,
-            "x-nullable": true
-          },
-          "entryPoint": {
-            "$ref": "#/components/schemas/MethodInfo"
-          },
-          "fullName": {
-            "type": "string",
-            "nullable": true,
-            "readOnly": true,
-            "x-nullable": true
-          },
-          "imageRuntimeVersion": {
-            "type": "string",
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "isDynamic": {
-            "type": "boolean",
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "location": {
-            "type": "string",
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "reflectionOnly": {
-            "type": "boolean",
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "isCollectible": {
-            "type": "boolean",
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "isFullyTrusted": {
-            "type": "boolean",
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "customAttributes": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/CustomAttributeData"
-            },
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "escapedCodeBase": {
-            "type": "string",
-            "readOnly": true,
-            "deprecated": true,
-            "x-nullable": false
-          },
-          "manifestModule": {
-            "$ref": "#/components/schemas/Module"
-          },
-          "modules": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/Module"
-            },
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "globalAssemblyCache": {
-            "type": "boolean",
-            "readOnly": true,
-            "deprecated": true,
-            "x-nullable": false
-          },
-          "hostContext": {
-            "type": "integer",
-            "format": "int64",
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "securityRuleSet": {
-            "$ref": "#/components/schemas/SecurityRuleSet"
-          }
-        }
-      },
-      "CallingConventions": {
-        "enum": [
-          "Standard",
-          "VarArgs",
-          "Any",
-          "HasThis",
-          "ExplicitThis"
-        ],
-        "type": "string"
-      },
       "ColumnDto": {
         "required": [
           "displayName",
@@ -3670,238 +3096,12 @@
           }
         }
       },
-      "ConnectionSettingsDTO": {
-        "type": "object",
-        "properties": {
-          "containerName": {
-            "type": "string",
-            "x-nullable": false
-          },
-          "connectionString": {
-            "type": "string",
-            "x-nullable": false
-          }
-        }
-      },
-      "ConstructorInfo": {
-        "type": "object",
-        "properties": {
-          "name": {
-            "type": "string",
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "declaringType": {
-            "$ref": "#/components/schemas/Type"
-          },
-          "reflectedType": {
-            "$ref": "#/components/schemas/Type"
-          },
-          "module": {
-            "$ref": "#/components/schemas/Module"
-          },
-          "customAttributes": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/CustomAttributeData"
-            },
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "isCollectible": {
-            "type": "boolean",
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "metadataToken": {
-            "type": "integer",
-            "format": "int32",
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "attributes": {
-            "$ref": "#/components/schemas/MethodAttributes"
-          },
-          "methodImplementationFlags": {
-            "$ref": "#/components/schemas/MethodImplAttributes"
-          },
-          "callingConvention": {
-            "$ref": "#/components/schemas/CallingConventions"
-          },
-          "isAbstract": {
-            "type": "boolean",
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "isConstructor": {
-            "type": "boolean",
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "isFinal": {
-            "type": "boolean",
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "isHideBySig": {
-            "type": "boolean",
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "isSpecialName": {
-            "type": "boolean",
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "isStatic": {
-            "type": "boolean",
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "isVirtual": {
-            "type": "boolean",
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "isAssembly": {
-            "type": "boolean",
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "isFamily": {
-            "type": "boolean",
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "isFamilyAndAssembly": {
-            "type": "boolean",
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "isFamilyOrAssembly": {
-            "type": "boolean",
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "isPrivate": {
-            "type": "boolean",
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "isPublic": {
-            "type": "boolean",
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "isConstructedGenericMethod": {
-            "type": "boolean",
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "isGenericMethod": {
-            "type": "boolean",
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "isGenericMethodDefinition": {
-            "type": "boolean",
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "containsGenericParameters": {
-            "type": "boolean",
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "methodHandle": {
-            "$ref": "#/components/schemas/RuntimeMethodHandle"
-          },
-          "isSecurityCritical": {
-            "type": "boolean",
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "isSecuritySafeCritical": {
-            "type": "boolean",
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "isSecurityTransparent": {
-            "type": "boolean",
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "memberType": {
-            "$ref": "#/components/schemas/MemberTypes"
-          }
-        }
-      },
       "CreateOrUpdateUserRoleDto": {
         "type": "object",
         "properties": {
           "role": {
             "type": "string",
             "x-nullable": false
-          }
-        }
-      },
-      "CustomAttributeData": {
-        "type": "object",
-        "properties": {
-          "attributeType": {
-            "$ref": "#/components/schemas/Type"
-          },
-          "constructor": {
-            "$ref": "#/components/schemas/ConstructorInfo"
-          },
-          "constructorArguments": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/CustomAttributeTypedArgument"
-            },
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "namedArguments": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/CustomAttributeNamedArgument"
-            },
-            "readOnly": true,
-            "x-nullable": false
-          }
-        }
-      },
-      "CustomAttributeNamedArgument": {
-        "type": "object",
-        "properties": {
-          "memberInfo": {
-            "$ref": "#/components/schemas/MemberInfo"
-          },
-          "typedValue": {
-            "$ref": "#/components/schemas/CustomAttributeTypedArgument"
-          },
-          "memberName": {
-            "type": "string",
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "isField": {
-            "type": "boolean",
-            "readOnly": true,
-            "x-nullable": false
-          }
-        }
-      },
-      "CustomAttributeTypedArgument": {
-        "type": "object",
-        "properties": {
-          "argumentType": {
-            "$ref": "#/components/schemas/Type"
-          },
-          "value": {
-            "nullable": true,
-            "x-nullable": true
           }
         }
       },
@@ -4104,80 +3304,6 @@
           }
         }
       },
-      "EventAttributes": {
-        "enum": [
-          "None",
-          "SpecialName",
-          "RTSpecialName"
-        ],
-        "type": "string"
-      },
-      "EventInfo": {
-        "type": "object",
-        "properties": {
-          "name": {
-            "type": "string",
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "declaringType": {
-            "$ref": "#/components/schemas/Type"
-          },
-          "reflectedType": {
-            "$ref": "#/components/schemas/Type"
-          },
-          "module": {
-            "$ref": "#/components/schemas/Module"
-          },
-          "customAttributes": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/CustomAttributeData"
-            },
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "isCollectible": {
-            "type": "boolean",
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "metadataToken": {
-            "type": "integer",
-            "format": "int32",
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "memberType": {
-            "$ref": "#/components/schemas/MemberTypes"
-          },
-          "attributes": {
-            "$ref": "#/components/schemas/EventAttributes"
-          },
-          "isSpecialName": {
-            "type": "boolean",
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "addMethod": {
-            "$ref": "#/components/schemas/MethodInfo"
-          },
-          "removeMethod": {
-            "$ref": "#/components/schemas/MethodInfo"
-          },
-          "raiseMethod": {
-            "$ref": "#/components/schemas/MethodInfo"
-          },
-          "isMulticast": {
-            "type": "boolean",
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "eventHandlerType": {
-            "$ref": "#/components/schemas/Type"
-          }
-        }
-      },
       "ExecutionWriteDTO": {
         "type": "object",
         "properties": {
@@ -4204,156 +3330,6 @@
           }
         }
       },
-      "FieldAttributes": {
-        "enum": [
-          "PrivateScope",
-          "Private",
-          "FamANDAssem",
-          "Assembly",
-          "Family",
-          "FamORAssem",
-          "Public",
-          "FieldAccessMask",
-          "Static",
-          "InitOnly",
-          "Literal",
-          "NotSerialized",
-          "HasFieldRVA",
-          "SpecialName",
-          "RTSpecialName",
-          "HasFieldMarshal",
-          "PinvokeImpl",
-          "HasDefault",
-          "ReservedMask"
-        ],
-        "type": "string"
-      },
-      "FieldInfo": {
-        "type": "object",
-        "properties": {
-          "name": {
-            "type": "string",
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "declaringType": {
-            "$ref": "#/components/schemas/Type"
-          },
-          "reflectedType": {
-            "$ref": "#/components/schemas/Type"
-          },
-          "module": {
-            "$ref": "#/components/schemas/Module"
-          },
-          "customAttributes": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/CustomAttributeData"
-            },
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "isCollectible": {
-            "type": "boolean",
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "metadataToken": {
-            "type": "integer",
-            "format": "int32",
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "memberType": {
-            "$ref": "#/components/schemas/MemberTypes"
-          },
-          "attributes": {
-            "$ref": "#/components/schemas/FieldAttributes"
-          },
-          "fieldType": {
-            "$ref": "#/components/schemas/Type"
-          },
-          "isInitOnly": {
-            "type": "boolean",
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "isLiteral": {
-            "type": "boolean",
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "isNotSerialized": {
-            "type": "boolean",
-            "readOnly": true,
-            "deprecated": true,
-            "x-nullable": false
-          },
-          "isPinvokeImpl": {
-            "type": "boolean",
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "isSpecialName": {
-            "type": "boolean",
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "isStatic": {
-            "type": "boolean",
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "isAssembly": {
-            "type": "boolean",
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "isFamily": {
-            "type": "boolean",
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "isFamilyAndAssembly": {
-            "type": "boolean",
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "isFamilyOrAssembly": {
-            "type": "boolean",
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "isPrivate": {
-            "type": "boolean",
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "isPublic": {
-            "type": "boolean",
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "isSecurityCritical": {
-            "type": "boolean",
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "isSecuritySafeCritical": {
-            "type": "boolean",
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "isSecurityTransparent": {
-            "type": "boolean",
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "fieldHandle": {
-            "$ref": "#/components/schemas/RuntimeFieldHandle"
-          }
-        }
-      },
       "FilterType": {
         "enum": [
           "List",
@@ -4366,44 +3342,6 @@
           "LessOrEqual",
           "NonFromList",
           "StringContains"
-        ],
-        "type": "string"
-      },
-      "GenericParameterAttributes": {
-        "enum": [
-          "None",
-          "Covariant",
-          "Contravariant",
-          "VarianceMask",
-          "ReferenceTypeConstraint",
-          "NotNullableValueTypeConstraint",
-          "DefaultConstructorConstraint",
-          "SpecialConstraintMask"
-        ],
-        "type": "string"
-      },
-      "GetSasTokenForExternalDTO": {
-        "type": "object",
-        "properties": {
-          "settings": {
-            "$ref": "#/components/schemas/ConnectionSettingsDTO"
-          },
-          "filters": {
-            "$ref": "#/components/schemas/StorageQueryDto"
-          }
-        }
-      },
-      "ICustomAttributeProvider": {
-        "type": "object"
-      },
-      "IntPtr": {
-        "type": "object"
-      },
-      "LayoutKind": {
-        "enum": [
-          "Sequential",
-          "Explicit",
-          "Auto"
         ],
         "type": "string"
       },
@@ -4482,61 +3420,6 @@
         ],
         "type": "string"
       },
-      "MemberInfo": {
-        "type": "object",
-        "properties": {
-          "memberType": {
-            "$ref": "#/components/schemas/MemberTypes"
-          },
-          "name": {
-            "type": "string",
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "declaringType": {
-            "$ref": "#/components/schemas/Type"
-          },
-          "reflectedType": {
-            "$ref": "#/components/schemas/Type"
-          },
-          "module": {
-            "$ref": "#/components/schemas/Module"
-          },
-          "customAttributes": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/CustomAttributeData"
-            },
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "isCollectible": {
-            "type": "boolean",
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "metadataToken": {
-            "type": "integer",
-            "format": "int32",
-            "readOnly": true,
-            "x-nullable": false
-          }
-        }
-      },
-      "MemberTypes": {
-        "enum": [
-          "Constructor",
-          "Event",
-          "Field",
-          "Method",
-          "Property",
-          "TypeInfo",
-          "Custom",
-          "NestedType",
-          "All"
-        ],
-        "type": "string"
-      },
       "MetaType": {
         "enum": [
           "Validation",
@@ -4544,430 +3427,6 @@
           "Timestamp"
         ],
         "type": "string"
-      },
-      "MethodAttributes": {
-        "enum": [
-          "PrivateScope",
-          "Private",
-          "FamANDAssem",
-          "Assembly",
-          "Family",
-          "FamORAssem",
-          "Public",
-          "MemberAccessMask",
-          "UnmanagedExport",
-          "Static",
-          "Final",
-          "Virtual",
-          "HideBySig",
-          "NewSlot",
-          "CheckAccessOnOverride",
-          "Abstract",
-          "SpecialName",
-          "RTSpecialName",
-          "PinvokeImpl",
-          "HasSecurity",
-          "RequireSecObject",
-          "ReservedMask"
-        ],
-        "type": "string"
-      },
-      "MethodBase": {
-        "type": "object",
-        "properties": {
-          "memberType": {
-            "$ref": "#/components/schemas/MemberTypes"
-          },
-          "name": {
-            "type": "string",
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "declaringType": {
-            "$ref": "#/components/schemas/Type"
-          },
-          "reflectedType": {
-            "$ref": "#/components/schemas/Type"
-          },
-          "module": {
-            "$ref": "#/components/schemas/Module"
-          },
-          "customAttributes": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/CustomAttributeData"
-            },
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "isCollectible": {
-            "type": "boolean",
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "metadataToken": {
-            "type": "integer",
-            "format": "int32",
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "attributes": {
-            "$ref": "#/components/schemas/MethodAttributes"
-          },
-          "methodImplementationFlags": {
-            "$ref": "#/components/schemas/MethodImplAttributes"
-          },
-          "callingConvention": {
-            "$ref": "#/components/schemas/CallingConventions"
-          },
-          "isAbstract": {
-            "type": "boolean",
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "isConstructor": {
-            "type": "boolean",
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "isFinal": {
-            "type": "boolean",
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "isHideBySig": {
-            "type": "boolean",
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "isSpecialName": {
-            "type": "boolean",
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "isStatic": {
-            "type": "boolean",
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "isVirtual": {
-            "type": "boolean",
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "isAssembly": {
-            "type": "boolean",
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "isFamily": {
-            "type": "boolean",
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "isFamilyAndAssembly": {
-            "type": "boolean",
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "isFamilyOrAssembly": {
-            "type": "boolean",
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "isPrivate": {
-            "type": "boolean",
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "isPublic": {
-            "type": "boolean",
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "isConstructedGenericMethod": {
-            "type": "boolean",
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "isGenericMethod": {
-            "type": "boolean",
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "isGenericMethodDefinition": {
-            "type": "boolean",
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "containsGenericParameters": {
-            "type": "boolean",
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "methodHandle": {
-            "$ref": "#/components/schemas/RuntimeMethodHandle"
-          },
-          "isSecurityCritical": {
-            "type": "boolean",
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "isSecuritySafeCritical": {
-            "type": "boolean",
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "isSecurityTransparent": {
-            "type": "boolean",
-            "readOnly": true,
-            "x-nullable": false
-          }
-        }
-      },
-      "MethodImplAttributes": {
-        "enum": [
-          "IL",
-          "Native",
-          "OPTIL",
-          "CodeTypeMask",
-          "ManagedMask",
-          "NoInlining",
-          "ForwardRef",
-          "Synchronized",
-          "NoOptimization",
-          "PreserveSig",
-          "AggressiveInlining",
-          "AggressiveOptimization",
-          "InternalCall",
-          "MaxMethodImplVal"
-        ],
-        "type": "string"
-      },
-      "MethodInfo": {
-        "type": "object",
-        "properties": {
-          "name": {
-            "type": "string",
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "declaringType": {
-            "$ref": "#/components/schemas/Type"
-          },
-          "reflectedType": {
-            "$ref": "#/components/schemas/Type"
-          },
-          "module": {
-            "$ref": "#/components/schemas/Module"
-          },
-          "customAttributes": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/CustomAttributeData"
-            },
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "isCollectible": {
-            "type": "boolean",
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "metadataToken": {
-            "type": "integer",
-            "format": "int32",
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "attributes": {
-            "$ref": "#/components/schemas/MethodAttributes"
-          },
-          "methodImplementationFlags": {
-            "$ref": "#/components/schemas/MethodImplAttributes"
-          },
-          "callingConvention": {
-            "$ref": "#/components/schemas/CallingConventions"
-          },
-          "isAbstract": {
-            "type": "boolean",
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "isConstructor": {
-            "type": "boolean",
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "isFinal": {
-            "type": "boolean",
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "isHideBySig": {
-            "type": "boolean",
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "isSpecialName": {
-            "type": "boolean",
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "isStatic": {
-            "type": "boolean",
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "isVirtual": {
-            "type": "boolean",
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "isAssembly": {
-            "type": "boolean",
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "isFamily": {
-            "type": "boolean",
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "isFamilyAndAssembly": {
-            "type": "boolean",
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "isFamilyOrAssembly": {
-            "type": "boolean",
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "isPrivate": {
-            "type": "boolean",
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "isPublic": {
-            "type": "boolean",
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "isConstructedGenericMethod": {
-            "type": "boolean",
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "isGenericMethod": {
-            "type": "boolean",
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "isGenericMethodDefinition": {
-            "type": "boolean",
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "containsGenericParameters": {
-            "type": "boolean",
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "methodHandle": {
-            "$ref": "#/components/schemas/RuntimeMethodHandle"
-          },
-          "isSecurityCritical": {
-            "type": "boolean",
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "isSecuritySafeCritical": {
-            "type": "boolean",
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "isSecurityTransparent": {
-            "type": "boolean",
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "memberType": {
-            "$ref": "#/components/schemas/MemberTypes"
-          },
-          "returnParameter": {
-            "$ref": "#/components/schemas/ParameterInfo"
-          },
-          "returnType": {
-            "$ref": "#/components/schemas/Type"
-          },
-          "returnTypeCustomAttributes": {
-            "$ref": "#/components/schemas/ICustomAttributeProvider"
-          }
-        }
-      },
-      "Module": {
-        "type": "object",
-        "properties": {
-          "assembly": {
-            "$ref": "#/components/schemas/Assembly"
-          },
-          "fullyQualifiedName": {
-            "type": "string",
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "name": {
-            "type": "string",
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "mdStreamVersion": {
-            "type": "integer",
-            "format": "int32",
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "moduleVersionId": {
-            "type": "string",
-            "format": "uuid",
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "scopeName": {
-            "type": "string",
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "moduleHandle": {
-            "$ref": "#/components/schemas/ModuleHandle"
-          },
-          "customAttributes": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/CustomAttributeData"
-            },
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "metadataToken": {
-            "type": "integer",
-            "format": "int32",
-            "readOnly": true,
-            "x-nullable": false
-          }
-        }
-      },
-      "ModuleHandle": {
-        "type": "object",
-        "properties": {
-          "mdStreamVersion": {
-            "type": "integer",
-            "format": "int32",
-            "readOnly": true,
-            "x-nullable": false
-          }
-        }
       },
       "OrderReadDto": {
         "type": "object",
@@ -5056,102 +3515,6 @@
           }
         }
       },
-      "ParameterAttributes": {
-        "enum": [
-          "None",
-          "In",
-          "Out",
-          "Lcid",
-          "Retval",
-          "Optional",
-          "HasDefault",
-          "HasFieldMarshal",
-          "Reserved3",
-          "Reserved4",
-          "ReservedMask"
-        ],
-        "type": "string"
-      },
-      "ParameterInfo": {
-        "type": "object",
-        "properties": {
-          "attributes": {
-            "$ref": "#/components/schemas/ParameterAttributes"
-          },
-          "member": {
-            "$ref": "#/components/schemas/MemberInfo"
-          },
-          "name": {
-            "type": "string",
-            "nullable": true,
-            "readOnly": true,
-            "x-nullable": true
-          },
-          "parameterType": {
-            "$ref": "#/components/schemas/Type"
-          },
-          "position": {
-            "type": "integer",
-            "format": "int32",
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "isIn": {
-            "type": "boolean",
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "isLcid": {
-            "type": "boolean",
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "isOptional": {
-            "type": "boolean",
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "isOut": {
-            "type": "boolean",
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "isRetval": {
-            "type": "boolean",
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "defaultValue": {
-            "nullable": true,
-            "readOnly": true,
-            "x-nullable": true
-          },
-          "rawDefaultValue": {
-            "nullable": true,
-            "readOnly": true,
-            "x-nullable": true
-          },
-          "hasDefaultValue": {
-            "type": "boolean",
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "customAttributes": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/CustomAttributeData"
-            },
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "metadataToken": {
-            "type": "integer",
-            "format": "int32",
-            "readOnly": true,
-            "x-nullable": false
-          }
-        }
-      },
       "ProblemDetails": {
         "type": "object",
         "properties": {
@@ -5183,87 +3546,6 @@
           }
         },
         "additionalProperties": {}
-      },
-      "PropertyAttributes": {
-        "enum": [
-          "None",
-          "SpecialName",
-          "RTSpecialName",
-          "HasDefault",
-          "Reserved2",
-          "Reserved3",
-          "Reserved4",
-          "ReservedMask"
-        ],
-        "type": "string"
-      },
-      "PropertyInfo": {
-        "type": "object",
-        "properties": {
-          "name": {
-            "type": "string",
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "declaringType": {
-            "$ref": "#/components/schemas/Type"
-          },
-          "reflectedType": {
-            "$ref": "#/components/schemas/Type"
-          },
-          "module": {
-            "$ref": "#/components/schemas/Module"
-          },
-          "customAttributes": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/CustomAttributeData"
-            },
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "isCollectible": {
-            "type": "boolean",
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "metadataToken": {
-            "type": "integer",
-            "format": "int32",
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "memberType": {
-            "$ref": "#/components/schemas/MemberTypes"
-          },
-          "propertyType": {
-            "$ref": "#/components/schemas/Type"
-          },
-          "attributes": {
-            "$ref": "#/components/schemas/PropertyAttributes"
-          },
-          "isSpecialName": {
-            "type": "boolean",
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "canRead": {
-            "type": "boolean",
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "canWrite": {
-            "type": "boolean",
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "getMethod": {
-            "$ref": "#/components/schemas/MethodInfo"
-          },
-          "setMethod": {
-            "$ref": "#/components/schemas/MethodInfo"
-          }
-        }
       },
       "ProviderType": {
         "enum": [
@@ -5355,19 +3637,6 @@
           }
         }
       },
-      "RevokeSasTokenExternalDTO": {
-        "type": "object",
-        "properties": {
-          "settings": {
-            "$ref": "#/components/schemas/ConnectionSettingsDTO"
-          },
-          "policyName": {
-            "type": "string",
-            "nullable": true,
-            "x-nullable": true
-          }
-        }
-      },
       "RoleScopeGetDto": {
         "type": "object",
         "properties": {
@@ -5449,82 +3718,12 @@
         ],
         "type": "string"
       },
-      "RuntimeFieldHandle": {
-        "type": "object",
-        "properties": {
-          "value": {
-            "$ref": "#/components/schemas/IntPtr"
-          }
-        }
-      },
-      "RuntimeMethodHandle": {
-        "type": "object",
-        "properties": {
-          "value": {
-            "$ref": "#/components/schemas/IntPtr"
-          }
-        }
-      },
-      "RuntimeTypeHandle": {
-        "type": "object",
-        "properties": {
-          "value": {
-            "$ref": "#/components/schemas/IntPtr"
-          }
-        }
-      },
       "SASType": {
         "enum": [
           "dfs",
           "blob"
         ],
         "type": "string"
-      },
-      "SasPolicyDTO": {
-        "type": "object",
-        "properties": {
-          "policyName": {
-            "type": "string",
-            "x-nullable": false
-          },
-          "policyPermissions": {
-            "type": "array",
-            "items": {
-              "type": "string",
-              "x-nullable": false
-            },
-            "x-nullable": false
-          }
-        }
-      },
-      "SasPolicyReadDTO": {
-        "type": "object",
-        "properties": {
-          "name": {
-            "type": "string",
-            "x-nullable": false
-          },
-          "permissions": {
-            "type": "array",
-            "items": {
-              "type": "string",
-              "x-nullable": false
-            },
-            "x-nullable": false
-          }
-        }
-      },
-      "SasTokenResultDTO": {
-        "type": "object",
-        "properties": {
-          "sasToken": {
-            "type": "string",
-            "x-nullable": false
-          },
-          "policy": {
-            "$ref": "#/components/schemas/SasPolicyDTO"
-          }
-        }
       },
       "SchemaInfoDto": {
         "type": "object",
@@ -5709,43 +3908,6 @@
           }
         }
       },
-      "SchemaVersionUpdateDto": {
-        "type": "object",
-        "properties": {
-          "tracingMembers": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/MemberInfo"
-            },
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "schemaVersionName": {
-            "type": "string",
-            "x-nullable": false
-          },
-          "description": {
-            "type": "string",
-            "nullable": true,
-            "x-nullable": true
-          },
-          "columns": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/ColumnWriteDto"
-            },
-            "x-nullable": false
-          },
-          "rowValidators": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/RowValidatorDto"
-            },
-            "nullable": true,
-            "x-nullable": true
-          }
-        }
-      },
       "SchemaVersionWriteDto": {
         "type": "object",
         "properties": {
@@ -5823,14 +3985,6 @@
           "Tenant",
           "Workspace",
           "Dataset"
-        ],
-        "type": "string"
-      },
-      "SecurityRuleSet": {
-        "enum": [
-          "None",
-          "Level1",
-          "Level2"
         ],
         "type": "string"
       },
@@ -5991,835 +4145,6 @@
           }
         }
       },
-      "StructLayoutAttribute": {
-        "type": "object",
-        "properties": {
-          "typeId": {
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "value": {
-            "$ref": "#/components/schemas/LayoutKind"
-          }
-        }
-      },
-      "Type": {
-        "type": "object",
-        "properties": {
-          "name": {
-            "type": "string",
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "customAttributes": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/CustomAttributeData"
-            },
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "isCollectible": {
-            "type": "boolean",
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "metadataToken": {
-            "type": "integer",
-            "format": "int32",
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "isInterface": {
-            "type": "boolean",
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "memberType": {
-            "$ref": "#/components/schemas/MemberTypes"
-          },
-          "namespace": {
-            "type": "string",
-            "nullable": true,
-            "readOnly": true,
-            "x-nullable": true
-          },
-          "assemblyQualifiedName": {
-            "type": "string",
-            "nullable": true,
-            "readOnly": true,
-            "x-nullable": true
-          },
-          "fullName": {
-            "type": "string",
-            "nullable": true,
-            "readOnly": true,
-            "x-nullable": true
-          },
-          "assembly": {
-            "$ref": "#/components/schemas/Assembly"
-          },
-          "module": {
-            "$ref": "#/components/schemas/Module"
-          },
-          "isNested": {
-            "type": "boolean",
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "declaringType": {
-            "$ref": "#/components/schemas/Type"
-          },
-          "declaringMethod": {
-            "$ref": "#/components/schemas/MethodBase"
-          },
-          "reflectedType": {
-            "$ref": "#/components/schemas/Type"
-          },
-          "underlyingSystemType": {
-            "$ref": "#/components/schemas/Type"
-          },
-          "isTypeDefinition": {
-            "type": "boolean",
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "isArray": {
-            "type": "boolean",
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "isByRef": {
-            "type": "boolean",
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "isPointer": {
-            "type": "boolean",
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "isConstructedGenericType": {
-            "type": "boolean",
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "isGenericParameter": {
-            "type": "boolean",
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "isGenericTypeParameter": {
-            "type": "boolean",
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "isGenericMethodParameter": {
-            "type": "boolean",
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "isGenericType": {
-            "type": "boolean",
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "isGenericTypeDefinition": {
-            "type": "boolean",
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "isSZArray": {
-            "type": "boolean",
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "isVariableBoundArray": {
-            "type": "boolean",
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "isByRefLike": {
-            "type": "boolean",
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "isFunctionPointer": {
-            "type": "boolean",
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "isUnmanagedFunctionPointer": {
-            "type": "boolean",
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "hasElementType": {
-            "type": "boolean",
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "genericTypeArguments": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/Type"
-            },
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "genericParameterPosition": {
-            "type": "integer",
-            "format": "int32",
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "genericParameterAttributes": {
-            "$ref": "#/components/schemas/GenericParameterAttributes"
-          },
-          "attributes": {
-            "$ref": "#/components/schemas/TypeAttributes"
-          },
-          "isAbstract": {
-            "type": "boolean",
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "isImport": {
-            "type": "boolean",
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "isSealed": {
-            "type": "boolean",
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "isSpecialName": {
-            "type": "boolean",
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "isClass": {
-            "type": "boolean",
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "isNestedAssembly": {
-            "type": "boolean",
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "isNestedFamANDAssem": {
-            "type": "boolean",
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "isNestedFamily": {
-            "type": "boolean",
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "isNestedFamORAssem": {
-            "type": "boolean",
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "isNestedPrivate": {
-            "type": "boolean",
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "isNestedPublic": {
-            "type": "boolean",
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "isNotPublic": {
-            "type": "boolean",
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "isPublic": {
-            "type": "boolean",
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "isAutoLayout": {
-            "type": "boolean",
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "isExplicitLayout": {
-            "type": "boolean",
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "isLayoutSequential": {
-            "type": "boolean",
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "isAnsiClass": {
-            "type": "boolean",
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "isAutoClass": {
-            "type": "boolean",
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "isUnicodeClass": {
-            "type": "boolean",
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "isCOMObject": {
-            "type": "boolean",
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "isContextful": {
-            "type": "boolean",
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "isEnum": {
-            "type": "boolean",
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "isMarshalByRef": {
-            "type": "boolean",
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "isPrimitive": {
-            "type": "boolean",
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "isValueType": {
-            "type": "boolean",
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "isSignatureType": {
-            "type": "boolean",
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "isSecurityCritical": {
-            "type": "boolean",
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "isSecuritySafeCritical": {
-            "type": "boolean",
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "isSecurityTransparent": {
-            "type": "boolean",
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "structLayoutAttribute": {
-            "$ref": "#/components/schemas/StructLayoutAttribute"
-          },
-          "typeInitializer": {
-            "$ref": "#/components/schemas/ConstructorInfo"
-          },
-          "typeHandle": {
-            "$ref": "#/components/schemas/RuntimeTypeHandle"
-          },
-          "guid": {
-            "type": "string",
-            "format": "uuid",
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "baseType": {
-            "$ref": "#/components/schemas/Type"
-          },
-          "isSerializable": {
-            "type": "boolean",
-            "readOnly": true,
-            "deprecated": true,
-            "x-nullable": false
-          },
-          "containsGenericParameters": {
-            "type": "boolean",
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "isVisible": {
-            "type": "boolean",
-            "readOnly": true,
-            "x-nullable": false
-          }
-        }
-      },
-      "TypeAttributes": {
-        "enum": [
-          "NotPublic",
-          "Public",
-          "NestedPublic",
-          "NestedPrivate",
-          "NestedFamily",
-          "NestedAssembly",
-          "NestedFamANDAssem",
-          "VisibilityMask",
-          "SequentialLayout",
-          "ExplicitLayout",
-          "LayoutMask",
-          "Interface",
-          "Abstract",
-          "Sealed",
-          "SpecialName",
-          "RTSpecialName",
-          "Import",
-          "Serializable",
-          "WindowsRuntime",
-          "UnicodeClass",
-          "AutoClass",
-          "StringFormatMask",
-          "HasSecurity",
-          "ReservedMask",
-          "BeforeFieldInit",
-          "CustomFormatMask"
-        ],
-        "type": "string"
-      },
-      "TypeInfo": {
-        "type": "object",
-        "properties": {
-          "name": {
-            "type": "string",
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "customAttributes": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/CustomAttributeData"
-            },
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "isCollectible": {
-            "type": "boolean",
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "metadataToken": {
-            "type": "integer",
-            "format": "int32",
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "isInterface": {
-            "type": "boolean",
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "memberType": {
-            "$ref": "#/components/schemas/MemberTypes"
-          },
-          "namespace": {
-            "type": "string",
-            "nullable": true,
-            "readOnly": true,
-            "x-nullable": true
-          },
-          "assemblyQualifiedName": {
-            "type": "string",
-            "nullable": true,
-            "readOnly": true,
-            "x-nullable": true
-          },
-          "fullName": {
-            "type": "string",
-            "nullable": true,
-            "readOnly": true,
-            "x-nullable": true
-          },
-          "assembly": {
-            "$ref": "#/components/schemas/Assembly"
-          },
-          "module": {
-            "$ref": "#/components/schemas/Module"
-          },
-          "isNested": {
-            "type": "boolean",
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "declaringType": {
-            "$ref": "#/components/schemas/Type"
-          },
-          "declaringMethod": {
-            "$ref": "#/components/schemas/MethodBase"
-          },
-          "reflectedType": {
-            "$ref": "#/components/schemas/Type"
-          },
-          "underlyingSystemType": {
-            "$ref": "#/components/schemas/Type"
-          },
-          "isTypeDefinition": {
-            "type": "boolean",
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "isArray": {
-            "type": "boolean",
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "isByRef": {
-            "type": "boolean",
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "isPointer": {
-            "type": "boolean",
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "isConstructedGenericType": {
-            "type": "boolean",
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "isGenericParameter": {
-            "type": "boolean",
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "isGenericTypeParameter": {
-            "type": "boolean",
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "isGenericMethodParameter": {
-            "type": "boolean",
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "isGenericType": {
-            "type": "boolean",
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "isGenericTypeDefinition": {
-            "type": "boolean",
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "isSZArray": {
-            "type": "boolean",
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "isVariableBoundArray": {
-            "type": "boolean",
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "isByRefLike": {
-            "type": "boolean",
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "isFunctionPointer": {
-            "type": "boolean",
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "isUnmanagedFunctionPointer": {
-            "type": "boolean",
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "hasElementType": {
-            "type": "boolean",
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "genericTypeArguments": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/Type"
-            },
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "genericParameterPosition": {
-            "type": "integer",
-            "format": "int32",
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "genericParameterAttributes": {
-            "$ref": "#/components/schemas/GenericParameterAttributes"
-          },
-          "attributes": {
-            "$ref": "#/components/schemas/TypeAttributes"
-          },
-          "isAbstract": {
-            "type": "boolean",
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "isImport": {
-            "type": "boolean",
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "isSealed": {
-            "type": "boolean",
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "isSpecialName": {
-            "type": "boolean",
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "isClass": {
-            "type": "boolean",
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "isNestedAssembly": {
-            "type": "boolean",
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "isNestedFamANDAssem": {
-            "type": "boolean",
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "isNestedFamily": {
-            "type": "boolean",
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "isNestedFamORAssem": {
-            "type": "boolean",
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "isNestedPrivate": {
-            "type": "boolean",
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "isNestedPublic": {
-            "type": "boolean",
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "isNotPublic": {
-            "type": "boolean",
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "isPublic": {
-            "type": "boolean",
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "isAutoLayout": {
-            "type": "boolean",
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "isExplicitLayout": {
-            "type": "boolean",
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "isLayoutSequential": {
-            "type": "boolean",
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "isAnsiClass": {
-            "type": "boolean",
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "isAutoClass": {
-            "type": "boolean",
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "isUnicodeClass": {
-            "type": "boolean",
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "isCOMObject": {
-            "type": "boolean",
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "isContextful": {
-            "type": "boolean",
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "isEnum": {
-            "type": "boolean",
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "isMarshalByRef": {
-            "type": "boolean",
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "isPrimitive": {
-            "type": "boolean",
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "isValueType": {
-            "type": "boolean",
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "isSignatureType": {
-            "type": "boolean",
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "isSecurityCritical": {
-            "type": "boolean",
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "isSecuritySafeCritical": {
-            "type": "boolean",
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "isSecurityTransparent": {
-            "type": "boolean",
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "structLayoutAttribute": {
-            "$ref": "#/components/schemas/StructLayoutAttribute"
-          },
-          "typeInitializer": {
-            "$ref": "#/components/schemas/ConstructorInfo"
-          },
-          "typeHandle": {
-            "$ref": "#/components/schemas/RuntimeTypeHandle"
-          },
-          "guid": {
-            "type": "string",
-            "format": "uuid",
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "baseType": {
-            "$ref": "#/components/schemas/Type"
-          },
-          "isSerializable": {
-            "type": "boolean",
-            "readOnly": true,
-            "deprecated": true,
-            "x-nullable": false
-          },
-          "containsGenericParameters": {
-            "type": "boolean",
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "isVisible": {
-            "type": "boolean",
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "genericTypeParameters": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/Type"
-            },
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "declaredConstructors": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/ConstructorInfo"
-            },
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "declaredEvents": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/EventInfo"
-            },
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "declaredFields": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/FieldInfo"
-            },
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "declaredMembers": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/MemberInfo"
-            },
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "declaredMethods": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/MethodInfo"
-            },
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "declaredNestedTypes": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/TypeInfo"
-            },
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "declaredProperties": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/PropertyInfo"
-            },
-            "readOnly": true,
-            "x-nullable": false
-          },
-          "implementedInterfaces": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/Type"
-            },
-            "readOnly": true,
-            "x-nullable": false
-          }
-        }
-      },
       "UserInviteDto": {
         "type": "object",
         "properties": {
@@ -6852,8 +4177,7 @@
           },
           "description": {
             "type": "string",
-            "nullable": true,
-            "x-nullable": true
+            "x-nullable": false
           },
           "region": {
             "type": "string",
@@ -6874,8 +4198,7 @@
           },
           "description": {
             "type": "string",
-            "nullable": true,
-            "x-nullable": true
+            "x-nullable": false
           },
           "region": {
             "type": "string",
