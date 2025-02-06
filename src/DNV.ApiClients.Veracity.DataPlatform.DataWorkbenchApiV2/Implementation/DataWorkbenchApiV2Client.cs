@@ -5,6 +5,7 @@
 // </auto-generated>
 
 using Microsoft.Rest;
+using System.Linq;
 using DNV.ApiClients.Veracity.DataPlatform.DataWorkbenchApiV2.Interfaces;
 
 namespace DNV.ApiClients.Veracity.DataPlatform.DataWorkbenchApiV2
