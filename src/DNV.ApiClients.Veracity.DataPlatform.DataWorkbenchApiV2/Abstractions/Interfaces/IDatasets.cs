@@ -19,6 +19,76 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataWorkbenchApiV2.Interfaces
     public partial interface IDatasets
     {
         /// <summary>
+        /// Download Statement of Compliance PDF file based on workspaceId,
+        /// datasetId and documentId
+        /// </summary>
+        /// <param name='body'>
+        /// </param>
+        /// <param name='workspaceId'>
+        /// </param>
+        /// <param name='customHeaders'>
+        /// The headers that will be added to request.
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        /// <exception cref="Microsoft.Rest.HttpOperationException">
+        /// Thrown when the operation returned an invalid status code
+        /// </exception>
+        /// <exception cref="Microsoft.Rest.ValidationException">
+        /// Thrown when a required parameter is null
+        /// </exception>
+        Task<HttpOperationResponse> SocDownloadWithHttpMessagesAsync(DocumentRefDTO body, System.Guid workspaceId, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default);
+
+        /// <summary>
+        /// Download Statement of Compliance PDF file based on workspaceId,
+        /// datasetId and documentId
+        /// </summary>
+        /// <param name='body'>
+        /// </param>
+        /// <param name='workspaceId'>
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        Task SocDownloadAsync(DocumentRefDTO body, System.Guid workspaceId, CancellationToken cancellationToken = default);
+
+        /// <summary>
+        /// Get all data sets for a specific workspace. Supports pagination,
+        /// enhanced filtering and sorting.
+        /// </summary>
+        /// <param name='workspaceId'>
+        /// </param>
+        /// <param name='body'>
+        /// </param>
+        /// <param name='customHeaders'>
+        /// The headers that will be added to request.
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        /// <exception cref="Microsoft.Rest.HttpOperationException">
+        /// Thrown when the operation returned an invalid status code
+        /// </exception>
+        /// <exception cref="Microsoft.Rest.SerializationException">
+        /// Thrown when unable to deserialize the response
+        /// </exception>
+        Task<HttpOperationResponse<DataCatalogReadDtoV2PaginatedResult>> GetDataCatalogsQueryWithHttpMessagesAsync(System.Guid workspaceId, DataCatalogQueryDto body = default, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default);
+
+        /// <summary>
+        /// Get all data sets for a specific workspace. Supports pagination,
+        /// enhanced filtering and sorting.
+        /// </summary>
+        /// <param name='workspaceId'>
+        /// </param>
+        /// <param name='body'>
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        Task<DataCatalogReadDtoV2PaginatedResult> GetDataCatalogsQueryAsync(System.Guid workspaceId, DataCatalogQueryDto body = default, CancellationToken cancellationToken = default);
+
+        /// <summary>
         /// Gets a specific data set by Workspace Id and DataSet Id
         /// </summary>
         /// <param name='workspaceId'>
@@ -176,8 +246,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataWorkbenchApiV2.Interfaces
         Task<string> GetDatasetFolderReadonlyTokenAsync(System.Guid workspaceId, System.Guid datasetId, int durationInMinutes, string type, CancellationToken cancellationToken = default);
 
         /// <summary>
-        /// Download Statement of Compliance PDF file based on workspaceId,
-        /// datasetId and documentId
+        /// Revoke multiple SAS policies for the workspace container
         /// </summary>
         /// <param name='body'>
         /// </param>
@@ -195,11 +264,10 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataWorkbenchApiV2.Interfaces
         /// <exception cref="Microsoft.Rest.ValidationException">
         /// Thrown when a required parameter is null
         /// </exception>
-        Task<HttpOperationResponse> SocDownloadWithHttpMessagesAsync(DocumentRefDTO body, System.Guid workspaceId, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default);
+        Task<HttpOperationResponse> RevokeSasPoliciesForContainerWithHttpMessagesAsync(RevokeSasPolicyDTO body, System.Guid workspaceId, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default);
 
         /// <summary>
-        /// Download Statement of Compliance PDF file based on workspaceId,
-        /// datasetId and documentId
+        /// Revoke multiple SAS policies for the workspace container
         /// </summary>
         /// <param name='body'>
         /// </param>
@@ -208,15 +276,73 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataWorkbenchApiV2.Interfaces
         /// <param name='cancellationToken'>
         /// The cancellation token.
         /// </param>
-        Task SocDownloadAsync(DocumentRefDTO body, System.Guid workspaceId, CancellationToken cancellationToken = default);
+        Task RevokeSasPoliciesForContainerAsync(RevokeSasPolicyDTO body, System.Guid workspaceId, CancellationToken cancellationToken = default);
 
         /// <summary>
-        /// Get all data sets for a specific workspace. Supports pagination,
-        /// enhanced filtering and sorting.
+        /// Revoke all SAS tokens for the workspace container
         /// </summary>
         /// <param name='workspaceId'>
         /// </param>
-        /// <param name='body'>
+        /// <param name='customHeaders'>
+        /// The headers that will be added to request.
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        /// <exception cref="Microsoft.Rest.HttpOperationException">
+        /// Thrown when the operation returned an invalid status code
+        /// </exception>
+        Task<HttpOperationResponse> RevokeAllSasTokensForContainerWithHttpMessagesAsync(System.Guid workspaceId, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default);
+
+        /// <summary>
+        /// Revoke all SAS tokens for the workspace container
+        /// </summary>
+        /// <param name='workspaceId'>
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        Task RevokeAllSasTokensForContainerAsync(System.Guid workspaceId, CancellationToken cancellationToken = default);
+
+        /// <summary>
+        /// Revoke a SAS token for the workspace container
+        /// </summary>
+        /// <param name='workspaceId'>
+        /// </param>
+        /// <param name='policyName'>
+        /// </param>
+        /// <param name='customHeaders'>
+        /// The headers that will be added to request.
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        /// <exception cref="HttpOperationException">
+        /// Thrown when the operation returned an invalid status code
+        /// </exception>
+        /// <exception cref="ValidationException">
+        /// Thrown when a required parameter is null
+        /// </exception>
+        [System.Obsolete("This operation is deprecated. Please do not use it any longer.")]
+        Task<HttpOperationResponse> RevokeSasTokenForContainerWithHttpMessagesAsync(System.Guid workspaceId, string policyName, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default);
+
+        /// <summary>
+        /// Revoke a SAS token for the workspace container
+        /// </summary>
+        /// <param name='workspaceId'>
+        /// </param>
+        /// <param name='policyName'>
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        [System.Obsolete("This operation is deprecated. Please do not use it any longer.")]
+        Task RevokeSasTokenForContainerAsync(System.Guid workspaceId, string policyName, CancellationToken cancellationToken = default);
+
+        /// <summary>
+        /// Get a SAS policies for the workspace container
+        /// </summary>
+        /// <param name='workspaceId'>
         /// </param>
         /// <param name='customHeaders'>
         /// The headers that will be added to request.
@@ -230,20 +356,17 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataWorkbenchApiV2.Interfaces
         /// <exception cref="Microsoft.Rest.SerializationException">
         /// Thrown when unable to deserialize the response
         /// </exception>
-        Task<HttpOperationResponse<DataCatalogReadDtoV2PaginatedResult>> GetDataCatalogsQueryWithHttpMessagesAsync(System.Guid workspaceId, DataCatalogQueryDto body = default, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default);
+        Task<HttpOperationResponse<IEnumerable<SasPolicyReadDTO>>> GetSasPoliciesForContainerWithHttpMessagesAsync(System.Guid workspaceId, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default);
 
         /// <summary>
-        /// Get all data sets for a specific workspace. Supports pagination,
-        /// enhanced filtering and sorting.
+        /// Get a SAS policies for the workspace container
         /// </summary>
         /// <param name='workspaceId'>
-        /// </param>
-        /// <param name='body'>
         /// </param>
         /// <param name='cancellationToken'>
         /// The cancellation token.
         /// </param>
-        Task<DataCatalogReadDtoV2PaginatedResult> GetDataCatalogsQueryAsync(System.Guid workspaceId, DataCatalogQueryDto body = default, CancellationToken cancellationToken = default);
+        Task<IEnumerable<SasPolicyReadDTO>> GetSasPoliciesForContainerAsync(System.Guid workspaceId, CancellationToken cancellationToken = default);
 
     }
 }

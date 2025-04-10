@@ -87,11 +87,6 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataWorkbenchApiV2
         public virtual ITenants Tenants { get; private set; }
 
         /// <summary>
-        /// Gets the IAnalysis.
-        /// </summary>
-        public virtual IAnalysis Analysis { get; private set; }
-
-        /// <summary>
         /// Gets the IDataOrders.
         /// </summary>
         public virtual IDataOrders DataOrders { get; private set; }
@@ -117,14 +112,19 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataWorkbenchApiV2
         public virtual ISchemas Schemas { get; private set; }
 
         /// <summary>
-        /// Gets the IStorages.
+        /// Gets the IShareRequests.
         /// </summary>
-        public virtual IStorages Storages { get; private set; }
+        public virtual IShareRequests ShareRequests { get; private set; }
 
         /// <summary>
         /// Gets the IShares.
         /// </summary>
         public virtual IShares Shares { get; private set; }
+
+        /// <summary>
+        /// Gets the IStorages.
+        /// </summary>
+        public virtual IStorages Storages { get; private set; }
 
         /// <summary>
         /// Initializes a new instance of the DataWorkbenchApiV2Client class.
@@ -230,15 +230,15 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataWorkbenchApiV2
         private void Initialize()
         {
             Tenants = new Tenants(this);
-            Analysis = new Analysis(this);
             DataOrders = new DataOrders(this);
             Datasets = new Datasets(this);
             Ingest = new Ingest(this);
             Ledger = new Ledger(this);
             Schemas = new Schemas(this);
-            Storages = new Storages(this);
+            ShareRequests = new ShareRequests(this);
             Shares = new Shares(this);
-            BaseUri = new System.Uri("https://localhost:7135/gateway/api/v2");
+            Storages = new Storages(this);
+            BaseUri = new System.Uri("https://tst-api.dw.veracity.com/gateway/api/v2");
             SerializationSettings = new JsonSerializerSettings
             {
                 Formatting = Newtonsoft.Json.Formatting.Indented,

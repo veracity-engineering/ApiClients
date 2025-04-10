@@ -52,157 +52,6 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataWorkbenchApiV2.Interfaces
         Task<IEnumerable<SchemaReadDto>> GetWorkspaceSchemasAsync(System.Guid workspaceId, bool? includeDefaultSchemaVersion = default, CancellationToken cancellationToken = default);
 
         /// <summary>
-        /// Get a specific schema
-        /// </summary>
-        /// <param name='workspaceId'>
-        /// </param>
-        /// <param name='schemaId'>
-        /// </param>
-        /// <param name='customHeaders'>
-        /// The headers that will be added to request.
-        /// </param>
-        /// <param name='cancellationToken'>
-        /// The cancellation token.
-        /// </param>
-        /// <exception cref="Microsoft.Rest.HttpOperationException">
-        /// Thrown when the operation returned an invalid status code
-        /// </exception>
-        /// <exception cref="Microsoft.Rest.SerializationException">
-        /// Thrown when unable to deserialize the response
-        /// </exception>
-        Task<HttpOperationResponse<SchemaReadDto>> GetSchemaByIdWithHttpMessagesAsync(System.Guid workspaceId, System.Guid schemaId, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default);
-
-        /// <summary>
-        /// Get a specific schema
-        /// </summary>
-        /// <param name='workspaceId'>
-        /// </param>
-        /// <param name='schemaId'>
-        /// </param>
-        /// <param name='cancellationToken'>
-        /// The cancellation token.
-        /// </param>
-        Task<SchemaReadDto> GetSchemaByIdAsync(System.Guid workspaceId, System.Guid schemaId, CancellationToken cancellationToken = default);
-
-        /// <summary>
-        /// Patch Schema
-        /// </summary>
-        /// <param name='body'>
-        /// The input describing the schema
-        /// </param>
-        /// <param name='workspaceId'>
-        /// </param>
-        /// <param name='schemaId'>
-        /// Schema Id to edit
-        /// </param>
-        /// <param name='customHeaders'>
-        /// The headers that will be added to request.
-        /// </param>
-        /// <param name='cancellationToken'>
-        /// The cancellation token.
-        /// </param>
-        /// <exception cref="Microsoft.Rest.HttpOperationException">
-        /// Thrown when the operation returned an invalid status code
-        /// </exception>
-        /// <exception cref="Microsoft.Rest.SerializationException">
-        /// Thrown when unable to deserialize the response
-        /// </exception>
-        /// <exception cref="Microsoft.Rest.ValidationException">
-        /// Thrown when a required parameter is null
-        /// </exception>
-        Task<HttpOperationResponse<SchemaReadDto>> UpdateSchemaWithHttpMessagesAsync(SchemaPatchDto body, System.Guid workspaceId, System.Guid schemaId, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default);
-
-        /// <summary>
-        /// Patch Schema
-        /// </summary>
-        /// <param name='body'>
-        /// The input describing the schema
-        /// </param>
-        /// <param name='workspaceId'>
-        /// </param>
-        /// <param name='schemaId'>
-        /// Schema Id to edit
-        /// </param>
-        /// <param name='cancellationToken'>
-        /// The cancellation token.
-        /// </param>
-        Task<SchemaReadDto> UpdateSchemaAsync(SchemaPatchDto body, System.Guid workspaceId, System.Guid schemaId, CancellationToken cancellationToken = default);
-
-        /// <summary>
-        /// Update schema version
-        /// </summary>
-        /// <param name='workspaceId'>
-        /// </param>
-        /// <param name='schemaId'>
-        /// </param>
-        /// <param name='schemaVersionId'>
-        /// </param>
-        /// <param name='customHeaders'>
-        /// The headers that will be added to request.
-        /// </param>
-        /// <param name='cancellationToken'>
-        /// The cancellation token.
-        /// </param>
-        /// <exception cref="Microsoft.Rest.HttpOperationException">
-        /// Thrown when the operation returned an invalid status code
-        /// </exception>
-        /// <exception cref="Microsoft.Rest.SerializationException">
-        /// Thrown when unable to deserialize the response
-        /// </exception>
-        Task<HttpOperationResponse<SchemaVersionReadDto>> PatchSchemaVersionWithHttpMessagesAsync(System.Guid workspaceId, System.Guid schemaId, System.Guid schemaVersionId, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default);
-
-        /// <summary>
-        /// Update schema version
-        /// </summary>
-        /// <param name='workspaceId'>
-        /// </param>
-        /// <param name='schemaId'>
-        /// </param>
-        /// <param name='schemaVersionId'>
-        /// </param>
-        /// <param name='cancellationToken'>
-        /// The cancellation token.
-        /// </param>
-        Task<SchemaVersionReadDto> PatchSchemaVersionAsync(System.Guid workspaceId, System.Guid schemaId, System.Guid schemaVersionId, CancellationToken cancellationToken = default);
-
-        /// <summary>
-        /// Activate schema version
-        /// </summary>
-        /// <param name='workspaceId'>
-        /// </param>
-        /// <param name='schemaId'>
-        /// </param>
-        /// <param name='schemaVersionId'>
-        /// </param>
-        /// <param name='customHeaders'>
-        /// The headers that will be added to request.
-        /// </param>
-        /// <param name='cancellationToken'>
-        /// The cancellation token.
-        /// </param>
-        /// <exception cref="Microsoft.Rest.HttpOperationException">
-        /// Thrown when the operation returned an invalid status code
-        /// </exception>
-        /// <exception cref="Microsoft.Rest.SerializationException">
-        /// Thrown when unable to deserialize the response
-        /// </exception>
-        Task<HttpOperationResponse<SchemaVersionReadDto>> ActivateSchemaVersionWithHttpMessagesAsync(System.Guid workspaceId, System.Guid schemaId, System.Guid schemaVersionId, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default);
-
-        /// <summary>
-        /// Activate schema version
-        /// </summary>
-        /// <param name='workspaceId'>
-        /// </param>
-        /// <param name='schemaId'>
-        /// </param>
-        /// <param name='schemaVersionId'>
-        /// </param>
-        /// <param name='cancellationToken'>
-        /// The cancellation token.
-        /// </param>
-        Task<SchemaVersionReadDto> ActivateSchemaVersionAsync(System.Guid workspaceId, System.Guid schemaId, System.Guid schemaVersionId, CancellationToken cancellationToken = default);
-
-        /// <summary>
         /// create a new schema
         /// </summary>
         /// <param name='body'>
@@ -275,39 +124,6 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataWorkbenchApiV2.Interfaces
         Task<IEnumerable<SchemaVersionReadDto>> GetSchemaVersionsAsync(IEnumerable<System.Guid?> body, System.Guid workspaceId, CancellationToken cancellationToken = default);
 
         /// <summary>
-        /// Get a specific schema version
-        /// </summary>
-        /// <param name='workspaceId'>
-        /// </param>
-        /// <param name='schemaVersionId'>
-        /// </param>
-        /// <param name='customHeaders'>
-        /// The headers that will be added to request.
-        /// </param>
-        /// <param name='cancellationToken'>
-        /// The cancellation token.
-        /// </param>
-        /// <exception cref="Microsoft.Rest.HttpOperationException">
-        /// Thrown when the operation returned an invalid status code
-        /// </exception>
-        /// <exception cref="Microsoft.Rest.SerializationException">
-        /// Thrown when unable to deserialize the response
-        /// </exception>
-        Task<HttpOperationResponse<IEnumerable<SchemaVersionReadDto>>> GetSchemaVersionByIdWithHttpMessagesAsync(System.Guid workspaceId, System.Guid schemaVersionId, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default);
-
-        /// <summary>
-        /// Get a specific schema version
-        /// </summary>
-        /// <param name='workspaceId'>
-        /// </param>
-        /// <param name='schemaVersionId'>
-        /// </param>
-        /// <param name='cancellationToken'>
-        /// The cancellation token.
-        /// </param>
-        Task<IEnumerable<SchemaVersionReadDto>> GetSchemaVersionByIdAsync(System.Guid workspaceId, System.Guid schemaVersionId, CancellationToken cancellationToken = default);
-
-        /// <summary>
         /// Add a new schema version
         /// </summary>
         /// <param name='body'>
@@ -342,6 +158,39 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataWorkbenchApiV2.Interfaces
         /// The cancellation token.
         /// </param>
         Task<SchemaVersionReadDto> AddSchemaVersionAsync(SchemaVersionWriteDto body, System.Guid workspaceId, CancellationToken cancellationToken = default);
+
+        /// <summary>
+        /// Get a specific schema version
+        /// </summary>
+        /// <param name='workspaceId'>
+        /// </param>
+        /// <param name='schemaVersionId'>
+        /// </param>
+        /// <param name='customHeaders'>
+        /// The headers that will be added to request.
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        /// <exception cref="Microsoft.Rest.HttpOperationException">
+        /// Thrown when the operation returned an invalid status code
+        /// </exception>
+        /// <exception cref="Microsoft.Rest.SerializationException">
+        /// Thrown when unable to deserialize the response
+        /// </exception>
+        Task<HttpOperationResponse<IEnumerable<SchemaVersionReadDto>>> GetSchemaVersionByIdWithHttpMessagesAsync(System.Guid workspaceId, System.Guid schemaVersionId, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default);
+
+        /// <summary>
+        /// Get a specific schema version
+        /// </summary>
+        /// <param name='workspaceId'>
+        /// </param>
+        /// <param name='schemaVersionId'>
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        Task<IEnumerable<SchemaVersionReadDto>> GetSchemaVersionByIdAsync(System.Guid workspaceId, System.Guid schemaVersionId, CancellationToken cancellationToken = default);
 
         /// <summary>
         /// Gets a list of column validators by workspace Id
@@ -547,6 +396,130 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataWorkbenchApiV2.Interfaces
         Task<ColumnValidatorReadDto> CreateValidatorWithWorkspaceAsync(ColumnValidatorWriteDto body, System.Guid workspaceId, CancellationToken cancellationToken = default);
 
         /// <summary>
+        /// Get list of global validators
+        /// </summary>
+        /// <remarks>
+        /// Sample response:
+        ///
+        /// [
+        /// {
+        /// "id": "10ffec78-4792-4364-babd-e9c45b6f94ab",
+        /// "workspaceId": "196a8ff4-dfbc-4ee7-ae08-4f38b84d9c86",
+        /// "name": "string 3",
+        /// "notEmpty": true,
+        /// "dataFormat": "String",
+        /// "minimum": 0,
+        /// "maximum": 1,
+        /// "exclusiveMinimum": true,
+        /// "exclusiveMaximum": true,
+        /// "minLength": 0,
+        /// "maxLength": 1,
+        /// "pattern": "string",
+        /// "errorMessage": "string",
+        /// "fallbackValue": "string",
+        /// "createdBy": "61cecec8-629b-4779-b593-6505e2b9443b",
+        /// "createdOn": "2024-06-26T14:20:50.1444566Z",
+        /// "lastModifiedBy": "61cecec8-629b-4779-b593-6505e2b9443b",
+        /// "lastModifiedOn": "2024-06-26T14:20:50.1444566Z"
+        /// },
+        /// {
+        /// "id": "834c7130-92bf-428e-acb2-c5567a540106",
+        /// "workspaceId": "196a8ff4-dfbc-4ee7-ae08-4f38b84d9c86",
+        /// "name": "string",
+        /// "notEmpty": true,
+        /// "dataFormat": "String",
+        /// "minimum": 1,
+        /// "maximum": 3,
+        /// "exclusiveMinimum": true,
+        /// "exclusiveMaximum": true,
+        /// "minLength": 1,
+        /// "maxLength": 3,
+        /// "pattern": "string",
+        /// "errorMessage": "string",
+        /// "fallbackValue": "string",
+        /// "createdBy": "61cecec8-629b-4779-b593-6505e2b9443b",
+        /// "createdOn": "2024-06-27T09:55:58.1032117Z",
+        /// "lastModifiedBy": "61cecec8-629b-4779-b593-6505e2b9443b",
+        /// "lastModifiedOn": "2024-06-27T09:55:58.1032117Z"
+        /// }
+        /// ]
+        /// </remarks>
+        /// <param name='workspaceId'>
+        /// </param>
+        /// <param name='customHeaders'>
+        /// The headers that will be added to request.
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        /// <exception cref="Microsoft.Rest.HttpOperationException">
+        /// Thrown when the operation returned an invalid status code
+        /// </exception>
+        /// <exception cref="Microsoft.Rest.SerializationException">
+        /// Thrown when unable to deserialize the response
+        /// </exception>
+        /// <exception cref="Microsoft.Rest.ValidationException">
+        /// Thrown when a required parameter is null
+        /// </exception>
+        Task<HttpOperationResponse<IEnumerable<ColumnValidatorReadDto>>> GetValidatorsListWithHttpMessagesAsync(string workspaceId, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default);
+
+        /// <summary>
+        /// Get list of global validators
+        /// </summary>
+        /// <remarks>
+        /// Sample response:
+        ///
+        /// [
+        /// {
+        /// "id": "10ffec78-4792-4364-babd-e9c45b6f94ab",
+        /// "workspaceId": "196a8ff4-dfbc-4ee7-ae08-4f38b84d9c86",
+        /// "name": "string 3",
+        /// "notEmpty": true,
+        /// "dataFormat": "String",
+        /// "minimum": 0,
+        /// "maximum": 1,
+        /// "exclusiveMinimum": true,
+        /// "exclusiveMaximum": true,
+        /// "minLength": 0,
+        /// "maxLength": 1,
+        /// "pattern": "string",
+        /// "errorMessage": "string",
+        /// "fallbackValue": "string",
+        /// "createdBy": "61cecec8-629b-4779-b593-6505e2b9443b",
+        /// "createdOn": "2024-06-26T14:20:50.1444566Z",
+        /// "lastModifiedBy": "61cecec8-629b-4779-b593-6505e2b9443b",
+        /// "lastModifiedOn": "2024-06-26T14:20:50.1444566Z"
+        /// },
+        /// {
+        /// "id": "834c7130-92bf-428e-acb2-c5567a540106",
+        /// "workspaceId": "196a8ff4-dfbc-4ee7-ae08-4f38b84d9c86",
+        /// "name": "string",
+        /// "notEmpty": true,
+        /// "dataFormat": "String",
+        /// "minimum": 1,
+        /// "maximum": 3,
+        /// "exclusiveMinimum": true,
+        /// "exclusiveMaximum": true,
+        /// "minLength": 1,
+        /// "maxLength": 3,
+        /// "pattern": "string",
+        /// "errorMessage": "string",
+        /// "fallbackValue": "string",
+        /// "createdBy": "61cecec8-629b-4779-b593-6505e2b9443b",
+        /// "createdOn": "2024-06-27T09:55:58.1032117Z",
+        /// "lastModifiedBy": "61cecec8-629b-4779-b593-6505e2b9443b",
+        /// "lastModifiedOn": "2024-06-27T09:55:58.1032117Z"
+        /// }
+        /// ]
+        /// </remarks>
+        /// <param name='workspaceId'>
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        Task<IEnumerable<ColumnValidatorReadDto>> GetValidatorsListAsync(string workspaceId, CancellationToken cancellationToken = default);
+
+        /// <summary>
         /// Gets a column validator by Id
         /// </summary>
         /// <remarks>
@@ -716,55 +689,48 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataWorkbenchApiV2.Interfaces
         Task DeleteValidatorByIdWithWorkspaceAsync(System.Guid workspaceId, System.Guid validatorId, CancellationToken cancellationToken = default);
 
         /// <summary>
-        /// Get list of global validators
+        /// Get a specific schema
         /// </summary>
-        /// <remarks>
-        /// Sample response:
-        ///
-        /// [
-        /// {
-        /// "id": "10ffec78-4792-4364-babd-e9c45b6f94ab",
-        /// "workspaceId": "196a8ff4-dfbc-4ee7-ae08-4f38b84d9c86",
-        /// "name": "string 3",
-        /// "notEmpty": true,
-        /// "dataFormat": "String",
-        /// "minimum": 0,
-        /// "maximum": 1,
-        /// "exclusiveMinimum": true,
-        /// "exclusiveMaximum": true,
-        /// "minLength": 0,
-        /// "maxLength": 1,
-        /// "pattern": "string",
-        /// "errorMessage": "string",
-        /// "fallbackValue": "string",
-        /// "createdBy": "61cecec8-629b-4779-b593-6505e2b9443b",
-        /// "createdOn": "2024-06-26T14:20:50.1444566Z",
-        /// "lastModifiedBy": "61cecec8-629b-4779-b593-6505e2b9443b",
-        /// "lastModifiedOn": "2024-06-26T14:20:50.1444566Z"
-        /// },
-        /// {
-        /// "id": "834c7130-92bf-428e-acb2-c5567a540106",
-        /// "workspaceId": "196a8ff4-dfbc-4ee7-ae08-4f38b84d9c86",
-        /// "name": "string",
-        /// "notEmpty": true,
-        /// "dataFormat": "String",
-        /// "minimum": 1,
-        /// "maximum": 3,
-        /// "exclusiveMinimum": true,
-        /// "exclusiveMaximum": true,
-        /// "minLength": 1,
-        /// "maxLength": 3,
-        /// "pattern": "string",
-        /// "errorMessage": "string",
-        /// "fallbackValue": "string",
-        /// "createdBy": "61cecec8-629b-4779-b593-6505e2b9443b",
-        /// "createdOn": "2024-06-27T09:55:58.1032117Z",
-        /// "lastModifiedBy": "61cecec8-629b-4779-b593-6505e2b9443b",
-        /// "lastModifiedOn": "2024-06-27T09:55:58.1032117Z"
-        /// }
-        /// ]
-        /// </remarks>
         /// <param name='workspaceId'>
+        /// </param>
+        /// <param name='schemaId'>
+        /// </param>
+        /// <param name='customHeaders'>
+        /// The headers that will be added to request.
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        /// <exception cref="Microsoft.Rest.HttpOperationException">
+        /// Thrown when the operation returned an invalid status code
+        /// </exception>
+        /// <exception cref="Microsoft.Rest.SerializationException">
+        /// Thrown when unable to deserialize the response
+        /// </exception>
+        Task<HttpOperationResponse<SchemaReadDto>> GetSchemaByIdWithHttpMessagesAsync(System.Guid workspaceId, System.Guid schemaId, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default);
+
+        /// <summary>
+        /// Get a specific schema
+        /// </summary>
+        /// <param name='workspaceId'>
+        /// </param>
+        /// <param name='schemaId'>
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        Task<SchemaReadDto> GetSchemaByIdAsync(System.Guid workspaceId, System.Guid schemaId, CancellationToken cancellationToken = default);
+
+        /// <summary>
+        /// Patch Schema
+        /// </summary>
+        /// <param name='body'>
+        /// The input describing the schema
+        /// </param>
+        /// <param name='workspaceId'>
+        /// </param>
+        /// <param name='schemaId'>
+        /// Schema Id to edit
         /// </param>
         /// <param name='customHeaders'>
         /// The headers that will be added to request.
@@ -781,63 +747,138 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataWorkbenchApiV2.Interfaces
         /// <exception cref="Microsoft.Rest.ValidationException">
         /// Thrown when a required parameter is null
         /// </exception>
-        Task<HttpOperationResponse<IEnumerable<ColumnValidatorReadDto>>> GetValidatorsListWithHttpMessagesAsync(string workspaceId, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default);
+        Task<HttpOperationResponse<SchemaReadDto>> UpdateSchemaWithHttpMessagesAsync(SchemaPatchDto body, System.Guid workspaceId, System.Guid schemaId, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default);
 
         /// <summary>
-        /// Get list of global validators
+        /// Patch Schema
         /// </summary>
-        /// <remarks>
-        /// Sample response:
-        ///
-        /// [
-        /// {
-        /// "id": "10ffec78-4792-4364-babd-e9c45b6f94ab",
-        /// "workspaceId": "196a8ff4-dfbc-4ee7-ae08-4f38b84d9c86",
-        /// "name": "string 3",
-        /// "notEmpty": true,
-        /// "dataFormat": "String",
-        /// "minimum": 0,
-        /// "maximum": 1,
-        /// "exclusiveMinimum": true,
-        /// "exclusiveMaximum": true,
-        /// "minLength": 0,
-        /// "maxLength": 1,
-        /// "pattern": "string",
-        /// "errorMessage": "string",
-        /// "fallbackValue": "string",
-        /// "createdBy": "61cecec8-629b-4779-b593-6505e2b9443b",
-        /// "createdOn": "2024-06-26T14:20:50.1444566Z",
-        /// "lastModifiedBy": "61cecec8-629b-4779-b593-6505e2b9443b",
-        /// "lastModifiedOn": "2024-06-26T14:20:50.1444566Z"
-        /// },
-        /// {
-        /// "id": "834c7130-92bf-428e-acb2-c5567a540106",
-        /// "workspaceId": "196a8ff4-dfbc-4ee7-ae08-4f38b84d9c86",
-        /// "name": "string",
-        /// "notEmpty": true,
-        /// "dataFormat": "String",
-        /// "minimum": 1,
-        /// "maximum": 3,
-        /// "exclusiveMinimum": true,
-        /// "exclusiveMaximum": true,
-        /// "minLength": 1,
-        /// "maxLength": 3,
-        /// "pattern": "string",
-        /// "errorMessage": "string",
-        /// "fallbackValue": "string",
-        /// "createdBy": "61cecec8-629b-4779-b593-6505e2b9443b",
-        /// "createdOn": "2024-06-27T09:55:58.1032117Z",
-        /// "lastModifiedBy": "61cecec8-629b-4779-b593-6505e2b9443b",
-        /// "lastModifiedOn": "2024-06-27T09:55:58.1032117Z"
-        /// }
-        /// ]
-        /// </remarks>
+        /// <param name='body'>
+        /// The input describing the schema
+        /// </param>
         /// <param name='workspaceId'>
+        /// </param>
+        /// <param name='schemaId'>
+        /// Schema Id to edit
         /// </param>
         /// <param name='cancellationToken'>
         /// The cancellation token.
         /// </param>
-        Task<IEnumerable<ColumnValidatorReadDto>> GetValidatorsListAsync(string workspaceId, CancellationToken cancellationToken = default);
+        Task<SchemaReadDto> UpdateSchemaAsync(SchemaPatchDto body, System.Guid workspaceId, System.Guid schemaId, CancellationToken cancellationToken = default);
+
+        /// <summary>
+        /// Update schema version
+        /// </summary>
+        /// <param name='body'>
+        /// </param>
+        /// <param name='workspaceId'>
+        /// </param>
+        /// <param name='schemaId'>
+        /// </param>
+        /// <param name='schemaVersionId'>
+        /// </param>
+        /// <param name='customHeaders'>
+        /// The headers that will be added to request.
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        /// <exception cref="Microsoft.Rest.HttpOperationException">
+        /// Thrown when the operation returned an invalid status code
+        /// </exception>
+        /// <exception cref="Microsoft.Rest.SerializationException">
+        /// Thrown when unable to deserialize the response
+        /// </exception>
+        /// <exception cref="Microsoft.Rest.ValidationException">
+        /// Thrown when a required parameter is null
+        /// </exception>
+        Task<HttpOperationResponse<SchemaVersionReadDto>> PatchSchemaVersionWithHttpMessagesAsync(SchemaVersionUpdateDto body, System.Guid workspaceId, System.Guid schemaId, System.Guid schemaVersionId, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default);
+
+        /// <summary>
+        /// Update schema version
+        /// </summary>
+        /// <param name='body'>
+        /// </param>
+        /// <param name='workspaceId'>
+        /// </param>
+        /// <param name='schemaId'>
+        /// </param>
+        /// <param name='schemaVersionId'>
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        Task<SchemaVersionReadDto> PatchSchemaVersionAsync(SchemaVersionUpdateDto body, System.Guid workspaceId, System.Guid schemaId, System.Guid schemaVersionId, CancellationToken cancellationToken = default);
+
+        /// <summary>
+        /// Activate schema version
+        /// </summary>
+        /// <param name='workspaceId'>
+        /// </param>
+        /// <param name='schemaId'>
+        /// </param>
+        /// <param name='schemaVersionId'>
+        /// </param>
+        /// <param name='customHeaders'>
+        /// The headers that will be added to request.
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        /// <exception cref="Microsoft.Rest.HttpOperationException">
+        /// Thrown when the operation returned an invalid status code
+        /// </exception>
+        /// <exception cref="Microsoft.Rest.SerializationException">
+        /// Thrown when unable to deserialize the response
+        /// </exception>
+        Task<HttpOperationResponse<SchemaVersionReadDto>> ActivateSchemaVersionWithHttpMessagesAsync(System.Guid workspaceId, System.Guid schemaId, System.Guid schemaVersionId, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default);
+
+        /// <summary>
+        /// Activate schema version
+        /// </summary>
+        /// <param name='workspaceId'>
+        /// </param>
+        /// <param name='schemaId'>
+        /// </param>
+        /// <param name='schemaVersionId'>
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        Task<SchemaVersionReadDto> ActivateSchemaVersionAsync(System.Guid workspaceId, System.Guid schemaId, System.Guid schemaVersionId, CancellationToken cancellationToken = default);
+
+        /// <summary>
+        /// Locks a schema version
+        /// </summary>
+        /// <param name='workspaceId'>
+        /// </param>
+        /// <param name='schemaId'>
+        /// </param>
+        /// <param name='versionId'>
+        /// </param>
+        /// <param name='customHeaders'>
+        /// The headers that will be added to request.
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        /// <exception cref="Microsoft.Rest.HttpOperationException">
+        /// Thrown when the operation returned an invalid status code
+        /// </exception>
+        Task<HttpOperationResponse> LockSchemaVersionWithHttpMessagesAsync(System.Guid workspaceId, System.Guid schemaId, System.Guid versionId, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default);
+
+        /// <summary>
+        /// Locks a schema version
+        /// </summary>
+        /// <param name='workspaceId'>
+        /// </param>
+        /// <param name='schemaId'>
+        /// </param>
+        /// <param name='versionId'>
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        Task LockSchemaVersionAsync(System.Guid workspaceId, System.Guid schemaId, System.Guid versionId, CancellationToken cancellationToken = default);
 
     }
 }

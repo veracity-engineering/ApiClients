@@ -22,12 +22,12 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataWorkbenchApiV2
     using System.Threading.Tasks;
 
     /// <summary>
-    /// Ingest operations.
+    /// ShareRequests operations.
     /// </summary>
-    public partial class Ingest : IServiceOperations<DataWorkbenchApiV2Client>, IIngest
+    public partial class ShareRequests : IServiceOperations<DataWorkbenchApiV2Client>, IShareRequests
     {
         /// <summary>
-        /// Initializes a new instance of the Ingest class.
+        /// Initializes a new instance of the ShareRequests class.
         /// </summary>
         /// <param name='client'>
         /// Reference to the service client.
@@ -35,7 +35,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataWorkbenchApiV2
         /// <exception cref="System.ArgumentNullException">
         /// Thrown when a required parameter is null
         /// </exception>
-        public Ingest(DataWorkbenchApiV2Client client)
+        public ShareRequests(DataWorkbenchApiV2Client client)
         {
             if (client == null)
             {
@@ -50,181 +50,60 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataWorkbenchApiV2
         public DataWorkbenchApiV2Client Client { get; private set; }
 
         /// <summary>
-        /// Get data ingest endpoint for current workspace
+        /// Create a share request
         /// </summary>
         /// <remarks>
-        /// Sample request
+        /// Sample request:
         ///
-        /// dfs:
-        /// POST {workspaceId}/Ingest?type=dfs
-        /// POST
-        /// {workspaceId}/Ingest?datasetId=be072260-78d9-4e14-ac16-942284026577&amp;type=dfs
-        /// blob:
-        /// POST {workspaceId}/Ingest?type=blob
-        /// POST
-        /// {workspaceId}/Ingest?datasetId=be072260-78d9-4e14-ac16-942284026577&amp;type=blob
+        /// {
+        /// "receiverWorkspaceId": "a33060fe-de8f-469c-8cb2-864753f46d64",
+        /// "schemaVersionId": "75ef9474-089f-4f77-9bcf-63cf9658387e",
+        /// "columns": [
+        /// "IMO",
+        /// "Vessel_Name"
+        /// ],
+        /// "queryFilters": [
+        /// {
+        /// "column": "IMO",
+        /// "filterType": "List",
+        /// "filterValues": [
+        /// "9226425",
+        /// "9626053"
+        /// ]
+        /// }
+        /// ],
+        /// "notes": "Test notes"
+        /// }
         ///
-        /// Sample response
+        /// Sample response:
         ///
-        /// dfs:
-        /// https://{domain}.dfs.core.windows.net/196a8ff4-dfbc-4ee7-ae08-4f38b84d9c86/a16d1d0d-2b92-4e71-b2a1-2931ce61c863/Raw?sv=2023-11-03&amp;spr=https&amp;st=2024-07-12T01%3A55%3A12Z&amp;se=2024-07-12T02%3A10%3A12Z&amp;sr=d&amp;sp=cw&amp;sdd=2&amp;sig=%2BaxD8B250vI0bJn9u8KHRv7duvLjqXlhOfVBOCi5Cqo%3D
-        /// blob:
-        /// https://{domain}.blob.core.windows.net/196a8ff4-dfbc-4ee7-ae08-4f38b84d9c86/f5a0ef4c-e76f-4d1c-9b0d-947c8b7923ff/Raw?sv=2023-11-03&amp;spr=https&amp;st=2024-07-12T01%3A56%3A01Z&amp;se=2024-07-12T02%3A11%3A01Z&amp;sr=d&amp;sp=cw&amp;sdd=2&amp;sig=EzfaySpQ5hAN2eLEAPp4vhRIyvMUDikD4iFKDmagpKM%3D
+        /// {
+        /// "id": "1a940e6a-2e2e-4cc9-894d-807cb2d90d5f",
+        /// "requestorWorkspaceId": "196a8ff4-dfbc-4ee7-ae08-4f38b84d9c86",
+        /// "receiverWorkspaceId": "a33060fe-de8f-469c-8cb2-864753f46d64",
+        /// "datasetRequestId": "6113fcaa-a29e-4804-b9a9-dac331676ee8",
+        /// "schemaId": "28c9e18d-8beb-44a4-92c1-7cea2587977b",
+        /// "schemaVersionId": "75ef9474-089f-4f77-9bcf-63cf9658387e",
+        /// "columns": [
+        /// "IMO",
+        /// "Vessel_Name"
+        /// ],
+        /// "queryFilters": [
+        /// {
+        /// "column": "IMO",
+        /// "filterType": "List",
+        /// "filterValues": [
+        /// "9226425",
+        /// "9626053"
+        /// ]
+        /// }
+        /// ],
+        /// "notes": "Test notes",
+        /// "status": "New",
+        /// "createdBy": "55da50ee-20af-4bf1-aa7f-b5a64e72f09d",
+        /// "createdOn": "2025-02-26T10:13:08.4101697Z"
+        /// }
         /// </remarks>
-        /// <param name='workspaceId'>
-        /// </param>
-        /// <param name='datasetId'>
-        /// </param>
-        /// <param name='type'>
-        /// Possible values include: 'dfs', 'blob'
-        /// </param>
-        /// <param name='customHeaders'>
-        /// Headers that will be added to request.
-        /// </param>
-        /// <param name='cancellationToken'>
-        /// The cancellation token.
-        /// </param>
-        /// <exception cref="HttpOperationException">
-        /// Thrown when the operation returned an invalid status code
-        /// </exception>
-        /// <exception cref="SerializationException">
-        /// Thrown when unable to deserialize the response
-        /// </exception>
-        /// <return>
-        /// A response object containing the response body and response headers.
-        /// </return>
-        public async Task<HttpOperationResponse<string>> GenerateByodStorageWithHttpMessagesAsync(System.Guid workspaceId, System.Guid? datasetId = default, string type = default, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default)
-        {
-            // Construct URL
-            var _baseUrl = Client.HttpClient.BaseAddress?.AbsoluteUri ?? Client.BaseUri.AbsoluteUri;
-            var _url = new System.Uri(new System.Uri(_baseUrl + (_baseUrl.EndsWith("/") ? "" : "/")), "workspaces/{workspaceId}/ingest").ToString();
-            _url = _url.Replace("{workspaceId}", System.Uri.EscapeDataString(Microsoft.Rest.Serialization.SafeJsonConvert.SerializeObject(workspaceId, Client.SerializationSettings).Trim('"')));
-            IList<string> _queryParameters = new List<string>();
-            if (datasetId != null)
-            {
-                _queryParameters.Add(string.Format("datasetId={0}", System.Uri.EscapeDataString(Microsoft.Rest.Serialization.SafeJsonConvert.SerializeObject(datasetId, Client.SerializationSettings).Trim('"'))));
-            }
-            if (type != null)
-            {
-                _queryParameters.Add(string.Format("type={0}", System.Uri.EscapeDataString(Microsoft.Rest.Serialization.SafeJsonConvert.SerializeObject(type, Client.SerializationSettings).Trim('"'))));
-            }
-            if (_queryParameters.Any())
-            {
-                _url += "?" + string.Join("&", _queryParameters);
-            }
-            // Create HTTP transport objects
-            var _httpRequest = new HttpRequestMessage();
-            HttpResponseMessage _httpResponse = null;
-            _httpRequest.Method = new HttpMethod("POST");
-            _httpRequest.RequestUri = new System.Uri(_url);
-            // Set Headers
-
-
-            if (customHeaders != null)
-            {
-                foreach(var _header in customHeaders)
-                {
-                    if (_httpRequest.Headers.Contains(_header.Key))
-                    {
-                        _httpRequest.Headers.Remove(_header.Key);
-                    }
-                    _httpRequest.Headers.TryAddWithoutValidation(_header.Key, _header.Value);
-                }
-            }
-
-            // Serialize Request
-            string _requestContent = null;
-            // Send Request
-            cancellationToken.ThrowIfCancellationRequested();
-            _httpResponse = await Client.HttpClient.SendAsync(_httpRequest, cancellationToken).ConfigureAwait(false);
-            HttpStatusCode _statusCode = _httpResponse.StatusCode;
-            cancellationToken.ThrowIfCancellationRequested();
-            string _responseContent = null;
-            if ((int)_statusCode != 200)
-            {
-                var ex = new HttpOperationException(string.Format("Operation returned an invalid status code '{0}'", _statusCode));
-                if (_httpResponse.Content != null) {
-                    _responseContent = await _httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
-                }
-                else {
-                    _responseContent = string.Empty;
-                }
-                ex.Request = new HttpRequestMessageWrapper(_httpRequest, _requestContent);
-                ex.Response = new HttpResponseMessageWrapper(_httpResponse, _responseContent);
-                _httpRequest.Dispose();
-                if (_httpResponse != null)
-                {
-                    _httpResponse.Dispose();
-                }
-                throw ex;
-            }
-            // Create Result
-            var _result = new HttpOperationResponse<string>();
-            _result.Request = _httpRequest;
-            _result.Response = _httpResponse;
-            // Deserialize Response
-            if ((int)_statusCode == 200)
-            {
-                _responseContent = await _httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
-                try
-                {
-                    _result.Body = Microsoft.Rest.Serialization.SafeJsonConvert.DeserializeObject<string>(_responseContent, Client.DeserializationSettings);
-                }
-                catch (JsonException ex)
-                {
-                    _httpRequest.Dispose();
-                    if (_httpResponse != null)
-                    {
-                        _httpResponse.Dispose();
-                    }
-                    throw new SerializationException("Unable to deserialize the response.", _responseContent, ex);
-                }
-            }
-            return _result;
-        }
-        /// <summary>
-        /// Get data ingest endpoint for current workspace
-        /// </summary>
-        /// <remarks>
-        /// Sample request
-        ///
-        /// dfs:
-        /// POST {workspaceId}/Ingest?type=dfs
-        /// POST
-        /// {workspaceId}/Ingest?datasetId=be072260-78d9-4e14-ac16-942284026577&amp;type=dfs
-        /// blob:
-        /// POST {workspaceId}/Ingest?type=blob
-        /// POST
-        /// {workspaceId}/Ingest?datasetId=be072260-78d9-4e14-ac16-942284026577&amp;type=blob
-        ///
-        /// Sample response
-        ///
-        /// dfs:
-        /// https://{domain}.dfs.core.windows.net/196a8ff4-dfbc-4ee7-ae08-4f38b84d9c86/a16d1d0d-2b92-4e71-b2a1-2931ce61c863/Raw?sv=2023-11-03&amp;spr=https&amp;st=2024-07-12T01%3A55%3A12Z&amp;se=2024-07-12T02%3A10%3A12Z&amp;sr=d&amp;sp=cw&amp;sdd=2&amp;sig=%2BaxD8B250vI0bJn9u8KHRv7duvLjqXlhOfVBOCi5Cqo%3D
-        /// blob:
-        /// https://{domain}.blob.core.windows.net/196a8ff4-dfbc-4ee7-ae08-4f38b84d9c86/f5a0ef4c-e76f-4d1c-9b0d-947c8b7923ff/Raw?sv=2023-11-03&amp;spr=https&amp;st=2024-07-12T01%3A56%3A01Z&amp;se=2024-07-12T02%3A11%3A01Z&amp;sr=d&amp;sp=cw&amp;sdd=2&amp;sig=EzfaySpQ5hAN2eLEAPp4vhRIyvMUDikD4iFKDmagpKM%3D
-        /// </remarks>
-        /// <param name='workspaceId'>
-        /// </param>
-        /// <param name='datasetId'>
-        /// </param>
-        /// <param name='type'>
-        /// Possible values include: 'dfs', 'blob'
-        /// </param>
-        /// <param name='cancellationToken'>
-        /// The cancellation token.
-        /// </param>
-        public async Task<string> GenerateByodStorageAsync(System.Guid workspaceId, System.Guid? datasetId = default, string type = default, CancellationToken cancellationToken = default)
-        {
-            using (var _result = await GenerateByodStorageWithHttpMessagesAsync(workspaceId, datasetId, type, null, cancellationToken).ConfigureAwait(false))
-            {
-                return _result.Body;
-            }
-        }
-
-        /// <summary>
-        /// Import a dataset to the workspace
-        /// </summary>
         /// <param name='body'>
         /// </param>
         /// <param name='workspaceId'>
@@ -250,7 +129,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataWorkbenchApiV2
         /// <return>
         /// A response object containing the response body and response headers.
         /// </return>
-        public async Task<HttpOperationResponse<DataCatalogReadDtoV2>> ImportDatasetWithHttpMessagesAsync(ImportDatasetDTO body, System.Guid workspaceId, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default)
+        public async Task<HttpOperationResponse<ShareRequestDto>> CreateShareRequestWithHttpMessagesAsync(ShareRequestCreationDto body, System.Guid workspaceId, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default)
         {
             if (body == null)
             {
@@ -258,7 +137,255 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataWorkbenchApiV2
             }
             // Construct URL
             var _baseUrl = Client.HttpClient.BaseAddress?.AbsoluteUri ?? Client.BaseUri.AbsoluteUri;
-            var _url = new System.Uri(new System.Uri(_baseUrl + (_baseUrl.EndsWith("/") ? "" : "/")), "workspaces/{workspaceId}/ingest/datasets/import").ToString();
+            var _url = new System.Uri(new System.Uri(_baseUrl + (_baseUrl.EndsWith("/") ? "" : "/")), "workspaces/{workspaceId}/sharerequests").ToString();
+            _url = _url.Replace("{workspaceId}", System.Uri.EscapeDataString(Microsoft.Rest.Serialization.SafeJsonConvert.SerializeObject(workspaceId, Client.SerializationSettings).Trim('"')));
+            // Create HTTP transport objects
+            var _httpRequest = new HttpRequestMessage();
+            HttpResponseMessage _httpResponse = null;
+            _httpRequest.Method = new HttpMethod("POST");
+            _httpRequest.RequestUri = new System.Uri(_url);
+            // Set Headers
+
+
+            if (customHeaders != null)
+            {
+                foreach(var _header in customHeaders)
+                {
+                    if (_httpRequest.Headers.Contains(_header.Key))
+                    {
+                        _httpRequest.Headers.Remove(_header.Key);
+                    }
+                    _httpRequest.Headers.TryAddWithoutValidation(_header.Key, _header.Value);
+                }
+            }
+
+            // Serialize Request
+            string _requestContent = null;
+            if(body != null)
+            {
+                _requestContent = Microsoft.Rest.Serialization.SafeJsonConvert.SerializeObject(body, Client.SerializationSettings);
+                _httpRequest.Content = new StringContent(_requestContent, System.Text.Encoding.UTF8);
+                _httpRequest.Content.Headers.ContentType =System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json; charset=utf-8");
+            }
+            // Send Request
+            cancellationToken.ThrowIfCancellationRequested();
+            _httpResponse = await Client.HttpClient.SendAsync(_httpRequest, cancellationToken).ConfigureAwait(false);
+            HttpStatusCode _statusCode = _httpResponse.StatusCode;
+            cancellationToken.ThrowIfCancellationRequested();
+            string _responseContent = null;
+            if ((int)_statusCode != 201)
+            {
+                var ex = new HttpOperationException(string.Format("Operation returned an invalid status code '{0}'", _statusCode));
+                if (_httpResponse.Content != null) {
+                    _responseContent = await _httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
+                }
+                else {
+                    _responseContent = string.Empty;
+                }
+                ex.Request = new HttpRequestMessageWrapper(_httpRequest, _requestContent);
+                ex.Response = new HttpResponseMessageWrapper(_httpResponse, _responseContent);
+                _httpRequest.Dispose();
+                if (_httpResponse != null)
+                {
+                    _httpResponse.Dispose();
+                }
+                throw ex;
+            }
+            // Create Result
+            var _result = new HttpOperationResponse<ShareRequestDto>();
+            _result.Request = _httpRequest;
+            _result.Response = _httpResponse;
+            // Deserialize Response
+            if ((int)_statusCode == 201)
+            {
+                _responseContent = await _httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
+                try
+                {
+                    _result.Body = Microsoft.Rest.Serialization.SafeJsonConvert.DeserializeObject<ShareRequestDto>(_responseContent, Client.DeserializationSettings);
+                }
+                catch (JsonException ex)
+                {
+                    _httpRequest.Dispose();
+                    if (_httpResponse != null)
+                    {
+                        _httpResponse.Dispose();
+                    }
+                    throw new SerializationException("Unable to deserialize the response.", _responseContent, ex);
+                }
+            }
+            return _result;
+        }
+        /// <summary>
+        /// Create a share request
+        /// </summary>
+        /// <remarks>
+        /// Sample request:
+        ///
+        /// {
+        /// "receiverWorkspaceId": "a33060fe-de8f-469c-8cb2-864753f46d64",
+        /// "schemaVersionId": "75ef9474-089f-4f77-9bcf-63cf9658387e",
+        /// "columns": [
+        /// "IMO",
+        /// "Vessel_Name"
+        /// ],
+        /// "queryFilters": [
+        /// {
+        /// "column": "IMO",
+        /// "filterType": "List",
+        /// "filterValues": [
+        /// "9226425",
+        /// "9626053"
+        /// ]
+        /// }
+        /// ],
+        /// "notes": "Test notes"
+        /// }
+        ///
+        /// Sample response:
+        ///
+        /// {
+        /// "id": "1a940e6a-2e2e-4cc9-894d-807cb2d90d5f",
+        /// "requestorWorkspaceId": "196a8ff4-dfbc-4ee7-ae08-4f38b84d9c86",
+        /// "receiverWorkspaceId": "a33060fe-de8f-469c-8cb2-864753f46d64",
+        /// "datasetRequestId": "6113fcaa-a29e-4804-b9a9-dac331676ee8",
+        /// "schemaId": "28c9e18d-8beb-44a4-92c1-7cea2587977b",
+        /// "schemaVersionId": "75ef9474-089f-4f77-9bcf-63cf9658387e",
+        /// "columns": [
+        /// "IMO",
+        /// "Vessel_Name"
+        /// ],
+        /// "queryFilters": [
+        /// {
+        /// "column": "IMO",
+        /// "filterType": "List",
+        /// "filterValues": [
+        /// "9226425",
+        /// "9626053"
+        /// ]
+        /// }
+        /// ],
+        /// "notes": "Test notes",
+        /// "status": "New",
+        /// "createdBy": "55da50ee-20af-4bf1-aa7f-b5a64e72f09d",
+        /// "createdOn": "2025-02-26T10:13:08.4101697Z"
+        /// }
+        /// </remarks>
+        /// <param name='body'>
+        /// </param>
+        /// <param name='workspaceId'>
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        public async Task<ShareRequestDto> CreateShareRequestAsync(ShareRequestCreationDto body, System.Guid workspaceId, CancellationToken cancellationToken = default)
+        {
+            using (var _result = await CreateShareRequestWithHttpMessagesAsync(body, workspaceId, null, cancellationToken).ConfigureAwait(false))
+            {
+                return _result.Body;
+            }
+        }
+
+        /// <summary>
+        /// Retrieves all share requests requested from the workspace or share requests
+        /// requested to the workspace
+        /// </summary>
+        /// <remarks>
+        /// Sample request(following parameters are optional except pageIndex):
+        ///
+        /// {
+        /// "pageIndex": 1,
+        /// "pageSize": 10,
+        /// "sortColumn": "Status",
+        /// "sortDirection": "Ascending",
+        /// "isRequestor": true,
+        /// "schemaIds": [
+        /// "28c9e18d-8beb-44a4-92c1-7cea2587977b"
+        /// ],
+        /// "schemaVersionIds": [
+        /// "75ef9474-089f-4f77-9bcf-63cf9658387e"
+        /// ],
+        /// "workspaceIds": [
+        /// "a33060fe-de8f-469c-8cb2-864753f46d64"
+        /// ],
+        /// "statuses": [
+        /// "New"
+        /// ]
+        /// }
+        ///
+        /// Sample response:
+        ///
+        /// {
+        /// "result": [
+        /// {
+        /// "id": "1a940e6a-2e2e-4cc9-894d-807cb2d90d5f",
+        /// "requestorWorkspaceId": "196a8ff4-dfbc-4ee7-ae08-4f38b84d9c86",
+        /// "receiverWorkspaceId": "a33060fe-de8f-469c-8cb2-864753f46d64",
+        /// "datasetRequestId": "5faf4e0a-0a12-4eb9-a82f-a71d076ebc33",
+        /// "schemaId": "28c9e18d-8beb-44a4-92c1-7cea2587977b",
+        /// "schemaVersionId": "75ef9474-089f-4f77-9bcf-63cf9658387e",
+        /// "columns": [
+        /// "IMO",
+        /// "Vessel_Name"
+        /// ],
+        /// "queryFilters": [
+        /// {
+        /// "column": "IMO",
+        /// "filterType": "List",
+        /// "filterValues": [
+        /// "9226425",
+        /// "9626053"
+        /// ]
+        /// }
+        /// ],
+        /// "associatedShareId": "6f9d46bd-76b4-4b79-95fa-a2c5abd2bec7",
+        /// "notes": "Test notes",
+        /// "status": "New",
+        /// "createdBy": "55da50ee-20af-4bf1-aa7f-b5a64e72f09d",
+        /// "createdOn": "2025-02-26T10:13:08.4101697Z"
+        /// }
+        /// ],
+        /// "pageIndex": 1,
+        /// "pageSize": 10,
+        /// "totalCount": 1,
+        /// "totalPages": 1
+        /// }
+        /// </remarks>
+        /// <param name='body'>
+        /// </param>
+        /// <param name='workspaceId'>
+        /// Id of workspace(It can be a requestor workspace or a receiver workspace
+        /// based on 'IsRequestor' query parameter)
+        /// </param>
+        /// <param name='customHeaders'>
+        /// Headers that will be added to request.
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        /// <exception cref="HttpOperationException">
+        /// Thrown when the operation returned an invalid status code
+        /// </exception>
+        /// <exception cref="SerializationException">
+        /// Thrown when unable to deserialize the response
+        /// </exception>
+        /// <exception cref="ValidationException">
+        /// Thrown when a required parameter is null
+        /// </exception>
+        /// <exception cref="System.ArgumentNullException">
+        /// Thrown when a required parameter is null
+        /// </exception>
+        /// <return>
+        /// A response object containing the response body and response headers.
+        /// </return>
+        public async Task<HttpOperationResponse<ShareRequestDtoPaginatedResult>> QueryShareRequestsWithHttpMessagesAsync(QueryShareRequestDto body, System.Guid workspaceId, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default)
+        {
+            if (body == null)
+            {
+                throw new ValidationException(ValidationRules.CannotBeNull, "body");
+            }
+            // Construct URL
+            var _baseUrl = Client.HttpClient.BaseAddress?.AbsoluteUri ?? Client.BaseUri.AbsoluteUri;
+            var _url = new System.Uri(new System.Uri(_baseUrl + (_baseUrl.EndsWith("/") ? "" : "/")), "workspaces/{workspaceId}/sharerequests/query").ToString();
             _url = _url.Replace("{workspaceId}", System.Uri.EscapeDataString(Microsoft.Rest.Serialization.SafeJsonConvert.SerializeObject(workspaceId, Client.SerializationSettings).Trim('"')));
             // Create HTTP transport objects
             var _httpRequest = new HttpRequestMessage();
@@ -313,7 +440,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataWorkbenchApiV2
                 throw ex;
             }
             // Create Result
-            var _result = new HttpOperationResponse<DataCatalogReadDtoV2>();
+            var _result = new HttpOperationResponse<ShareRequestDtoPaginatedResult>();
             _result.Request = _httpRequest;
             _result.Response = _httpResponse;
             // Deserialize Response
@@ -322,7 +449,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataWorkbenchApiV2
                 _responseContent = await _httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
                 try
                 {
-                    _result.Body = Microsoft.Rest.Serialization.SafeJsonConvert.DeserializeObject<DataCatalogReadDtoV2>(_responseContent, Client.DeserializationSettings);
+                    _result.Body = Microsoft.Rest.Serialization.SafeJsonConvert.DeserializeObject<ShareRequestDtoPaginatedResult>(_responseContent, Client.DeserializationSettings);
                 }
                 catch (JsonException ex)
                 {
@@ -337,45 +464,129 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataWorkbenchApiV2
             return _result;
         }
         /// <summary>
-        /// Import a dataset to the workspace
+        /// Retrieves all share requests requested from the workspace or share requests
+        /// requested to the workspace
         /// </summary>
+        /// <remarks>
+        /// Sample request(following parameters are optional except pageIndex):
+        ///
+        /// {
+        /// "pageIndex": 1,
+        /// "pageSize": 10,
+        /// "sortColumn": "Status",
+        /// "sortDirection": "Ascending",
+        /// "isRequestor": true,
+        /// "schemaIds": [
+        /// "28c9e18d-8beb-44a4-92c1-7cea2587977b"
+        /// ],
+        /// "schemaVersionIds": [
+        /// "75ef9474-089f-4f77-9bcf-63cf9658387e"
+        /// ],
+        /// "workspaceIds": [
+        /// "a33060fe-de8f-469c-8cb2-864753f46d64"
+        /// ],
+        /// "statuses": [
+        /// "New"
+        /// ]
+        /// }
+        ///
+        /// Sample response:
+        ///
+        /// {
+        /// "result": [
+        /// {
+        /// "id": "1a940e6a-2e2e-4cc9-894d-807cb2d90d5f",
+        /// "requestorWorkspaceId": "196a8ff4-dfbc-4ee7-ae08-4f38b84d9c86",
+        /// "receiverWorkspaceId": "a33060fe-de8f-469c-8cb2-864753f46d64",
+        /// "datasetRequestId": "5faf4e0a-0a12-4eb9-a82f-a71d076ebc33",
+        /// "schemaId": "28c9e18d-8beb-44a4-92c1-7cea2587977b",
+        /// "schemaVersionId": "75ef9474-089f-4f77-9bcf-63cf9658387e",
+        /// "columns": [
+        /// "IMO",
+        /// "Vessel_Name"
+        /// ],
+        /// "queryFilters": [
+        /// {
+        /// "column": "IMO",
+        /// "filterType": "List",
+        /// "filterValues": [
+        /// "9226425",
+        /// "9626053"
+        /// ]
+        /// }
+        /// ],
+        /// "associatedShareId": "6f9d46bd-76b4-4b79-95fa-a2c5abd2bec7",
+        /// "notes": "Test notes",
+        /// "status": "New",
+        /// "createdBy": "55da50ee-20af-4bf1-aa7f-b5a64e72f09d",
+        /// "createdOn": "2025-02-26T10:13:08.4101697Z"
+        /// }
+        /// ],
+        /// "pageIndex": 1,
+        /// "pageSize": 10,
+        /// "totalCount": 1,
+        /// "totalPages": 1
+        /// }
+        /// </remarks>
         /// <param name='body'>
         /// </param>
         /// <param name='workspaceId'>
+        /// Id of workspace(It can be a requestor workspace or a receiver workspace
+        /// based on 'IsRequestor' query parameter)
         /// </param>
         /// <param name='cancellationToken'>
         /// The cancellation token.
         /// </param>
-        public async Task<DataCatalogReadDtoV2> ImportDatasetAsync(ImportDatasetDTO body, System.Guid workspaceId, CancellationToken cancellationToken = default)
+        public async Task<ShareRequestDtoPaginatedResult> QueryShareRequestsAsync(QueryShareRequestDto body, System.Guid workspaceId, CancellationToken cancellationToken = default)
         {
-            using (var _result = await ImportDatasetWithHttpMessagesAsync(body, workspaceId, null, cancellationToken).ConfigureAwait(false))
+            using (var _result = await QueryShareRequestsWithHttpMessagesAsync(body, workspaceId, null, cancellationToken).ConfigureAwait(false))
             {
                 return _result.Body;
             }
         }
 
         /// <summary>
-        /// Retrieve the content of the BYOD status file
+        /// Get share request
         /// </summary>
         /// <remarks>
-        /// Sample Response
+        /// Sample request:
+        ///
+        /// GET /api/v2/{workspaceId}/shareRequests/{shareRequestId}
+        /// /api/v2/196a8ff4-dfbc-4ee7-ae08-4f38b84d9c86/shareRequests/348b5dcf-edff-415b-9259-384b20932fc0
+        ///
+        /// Sample response:
         ///
         /// {
-        /// "status": "Started",
-        /// "correlationId": "203bfa0b-86c3-4467-a3b0-d2eb415a96cc",
-        /// "fileName": "TestUpload.csv"
+        /// "id": "1a940e6a-2e2e-4cc9-894d-807cb2d90d5f",
+        /// "requestorWorkspaceId": "196a8ff4-dfbc-4ee7-ae08-4f38b84d9c86",
+        /// "receiverWorkspaceId": "a33060fe-de8f-469c-8cb2-864753f46d64",
+        /// "datasetRequestId": "6113fcaa-a29e-4804-b9a9-dac331676ee8",
+        /// "schemaId": "28c9e18d-8beb-44a4-92c1-7cea2587977b",
+        /// "schemaVersionId": "75ef9474-089f-4f77-9bcf-63cf9658387e",
+        /// "columns": [
+        /// "IMO",
+        /// "Vessel_Name"
+        /// ],
+        /// "queryFilters": [
+        /// {
+        /// "column": "IMO",
+        /// "filterType": "List",
+        /// "filterValues": [
+        /// "9226425",
+        /// "9626053"
+        /// ]
         /// }
-        ///
-        /// {
-        /// "status": "Completed",
-        /// "correlationId": "203bfa0b-86c3-4467-a3b0-d2eb415a96cc",
-        /// "fileName": "TestUpload.csv",
-        /// "dataSetName": "TestUploadLILN"
+        /// ],
+        /// "associatedShareId": "4c46787e-946a-4265-9574-aaa1a1e4d2f0",
+        /// "notes": "Test notes",
+        /// "status": "New",
+        /// "createdBy": "55da50ee-20af-4bf1-aa7f-b5a64e72f09d",
+        /// "createdOn": "2025-02-26T10:13:08.4101697Z"
         /// }
         /// </remarks>
         /// <param name='workspaceId'>
         /// </param>
-        /// <param name='requestId'>
+        /// <param name='shareRequestId'>
         /// </param>
         /// <param name='customHeaders'>
         /// Headers that will be added to request.
@@ -392,13 +603,13 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataWorkbenchApiV2
         /// <return>
         /// A response object containing the response body and response headers.
         /// </return>
-        public async Task<HttpOperationResponse<StatusLogModel>> GetStatusLogWithHttpMessagesAsync(System.Guid workspaceId, System.Guid requestId, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default)
+        public async Task<HttpOperationResponse<ShareRequestDto>> GetShareRequestWithHttpMessagesAsync(System.Guid workspaceId, System.Guid shareRequestId, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default)
         {
             // Construct URL
             var _baseUrl = Client.HttpClient.BaseAddress?.AbsoluteUri ?? Client.BaseUri.AbsoluteUri;
-            var _url = new System.Uri(new System.Uri(_baseUrl + (_baseUrl.EndsWith("/") ? "" : "/")), "workspaces/{workspaceId}/ingest/{requestId}/status").ToString();
+            var _url = new System.Uri(new System.Uri(_baseUrl + (_baseUrl.EndsWith("/") ? "" : "/")), "workspaces/{workspaceId}/sharerequests/{shareRequestId}").ToString();
             _url = _url.Replace("{workspaceId}", System.Uri.EscapeDataString(Microsoft.Rest.Serialization.SafeJsonConvert.SerializeObject(workspaceId, Client.SerializationSettings).Trim('"')));
-            _url = _url.Replace("{requestId}", System.Uri.EscapeDataString(Microsoft.Rest.Serialization.SafeJsonConvert.SerializeObject(requestId, Client.SerializationSettings).Trim('"')));
+            _url = _url.Replace("{shareRequestId}", System.Uri.EscapeDataString(Microsoft.Rest.Serialization.SafeJsonConvert.SerializeObject(shareRequestId, Client.SerializationSettings).Trim('"')));
             // Create HTTP transport objects
             var _httpRequest = new HttpRequestMessage();
             HttpResponseMessage _httpResponse = null;
@@ -446,7 +657,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataWorkbenchApiV2
                 throw ex;
             }
             // Create Result
-            var _result = new HttpOperationResponse<StatusLogModel>();
+            var _result = new HttpOperationResponse<ShareRequestDto>();
             _result.Request = _httpRequest;
             _result.Response = _httpResponse;
             // Deserialize Response
@@ -455,7 +666,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataWorkbenchApiV2
                 _responseContent = await _httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
                 try
                 {
-                    _result.Body = Microsoft.Rest.Serialization.SafeJsonConvert.DeserializeObject<StatusLogModel>(_responseContent, Client.DeserializationSettings);
+                    _result.Body = Microsoft.Rest.Serialization.SafeJsonConvert.DeserializeObject<ShareRequestDto>(_responseContent, Client.DeserializationSettings);
                 }
                 catch (JsonException ex)
                 {
@@ -470,34 +681,54 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataWorkbenchApiV2
             return _result;
         }
         /// <summary>
-        /// Retrieve the content of the BYOD status file
+        /// Get share request
         /// </summary>
         /// <remarks>
-        /// Sample Response
+        /// Sample request:
+        ///
+        /// GET /api/v2/{workspaceId}/shareRequests/{shareRequestId}
+        /// /api/v2/196a8ff4-dfbc-4ee7-ae08-4f38b84d9c86/shareRequests/348b5dcf-edff-415b-9259-384b20932fc0
+        ///
+        /// Sample response:
         ///
         /// {
-        /// "status": "Started",
-        /// "correlationId": "203bfa0b-86c3-4467-a3b0-d2eb415a96cc",
-        /// "fileName": "TestUpload.csv"
+        /// "id": "1a940e6a-2e2e-4cc9-894d-807cb2d90d5f",
+        /// "requestorWorkspaceId": "196a8ff4-dfbc-4ee7-ae08-4f38b84d9c86",
+        /// "receiverWorkspaceId": "a33060fe-de8f-469c-8cb2-864753f46d64",
+        /// "datasetRequestId": "6113fcaa-a29e-4804-b9a9-dac331676ee8",
+        /// "schemaId": "28c9e18d-8beb-44a4-92c1-7cea2587977b",
+        /// "schemaVersionId": "75ef9474-089f-4f77-9bcf-63cf9658387e",
+        /// "columns": [
+        /// "IMO",
+        /// "Vessel_Name"
+        /// ],
+        /// "queryFilters": [
+        /// {
+        /// "column": "IMO",
+        /// "filterType": "List",
+        /// "filterValues": [
+        /// "9226425",
+        /// "9626053"
+        /// ]
         /// }
-        ///
-        /// {
-        /// "status": "Completed",
-        /// "correlationId": "203bfa0b-86c3-4467-a3b0-d2eb415a96cc",
-        /// "fileName": "TestUpload.csv",
-        /// "dataSetName": "TestUploadLILN"
+        /// ],
+        /// "associatedShareId": "4c46787e-946a-4265-9574-aaa1a1e4d2f0",
+        /// "notes": "Test notes",
+        /// "status": "New",
+        /// "createdBy": "55da50ee-20af-4bf1-aa7f-b5a64e72f09d",
+        /// "createdOn": "2025-02-26T10:13:08.4101697Z"
         /// }
         /// </remarks>
         /// <param name='workspaceId'>
         /// </param>
-        /// <param name='requestId'>
+        /// <param name='shareRequestId'>
         /// </param>
         /// <param name='cancellationToken'>
         /// The cancellation token.
         /// </param>
-        public async Task<StatusLogModel> GetStatusLogAsync(System.Guid workspaceId, System.Guid requestId, CancellationToken cancellationToken = default)
+        public async Task<ShareRequestDto> GetShareRequestAsync(System.Guid workspaceId, System.Guid shareRequestId, CancellationToken cancellationToken = default)
         {
-            using (var _result = await GetStatusLogWithHttpMessagesAsync(workspaceId, requestId, null, cancellationToken).ConfigureAwait(false))
+            using (var _result = await GetShareRequestWithHttpMessagesAsync(workspaceId, shareRequestId, null, cancellationToken).ConfigureAwait(false))
             {
                 return _result.Body;
             }

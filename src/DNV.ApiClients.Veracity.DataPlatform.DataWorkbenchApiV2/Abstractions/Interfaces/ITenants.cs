@@ -19,120 +19,6 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataWorkbenchApiV2.Interfaces
     public partial interface ITenants
     {
         /// <summary>
-        /// Create or update user role of tenant
-        /// </summary>
-        /// <remarks>
-        /// Sample request:
-        ///
-        /// {
-        /// "role": "reader"    //"reader" or "administrator"
-        /// }
-        ///
-        /// Sample response:
-        ///
-        /// {
-        /// "roleScopeId": "00c3a436-433b-45e6-ba2a-dbb44cfa4100",
-        /// "userId": "36f17b7f-3829-4e61-8106-d9047bd04dc4",      //Id of User
-        /// "scopeRef": "7794cb5a-403e-4f87-bd80-f7f35a34f8fb",    //Id of
-        /// tenant
-        /// "scopeType": "Tenant",
-        /// "roleName": "reader"
-        /// }
-        /// </remarks>
-        /// <param name='body'>
-        /// </param>
-        /// <param name='tenantId'>
-        /// Tenant id
-        /// </param>
-        /// <param name='userId'>
-        /// User id
-        /// </param>
-        /// <param name='customHeaders'>
-        /// The headers that will be added to request.
-        /// </param>
-        /// <param name='cancellationToken'>
-        /// The cancellation token.
-        /// </param>
-        /// <exception cref="Microsoft.Rest.HttpOperationException">
-        /// Thrown when the operation returned an invalid status code
-        /// </exception>
-        /// <exception cref="Microsoft.Rest.SerializationException">
-        /// Thrown when unable to deserialize the response
-        /// </exception>
-        /// <exception cref="Microsoft.Rest.ValidationException">
-        /// Thrown when a required parameter is null
-        /// </exception>
-        Task<HttpOperationResponse<RoleScopeGetDto>> CreateOrUpdateTenantUserRoleWithHttpMessagesAsync(CreateOrUpdateUserRoleDto body, System.Guid tenantId, System.Guid userId, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default);
-
-        /// <summary>
-        /// Create or update user role of tenant
-        /// </summary>
-        /// <remarks>
-        /// Sample request:
-        ///
-        /// {
-        /// "role": "reader"    //"reader" or "administrator"
-        /// }
-        ///
-        /// Sample response:
-        ///
-        /// {
-        /// "roleScopeId": "00c3a436-433b-45e6-ba2a-dbb44cfa4100",
-        /// "userId": "36f17b7f-3829-4e61-8106-d9047bd04dc4",      //Id of User
-        /// "scopeRef": "7794cb5a-403e-4f87-bd80-f7f35a34f8fb",    //Id of
-        /// tenant
-        /// "scopeType": "Tenant",
-        /// "roleName": "reader"
-        /// }
-        /// </remarks>
-        /// <param name='body'>
-        /// </param>
-        /// <param name='tenantId'>
-        /// Tenant id
-        /// </param>
-        /// <param name='userId'>
-        /// User id
-        /// </param>
-        /// <param name='cancellationToken'>
-        /// The cancellation token.
-        /// </param>
-        Task<RoleScopeGetDto> CreateOrUpdateTenantUserRoleAsync(CreateOrUpdateUserRoleDto body, System.Guid tenantId, System.Guid userId, CancellationToken cancellationToken = default);
-
-        /// <summary>
-        /// Revoke user access to a specified tenant
-        /// </summary>
-        /// <param name='tenantId'>
-        /// The specified tenant id
-        /// </param>
-        /// <param name='userId'>
-        /// User id whose access rights will be removed
-        /// </param>
-        /// <param name='customHeaders'>
-        /// The headers that will be added to request.
-        /// </param>
-        /// <param name='cancellationToken'>
-        /// The cancellation token.
-        /// </param>
-        /// <exception cref="Microsoft.Rest.HttpOperationException">
-        /// Thrown when the operation returned an invalid status code
-        /// </exception>
-        Task<HttpOperationResponse> RevokeTenantUserRoleWithHttpMessagesAsync(System.Guid tenantId, System.Guid userId, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default);
-
-        /// <summary>
-        /// Revoke user access to a specified tenant
-        /// </summary>
-        /// <param name='tenantId'>
-        /// The specified tenant id
-        /// </param>
-        /// <param name='userId'>
-        /// User id whose access rights will be removed
-        /// </param>
-        /// <param name='cancellationToken'>
-        /// The cancellation token.
-        /// </param>
-        Task RevokeTenantUserRoleAsync(System.Guid tenantId, System.Guid userId, CancellationToken cancellationToken = default);
-
-        /// <summary>
         /// Invite user to tenant
         /// </summary>
         /// <remarks>
@@ -295,6 +181,120 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataWorkbenchApiV2.Interfaces
         Task QueryTenantUserRoleScopesAsync(System.Guid tenantId, int? pageIndex = default, int? pageSize = default, CancellationToken cancellationToken = default);
 
         /// <summary>
+        /// Create or update user role of tenant
+        /// </summary>
+        /// <remarks>
+        /// Sample request:
+        ///
+        /// {
+        /// "role": "reader"    //"reader" or "administrator"
+        /// }
+        ///
+        /// Sample response:
+        ///
+        /// {
+        /// "roleScopeId": "00c3a436-433b-45e6-ba2a-dbb44cfa4100",
+        /// "userId": "36f17b7f-3829-4e61-8106-d9047bd04dc4",      //Id of User
+        /// "scopeRef": "7794cb5a-403e-4f87-bd80-f7f35a34f8fb",    //Id of
+        /// tenant
+        /// "scopeType": "Tenant",
+        /// "roleName": "reader"
+        /// }
+        /// </remarks>
+        /// <param name='body'>
+        /// </param>
+        /// <param name='tenantId'>
+        /// Tenant id
+        /// </param>
+        /// <param name='userId'>
+        /// User id
+        /// </param>
+        /// <param name='customHeaders'>
+        /// The headers that will be added to request.
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        /// <exception cref="Microsoft.Rest.HttpOperationException">
+        /// Thrown when the operation returned an invalid status code
+        /// </exception>
+        /// <exception cref="Microsoft.Rest.SerializationException">
+        /// Thrown when unable to deserialize the response
+        /// </exception>
+        /// <exception cref="Microsoft.Rest.ValidationException">
+        /// Thrown when a required parameter is null
+        /// </exception>
+        Task<HttpOperationResponse<RoleScopeGetDto>> CreateOrUpdateTenantUserRoleWithHttpMessagesAsync(CreateOrUpdateUserRoleDto body, System.Guid tenantId, System.Guid userId, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default);
+
+        /// <summary>
+        /// Create or update user role of tenant
+        /// </summary>
+        /// <remarks>
+        /// Sample request:
+        ///
+        /// {
+        /// "role": "reader"    //"reader" or "administrator"
+        /// }
+        ///
+        /// Sample response:
+        ///
+        /// {
+        /// "roleScopeId": "00c3a436-433b-45e6-ba2a-dbb44cfa4100",
+        /// "userId": "36f17b7f-3829-4e61-8106-d9047bd04dc4",      //Id of User
+        /// "scopeRef": "7794cb5a-403e-4f87-bd80-f7f35a34f8fb",    //Id of
+        /// tenant
+        /// "scopeType": "Tenant",
+        /// "roleName": "reader"
+        /// }
+        /// </remarks>
+        /// <param name='body'>
+        /// </param>
+        /// <param name='tenantId'>
+        /// Tenant id
+        /// </param>
+        /// <param name='userId'>
+        /// User id
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        Task<RoleScopeGetDto> CreateOrUpdateTenantUserRoleAsync(CreateOrUpdateUserRoleDto body, System.Guid tenantId, System.Guid userId, CancellationToken cancellationToken = default);
+
+        /// <summary>
+        /// Revoke user access to a specified tenant
+        /// </summary>
+        /// <param name='tenantId'>
+        /// The specified tenant id
+        /// </param>
+        /// <param name='userId'>
+        /// User id whose access rights will be removed
+        /// </param>
+        /// <param name='customHeaders'>
+        /// The headers that will be added to request.
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        /// <exception cref="Microsoft.Rest.HttpOperationException">
+        /// Thrown when the operation returned an invalid status code
+        /// </exception>
+        Task<HttpOperationResponse> RevokeTenantUserRoleWithHttpMessagesAsync(System.Guid tenantId, System.Guid userId, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default);
+
+        /// <summary>
+        /// Revoke user access to a specified tenant
+        /// </summary>
+        /// <param name='tenantId'>
+        /// The specified tenant id
+        /// </param>
+        /// <param name='userId'>
+        /// User id whose access rights will be removed
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        Task RevokeTenantUserRoleAsync(System.Guid tenantId, System.Guid userId, CancellationToken cancellationToken = default);
+
+        /// <summary>
         /// Get workspace list which the current user has access to for a
         /// specified tenant
         /// </summary>
@@ -306,12 +306,14 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataWorkbenchApiV2.Interfaces
         /// "id": "6113fcaa-a29e-4804-b9a9-dac331676008",
         /// "name": "Workspace Name1",
         /// "description": "Workspace created by test1",
+        /// "roleName": "administrator",
         /// "region": "EU"
         /// },
         /// {
         /// "id": "89a1fcaa-D43e-9802-c879-cad886785129",
         /// "name": "Workspace Name2",
         /// "description": "Workspace created by test2",
+        /// "roleName": "administrator",
         /// "region": "EU"
         /// }
         /// ]
@@ -345,12 +347,14 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataWorkbenchApiV2.Interfaces
         /// "id": "6113fcaa-a29e-4804-b9a9-dac331676008",
         /// "name": "Workspace Name1",
         /// "description": "Workspace created by test1",
+        /// "roleName": "administrator",
         /// "region": "EU"
         /// },
         /// {
         /// "id": "89a1fcaa-D43e-9802-c879-cad886785129",
         /// "name": "Workspace Name2",
         /// "description": "Workspace created by test2",
+        /// "roleName": "administrator",
         /// "region": "EU"
         /// }
         /// ]
@@ -531,120 +535,6 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataWorkbenchApiV2.Interfaces
         Task<WorkspaceDto> PatchWorkspaceAsync(WorkspacePatchDto body, System.Guid workspaceId, CancellationToken cancellationToken = default);
 
         /// <summary>
-        /// Create or update user role of workspace
-        /// </summary>
-        /// <remarks>
-        /// Sample request:
-        ///
-        /// {
-        /// "role": "reader"    //"reader" or "administrator"
-        /// }
-        ///
-        /// Sample response:
-        ///
-        /// {
-        /// "roleScopeId": "00c3a436-433b-45e6-ba2a-dbb44cfa4100",
-        /// "userId": "00c3a436-433b-45e6-ba2a-dbb44cfa4100",      //Id of User
-        /// "scopeRef": "196a8ff4-dfbc-4ee7-ae08-4f38b84d9c86",    //Id of
-        /// workspace
-        /// "scopeType": "Workspace",
-        /// "roleName": "reader"
-        /// }
-        /// </remarks>
-        /// <param name='body'>
-        /// </param>
-        /// <param name='workspaceId'>
-        /// The workspace id which you want to create or update user role
-        /// </param>
-        /// <param name='userId'>
-        /// Id of the user
-        /// </param>
-        /// <param name='customHeaders'>
-        /// The headers that will be added to request.
-        /// </param>
-        /// <param name='cancellationToken'>
-        /// The cancellation token.
-        /// </param>
-        /// <exception cref="Microsoft.Rest.HttpOperationException">
-        /// Thrown when the operation returned an invalid status code
-        /// </exception>
-        /// <exception cref="Microsoft.Rest.SerializationException">
-        /// Thrown when unable to deserialize the response
-        /// </exception>
-        /// <exception cref="Microsoft.Rest.ValidationException">
-        /// Thrown when a required parameter is null
-        /// </exception>
-        Task<HttpOperationResponse<RoleScopeGetDto>> CreateOrUpdateWorkspaceUserRoleWithHttpMessagesAsync(CreateOrUpdateUserRoleDto body, System.Guid workspaceId, System.Guid userId, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default);
-
-        /// <summary>
-        /// Create or update user role of workspace
-        /// </summary>
-        /// <remarks>
-        /// Sample request:
-        ///
-        /// {
-        /// "role": "reader"    //"reader" or "administrator"
-        /// }
-        ///
-        /// Sample response:
-        ///
-        /// {
-        /// "roleScopeId": "00c3a436-433b-45e6-ba2a-dbb44cfa4100",
-        /// "userId": "00c3a436-433b-45e6-ba2a-dbb44cfa4100",      //Id of User
-        /// "scopeRef": "196a8ff4-dfbc-4ee7-ae08-4f38b84d9c86",    //Id of
-        /// workspace
-        /// "scopeType": "Workspace",
-        /// "roleName": "reader"
-        /// }
-        /// </remarks>
-        /// <param name='body'>
-        /// </param>
-        /// <param name='workspaceId'>
-        /// The workspace id which you want to create or update user role
-        /// </param>
-        /// <param name='userId'>
-        /// Id of the user
-        /// </param>
-        /// <param name='cancellationToken'>
-        /// The cancellation token.
-        /// </param>
-        Task<RoleScopeGetDto> CreateOrUpdateWorkspaceUserRoleAsync(CreateOrUpdateUserRoleDto body, System.Guid workspaceId, System.Guid userId, CancellationToken cancellationToken = default);
-
-        /// <summary>
-        /// Revoke user access to a specified workspace
-        /// </summary>
-        /// <param name='workspaceId'>
-        /// The specified workspace id
-        /// </param>
-        /// <param name='userId'>
-        /// User id whose access rights will be removed
-        /// </param>
-        /// <param name='customHeaders'>
-        /// The headers that will be added to request.
-        /// </param>
-        /// <param name='cancellationToken'>
-        /// The cancellation token.
-        /// </param>
-        /// <exception cref="Microsoft.Rest.HttpOperationException">
-        /// Thrown when the operation returned an invalid status code
-        /// </exception>
-        Task<HttpOperationResponse> RevokeWorkspaceUserRoleWithHttpMessagesAsync(System.Guid workspaceId, System.Guid userId, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default);
-
-        /// <summary>
-        /// Revoke user access to a specified workspace
-        /// </summary>
-        /// <param name='workspaceId'>
-        /// The specified workspace id
-        /// </param>
-        /// <param name='userId'>
-        /// User id whose access rights will be removed
-        /// </param>
-        /// <param name='cancellationToken'>
-        /// The cancellation token.
-        /// </param>
-        Task RevokeWorkspaceUserRoleAsync(System.Guid workspaceId, System.Guid userId, CancellationToken cancellationToken = default);
-
-        /// <summary>
         /// Invite user to workspace
         /// </summary>
         /// <remarks>
@@ -805,6 +695,120 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataWorkbenchApiV2.Interfaces
         /// The cancellation token.
         /// </param>
         Task QueryWorkspaceUserRoleScopesAsync(System.Guid workspaceId, int? pageIndex = default, int? pageSize = default, CancellationToken cancellationToken = default);
+
+        /// <summary>
+        /// Create or update user role of workspace
+        /// </summary>
+        /// <remarks>
+        /// Sample request:
+        ///
+        /// {
+        /// "role": "reader"    //"reader" or "administrator"
+        /// }
+        ///
+        /// Sample response:
+        ///
+        /// {
+        /// "roleScopeId": "00c3a436-433b-45e6-ba2a-dbb44cfa4100",
+        /// "userId": "00c3a436-433b-45e6-ba2a-dbb44cfa4100",      //Id of User
+        /// "scopeRef": "196a8ff4-dfbc-4ee7-ae08-4f38b84d9c86",    //Id of
+        /// workspace
+        /// "scopeType": "Workspace",
+        /// "roleName": "reader"
+        /// }
+        /// </remarks>
+        /// <param name='body'>
+        /// </param>
+        /// <param name='workspaceId'>
+        /// The workspace id which you want to create or update user role
+        /// </param>
+        /// <param name='userId'>
+        /// Id of the user
+        /// </param>
+        /// <param name='customHeaders'>
+        /// The headers that will be added to request.
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        /// <exception cref="Microsoft.Rest.HttpOperationException">
+        /// Thrown when the operation returned an invalid status code
+        /// </exception>
+        /// <exception cref="Microsoft.Rest.SerializationException">
+        /// Thrown when unable to deserialize the response
+        /// </exception>
+        /// <exception cref="Microsoft.Rest.ValidationException">
+        /// Thrown when a required parameter is null
+        /// </exception>
+        Task<HttpOperationResponse<RoleScopeGetDto>> CreateOrUpdateWorkspaceUserRoleWithHttpMessagesAsync(CreateOrUpdateUserRoleDto body, System.Guid workspaceId, System.Guid userId, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default);
+
+        /// <summary>
+        /// Create or update user role of workspace
+        /// </summary>
+        /// <remarks>
+        /// Sample request:
+        ///
+        /// {
+        /// "role": "reader"    //"reader" or "administrator"
+        /// }
+        ///
+        /// Sample response:
+        ///
+        /// {
+        /// "roleScopeId": "00c3a436-433b-45e6-ba2a-dbb44cfa4100",
+        /// "userId": "00c3a436-433b-45e6-ba2a-dbb44cfa4100",      //Id of User
+        /// "scopeRef": "196a8ff4-dfbc-4ee7-ae08-4f38b84d9c86",    //Id of
+        /// workspace
+        /// "scopeType": "Workspace",
+        /// "roleName": "reader"
+        /// }
+        /// </remarks>
+        /// <param name='body'>
+        /// </param>
+        /// <param name='workspaceId'>
+        /// The workspace id which you want to create or update user role
+        /// </param>
+        /// <param name='userId'>
+        /// Id of the user
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        Task<RoleScopeGetDto> CreateOrUpdateWorkspaceUserRoleAsync(CreateOrUpdateUserRoleDto body, System.Guid workspaceId, System.Guid userId, CancellationToken cancellationToken = default);
+
+        /// <summary>
+        /// Revoke user access to a specified workspace
+        /// </summary>
+        /// <param name='workspaceId'>
+        /// The specified workspace id
+        /// </param>
+        /// <param name='userId'>
+        /// User id whose access rights will be removed
+        /// </param>
+        /// <param name='customHeaders'>
+        /// The headers that will be added to request.
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        /// <exception cref="Microsoft.Rest.HttpOperationException">
+        /// Thrown when the operation returned an invalid status code
+        /// </exception>
+        Task<HttpOperationResponse> RevokeWorkspaceUserRoleWithHttpMessagesAsync(System.Guid workspaceId, System.Guid userId, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default);
+
+        /// <summary>
+        /// Revoke user access to a specified workspace
+        /// </summary>
+        /// <param name='workspaceId'>
+        /// The specified workspace id
+        /// </param>
+        /// <param name='userId'>
+        /// User id whose access rights will be removed
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        Task RevokeWorkspaceUserRoleAsync(System.Guid workspaceId, System.Guid userId, CancellationToken cancellationToken = default);
 
     }
 }

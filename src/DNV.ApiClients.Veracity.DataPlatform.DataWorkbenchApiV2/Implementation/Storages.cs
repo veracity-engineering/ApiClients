@@ -73,7 +73,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataWorkbenchApiV2
         /// <return>
         /// A response object containing the response body and response headers.
         /// </return>
-        public async Task<HttpOperationResponse<string>> GetSASTokenForStorageDatasetByShareIdWithHttpMessagesAsync(System.Guid workspaceId, System.Guid shareId, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default)
+        public async Task<HttpOperationResponse<SasTokenResultDTO>> GetSASTokenForStorageDatasetByShareIdV2WithHttpMessagesAsync(System.Guid workspaceId, System.Guid shareId, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default)
         {
             // Construct URL
             var _baseUrl = Client.HttpClient.BaseAddress?.AbsoluteUri ?? Client.BaseUri.AbsoluteUri;
@@ -127,7 +127,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataWorkbenchApiV2
                 throw ex;
             }
             // Create Result
-            var _result = new HttpOperationResponse<string>();
+            var _result = new HttpOperationResponse<SasTokenResultDTO>();
             _result.Request = _httpRequest;
             _result.Response = _httpResponse;
             // Deserialize Response
@@ -136,7 +136,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataWorkbenchApiV2
                 _responseContent = await _httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
                 try
                 {
-                    _result.Body = Microsoft.Rest.Serialization.SafeJsonConvert.DeserializeObject<string>(_responseContent, Client.DeserializationSettings);
+                    _result.Body = Microsoft.Rest.Serialization.SafeJsonConvert.DeserializeObject<SasTokenResultDTO>(_responseContent, Client.DeserializationSettings);
                 }
                 catch (JsonException ex)
                 {
@@ -162,16 +162,530 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataWorkbenchApiV2
         /// <param name='cancellationToken'>
         /// The cancellation token.
         /// </param>
-        public async Task<string> GetSASTokenForStorageDatasetByShareIdAsync(System.Guid workspaceId, System.Guid shareId, CancellationToken cancellationToken = default)
+        public async Task<SasTokenResultDTO> GetSASTokenForStorageDatasetByShareIdV2Async(System.Guid workspaceId, System.Guid shareId, CancellationToken cancellationToken = default)
         {
-            using (var _result = await GetSASTokenForStorageDatasetByShareIdWithHttpMessagesAsync(workspaceId, shareId, null, cancellationToken).ConfigureAwait(false))
+            using (var _result = await GetSASTokenForStorageDatasetByShareIdV2WithHttpMessagesAsync(workspaceId, shareId, null, cancellationToken).ConfigureAwait(false))
             {
                 return _result.Body;
             }
         }
 
         /// <summary>
-        /// Get storage sas token for current workspace
+        /// List sas policies for current workspace.
+        /// </summary>
+        /// <remarks>
+        /// /// Sample request For Revoke Sas Token:
+        ///
+        /// POST {workspaceId}/storages/external/policies
+        /// {
+        /// "containerName": "string",
+        /// "connectionString": "string"
+        /// }
+        /// * ContainerName is the name of the container for which the SAS policy needs
+        /// to be revoked.
+        /// * ConnectionString is the connection string of the external storage
+        /// account.
+        ///
+        /// Notes -
+        /// * This endpoint helps to list all the SAS policies for external storage
+        /// which are active.
+        /// </remarks>
+        /// <param name='body'>
+        /// </param>
+        /// <param name='workspaceId'>
+        /// </param>
+        /// <param name='customHeaders'>
+        /// Headers that will be added to request.
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        /// <exception cref="HttpOperationException">
+        /// Thrown when the operation returned an invalid status code
+        /// </exception>
+        /// <exception cref="SerializationException">
+        /// Thrown when unable to deserialize the response
+        /// </exception>
+        /// <exception cref="ValidationException">
+        /// Thrown when a required parameter is null
+        /// </exception>
+        /// <exception cref="System.ArgumentNullException">
+        /// Thrown when a required parameter is null
+        /// </exception>
+        /// <return>
+        /// A response object containing the response body and response headers.
+        /// </return>
+        public async Task<HttpOperationResponse<IEnumerable<SasPolicyDTO>>> ListExternalStorageSASPoliciesWithHttpMessagesAsync(ConnectionSettingsDTO body, System.Guid workspaceId, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default)
+        {
+            if (body == null)
+            {
+                throw new ValidationException(ValidationRules.CannotBeNull, "body");
+            }
+            // Construct URL
+            var _baseUrl = Client.HttpClient.BaseAddress?.AbsoluteUri ?? Client.BaseUri.AbsoluteUri;
+            var _url = new System.Uri(new System.Uri(_baseUrl + (_baseUrl.EndsWith("/") ? "" : "/")), "workspaces/{workspaceId}/storages/external/policies").ToString();
+            _url = _url.Replace("{workspaceId}", System.Uri.EscapeDataString(Microsoft.Rest.Serialization.SafeJsonConvert.SerializeObject(workspaceId, Client.SerializationSettings).Trim('"')));
+            // Create HTTP transport objects
+            var _httpRequest = new HttpRequestMessage();
+            HttpResponseMessage _httpResponse = null;
+            _httpRequest.Method = new HttpMethod("POST");
+            _httpRequest.RequestUri = new System.Uri(_url);
+            // Set Headers
+
+
+            if (customHeaders != null)
+            {
+                foreach(var _header in customHeaders)
+                {
+                    if (_httpRequest.Headers.Contains(_header.Key))
+                    {
+                        _httpRequest.Headers.Remove(_header.Key);
+                    }
+                    _httpRequest.Headers.TryAddWithoutValidation(_header.Key, _header.Value);
+                }
+            }
+
+            // Serialize Request
+            string _requestContent = null;
+            if(body != null)
+            {
+                _requestContent = Microsoft.Rest.Serialization.SafeJsonConvert.SerializeObject(body, Client.SerializationSettings);
+                _httpRequest.Content = new StringContent(_requestContent, System.Text.Encoding.UTF8);
+                _httpRequest.Content.Headers.ContentType =System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json; charset=utf-8");
+            }
+            // Send Request
+            cancellationToken.ThrowIfCancellationRequested();
+            _httpResponse = await Client.HttpClient.SendAsync(_httpRequest, cancellationToken).ConfigureAwait(false);
+            HttpStatusCode _statusCode = _httpResponse.StatusCode;
+            cancellationToken.ThrowIfCancellationRequested();
+            string _responseContent = null;
+            if ((int)_statusCode != 200)
+            {
+                var ex = new HttpOperationException(string.Format("Operation returned an invalid status code '{0}'", _statusCode));
+                if (_httpResponse.Content != null) {
+                    _responseContent = await _httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
+                }
+                else {
+                    _responseContent = string.Empty;
+                }
+                ex.Request = new HttpRequestMessageWrapper(_httpRequest, _requestContent);
+                ex.Response = new HttpResponseMessageWrapper(_httpResponse, _responseContent);
+                _httpRequest.Dispose();
+                if (_httpResponse != null)
+                {
+                    _httpResponse.Dispose();
+                }
+                throw ex;
+            }
+            // Create Result
+            var _result = new HttpOperationResponse<IEnumerable<SasPolicyDTO>>();
+            _result.Request = _httpRequest;
+            _result.Response = _httpResponse;
+            // Deserialize Response
+            if ((int)_statusCode == 200)
+            {
+                _responseContent = await _httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
+                try
+                {
+                    _result.Body = Microsoft.Rest.Serialization.SafeJsonConvert.DeserializeObject<IEnumerable<SasPolicyDTO>>(_responseContent, Client.DeserializationSettings);
+                }
+                catch (JsonException ex)
+                {
+                    _httpRequest.Dispose();
+                    if (_httpResponse != null)
+                    {
+                        _httpResponse.Dispose();
+                    }
+                    throw new SerializationException("Unable to deserialize the response.", _responseContent, ex);
+                }
+            }
+            return _result;
+        }
+        /// <summary>
+        /// List sas policies for current workspace.
+        /// </summary>
+        /// <remarks>
+        /// /// Sample request For Revoke Sas Token:
+        ///
+        /// POST {workspaceId}/storages/external/policies
+        /// {
+        /// "containerName": "string",
+        /// "connectionString": "string"
+        /// }
+        /// * ContainerName is the name of the container for which the SAS policy needs
+        /// to be revoked.
+        /// * ConnectionString is the connection string of the external storage
+        /// account.
+        ///
+        /// Notes -
+        /// * This endpoint helps to list all the SAS policies for external storage
+        /// which are active.
+        /// </remarks>
+        /// <param name='body'>
+        /// </param>
+        /// <param name='workspaceId'>
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        public async Task<IEnumerable<SasPolicyDTO>> ListExternalStorageSASPoliciesAsync(ConnectionSettingsDTO body, System.Guid workspaceId, CancellationToken cancellationToken = default)
+        {
+            using (var _result = await ListExternalStorageSASPoliciesWithHttpMessagesAsync(body, workspaceId, null, cancellationToken).ConfigureAwait(false))
+            {
+                return _result.Body;
+            }
+        }
+
+        /// <summary>
+        /// Get external storage sas token for current workspace
+        /// </summary>
+        /// <remarks>
+        /// Sample request For Storage Sas Token:
+        ///
+        /// POST {workspaceId}/storages/external/sas
+        /// {
+        /// "settings": {
+        /// "containerName": "string",
+        /// "connectionString": "string"
+        /// },
+        /// "filters": {
+        /// "path": "18a4a7ab-022c-4964-9d1b-6cc77e252a67/test.csv",
+        /// "readOrWritePermission": "Read",
+        /// "startsOn": "2024-05-14T09:04:12.297Z",
+        /// "expiresOn": "2024-05-14T09:04:12.297Z",
+        /// "storageName": "StorageDataset"
+        /// }
+        /// }
+        /// * ContainerName is the name of the container for which the SAS policy needs
+        /// to be revoked.
+        /// * ConnectionString is the connection string of the external storage
+        /// account.
+        /// * Path – string, path of the resource you want to generate the SAS Token
+        /// for. It is optional, if it is left empty or not provided, the default path
+        /// of internal storage will be considered.(which means ContainerName which was
+        /// specified while creating the internal storage). If provided, it should be
+        /// valid path pointing to a resource.
+        /// * ReadOrWritePermission – string, type of permission you want to give on
+        /// the resource, it can only have values Read/Write.
+        /// * StartsOn – DateTime, datetime from which the SAS Token will be valid. It
+        /// is optional, if not provided current UTC date time will be considered. If
+        /// provided, it should not be a past date time.
+        /// * ExpiresOn – DateTime, datetime till when the SAS Token will be valid.It
+        /// should not be a past date time and should be greater than StartsOn.
+        /// * StorageName - string, name of the storage for which the SAS token needs
+        /// to be generated. It is optional, if not provided the default internal
+        /// storage dataset will be considered. If it is provided it should be a valid
+        /// storage dataset name.
+        ///
+        /// Notes -
+        /// * A user of Workspace who has role of Reader can only generate tokens with
+        /// Read permission, if he tries to generate token with Write permission, he
+        /// will be unauthorized.
+        /// * A user of Workspace who has role of Administrator can generate tokens
+        /// with both Read/Write permissions.
+        /// * Service Accounts should generate only Read token. If they need to
+        /// generate Write SAS Token, they need to get access for it.
+        /// </remarks>
+        /// <param name='body'>
+        /// </param>
+        /// <param name='workspaceId'>
+        /// </param>
+        /// <param name='customHeaders'>
+        /// Headers that will be added to request.
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        /// <exception cref="HttpOperationException">
+        /// Thrown when the operation returned an invalid status code
+        /// </exception>
+        /// <exception cref="SerializationException">
+        /// Thrown when unable to deserialize the response
+        /// </exception>
+        /// <exception cref="ValidationException">
+        /// Thrown when a required parameter is null
+        /// </exception>
+        /// <exception cref="System.ArgumentNullException">
+        /// Thrown when a required parameter is null
+        /// </exception>
+        /// <return>
+        /// A response object containing the response body and response headers.
+        /// </return>
+        public async Task<HttpOperationResponse<string>> GetSASTokenForExternalStorageWithHttpMessagesAsync(GetSasTokenForExternalDTO body, System.Guid workspaceId, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default)
+        {
+            if (body == null)
+            {
+                throw new ValidationException(ValidationRules.CannotBeNull, "body");
+            }
+            // Construct URL
+            var _baseUrl = Client.HttpClient.BaseAddress?.AbsoluteUri ?? Client.BaseUri.AbsoluteUri;
+            var _url = new System.Uri(new System.Uri(_baseUrl + (_baseUrl.EndsWith("/") ? "" : "/")), "workspaces/{workspaceId}/storages/external/sas").ToString();
+            _url = _url.Replace("{workspaceId}", System.Uri.EscapeDataString(Microsoft.Rest.Serialization.SafeJsonConvert.SerializeObject(workspaceId, Client.SerializationSettings).Trim('"')));
+            // Create HTTP transport objects
+            var _httpRequest = new HttpRequestMessage();
+            HttpResponseMessage _httpResponse = null;
+            _httpRequest.Method = new HttpMethod("POST");
+            _httpRequest.RequestUri = new System.Uri(_url);
+            // Set Headers
+
+
+            if (customHeaders != null)
+            {
+                foreach(var _header in customHeaders)
+                {
+                    if (_httpRequest.Headers.Contains(_header.Key))
+                    {
+                        _httpRequest.Headers.Remove(_header.Key);
+                    }
+                    _httpRequest.Headers.TryAddWithoutValidation(_header.Key, _header.Value);
+                }
+            }
+
+            // Serialize Request
+            string _requestContent = null;
+            if(body != null)
+            {
+                _requestContent = Microsoft.Rest.Serialization.SafeJsonConvert.SerializeObject(body, Client.SerializationSettings);
+                _httpRequest.Content = new StringContent(_requestContent, System.Text.Encoding.UTF8);
+                _httpRequest.Content.Headers.ContentType =System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json; charset=utf-8");
+            }
+            // Send Request
+            cancellationToken.ThrowIfCancellationRequested();
+            _httpResponse = await Client.HttpClient.SendAsync(_httpRequest, cancellationToken).ConfigureAwait(false);
+            HttpStatusCode _statusCode = _httpResponse.StatusCode;
+            cancellationToken.ThrowIfCancellationRequested();
+            string _responseContent = null;
+            if ((int)_statusCode != 200)
+            {
+                var ex = new HttpOperationException(string.Format("Operation returned an invalid status code '{0}'", _statusCode));
+                if (_httpResponse.Content != null) {
+                    _responseContent = await _httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
+                }
+                else {
+                    _responseContent = string.Empty;
+                }
+                ex.Request = new HttpRequestMessageWrapper(_httpRequest, _requestContent);
+                ex.Response = new HttpResponseMessageWrapper(_httpResponse, _responseContent);
+                _httpRequest.Dispose();
+                if (_httpResponse != null)
+                {
+                    _httpResponse.Dispose();
+                }
+                throw ex;
+            }
+            // Create Result
+            var _result = new HttpOperationResponse<string>();
+            _result.Request = _httpRequest;
+            _result.Response = _httpResponse;
+            // Deserialize Response
+            if ((int)_statusCode == 200)
+            {
+                _responseContent = await _httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
+                try
+                {
+                    _result.Body = Microsoft.Rest.Serialization.SafeJsonConvert.DeserializeObject<string>(_responseContent, Client.DeserializationSettings);
+                }
+                catch (JsonException ex)
+                {
+                    _httpRequest.Dispose();
+                    if (_httpResponse != null)
+                    {
+                        _httpResponse.Dispose();
+                    }
+                    throw new SerializationException("Unable to deserialize the response.", _responseContent, ex);
+                }
+            }
+            return _result;
+        }
+        /// <summary>
+        /// Get external storage sas token for current workspace
+        /// </summary>
+        /// <remarks>
+        /// Sample request For Storage Sas Token:
+        ///
+        /// POST {workspaceId}/storages/external/sas
+        /// {
+        /// "settings": {
+        /// "containerName": "string",
+        /// "connectionString": "string"
+        /// },
+        /// "filters": {
+        /// "path": "18a4a7ab-022c-4964-9d1b-6cc77e252a67/test.csv",
+        /// "readOrWritePermission": "Read",
+        /// "startsOn": "2024-05-14T09:04:12.297Z",
+        /// "expiresOn": "2024-05-14T09:04:12.297Z",
+        /// "storageName": "StorageDataset"
+        /// }
+        /// }
+        /// * ContainerName is the name of the container for which the SAS policy needs
+        /// to be revoked.
+        /// * ConnectionString is the connection string of the external storage
+        /// account.
+        /// * Path – string, path of the resource you want to generate the SAS Token
+        /// for. It is optional, if it is left empty or not provided, the default path
+        /// of internal storage will be considered.(which means ContainerName which was
+        /// specified while creating the internal storage). If provided, it should be
+        /// valid path pointing to a resource.
+        /// * ReadOrWritePermission – string, type of permission you want to give on
+        /// the resource, it can only have values Read/Write.
+        /// * StartsOn – DateTime, datetime from which the SAS Token will be valid. It
+        /// is optional, if not provided current UTC date time will be considered. If
+        /// provided, it should not be a past date time.
+        /// * ExpiresOn – DateTime, datetime till when the SAS Token will be valid.It
+        /// should not be a past date time and should be greater than StartsOn.
+        /// * StorageName - string, name of the storage for which the SAS token needs
+        /// to be generated. It is optional, if not provided the default internal
+        /// storage dataset will be considered. If it is provided it should be a valid
+        /// storage dataset name.
+        ///
+        /// Notes -
+        /// * A user of Workspace who has role of Reader can only generate tokens with
+        /// Read permission, if he tries to generate token with Write permission, he
+        /// will be unauthorized.
+        /// * A user of Workspace who has role of Administrator can generate tokens
+        /// with both Read/Write permissions.
+        /// * Service Accounts should generate only Read token. If they need to
+        /// generate Write SAS Token, they need to get access for it.
+        /// </remarks>
+        /// <param name='body'>
+        /// </param>
+        /// <param name='workspaceId'>
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        public async Task<string> GetSASTokenForExternalStorageAsync(GetSasTokenForExternalDTO body, System.Guid workspaceId, CancellationToken cancellationToken = default)
+        {
+            using (var _result = await GetSASTokenForExternalStorageWithHttpMessagesAsync(body, workspaceId, null, cancellationToken).ConfigureAwait(false))
+            {
+                return _result.Body;
+            }
+        }
+
+        /// <summary>
+        /// List sas policies for current workspace.
+        /// </summary>
+        /// <remarks>
+        /// Notes -
+        /// * This endpoint helps to list all the SAS policies for internal storage
+        /// which are active.
+        /// </remarks>
+        /// <param name='workspaceId'>
+        /// </param>
+        /// <param name='customHeaders'>
+        /// Headers that will be added to request.
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        /// <exception cref="HttpOperationException">
+        /// Thrown when the operation returned an invalid status code
+        /// </exception>
+        /// <exception cref="SerializationException">
+        /// Thrown when unable to deserialize the response
+        /// </exception>
+        /// <return>
+        /// A response object containing the response body and response headers.
+        /// </return>
+        public async Task<HttpOperationResponse<IEnumerable<SasPolicyDTO>>> ListInternalStorageSASPoliciesWithHttpMessagesAsync(System.Guid workspaceId, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default)
+        {
+            // Construct URL
+            var _baseUrl = Client.HttpClient.BaseAddress?.AbsoluteUri ?? Client.BaseUri.AbsoluteUri;
+            var _url = new System.Uri(new System.Uri(_baseUrl + (_baseUrl.EndsWith("/") ? "" : "/")), "workspaces/{workspaceId}/storages/policies").ToString();
+            _url = _url.Replace("{workspaceId}", System.Uri.EscapeDataString(Microsoft.Rest.Serialization.SafeJsonConvert.SerializeObject(workspaceId, Client.SerializationSettings).Trim('"')));
+            // Create HTTP transport objects
+            var _httpRequest = new HttpRequestMessage();
+            HttpResponseMessage _httpResponse = null;
+            _httpRequest.Method = new HttpMethod("GET");
+            _httpRequest.RequestUri = new System.Uri(_url);
+            // Set Headers
+
+
+            if (customHeaders != null)
+            {
+                foreach(var _header in customHeaders)
+                {
+                    if (_httpRequest.Headers.Contains(_header.Key))
+                    {
+                        _httpRequest.Headers.Remove(_header.Key);
+                    }
+                    _httpRequest.Headers.TryAddWithoutValidation(_header.Key, _header.Value);
+                }
+            }
+
+            // Serialize Request
+            string _requestContent = null;
+            // Send Request
+            cancellationToken.ThrowIfCancellationRequested();
+            _httpResponse = await Client.HttpClient.SendAsync(_httpRequest, cancellationToken).ConfigureAwait(false);
+            HttpStatusCode _statusCode = _httpResponse.StatusCode;
+            cancellationToken.ThrowIfCancellationRequested();
+            string _responseContent = null;
+            if ((int)_statusCode != 200)
+            {
+                var ex = new HttpOperationException(string.Format("Operation returned an invalid status code '{0}'", _statusCode));
+                if (_httpResponse.Content != null) {
+                    _responseContent = await _httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
+                }
+                else {
+                    _responseContent = string.Empty;
+                }
+                ex.Request = new HttpRequestMessageWrapper(_httpRequest, _requestContent);
+                ex.Response = new HttpResponseMessageWrapper(_httpResponse, _responseContent);
+                _httpRequest.Dispose();
+                if (_httpResponse != null)
+                {
+                    _httpResponse.Dispose();
+                }
+                throw ex;
+            }
+            // Create Result
+            var _result = new HttpOperationResponse<IEnumerable<SasPolicyDTO>>();
+            _result.Request = _httpRequest;
+            _result.Response = _httpResponse;
+            // Deserialize Response
+            if ((int)_statusCode == 200)
+            {
+                _responseContent = await _httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
+                try
+                {
+                    _result.Body = Microsoft.Rest.Serialization.SafeJsonConvert.DeserializeObject<IEnumerable<SasPolicyDTO>>(_responseContent, Client.DeserializationSettings);
+                }
+                catch (JsonException ex)
+                {
+                    _httpRequest.Dispose();
+                    if (_httpResponse != null)
+                    {
+                        _httpResponse.Dispose();
+                    }
+                    throw new SerializationException("Unable to deserialize the response.", _responseContent, ex);
+                }
+            }
+            return _result;
+        }
+        /// <summary>
+        /// List sas policies for current workspace.
+        /// </summary>
+        /// <remarks>
+        /// Notes -
+        /// * This endpoint helps to list all the SAS policies for internal storage
+        /// which are active.
+        /// </remarks>
+        /// <param name='workspaceId'>
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        public async Task<IEnumerable<SasPolicyDTO>> ListInternalStorageSASPoliciesAsync(System.Guid workspaceId, CancellationToken cancellationToken = default)
+        {
+            using (var _result = await ListInternalStorageSASPoliciesWithHttpMessagesAsync(workspaceId, null, cancellationToken).ConfigureAwait(false))
+            {
+                return _result.Body;
+            }
+        }
+
+        /// <summary>
+        /// Get internal storage sas token for current workspace
         /// </summary>
         /// <remarks>
         /// Sample request For Storage Sas Token:
@@ -235,7 +749,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataWorkbenchApiV2
         /// <return>
         /// A response object containing the response body and response headers.
         /// </return>
-        public async Task<HttpOperationResponse<string>> GetSASTokenForStorageDatasetWithHttpMessagesAsync(StorageQueryDto body, System.Guid workspaceId, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default)
+        public async Task<HttpOperationResponse<string>> GetSASTokenForInternalStorageWithHttpMessagesAsync(StorageQueryDto body, System.Guid workspaceId, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default)
         {
             if (body == null)
             {
@@ -322,7 +836,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataWorkbenchApiV2
             return _result;
         }
         /// <summary>
-        /// Get storage sas token for current workspace
+        /// Get internal storage sas token for current workspace
         /// </summary>
         /// <remarks>
         /// Sample request For Storage Sas Token:
@@ -368,12 +882,435 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataWorkbenchApiV2
         /// <param name='cancellationToken'>
         /// The cancellation token.
         /// </param>
-        public async Task<string> GetSASTokenForStorageDatasetAsync(StorageQueryDto body, System.Guid workspaceId, CancellationToken cancellationToken = default)
+        public async Task<string> GetSASTokenForInternalStorageAsync(StorageQueryDto body, System.Guid workspaceId, CancellationToken cancellationToken = default)
         {
-            using (var _result = await GetSASTokenForStorageDatasetWithHttpMessagesAsync(body, workspaceId, null, cancellationToken).ConfigureAwait(false))
+            using (var _result = await GetSASTokenForInternalStorageWithHttpMessagesAsync(body, workspaceId, null, cancellationToken).ConfigureAwait(false))
             {
                 return _result.Body;
             }
+        }
+
+        /// <summary>
+        /// Revoke sas policy for current workspace or based on policy name.
+        /// </summary>
+        /// <remarks>
+        /// Sample request For Revoke Sas Token:
+        ///
+        /// DELETE {workspaceId}/storages/sas/external/revoke
+        /// {
+        /// "settings": {
+        /// "containerName": "string",
+        /// "connectionString": "string"
+        /// },
+        /// "policyName": "string"
+        /// }
+        /// * ContainerName is the name of the container for which the SAS policy needs
+        /// to be revoked.
+        /// * ConnectionString is the connection string of the external storage
+        /// account.
+        ///
+        /// Notes -
+        /// * If policies are not provided, all the SAS policies for the workspace for
+        /// storage will be revoked.
+        /// * If policies are provided, only the SAS policies with the matching names
+        /// will be revoked.
+        /// * To see the policyNames for storage, call the POST endpoint -
+        /// /gateway/api/v1/workspaces/{workspaceId}/storages/sas/external/policies
+        /// endpoint.
+        /// * A user of Workspace who has role of Reader can not revoke tokens.
+        /// * A user of Workspace who has role of Administrator can only revoke tokens.
+        /// * Service Accounts can't revoke tokens currently.
+        /// </remarks>
+        /// <param name='body'>
+        /// </param>
+        /// <param name='workspaceId'>
+        /// </param>
+        /// <param name='customHeaders'>
+        /// Headers that will be added to request.
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        /// <exception cref="HttpOperationException">
+        /// Thrown when the operation returned an invalid status code
+        /// </exception>
+        /// <exception cref="ValidationException">
+        /// Thrown when a required parameter is null
+        /// </exception>
+        /// <exception cref="System.ArgumentNullException">
+        /// Thrown when a required parameter is null
+        /// </exception>
+        /// <return>
+        /// A response object containing the response body and response headers.
+        /// </return>
+        public async Task<HttpOperationResponse> RevokeExternalPoliciesWithHttpMessagesAsync(RevokePoliciesExternalDTO body, System.Guid workspaceId, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default)
+        {
+            if (body == null)
+            {
+                throw new ValidationException(ValidationRules.CannotBeNull, "body");
+            }
+            // Construct URL
+            var _baseUrl = Client.HttpClient.BaseAddress?.AbsoluteUri ?? Client.BaseUri.AbsoluteUri;
+            var _url = new System.Uri(new System.Uri(_baseUrl + (_baseUrl.EndsWith("/") ? "" : "/")), "workspaces/{workspaceId}/storages/sas/external/revokepolicies").ToString();
+            _url = _url.Replace("{workspaceId}", System.Uri.EscapeDataString(Microsoft.Rest.Serialization.SafeJsonConvert.SerializeObject(workspaceId, Client.SerializationSettings).Trim('"')));
+            // Create HTTP transport objects
+            var _httpRequest = new HttpRequestMessage();
+            HttpResponseMessage _httpResponse = null;
+            _httpRequest.Method = new HttpMethod("DELETE");
+            _httpRequest.RequestUri = new System.Uri(_url);
+            // Set Headers
+
+
+            if (customHeaders != null)
+            {
+                foreach(var _header in customHeaders)
+                {
+                    if (_httpRequest.Headers.Contains(_header.Key))
+                    {
+                        _httpRequest.Headers.Remove(_header.Key);
+                    }
+                    _httpRequest.Headers.TryAddWithoutValidation(_header.Key, _header.Value);
+                }
+            }
+
+            // Serialize Request
+            string _requestContent = null;
+            if(body != null)
+            {
+                _requestContent = Microsoft.Rest.Serialization.SafeJsonConvert.SerializeObject(body, Client.SerializationSettings);
+                _httpRequest.Content = new StringContent(_requestContent, System.Text.Encoding.UTF8);
+                _httpRequest.Content.Headers.ContentType =System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json; charset=utf-8");
+            }
+            // Send Request
+            cancellationToken.ThrowIfCancellationRequested();
+            _httpResponse = await Client.HttpClient.SendAsync(_httpRequest, cancellationToken).ConfigureAwait(false);
+            HttpStatusCode _statusCode = _httpResponse.StatusCode;
+            cancellationToken.ThrowIfCancellationRequested();
+            string _responseContent = null;
+            if ((int)_statusCode != 200)
+            {
+                var ex = new HttpOperationException(string.Format("Operation returned an invalid status code '{0}'", _statusCode));
+                if (_httpResponse.Content != null) {
+                    _responseContent = await _httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
+                }
+                else {
+                    _responseContent = string.Empty;
+                }
+                ex.Request = new HttpRequestMessageWrapper(_httpRequest, _requestContent);
+                ex.Response = new HttpResponseMessageWrapper(_httpResponse, _responseContent);
+                _httpRequest.Dispose();
+                if (_httpResponse != null)
+                {
+                    _httpResponse.Dispose();
+                }
+                throw ex;
+            }
+            // Create Result
+            var _result = new HttpOperationResponse();
+            _result.Request = _httpRequest;
+            _result.Response = _httpResponse;
+            return _result;
+        }
+        /// <summary>
+        /// Revoke sas policy for current workspace or based on policy name.
+        /// </summary>
+        /// <remarks>
+        /// Sample request For Revoke Sas Token:
+        ///
+        /// DELETE {workspaceId}/storages/sas/external/revoke
+        /// {
+        /// "settings": {
+        /// "containerName": "string",
+        /// "connectionString": "string"
+        /// },
+        /// "policyName": "string"
+        /// }
+        /// * ContainerName is the name of the container for which the SAS policy needs
+        /// to be revoked.
+        /// * ConnectionString is the connection string of the external storage
+        /// account.
+        ///
+        /// Notes -
+        /// * If policies are not provided, all the SAS policies for the workspace for
+        /// storage will be revoked.
+        /// * If policies are provided, only the SAS policies with the matching names
+        /// will be revoked.
+        /// * To see the policyNames for storage, call the POST endpoint -
+        /// /gateway/api/v1/workspaces/{workspaceId}/storages/sas/external/policies
+        /// endpoint.
+        /// * A user of Workspace who has role of Reader can not revoke tokens.
+        /// * A user of Workspace who has role of Administrator can only revoke tokens.
+        /// * Service Accounts can't revoke tokens currently.
+        /// </remarks>
+        /// <param name='body'>
+        /// </param>
+        /// <param name='workspaceId'>
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        public async Task RevokeExternalPoliciesAsync(RevokePoliciesExternalDTO body, System.Guid workspaceId, CancellationToken cancellationToken = default)
+        {
+            (await RevokeExternalPoliciesWithHttpMessagesAsync(body, workspaceId, null, cancellationToken).ConfigureAwait(false)).Dispose();
+        }
+
+        /// <summary>
+        /// Revoke sas policy for current workspace or based on policy name.
+        /// </summary>
+        /// <remarks>
+        /// Notes -
+        /// * If policyName is not provided, all the SAS policies for the workspace for
+        /// storage will be revoked.
+        /// * If policyName is provided, only the SAS policy with that name will be
+        /// revoked.
+        /// * To see the policyNames for storage, call the GET endpoint -
+        /// /gateway/api/v1/workspaces/{workspaceId}/storages/sas/policies endpoint.
+        /// * A user of Workspace who has role of Reader can not revoke tokens.
+        /// * A user of Workspace who has role of Administrator can only revoke tokens.
+        /// * Service Accounts can't revoke tokens currently.
+        /// </remarks>
+        /// <param name='workspaceId'>
+        /// </param>
+        /// <param name='policyToRevoke'>
+        /// </param>
+        /// <param name='customHeaders'>
+        /// Headers that will be added to request.
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        /// <exception cref="HttpOperationException">
+        /// Thrown when the operation returned an invalid status code
+        /// </exception>
+        /// <return>
+        /// A response object containing the response body and response headers.
+        /// </return>
+        [System.Obsolete("This operation is deprecated. Please do not use it any longer.")]
+        public async Task<HttpOperationResponse> RevokeInternalSASTokenWithHttpMessagesAsync(System.Guid workspaceId, string policyToRevoke = default, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default)
+        {
+            // Construct URL
+            var _baseUrl = Client.HttpClient.BaseAddress?.AbsoluteUri ?? Client.BaseUri.AbsoluteUri;
+            var _url = new System.Uri(new System.Uri(_baseUrl + (_baseUrl.EndsWith("/") ? "" : "/")), "workspaces/{workspaceId}/storages/sas/revoke").ToString();
+            _url = _url.Replace("{workspaceId}", System.Uri.EscapeDataString(Microsoft.Rest.Serialization.SafeJsonConvert.SerializeObject(workspaceId, Client.SerializationSettings).Trim('"')));
+            IList<string> _queryParameters = new List<string>();
+            if (policyToRevoke != null)
+            {
+                _queryParameters.Add(string.Format("policyToRevoke={0}", System.Uri.EscapeDataString(policyToRevoke)));
+            }
+            if (_queryParameters.Any())
+            {
+                _url += "?" + string.Join("&", _queryParameters);
+            }
+            // Create HTTP transport objects
+            var _httpRequest = new HttpRequestMessage();
+            HttpResponseMessage _httpResponse = null;
+            _httpRequest.Method = new HttpMethod("DELETE");
+            _httpRequest.RequestUri = new System.Uri(_url);
+            // Set Headers
+
+
+            if (customHeaders != null)
+            {
+                foreach(var _header in customHeaders)
+                {
+                    if (_httpRequest.Headers.Contains(_header.Key))
+                    {
+                        _httpRequest.Headers.Remove(_header.Key);
+                    }
+                    _httpRequest.Headers.TryAddWithoutValidation(_header.Key, _header.Value);
+                }
+            }
+
+            // Serialize Request
+            string _requestContent = null;
+            // Send Request
+            cancellationToken.ThrowIfCancellationRequested();
+            _httpResponse = await Client.HttpClient.SendAsync(_httpRequest, cancellationToken).ConfigureAwait(false);
+            HttpStatusCode _statusCode = _httpResponse.StatusCode;
+            cancellationToken.ThrowIfCancellationRequested();
+            string _responseContent = null;
+            if ((int)_statusCode != 200)
+            {
+                var ex = new HttpOperationException(string.Format("Operation returned an invalid status code '{0}'", _statusCode));
+                if (_httpResponse.Content != null) {
+                    _responseContent = await _httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
+                }
+                else {
+                    _responseContent = string.Empty;
+                }
+                ex.Request = new HttpRequestMessageWrapper(_httpRequest, _requestContent);
+                ex.Response = new HttpResponseMessageWrapper(_httpResponse, _responseContent);
+                _httpRequest.Dispose();
+                if (_httpResponse != null)
+                {
+                    _httpResponse.Dispose();
+                }
+                throw ex;
+            }
+            // Create Result
+            var _result = new HttpOperationResponse();
+            _result.Request = _httpRequest;
+            _result.Response = _httpResponse;
+            return _result;
+        }
+        /// <summary>
+        /// Revoke sas policy for current workspace or based on policy name.
+        /// </summary>
+        /// <remarks>
+        /// Notes -
+        /// * If policyName is not provided, all the SAS policies for the workspace for
+        /// storage will be revoked.
+        /// * If policyName is provided, only the SAS policy with that name will be
+        /// revoked.
+        /// * To see the policyNames for storage, call the GET endpoint -
+        /// /gateway/api/v1/workspaces/{workspaceId}/storages/sas/policies endpoint.
+        /// * A user of Workspace who has role of Reader can not revoke tokens.
+        /// * A user of Workspace who has role of Administrator can only revoke tokens.
+        /// * Service Accounts can't revoke tokens currently.
+        /// </remarks>
+        /// <param name='workspaceId'>
+        /// </param>
+        /// <param name='policyToRevoke'>
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        [System.Obsolete("This operation is deprecated. Please do not use it any longer.")]
+        public async Task RevokeInternalSASTokenAsync(System.Guid workspaceId, string policyToRevoke = default, CancellationToken cancellationToken = default)
+        {
+            (await RevokeInternalSASTokenWithHttpMessagesAsync(workspaceId, policyToRevoke, null, cancellationToken).ConfigureAwait(false)).Dispose();
+        }
+
+        /// <summary>
+        /// Revoke sas policies for current workspace or based on policy names.
+        /// </summary>
+        /// <remarks>
+        /// Notes -
+        /// * If policies are not provided, all the SAS policies for the workspace for
+        /// storage will be revoked.
+        /// * If policies are provided, only the SAS policies with the matching names
+        /// will be revoked.
+        /// * To see the policyNames for storage, call the GET endpoint -
+        /// /gateway/api/v1/workspaces/{workspaceId}/storages/sas/policies endpoint.
+        /// * A user of Workspace who has role of Reader can not revoke tokens.
+        /// * A user of Workspace who has role of Administrator can only revoke tokens.
+        /// * Service Accounts can't revoke tokens currently.
+        /// </remarks>
+        /// <param name='body'>
+        /// </param>
+        /// <param name='workspaceId'>
+        /// </param>
+        /// <param name='customHeaders'>
+        /// Headers that will be added to request.
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        /// <exception cref="HttpOperationException">
+        /// Thrown when the operation returned an invalid status code
+        /// </exception>
+        /// <exception cref="ValidationException">
+        /// Thrown when a required parameter is null
+        /// </exception>
+        /// <exception cref="System.ArgumentNullException">
+        /// Thrown when a required parameter is null
+        /// </exception>
+        /// <return>
+        /// A response object containing the response body and response headers.
+        /// </return>
+        public async Task<HttpOperationResponse> RevokeInternalPoliciesWithHttpMessagesAsync(RevokePoliciesInternalDTO body, System.Guid workspaceId, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default)
+        {
+            if (body == null)
+            {
+                throw new ValidationException(ValidationRules.CannotBeNull, "body");
+            }
+            // Construct URL
+            var _baseUrl = Client.HttpClient.BaseAddress?.AbsoluteUri ?? Client.BaseUri.AbsoluteUri;
+            var _url = new System.Uri(new System.Uri(_baseUrl + (_baseUrl.EndsWith("/") ? "" : "/")), "workspaces/{workspaceId}/storages/sas/revokepolicies").ToString();
+            _url = _url.Replace("{workspaceId}", System.Uri.EscapeDataString(Microsoft.Rest.Serialization.SafeJsonConvert.SerializeObject(workspaceId, Client.SerializationSettings).Trim('"')));
+            // Create HTTP transport objects
+            var _httpRequest = new HttpRequestMessage();
+            HttpResponseMessage _httpResponse = null;
+            _httpRequest.Method = new HttpMethod("DELETE");
+            _httpRequest.RequestUri = new System.Uri(_url);
+            // Set Headers
+
+
+            if (customHeaders != null)
+            {
+                foreach(var _header in customHeaders)
+                {
+                    if (_httpRequest.Headers.Contains(_header.Key))
+                    {
+                        _httpRequest.Headers.Remove(_header.Key);
+                    }
+                    _httpRequest.Headers.TryAddWithoutValidation(_header.Key, _header.Value);
+                }
+            }
+
+            // Serialize Request
+            string _requestContent = null;
+            if(body != null)
+            {
+                _requestContent = Microsoft.Rest.Serialization.SafeJsonConvert.SerializeObject(body, Client.SerializationSettings);
+                _httpRequest.Content = new StringContent(_requestContent, System.Text.Encoding.UTF8);
+                _httpRequest.Content.Headers.ContentType =System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json; charset=utf-8");
+            }
+            // Send Request
+            cancellationToken.ThrowIfCancellationRequested();
+            _httpResponse = await Client.HttpClient.SendAsync(_httpRequest, cancellationToken).ConfigureAwait(false);
+            HttpStatusCode _statusCode = _httpResponse.StatusCode;
+            cancellationToken.ThrowIfCancellationRequested();
+            string _responseContent = null;
+            if ((int)_statusCode != 200)
+            {
+                var ex = new HttpOperationException(string.Format("Operation returned an invalid status code '{0}'", _statusCode));
+                if (_httpResponse.Content != null) {
+                    _responseContent = await _httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
+                }
+                else {
+                    _responseContent = string.Empty;
+                }
+                ex.Request = new HttpRequestMessageWrapper(_httpRequest, _requestContent);
+                ex.Response = new HttpResponseMessageWrapper(_httpResponse, _responseContent);
+                _httpRequest.Dispose();
+                if (_httpResponse != null)
+                {
+                    _httpResponse.Dispose();
+                }
+                throw ex;
+            }
+            // Create Result
+            var _result = new HttpOperationResponse();
+            _result.Request = _httpRequest;
+            _result.Response = _httpResponse;
+            return _result;
+        }
+        /// <summary>
+        /// Revoke sas policies for current workspace or based on policy names.
+        /// </summary>
+        /// <remarks>
+        /// Notes -
+        /// * If policies are not provided, all the SAS policies for the workspace for
+        /// storage will be revoked.
+        /// * If policies are provided, only the SAS policies with the matching names
+        /// will be revoked.
+        /// * To see the policyNames for storage, call the GET endpoint -
+        /// /gateway/api/v1/workspaces/{workspaceId}/storages/sas/policies endpoint.
+        /// * A user of Workspace who has role of Reader can not revoke tokens.
+        /// * A user of Workspace who has role of Administrator can only revoke tokens.
+        /// * Service Accounts can't revoke tokens currently.
+        /// </remarks>
+        /// <param name='body'>
+        /// </param>
+        /// <param name='workspaceId'>
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        public async Task RevokeInternalPoliciesAsync(RevokePoliciesInternalDTO body, System.Guid workspaceId, CancellationToken cancellationToken = default)
+        {
+            (await RevokeInternalPoliciesWithHttpMessagesAsync(body, workspaceId, null, cancellationToken).ConfigureAwait(false)).Dispose();
         }
 
         /// <summary>

@@ -175,508 +175,6 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataWorkbenchApiV2
         }
 
         /// <summary>
-        /// Get a specific schema
-        /// </summary>
-        /// <param name='workspaceId'>
-        /// </param>
-        /// <param name='schemaId'>
-        /// </param>
-        /// <param name='customHeaders'>
-        /// Headers that will be added to request.
-        /// </param>
-        /// <param name='cancellationToken'>
-        /// The cancellation token.
-        /// </param>
-        /// <exception cref="HttpOperationException">
-        /// Thrown when the operation returned an invalid status code
-        /// </exception>
-        /// <exception cref="SerializationException">
-        /// Thrown when unable to deserialize the response
-        /// </exception>
-        /// <return>
-        /// A response object containing the response body and response headers.
-        /// </return>
-        public async Task<HttpOperationResponse<SchemaReadDto>> GetSchemaByIdWithHttpMessagesAsync(System.Guid workspaceId, System.Guid schemaId, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default)
-        {
-            // Construct URL
-            var _baseUrl = Client.HttpClient.BaseAddress?.AbsoluteUri ?? Client.BaseUri.AbsoluteUri;
-            var _url = new System.Uri(new System.Uri(_baseUrl + (_baseUrl.EndsWith("/") ? "" : "/")), "workspaces/{workspaceId}/schemas/{schemaId}").ToString();
-            _url = _url.Replace("{workspaceId}", System.Uri.EscapeDataString(Microsoft.Rest.Serialization.SafeJsonConvert.SerializeObject(workspaceId, Client.SerializationSettings).Trim('"')));
-            _url = _url.Replace("{schemaId}", System.Uri.EscapeDataString(Microsoft.Rest.Serialization.SafeJsonConvert.SerializeObject(schemaId, Client.SerializationSettings).Trim('"')));
-            // Create HTTP transport objects
-            var _httpRequest = new HttpRequestMessage();
-            HttpResponseMessage _httpResponse = null;
-            _httpRequest.Method = new HttpMethod("GET");
-            _httpRequest.RequestUri = new System.Uri(_url);
-            // Set Headers
-
-
-            if (customHeaders != null)
-            {
-                foreach(var _header in customHeaders)
-                {
-                    if (_httpRequest.Headers.Contains(_header.Key))
-                    {
-                        _httpRequest.Headers.Remove(_header.Key);
-                    }
-                    _httpRequest.Headers.TryAddWithoutValidation(_header.Key, _header.Value);
-                }
-            }
-
-            // Serialize Request
-            string _requestContent = null;
-            // Send Request
-            cancellationToken.ThrowIfCancellationRequested();
-            _httpResponse = await Client.HttpClient.SendAsync(_httpRequest, cancellationToken).ConfigureAwait(false);
-            HttpStatusCode _statusCode = _httpResponse.StatusCode;
-            cancellationToken.ThrowIfCancellationRequested();
-            string _responseContent = null;
-            if ((int)_statusCode != 200)
-            {
-                var ex = new HttpOperationException(string.Format("Operation returned an invalid status code '{0}'", _statusCode));
-                if (_httpResponse.Content != null) {
-                    _responseContent = await _httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
-                }
-                else {
-                    _responseContent = string.Empty;
-                }
-                ex.Request = new HttpRequestMessageWrapper(_httpRequest, _requestContent);
-                ex.Response = new HttpResponseMessageWrapper(_httpResponse, _responseContent);
-                _httpRequest.Dispose();
-                if (_httpResponse != null)
-                {
-                    _httpResponse.Dispose();
-                }
-                throw ex;
-            }
-            // Create Result
-            var _result = new HttpOperationResponse<SchemaReadDto>();
-            _result.Request = _httpRequest;
-            _result.Response = _httpResponse;
-            // Deserialize Response
-            if ((int)_statusCode == 200)
-            {
-                _responseContent = await _httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
-                try
-                {
-                    _result.Body = Microsoft.Rest.Serialization.SafeJsonConvert.DeserializeObject<SchemaReadDto>(_responseContent, Client.DeserializationSettings);
-                }
-                catch (JsonException ex)
-                {
-                    _httpRequest.Dispose();
-                    if (_httpResponse != null)
-                    {
-                        _httpResponse.Dispose();
-                    }
-                    throw new SerializationException("Unable to deserialize the response.", _responseContent, ex);
-                }
-            }
-            return _result;
-        }
-        /// <summary>
-        /// Get a specific schema
-        /// </summary>
-        /// <param name='workspaceId'>
-        /// </param>
-        /// <param name='schemaId'>
-        /// </param>
-        /// <param name='cancellationToken'>
-        /// The cancellation token.
-        /// </param>
-        public async Task<SchemaReadDto> GetSchemaByIdAsync(System.Guid workspaceId, System.Guid schemaId, CancellationToken cancellationToken = default)
-        {
-            using (var _result = await GetSchemaByIdWithHttpMessagesAsync(workspaceId, schemaId, null, cancellationToken).ConfigureAwait(false))
-            {
-                return _result.Body;
-            }
-        }
-
-        /// <summary>
-        /// Patch Schema
-        /// </summary>
-        /// <param name='body'>
-        /// The input describing the schema
-        /// </param>
-        /// <param name='workspaceId'>
-        /// </param>
-        /// <param name='schemaId'>
-        /// Schema Id to edit
-        /// </param>
-        /// <param name='customHeaders'>
-        /// Headers that will be added to request.
-        /// </param>
-        /// <param name='cancellationToken'>
-        /// The cancellation token.
-        /// </param>
-        /// <exception cref="HttpOperationException">
-        /// Thrown when the operation returned an invalid status code
-        /// </exception>
-        /// <exception cref="SerializationException">
-        /// Thrown when unable to deserialize the response
-        /// </exception>
-        /// <exception cref="ValidationException">
-        /// Thrown when a required parameter is null
-        /// </exception>
-        /// <exception cref="System.ArgumentNullException">
-        /// Thrown when a required parameter is null
-        /// </exception>
-        /// <return>
-        /// A response object containing the response body and response headers.
-        /// </return>
-        public async Task<HttpOperationResponse<SchemaReadDto>> UpdateSchemaWithHttpMessagesAsync(SchemaPatchDto body, System.Guid workspaceId, System.Guid schemaId, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default)
-        {
-            if (body == null)
-            {
-                throw new ValidationException(ValidationRules.CannotBeNull, "body");
-            }
-            // Construct URL
-            var _baseUrl = Client.HttpClient.BaseAddress?.AbsoluteUri ?? Client.BaseUri.AbsoluteUri;
-            var _url = new System.Uri(new System.Uri(_baseUrl + (_baseUrl.EndsWith("/") ? "" : "/")), "workspaces/{workspaceId}/schemas/{schemaId}").ToString();
-            _url = _url.Replace("{workspaceId}", System.Uri.EscapeDataString(Microsoft.Rest.Serialization.SafeJsonConvert.SerializeObject(workspaceId, Client.SerializationSettings).Trim('"')));
-            _url = _url.Replace("{schemaId}", System.Uri.EscapeDataString(Microsoft.Rest.Serialization.SafeJsonConvert.SerializeObject(schemaId, Client.SerializationSettings).Trim('"')));
-            // Create HTTP transport objects
-            var _httpRequest = new HttpRequestMessage();
-            HttpResponseMessage _httpResponse = null;
-            _httpRequest.Method = new HttpMethod("PATCH");
-            _httpRequest.RequestUri = new System.Uri(_url);
-            // Set Headers
-
-
-            if (customHeaders != null)
-            {
-                foreach(var _header in customHeaders)
-                {
-                    if (_httpRequest.Headers.Contains(_header.Key))
-                    {
-                        _httpRequest.Headers.Remove(_header.Key);
-                    }
-                    _httpRequest.Headers.TryAddWithoutValidation(_header.Key, _header.Value);
-                }
-            }
-
-            // Serialize Request
-            string _requestContent = null;
-            if(body != null)
-            {
-                _requestContent = Microsoft.Rest.Serialization.SafeJsonConvert.SerializeObject(body, Client.SerializationSettings);
-                _httpRequest.Content = new StringContent(_requestContent, System.Text.Encoding.UTF8);
-                _httpRequest.Content.Headers.ContentType =System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json; charset=utf-8");
-            }
-            // Send Request
-            cancellationToken.ThrowIfCancellationRequested();
-            _httpResponse = await Client.HttpClient.SendAsync(_httpRequest, cancellationToken).ConfigureAwait(false);
-            HttpStatusCode _statusCode = _httpResponse.StatusCode;
-            cancellationToken.ThrowIfCancellationRequested();
-            string _responseContent = null;
-            if ((int)_statusCode != 200)
-            {
-                var ex = new HttpOperationException(string.Format("Operation returned an invalid status code '{0}'", _statusCode));
-                if (_httpResponse.Content != null) {
-                    _responseContent = await _httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
-                }
-                else {
-                    _responseContent = string.Empty;
-                }
-                ex.Request = new HttpRequestMessageWrapper(_httpRequest, _requestContent);
-                ex.Response = new HttpResponseMessageWrapper(_httpResponse, _responseContent);
-                _httpRequest.Dispose();
-                if (_httpResponse != null)
-                {
-                    _httpResponse.Dispose();
-                }
-                throw ex;
-            }
-            // Create Result
-            var _result = new HttpOperationResponse<SchemaReadDto>();
-            _result.Request = _httpRequest;
-            _result.Response = _httpResponse;
-            // Deserialize Response
-            if ((int)_statusCode == 200)
-            {
-                _responseContent = await _httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
-                try
-                {
-                    _result.Body = Microsoft.Rest.Serialization.SafeJsonConvert.DeserializeObject<SchemaReadDto>(_responseContent, Client.DeserializationSettings);
-                }
-                catch (JsonException ex)
-                {
-                    _httpRequest.Dispose();
-                    if (_httpResponse != null)
-                    {
-                        _httpResponse.Dispose();
-                    }
-                    throw new SerializationException("Unable to deserialize the response.", _responseContent, ex);
-                }
-            }
-            return _result;
-        }
-        /// <summary>
-        /// Patch Schema
-        /// </summary>
-        /// <param name='body'>
-        /// The input describing the schema
-        /// </param>
-        /// <param name='workspaceId'>
-        /// </param>
-        /// <param name='schemaId'>
-        /// Schema Id to edit
-        /// </param>
-        /// <param name='cancellationToken'>
-        /// The cancellation token.
-        /// </param>
-        public async Task<SchemaReadDto> UpdateSchemaAsync(SchemaPatchDto body, System.Guid workspaceId, System.Guid schemaId, CancellationToken cancellationToken = default)
-        {
-            using (var _result = await UpdateSchemaWithHttpMessagesAsync(body, workspaceId, schemaId, null, cancellationToken).ConfigureAwait(false))
-            {
-                return _result.Body;
-            }
-        }
-
-        /// <summary>
-        /// Update schema version
-        /// </summary>
-        /// <param name='workspaceId'>
-        /// </param>
-        /// <param name='schemaId'>
-        /// </param>
-        /// <param name='schemaVersionId'>
-        /// </param>
-        /// <param name='customHeaders'>
-        /// Headers that will be added to request.
-        /// </param>
-        /// <param name='cancellationToken'>
-        /// The cancellation token.
-        /// </param>
-        /// <exception cref="HttpOperationException">
-        /// Thrown when the operation returned an invalid status code
-        /// </exception>
-        /// <exception cref="SerializationException">
-        /// Thrown when unable to deserialize the response
-        /// </exception>
-        /// <return>
-        /// A response object containing the response body and response headers.
-        /// </return>
-        public async Task<HttpOperationResponse<SchemaVersionReadDto>> PatchSchemaVersionWithHttpMessagesAsync(System.Guid workspaceId, System.Guid schemaId, System.Guid schemaVersionId, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default)
-        {
-            // Construct URL
-            var _baseUrl = Client.HttpClient.BaseAddress?.AbsoluteUri ?? Client.BaseUri.AbsoluteUri;
-            var _url = new System.Uri(new System.Uri(_baseUrl + (_baseUrl.EndsWith("/") ? "" : "/")), "workspaces/{workspaceId}/schemas/{schemaId}/schemaversions/{schemaVersionId}").ToString();
-            _url = _url.Replace("{workspaceId}", System.Uri.EscapeDataString(Microsoft.Rest.Serialization.SafeJsonConvert.SerializeObject(workspaceId, Client.SerializationSettings).Trim('"')));
-            _url = _url.Replace("{schemaId}", System.Uri.EscapeDataString(Microsoft.Rest.Serialization.SafeJsonConvert.SerializeObject(schemaId, Client.SerializationSettings).Trim('"')));
-            _url = _url.Replace("{schemaVersionId}", System.Uri.EscapeDataString(Microsoft.Rest.Serialization.SafeJsonConvert.SerializeObject(schemaVersionId, Client.SerializationSettings).Trim('"')));
-            // Create HTTP transport objects
-            var _httpRequest = new HttpRequestMessage();
-            HttpResponseMessage _httpResponse = null;
-            _httpRequest.Method = new HttpMethod("PATCH");
-            _httpRequest.RequestUri = new System.Uri(_url);
-            // Set Headers
-
-
-            if (customHeaders != null)
-            {
-                foreach(var _header in customHeaders)
-                {
-                    if (_httpRequest.Headers.Contains(_header.Key))
-                    {
-                        _httpRequest.Headers.Remove(_header.Key);
-                    }
-                    _httpRequest.Headers.TryAddWithoutValidation(_header.Key, _header.Value);
-                }
-            }
-
-            // Serialize Request
-            string _requestContent = null;
-            // Send Request
-            cancellationToken.ThrowIfCancellationRequested();
-            _httpResponse = await Client.HttpClient.SendAsync(_httpRequest, cancellationToken).ConfigureAwait(false);
-            HttpStatusCode _statusCode = _httpResponse.StatusCode;
-            cancellationToken.ThrowIfCancellationRequested();
-            string _responseContent = null;
-            if ((int)_statusCode != 200)
-            {
-                var ex = new HttpOperationException(string.Format("Operation returned an invalid status code '{0}'", _statusCode));
-                if (_httpResponse.Content != null) {
-                    _responseContent = await _httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
-                }
-                else {
-                    _responseContent = string.Empty;
-                }
-                ex.Request = new HttpRequestMessageWrapper(_httpRequest, _requestContent);
-                ex.Response = new HttpResponseMessageWrapper(_httpResponse, _responseContent);
-                _httpRequest.Dispose();
-                if (_httpResponse != null)
-                {
-                    _httpResponse.Dispose();
-                }
-                throw ex;
-            }
-            // Create Result
-            var _result = new HttpOperationResponse<SchemaVersionReadDto>();
-            _result.Request = _httpRequest;
-            _result.Response = _httpResponse;
-            // Deserialize Response
-            if ((int)_statusCode == 200)
-            {
-                _responseContent = await _httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
-                try
-                {
-                    _result.Body = Microsoft.Rest.Serialization.SafeJsonConvert.DeserializeObject<SchemaVersionReadDto>(_responseContent, Client.DeserializationSettings);
-                }
-                catch (JsonException ex)
-                {
-                    _httpRequest.Dispose();
-                    if (_httpResponse != null)
-                    {
-                        _httpResponse.Dispose();
-                    }
-                    throw new SerializationException("Unable to deserialize the response.", _responseContent, ex);
-                }
-            }
-            return _result;
-        }
-        /// <summary>
-        /// Update schema version
-        /// </summary>
-        /// <param name='workspaceId'>
-        /// </param>
-        /// <param name='schemaId'>
-        /// </param>
-        /// <param name='schemaVersionId'>
-        /// </param>
-        /// <param name='cancellationToken'>
-        /// The cancellation token.
-        /// </param>
-        public async Task<SchemaVersionReadDto> PatchSchemaVersionAsync(System.Guid workspaceId, System.Guid schemaId, System.Guid schemaVersionId, CancellationToken cancellationToken = default)
-        {
-            using (var _result = await PatchSchemaVersionWithHttpMessagesAsync(workspaceId, schemaId, schemaVersionId, null, cancellationToken).ConfigureAwait(false))
-            {
-                return _result.Body;
-            }
-        }
-
-        /// <summary>
-        /// Activate schema version
-        /// </summary>
-        /// <param name='workspaceId'>
-        /// </param>
-        /// <param name='schemaId'>
-        /// </param>
-        /// <param name='schemaVersionId'>
-        /// </param>
-        /// <param name='customHeaders'>
-        /// Headers that will be added to request.
-        /// </param>
-        /// <param name='cancellationToken'>
-        /// The cancellation token.
-        /// </param>
-        /// <exception cref="HttpOperationException">
-        /// Thrown when the operation returned an invalid status code
-        /// </exception>
-        /// <exception cref="SerializationException">
-        /// Thrown when unable to deserialize the response
-        /// </exception>
-        /// <return>
-        /// A response object containing the response body and response headers.
-        /// </return>
-        public async Task<HttpOperationResponse<SchemaVersionReadDto>> ActivateSchemaVersionWithHttpMessagesAsync(System.Guid workspaceId, System.Guid schemaId, System.Guid schemaVersionId, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default)
-        {
-            // Construct URL
-            var _baseUrl = Client.HttpClient.BaseAddress?.AbsoluteUri ?? Client.BaseUri.AbsoluteUri;
-            var _url = new System.Uri(new System.Uri(_baseUrl + (_baseUrl.EndsWith("/") ? "" : "/")), "workspaces/{workspaceId}/schemas/{schemaId}/schemaversions/{schemaVersionId}/activate").ToString();
-            _url = _url.Replace("{workspaceId}", System.Uri.EscapeDataString(Microsoft.Rest.Serialization.SafeJsonConvert.SerializeObject(workspaceId, Client.SerializationSettings).Trim('"')));
-            _url = _url.Replace("{schemaId}", System.Uri.EscapeDataString(Microsoft.Rest.Serialization.SafeJsonConvert.SerializeObject(schemaId, Client.SerializationSettings).Trim('"')));
-            _url = _url.Replace("{schemaVersionId}", System.Uri.EscapeDataString(Microsoft.Rest.Serialization.SafeJsonConvert.SerializeObject(schemaVersionId, Client.SerializationSettings).Trim('"')));
-            // Create HTTP transport objects
-            var _httpRequest = new HttpRequestMessage();
-            HttpResponseMessage _httpResponse = null;
-            _httpRequest.Method = new HttpMethod("POST");
-            _httpRequest.RequestUri = new System.Uri(_url);
-            // Set Headers
-
-
-            if (customHeaders != null)
-            {
-                foreach(var _header in customHeaders)
-                {
-                    if (_httpRequest.Headers.Contains(_header.Key))
-                    {
-                        _httpRequest.Headers.Remove(_header.Key);
-                    }
-                    _httpRequest.Headers.TryAddWithoutValidation(_header.Key, _header.Value);
-                }
-            }
-
-            // Serialize Request
-            string _requestContent = null;
-            // Send Request
-            cancellationToken.ThrowIfCancellationRequested();
-            _httpResponse = await Client.HttpClient.SendAsync(_httpRequest, cancellationToken).ConfigureAwait(false);
-            HttpStatusCode _statusCode = _httpResponse.StatusCode;
-            cancellationToken.ThrowIfCancellationRequested();
-            string _responseContent = null;
-            if ((int)_statusCode != 200)
-            {
-                var ex = new HttpOperationException(string.Format("Operation returned an invalid status code '{0}'", _statusCode));
-                if (_httpResponse.Content != null) {
-                    _responseContent = await _httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
-                }
-                else {
-                    _responseContent = string.Empty;
-                }
-                ex.Request = new HttpRequestMessageWrapper(_httpRequest, _requestContent);
-                ex.Response = new HttpResponseMessageWrapper(_httpResponse, _responseContent);
-                _httpRequest.Dispose();
-                if (_httpResponse != null)
-                {
-                    _httpResponse.Dispose();
-                }
-                throw ex;
-            }
-            // Create Result
-            var _result = new HttpOperationResponse<SchemaVersionReadDto>();
-            _result.Request = _httpRequest;
-            _result.Response = _httpResponse;
-            // Deserialize Response
-            if ((int)_statusCode == 200)
-            {
-                _responseContent = await _httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
-                try
-                {
-                    _result.Body = Microsoft.Rest.Serialization.SafeJsonConvert.DeserializeObject<SchemaVersionReadDto>(_responseContent, Client.DeserializationSettings);
-                }
-                catch (JsonException ex)
-                {
-                    _httpRequest.Dispose();
-                    if (_httpResponse != null)
-                    {
-                        _httpResponse.Dispose();
-                    }
-                    throw new SerializationException("Unable to deserialize the response.", _responseContent, ex);
-                }
-            }
-            return _result;
-        }
-        /// <summary>
-        /// Activate schema version
-        /// </summary>
-        /// <param name='workspaceId'>
-        /// </param>
-        /// <param name='schemaId'>
-        /// </param>
-        /// <param name='schemaVersionId'>
-        /// </param>
-        /// <param name='cancellationToken'>
-        /// The cancellation token.
-        /// </param>
-        public async Task<SchemaVersionReadDto> ActivateSchemaVersionAsync(System.Guid workspaceId, System.Guid schemaId, System.Guid schemaVersionId, CancellationToken cancellationToken = default)
-        {
-            using (var _result = await ActivateSchemaVersionWithHttpMessagesAsync(workspaceId, schemaId, schemaVersionId, null, cancellationToken).ConfigureAwait(false))
-            {
-                return _result.Body;
-            }
-        }
-
-        /// <summary>
         /// create a new schema
         /// </summary>
         /// <param name='body'>
@@ -941,123 +439,6 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataWorkbenchApiV2
         }
 
         /// <summary>
-        /// Get a specific schema version
-        /// </summary>
-        /// <param name='workspaceId'>
-        /// </param>
-        /// <param name='schemaVersionId'>
-        /// </param>
-        /// <param name='customHeaders'>
-        /// Headers that will be added to request.
-        /// </param>
-        /// <param name='cancellationToken'>
-        /// The cancellation token.
-        /// </param>
-        /// <exception cref="HttpOperationException">
-        /// Thrown when the operation returned an invalid status code
-        /// </exception>
-        /// <exception cref="SerializationException">
-        /// Thrown when unable to deserialize the response
-        /// </exception>
-        /// <return>
-        /// A response object containing the response body and response headers.
-        /// </return>
-        public async Task<HttpOperationResponse<IEnumerable<SchemaVersionReadDto>>> GetSchemaVersionByIdWithHttpMessagesAsync(System.Guid workspaceId, System.Guid schemaVersionId, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default)
-        {
-            // Construct URL
-            var _baseUrl = Client.HttpClient.BaseAddress?.AbsoluteUri ?? Client.BaseUri.AbsoluteUri;
-            var _url = new System.Uri(new System.Uri(_baseUrl + (_baseUrl.EndsWith("/") ? "" : "/")), "workspaces/{workspaceId}/schemas/schemaversions/{schemaVersionId}").ToString();
-            _url = _url.Replace("{workspaceId}", System.Uri.EscapeDataString(Microsoft.Rest.Serialization.SafeJsonConvert.SerializeObject(workspaceId, Client.SerializationSettings).Trim('"')));
-            _url = _url.Replace("{schemaVersionId}", System.Uri.EscapeDataString(Microsoft.Rest.Serialization.SafeJsonConvert.SerializeObject(schemaVersionId, Client.SerializationSettings).Trim('"')));
-            // Create HTTP transport objects
-            var _httpRequest = new HttpRequestMessage();
-            HttpResponseMessage _httpResponse = null;
-            _httpRequest.Method = new HttpMethod("GET");
-            _httpRequest.RequestUri = new System.Uri(_url);
-            // Set Headers
-
-
-            if (customHeaders != null)
-            {
-                foreach(var _header in customHeaders)
-                {
-                    if (_httpRequest.Headers.Contains(_header.Key))
-                    {
-                        _httpRequest.Headers.Remove(_header.Key);
-                    }
-                    _httpRequest.Headers.TryAddWithoutValidation(_header.Key, _header.Value);
-                }
-            }
-
-            // Serialize Request
-            string _requestContent = null;
-            // Send Request
-            cancellationToken.ThrowIfCancellationRequested();
-            _httpResponse = await Client.HttpClient.SendAsync(_httpRequest, cancellationToken).ConfigureAwait(false);
-            HttpStatusCode _statusCode = _httpResponse.StatusCode;
-            cancellationToken.ThrowIfCancellationRequested();
-            string _responseContent = null;
-            if ((int)_statusCode != 200)
-            {
-                var ex = new HttpOperationException(string.Format("Operation returned an invalid status code '{0}'", _statusCode));
-                if (_httpResponse.Content != null) {
-                    _responseContent = await _httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
-                }
-                else {
-                    _responseContent = string.Empty;
-                }
-                ex.Request = new HttpRequestMessageWrapper(_httpRequest, _requestContent);
-                ex.Response = new HttpResponseMessageWrapper(_httpResponse, _responseContent);
-                _httpRequest.Dispose();
-                if (_httpResponse != null)
-                {
-                    _httpResponse.Dispose();
-                }
-                throw ex;
-            }
-            // Create Result
-            var _result = new HttpOperationResponse<IEnumerable<SchemaVersionReadDto>>();
-            _result.Request = _httpRequest;
-            _result.Response = _httpResponse;
-            // Deserialize Response
-            if ((int)_statusCode == 200)
-            {
-                _responseContent = await _httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
-                try
-                {
-                    _result.Body = Microsoft.Rest.Serialization.SafeJsonConvert.DeserializeObject<IEnumerable<SchemaVersionReadDto>>(_responseContent, Client.DeserializationSettings);
-                }
-                catch (JsonException ex)
-                {
-                    _httpRequest.Dispose();
-                    if (_httpResponse != null)
-                    {
-                        _httpResponse.Dispose();
-                    }
-                    throw new SerializationException("Unable to deserialize the response.", _responseContent, ex);
-                }
-            }
-            return _result;
-        }
-        /// <summary>
-        /// Get a specific schema version
-        /// </summary>
-        /// <param name='workspaceId'>
-        /// </param>
-        /// <param name='schemaVersionId'>
-        /// </param>
-        /// <param name='cancellationToken'>
-        /// The cancellation token.
-        /// </param>
-        public async Task<IEnumerable<SchemaVersionReadDto>> GetSchemaVersionByIdAsync(System.Guid workspaceId, System.Guid schemaVersionId, CancellationToken cancellationToken = default)
-        {
-            using (var _result = await GetSchemaVersionByIdWithHttpMessagesAsync(workspaceId, schemaVersionId, null, cancellationToken).ConfigureAwait(false))
-            {
-                return _result.Body;
-            }
-        }
-
-        /// <summary>
         /// Add a new schema version
         /// </summary>
         /// <param name='body'>
@@ -1184,6 +565,123 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataWorkbenchApiV2
         public async Task<SchemaVersionReadDto> AddSchemaVersionAsync(SchemaVersionWriteDto body, System.Guid workspaceId, CancellationToken cancellationToken = default)
         {
             using (var _result = await AddSchemaVersionWithHttpMessagesAsync(body, workspaceId, null, cancellationToken).ConfigureAwait(false))
+            {
+                return _result.Body;
+            }
+        }
+
+        /// <summary>
+        /// Get a specific schema version
+        /// </summary>
+        /// <param name='workspaceId'>
+        /// </param>
+        /// <param name='schemaVersionId'>
+        /// </param>
+        /// <param name='customHeaders'>
+        /// Headers that will be added to request.
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        /// <exception cref="HttpOperationException">
+        /// Thrown when the operation returned an invalid status code
+        /// </exception>
+        /// <exception cref="SerializationException">
+        /// Thrown when unable to deserialize the response
+        /// </exception>
+        /// <return>
+        /// A response object containing the response body and response headers.
+        /// </return>
+        public async Task<HttpOperationResponse<IEnumerable<SchemaVersionReadDto>>> GetSchemaVersionByIdWithHttpMessagesAsync(System.Guid workspaceId, System.Guid schemaVersionId, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default)
+        {
+            // Construct URL
+            var _baseUrl = Client.HttpClient.BaseAddress?.AbsoluteUri ?? Client.BaseUri.AbsoluteUri;
+            var _url = new System.Uri(new System.Uri(_baseUrl + (_baseUrl.EndsWith("/") ? "" : "/")), "workspaces/{workspaceId}/schemas/schemaversions/{schemaVersionId}").ToString();
+            _url = _url.Replace("{workspaceId}", System.Uri.EscapeDataString(Microsoft.Rest.Serialization.SafeJsonConvert.SerializeObject(workspaceId, Client.SerializationSettings).Trim('"')));
+            _url = _url.Replace("{schemaVersionId}", System.Uri.EscapeDataString(Microsoft.Rest.Serialization.SafeJsonConvert.SerializeObject(schemaVersionId, Client.SerializationSettings).Trim('"')));
+            // Create HTTP transport objects
+            var _httpRequest = new HttpRequestMessage();
+            HttpResponseMessage _httpResponse = null;
+            _httpRequest.Method = new HttpMethod("GET");
+            _httpRequest.RequestUri = new System.Uri(_url);
+            // Set Headers
+
+
+            if (customHeaders != null)
+            {
+                foreach(var _header in customHeaders)
+                {
+                    if (_httpRequest.Headers.Contains(_header.Key))
+                    {
+                        _httpRequest.Headers.Remove(_header.Key);
+                    }
+                    _httpRequest.Headers.TryAddWithoutValidation(_header.Key, _header.Value);
+                }
+            }
+
+            // Serialize Request
+            string _requestContent = null;
+            // Send Request
+            cancellationToken.ThrowIfCancellationRequested();
+            _httpResponse = await Client.HttpClient.SendAsync(_httpRequest, cancellationToken).ConfigureAwait(false);
+            HttpStatusCode _statusCode = _httpResponse.StatusCode;
+            cancellationToken.ThrowIfCancellationRequested();
+            string _responseContent = null;
+            if ((int)_statusCode != 200)
+            {
+                var ex = new HttpOperationException(string.Format("Operation returned an invalid status code '{0}'", _statusCode));
+                if (_httpResponse.Content != null) {
+                    _responseContent = await _httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
+                }
+                else {
+                    _responseContent = string.Empty;
+                }
+                ex.Request = new HttpRequestMessageWrapper(_httpRequest, _requestContent);
+                ex.Response = new HttpResponseMessageWrapper(_httpResponse, _responseContent);
+                _httpRequest.Dispose();
+                if (_httpResponse != null)
+                {
+                    _httpResponse.Dispose();
+                }
+                throw ex;
+            }
+            // Create Result
+            var _result = new HttpOperationResponse<IEnumerable<SchemaVersionReadDto>>();
+            _result.Request = _httpRequest;
+            _result.Response = _httpResponse;
+            // Deserialize Response
+            if ((int)_statusCode == 200)
+            {
+                _responseContent = await _httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
+                try
+                {
+                    _result.Body = Microsoft.Rest.Serialization.SafeJsonConvert.DeserializeObject<IEnumerable<SchemaVersionReadDto>>(_responseContent, Client.DeserializationSettings);
+                }
+                catch (JsonException ex)
+                {
+                    _httpRequest.Dispose();
+                    if (_httpResponse != null)
+                    {
+                        _httpResponse.Dispose();
+                    }
+                    throw new SerializationException("Unable to deserialize the response.", _responseContent, ex);
+                }
+            }
+            return _result;
+        }
+        /// <summary>
+        /// Get a specific schema version
+        /// </summary>
+        /// <param name='workspaceId'>
+        /// </param>
+        /// <param name='schemaVersionId'>
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        public async Task<IEnumerable<SchemaVersionReadDto>> GetSchemaVersionByIdAsync(System.Guid workspaceId, System.Guid schemaVersionId, CancellationToken cancellationToken = default)
+        {
+            using (var _result = await GetSchemaVersionByIdWithHttpMessagesAsync(workspaceId, schemaVersionId, null, cancellationToken).ConfigureAwait(false))
             {
                 return _result.Body;
             }
@@ -1566,6 +1064,220 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataWorkbenchApiV2
         public async Task<ColumnValidatorReadDto> CreateValidatorWithWorkspaceAsync(ColumnValidatorWriteDto body, System.Guid workspaceId, CancellationToken cancellationToken = default)
         {
             using (var _result = await CreateValidatorWithWorkspaceWithHttpMessagesAsync(body, workspaceId, null, cancellationToken).ConfigureAwait(false))
+            {
+                return _result.Body;
+            }
+        }
+
+        /// <summary>
+        /// Get list of global validators
+        /// </summary>
+        /// <remarks>
+        /// Sample response:
+        ///
+        /// [
+        /// {
+        /// "id": "10ffec78-4792-4364-babd-e9c45b6f94ab",
+        /// "workspaceId": "196a8ff4-dfbc-4ee7-ae08-4f38b84d9c86",
+        /// "name": "string 3",
+        /// "notEmpty": true,
+        /// "dataFormat": "String",
+        /// "minimum": 0,
+        /// "maximum": 1,
+        /// "exclusiveMinimum": true,
+        /// "exclusiveMaximum": true,
+        /// "minLength": 0,
+        /// "maxLength": 1,
+        /// "pattern": "string",
+        /// "errorMessage": "string",
+        /// "fallbackValue": "string",
+        /// "createdBy": "61cecec8-629b-4779-b593-6505e2b9443b",
+        /// "createdOn": "2024-06-26T14:20:50.1444566Z",
+        /// "lastModifiedBy": "61cecec8-629b-4779-b593-6505e2b9443b",
+        /// "lastModifiedOn": "2024-06-26T14:20:50.1444566Z"
+        /// },
+        /// {
+        /// "id": "834c7130-92bf-428e-acb2-c5567a540106",
+        /// "workspaceId": "196a8ff4-dfbc-4ee7-ae08-4f38b84d9c86",
+        /// "name": "string",
+        /// "notEmpty": true,
+        /// "dataFormat": "String",
+        /// "minimum": 1,
+        /// "maximum": 3,
+        /// "exclusiveMinimum": true,
+        /// "exclusiveMaximum": true,
+        /// "minLength": 1,
+        /// "maxLength": 3,
+        /// "pattern": "string",
+        /// "errorMessage": "string",
+        /// "fallbackValue": "string",
+        /// "createdBy": "61cecec8-629b-4779-b593-6505e2b9443b",
+        /// "createdOn": "2024-06-27T09:55:58.1032117Z",
+        /// "lastModifiedBy": "61cecec8-629b-4779-b593-6505e2b9443b",
+        /// "lastModifiedOn": "2024-06-27T09:55:58.1032117Z"
+        /// }
+        /// ]
+        /// </remarks>
+        /// <param name='workspaceId'>
+        /// </param>
+        /// <param name='customHeaders'>
+        /// Headers that will be added to request.
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        /// <exception cref="HttpOperationException">
+        /// Thrown when the operation returned an invalid status code
+        /// </exception>
+        /// <exception cref="SerializationException">
+        /// Thrown when unable to deserialize the response
+        /// </exception>
+        /// <exception cref="ValidationException">
+        /// Thrown when a required parameter is null
+        /// </exception>
+        /// <exception cref="System.ArgumentNullException">
+        /// Thrown when a required parameter is null
+        /// </exception>
+        /// <return>
+        /// A response object containing the response body and response headers.
+        /// </return>
+        public async Task<HttpOperationResponse<IEnumerable<ColumnValidatorReadDto>>> GetValidatorsListWithHttpMessagesAsync(string workspaceId, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default)
+        {
+            if (workspaceId == null)
+            {
+                throw new ValidationException(ValidationRules.CannotBeNull, "workspaceId");
+            }
+            // Construct URL
+            var _baseUrl = Client.HttpClient.BaseAddress?.AbsoluteUri ?? Client.BaseUri.AbsoluteUri;
+            var _url = new System.Uri(new System.Uri(_baseUrl + (_baseUrl.EndsWith("/") ? "" : "/")), "workspaces/{workspaceId}/schemas/validators/global").ToString();
+            _url = _url.Replace("{workspaceId}", System.Uri.EscapeDataString(workspaceId));
+            // Create HTTP transport objects
+            var _httpRequest = new HttpRequestMessage();
+            HttpResponseMessage _httpResponse = null;
+            _httpRequest.Method = new HttpMethod("GET");
+            _httpRequest.RequestUri = new System.Uri(_url);
+            // Set Headers
+
+
+            if (customHeaders != null)
+            {
+                foreach(var _header in customHeaders)
+                {
+                    if (_httpRequest.Headers.Contains(_header.Key))
+                    {
+                        _httpRequest.Headers.Remove(_header.Key);
+                    }
+                    _httpRequest.Headers.TryAddWithoutValidation(_header.Key, _header.Value);
+                }
+            }
+
+            // Serialize Request
+            string _requestContent = null;
+            // Send Request
+            cancellationToken.ThrowIfCancellationRequested();
+            _httpResponse = await Client.HttpClient.SendAsync(_httpRequest, cancellationToken).ConfigureAwait(false);
+            HttpStatusCode _statusCode = _httpResponse.StatusCode;
+            cancellationToken.ThrowIfCancellationRequested();
+            string _responseContent = null;
+            if ((int)_statusCode != 200)
+            {
+                var ex = new HttpOperationException(string.Format("Operation returned an invalid status code '{0}'", _statusCode));
+                if (_httpResponse.Content != null) {
+                    _responseContent = await _httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
+                }
+                else {
+                    _responseContent = string.Empty;
+                }
+                ex.Request = new HttpRequestMessageWrapper(_httpRequest, _requestContent);
+                ex.Response = new HttpResponseMessageWrapper(_httpResponse, _responseContent);
+                _httpRequest.Dispose();
+                if (_httpResponse != null)
+                {
+                    _httpResponse.Dispose();
+                }
+                throw ex;
+            }
+            // Create Result
+            var _result = new HttpOperationResponse<IEnumerable<ColumnValidatorReadDto>>();
+            _result.Request = _httpRequest;
+            _result.Response = _httpResponse;
+            // Deserialize Response
+            if ((int)_statusCode == 200)
+            {
+                _responseContent = await _httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
+                try
+                {
+                    _result.Body = Microsoft.Rest.Serialization.SafeJsonConvert.DeserializeObject<IEnumerable<ColumnValidatorReadDto>>(_responseContent, Client.DeserializationSettings);
+                }
+                catch (JsonException ex)
+                {
+                    _httpRequest.Dispose();
+                    if (_httpResponse != null)
+                    {
+                        _httpResponse.Dispose();
+                    }
+                    throw new SerializationException("Unable to deserialize the response.", _responseContent, ex);
+                }
+            }
+            return _result;
+        }
+        /// <summary>
+        /// Get list of global validators
+        /// </summary>
+        /// <remarks>
+        /// Sample response:
+        ///
+        /// [
+        /// {
+        /// "id": "10ffec78-4792-4364-babd-e9c45b6f94ab",
+        /// "workspaceId": "196a8ff4-dfbc-4ee7-ae08-4f38b84d9c86",
+        /// "name": "string 3",
+        /// "notEmpty": true,
+        /// "dataFormat": "String",
+        /// "minimum": 0,
+        /// "maximum": 1,
+        /// "exclusiveMinimum": true,
+        /// "exclusiveMaximum": true,
+        /// "minLength": 0,
+        /// "maxLength": 1,
+        /// "pattern": "string",
+        /// "errorMessage": "string",
+        /// "fallbackValue": "string",
+        /// "createdBy": "61cecec8-629b-4779-b593-6505e2b9443b",
+        /// "createdOn": "2024-06-26T14:20:50.1444566Z",
+        /// "lastModifiedBy": "61cecec8-629b-4779-b593-6505e2b9443b",
+        /// "lastModifiedOn": "2024-06-26T14:20:50.1444566Z"
+        /// },
+        /// {
+        /// "id": "834c7130-92bf-428e-acb2-c5567a540106",
+        /// "workspaceId": "196a8ff4-dfbc-4ee7-ae08-4f38b84d9c86",
+        /// "name": "string",
+        /// "notEmpty": true,
+        /// "dataFormat": "String",
+        /// "minimum": 1,
+        /// "maximum": 3,
+        /// "exclusiveMinimum": true,
+        /// "exclusiveMaximum": true,
+        /// "minLength": 1,
+        /// "maxLength": 3,
+        /// "pattern": "string",
+        /// "errorMessage": "string",
+        /// "fallbackValue": "string",
+        /// "createdBy": "61cecec8-629b-4779-b593-6505e2b9443b",
+        /// "createdOn": "2024-06-27T09:55:58.1032117Z",
+        /// "lastModifiedBy": "61cecec8-629b-4779-b593-6505e2b9443b",
+        /// "lastModifiedOn": "2024-06-27T09:55:58.1032117Z"
+        /// }
+        /// ]
+        /// </remarks>
+        /// <param name='workspaceId'>
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        public async Task<IEnumerable<ColumnValidatorReadDto>> GetValidatorsListAsync(string workspaceId, CancellationToken cancellationToken = default)
+        {
+            using (var _result = await GetValidatorsListWithHttpMessagesAsync(workspaceId, null, cancellationToken).ConfigureAwait(false))
             {
                 return _result.Body;
             }
@@ -1985,55 +1697,11 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataWorkbenchApiV2
         }
 
         /// <summary>
-        /// Get list of global validators
+        /// Get a specific schema
         /// </summary>
-        /// <remarks>
-        /// Sample response:
-        ///
-        /// [
-        /// {
-        /// "id": "10ffec78-4792-4364-babd-e9c45b6f94ab",
-        /// "workspaceId": "196a8ff4-dfbc-4ee7-ae08-4f38b84d9c86",
-        /// "name": "string 3",
-        /// "notEmpty": true,
-        /// "dataFormat": "String",
-        /// "minimum": 0,
-        /// "maximum": 1,
-        /// "exclusiveMinimum": true,
-        /// "exclusiveMaximum": true,
-        /// "minLength": 0,
-        /// "maxLength": 1,
-        /// "pattern": "string",
-        /// "errorMessage": "string",
-        /// "fallbackValue": "string",
-        /// "createdBy": "61cecec8-629b-4779-b593-6505e2b9443b",
-        /// "createdOn": "2024-06-26T14:20:50.1444566Z",
-        /// "lastModifiedBy": "61cecec8-629b-4779-b593-6505e2b9443b",
-        /// "lastModifiedOn": "2024-06-26T14:20:50.1444566Z"
-        /// },
-        /// {
-        /// "id": "834c7130-92bf-428e-acb2-c5567a540106",
-        /// "workspaceId": "196a8ff4-dfbc-4ee7-ae08-4f38b84d9c86",
-        /// "name": "string",
-        /// "notEmpty": true,
-        /// "dataFormat": "String",
-        /// "minimum": 1,
-        /// "maximum": 3,
-        /// "exclusiveMinimum": true,
-        /// "exclusiveMaximum": true,
-        /// "minLength": 1,
-        /// "maxLength": 3,
-        /// "pattern": "string",
-        /// "errorMessage": "string",
-        /// "fallbackValue": "string",
-        /// "createdBy": "61cecec8-629b-4779-b593-6505e2b9443b",
-        /// "createdOn": "2024-06-27T09:55:58.1032117Z",
-        /// "lastModifiedBy": "61cecec8-629b-4779-b593-6505e2b9443b",
-        /// "lastModifiedOn": "2024-06-27T09:55:58.1032117Z"
-        /// }
-        /// ]
-        /// </remarks>
         /// <param name='workspaceId'>
+        /// </param>
+        /// <param name='schemaId'>
         /// </param>
         /// <param name='customHeaders'>
         /// Headers that will be added to request.
@@ -2047,25 +1715,16 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataWorkbenchApiV2
         /// <exception cref="SerializationException">
         /// Thrown when unable to deserialize the response
         /// </exception>
-        /// <exception cref="ValidationException">
-        /// Thrown when a required parameter is null
-        /// </exception>
-        /// <exception cref="System.ArgumentNullException">
-        /// Thrown when a required parameter is null
-        /// </exception>
         /// <return>
         /// A response object containing the response body and response headers.
         /// </return>
-        public async Task<HttpOperationResponse<IEnumerable<ColumnValidatorReadDto>>> GetValidatorsListWithHttpMessagesAsync(string workspaceId, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default)
+        public async Task<HttpOperationResponse<SchemaReadDto>> GetSchemaByIdWithHttpMessagesAsync(System.Guid workspaceId, System.Guid schemaId, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default)
         {
-            if (workspaceId == null)
-            {
-                throw new ValidationException(ValidationRules.CannotBeNull, "workspaceId");
-            }
             // Construct URL
             var _baseUrl = Client.HttpClient.BaseAddress?.AbsoluteUri ?? Client.BaseUri.AbsoluteUri;
-            var _url = new System.Uri(new System.Uri(_baseUrl + (_baseUrl.EndsWith("/") ? "" : "/")), "workspaces/{workspaceId}/schemas/validators/global").ToString();
-            _url = _url.Replace("{workspaceId}", System.Uri.EscapeDataString(workspaceId));
+            var _url = new System.Uri(new System.Uri(_baseUrl + (_baseUrl.EndsWith("/") ? "" : "/")), "workspaces/{workspaceId}/schemas/{schemaId}").ToString();
+            _url = _url.Replace("{workspaceId}", System.Uri.EscapeDataString(Microsoft.Rest.Serialization.SafeJsonConvert.SerializeObject(workspaceId, Client.SerializationSettings).Trim('"')));
+            _url = _url.Replace("{schemaId}", System.Uri.EscapeDataString(Microsoft.Rest.Serialization.SafeJsonConvert.SerializeObject(schemaId, Client.SerializationSettings).Trim('"')));
             // Create HTTP transport objects
             var _httpRequest = new HttpRequestMessage();
             HttpResponseMessage _httpResponse = null;
@@ -2113,7 +1772,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataWorkbenchApiV2
                 throw ex;
             }
             // Create Result
-            var _result = new HttpOperationResponse<IEnumerable<ColumnValidatorReadDto>>();
+            var _result = new HttpOperationResponse<SchemaReadDto>();
             _result.Request = _httpRequest;
             _result.Response = _httpResponse;
             // Deserialize Response
@@ -2122,7 +1781,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataWorkbenchApiV2
                 _responseContent = await _httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
                 try
                 {
-                    _result.Body = Microsoft.Rest.Serialization.SafeJsonConvert.DeserializeObject<IEnumerable<ColumnValidatorReadDto>>(_responseContent, Client.DeserializationSettings);
+                    _result.Body = Microsoft.Rest.Serialization.SafeJsonConvert.DeserializeObject<SchemaReadDto>(_responseContent, Client.DeserializationSettings);
                 }
                 catch (JsonException ex)
                 {
@@ -2137,65 +1796,524 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataWorkbenchApiV2
             return _result;
         }
         /// <summary>
-        /// Get list of global validators
+        /// Get a specific schema
         /// </summary>
-        /// <remarks>
-        /// Sample response:
-        ///
-        /// [
-        /// {
-        /// "id": "10ffec78-4792-4364-babd-e9c45b6f94ab",
-        /// "workspaceId": "196a8ff4-dfbc-4ee7-ae08-4f38b84d9c86",
-        /// "name": "string 3",
-        /// "notEmpty": true,
-        /// "dataFormat": "String",
-        /// "minimum": 0,
-        /// "maximum": 1,
-        /// "exclusiveMinimum": true,
-        /// "exclusiveMaximum": true,
-        /// "minLength": 0,
-        /// "maxLength": 1,
-        /// "pattern": "string",
-        /// "errorMessage": "string",
-        /// "fallbackValue": "string",
-        /// "createdBy": "61cecec8-629b-4779-b593-6505e2b9443b",
-        /// "createdOn": "2024-06-26T14:20:50.1444566Z",
-        /// "lastModifiedBy": "61cecec8-629b-4779-b593-6505e2b9443b",
-        /// "lastModifiedOn": "2024-06-26T14:20:50.1444566Z"
-        /// },
-        /// {
-        /// "id": "834c7130-92bf-428e-acb2-c5567a540106",
-        /// "workspaceId": "196a8ff4-dfbc-4ee7-ae08-4f38b84d9c86",
-        /// "name": "string",
-        /// "notEmpty": true,
-        /// "dataFormat": "String",
-        /// "minimum": 1,
-        /// "maximum": 3,
-        /// "exclusiveMinimum": true,
-        /// "exclusiveMaximum": true,
-        /// "minLength": 1,
-        /// "maxLength": 3,
-        /// "pattern": "string",
-        /// "errorMessage": "string",
-        /// "fallbackValue": "string",
-        /// "createdBy": "61cecec8-629b-4779-b593-6505e2b9443b",
-        /// "createdOn": "2024-06-27T09:55:58.1032117Z",
-        /// "lastModifiedBy": "61cecec8-629b-4779-b593-6505e2b9443b",
-        /// "lastModifiedOn": "2024-06-27T09:55:58.1032117Z"
-        /// }
-        /// ]
-        /// </remarks>
         /// <param name='workspaceId'>
+        /// </param>
+        /// <param name='schemaId'>
         /// </param>
         /// <param name='cancellationToken'>
         /// The cancellation token.
         /// </param>
-        public async Task<IEnumerable<ColumnValidatorReadDto>> GetValidatorsListAsync(string workspaceId, CancellationToken cancellationToken = default)
+        public async Task<SchemaReadDto> GetSchemaByIdAsync(System.Guid workspaceId, System.Guid schemaId, CancellationToken cancellationToken = default)
         {
-            using (var _result = await GetValidatorsListWithHttpMessagesAsync(workspaceId, null, cancellationToken).ConfigureAwait(false))
+            using (var _result = await GetSchemaByIdWithHttpMessagesAsync(workspaceId, schemaId, null, cancellationToken).ConfigureAwait(false))
             {
                 return _result.Body;
             }
+        }
+
+        /// <summary>
+        /// Patch Schema
+        /// </summary>
+        /// <param name='body'>
+        /// The input describing the schema
+        /// </param>
+        /// <param name='workspaceId'>
+        /// </param>
+        /// <param name='schemaId'>
+        /// Schema Id to edit
+        /// </param>
+        /// <param name='customHeaders'>
+        /// Headers that will be added to request.
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        /// <exception cref="HttpOperationException">
+        /// Thrown when the operation returned an invalid status code
+        /// </exception>
+        /// <exception cref="SerializationException">
+        /// Thrown when unable to deserialize the response
+        /// </exception>
+        /// <exception cref="ValidationException">
+        /// Thrown when a required parameter is null
+        /// </exception>
+        /// <exception cref="System.ArgumentNullException">
+        /// Thrown when a required parameter is null
+        /// </exception>
+        /// <return>
+        /// A response object containing the response body and response headers.
+        /// </return>
+        public async Task<HttpOperationResponse<SchemaReadDto>> UpdateSchemaWithHttpMessagesAsync(SchemaPatchDto body, System.Guid workspaceId, System.Guid schemaId, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default)
+        {
+            if (body == null)
+            {
+                throw new ValidationException(ValidationRules.CannotBeNull, "body");
+            }
+            // Construct URL
+            var _baseUrl = Client.HttpClient.BaseAddress?.AbsoluteUri ?? Client.BaseUri.AbsoluteUri;
+            var _url = new System.Uri(new System.Uri(_baseUrl + (_baseUrl.EndsWith("/") ? "" : "/")), "workspaces/{workspaceId}/schemas/{schemaId}").ToString();
+            _url = _url.Replace("{workspaceId}", System.Uri.EscapeDataString(Microsoft.Rest.Serialization.SafeJsonConvert.SerializeObject(workspaceId, Client.SerializationSettings).Trim('"')));
+            _url = _url.Replace("{schemaId}", System.Uri.EscapeDataString(Microsoft.Rest.Serialization.SafeJsonConvert.SerializeObject(schemaId, Client.SerializationSettings).Trim('"')));
+            // Create HTTP transport objects
+            var _httpRequest = new HttpRequestMessage();
+            HttpResponseMessage _httpResponse = null;
+            _httpRequest.Method = new HttpMethod("PATCH");
+            _httpRequest.RequestUri = new System.Uri(_url);
+            // Set Headers
+
+
+            if (customHeaders != null)
+            {
+                foreach(var _header in customHeaders)
+                {
+                    if (_httpRequest.Headers.Contains(_header.Key))
+                    {
+                        _httpRequest.Headers.Remove(_header.Key);
+                    }
+                    _httpRequest.Headers.TryAddWithoutValidation(_header.Key, _header.Value);
+                }
+            }
+
+            // Serialize Request
+            string _requestContent = null;
+            if(body != null)
+            {
+                _requestContent = Microsoft.Rest.Serialization.SafeJsonConvert.SerializeObject(body, Client.SerializationSettings);
+                _httpRequest.Content = new StringContent(_requestContent, System.Text.Encoding.UTF8);
+                _httpRequest.Content.Headers.ContentType =System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json; charset=utf-8");
+            }
+            // Send Request
+            cancellationToken.ThrowIfCancellationRequested();
+            _httpResponse = await Client.HttpClient.SendAsync(_httpRequest, cancellationToken).ConfigureAwait(false);
+            HttpStatusCode _statusCode = _httpResponse.StatusCode;
+            cancellationToken.ThrowIfCancellationRequested();
+            string _responseContent = null;
+            if ((int)_statusCode != 200)
+            {
+                var ex = new HttpOperationException(string.Format("Operation returned an invalid status code '{0}'", _statusCode));
+                if (_httpResponse.Content != null) {
+                    _responseContent = await _httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
+                }
+                else {
+                    _responseContent = string.Empty;
+                }
+                ex.Request = new HttpRequestMessageWrapper(_httpRequest, _requestContent);
+                ex.Response = new HttpResponseMessageWrapper(_httpResponse, _responseContent);
+                _httpRequest.Dispose();
+                if (_httpResponse != null)
+                {
+                    _httpResponse.Dispose();
+                }
+                throw ex;
+            }
+            // Create Result
+            var _result = new HttpOperationResponse<SchemaReadDto>();
+            _result.Request = _httpRequest;
+            _result.Response = _httpResponse;
+            // Deserialize Response
+            if ((int)_statusCode == 200)
+            {
+                _responseContent = await _httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
+                try
+                {
+                    _result.Body = Microsoft.Rest.Serialization.SafeJsonConvert.DeserializeObject<SchemaReadDto>(_responseContent, Client.DeserializationSettings);
+                }
+                catch (JsonException ex)
+                {
+                    _httpRequest.Dispose();
+                    if (_httpResponse != null)
+                    {
+                        _httpResponse.Dispose();
+                    }
+                    throw new SerializationException("Unable to deserialize the response.", _responseContent, ex);
+                }
+            }
+            return _result;
+        }
+        /// <summary>
+        /// Patch Schema
+        /// </summary>
+        /// <param name='body'>
+        /// The input describing the schema
+        /// </param>
+        /// <param name='workspaceId'>
+        /// </param>
+        /// <param name='schemaId'>
+        /// Schema Id to edit
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        public async Task<SchemaReadDto> UpdateSchemaAsync(SchemaPatchDto body, System.Guid workspaceId, System.Guid schemaId, CancellationToken cancellationToken = default)
+        {
+            using (var _result = await UpdateSchemaWithHttpMessagesAsync(body, workspaceId, schemaId, null, cancellationToken).ConfigureAwait(false))
+            {
+                return _result.Body;
+            }
+        }
+
+        /// <summary>
+        /// Update schema version
+        /// </summary>
+        /// <param name='body'>
+        /// </param>
+        /// <param name='workspaceId'>
+        /// </param>
+        /// <param name='schemaId'>
+        /// </param>
+        /// <param name='schemaVersionId'>
+        /// </param>
+        /// <param name='customHeaders'>
+        /// Headers that will be added to request.
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        /// <exception cref="HttpOperationException">
+        /// Thrown when the operation returned an invalid status code
+        /// </exception>
+        /// <exception cref="SerializationException">
+        /// Thrown when unable to deserialize the response
+        /// </exception>
+        /// <exception cref="ValidationException">
+        /// Thrown when a required parameter is null
+        /// </exception>
+        /// <exception cref="System.ArgumentNullException">
+        /// Thrown when a required parameter is null
+        /// </exception>
+        /// <return>
+        /// A response object containing the response body and response headers.
+        /// </return>
+        public async Task<HttpOperationResponse<SchemaVersionReadDto>> PatchSchemaVersionWithHttpMessagesAsync(SchemaVersionUpdateDto body, System.Guid workspaceId, System.Guid schemaId, System.Guid schemaVersionId, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default)
+        {
+            if (body == null)
+            {
+                throw new ValidationException(ValidationRules.CannotBeNull, "body");
+            }
+            // Construct URL
+            var _baseUrl = Client.HttpClient.BaseAddress?.AbsoluteUri ?? Client.BaseUri.AbsoluteUri;
+            var _url = new System.Uri(new System.Uri(_baseUrl + (_baseUrl.EndsWith("/") ? "" : "/")), "workspaces/{workspaceId}/schemas/{schemaId}/schemaversions/{schemaVersionId}").ToString();
+            _url = _url.Replace("{workspaceId}", System.Uri.EscapeDataString(Microsoft.Rest.Serialization.SafeJsonConvert.SerializeObject(workspaceId, Client.SerializationSettings).Trim('"')));
+            _url = _url.Replace("{schemaId}", System.Uri.EscapeDataString(Microsoft.Rest.Serialization.SafeJsonConvert.SerializeObject(schemaId, Client.SerializationSettings).Trim('"')));
+            _url = _url.Replace("{schemaVersionId}", System.Uri.EscapeDataString(Microsoft.Rest.Serialization.SafeJsonConvert.SerializeObject(schemaVersionId, Client.SerializationSettings).Trim('"')));
+            // Create HTTP transport objects
+            var _httpRequest = new HttpRequestMessage();
+            HttpResponseMessage _httpResponse = null;
+            _httpRequest.Method = new HttpMethod("PATCH");
+            _httpRequest.RequestUri = new System.Uri(_url);
+            // Set Headers
+
+
+            if (customHeaders != null)
+            {
+                foreach(var _header in customHeaders)
+                {
+                    if (_httpRequest.Headers.Contains(_header.Key))
+                    {
+                        _httpRequest.Headers.Remove(_header.Key);
+                    }
+                    _httpRequest.Headers.TryAddWithoutValidation(_header.Key, _header.Value);
+                }
+            }
+
+            // Serialize Request
+            string _requestContent = null;
+            if(body != null)
+            {
+                _requestContent = Microsoft.Rest.Serialization.SafeJsonConvert.SerializeObject(body, Client.SerializationSettings);
+                _httpRequest.Content = new StringContent(_requestContent, System.Text.Encoding.UTF8);
+                _httpRequest.Content.Headers.ContentType =System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json; charset=utf-8");
+            }
+            // Send Request
+            cancellationToken.ThrowIfCancellationRequested();
+            _httpResponse = await Client.HttpClient.SendAsync(_httpRequest, cancellationToken).ConfigureAwait(false);
+            HttpStatusCode _statusCode = _httpResponse.StatusCode;
+            cancellationToken.ThrowIfCancellationRequested();
+            string _responseContent = null;
+            if ((int)_statusCode != 200)
+            {
+                var ex = new HttpOperationException(string.Format("Operation returned an invalid status code '{0}'", _statusCode));
+                if (_httpResponse.Content != null) {
+                    _responseContent = await _httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
+                }
+                else {
+                    _responseContent = string.Empty;
+                }
+                ex.Request = new HttpRequestMessageWrapper(_httpRequest, _requestContent);
+                ex.Response = new HttpResponseMessageWrapper(_httpResponse, _responseContent);
+                _httpRequest.Dispose();
+                if (_httpResponse != null)
+                {
+                    _httpResponse.Dispose();
+                }
+                throw ex;
+            }
+            // Create Result
+            var _result = new HttpOperationResponse<SchemaVersionReadDto>();
+            _result.Request = _httpRequest;
+            _result.Response = _httpResponse;
+            // Deserialize Response
+            if ((int)_statusCode == 200)
+            {
+                _responseContent = await _httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
+                try
+                {
+                    _result.Body = Microsoft.Rest.Serialization.SafeJsonConvert.DeserializeObject<SchemaVersionReadDto>(_responseContent, Client.DeserializationSettings);
+                }
+                catch (JsonException ex)
+                {
+                    _httpRequest.Dispose();
+                    if (_httpResponse != null)
+                    {
+                        _httpResponse.Dispose();
+                    }
+                    throw new SerializationException("Unable to deserialize the response.", _responseContent, ex);
+                }
+            }
+            return _result;
+        }
+        /// <summary>
+        /// Update schema version
+        /// </summary>
+        /// <param name='body'>
+        /// </param>
+        /// <param name='workspaceId'>
+        /// </param>
+        /// <param name='schemaId'>
+        /// </param>
+        /// <param name='schemaVersionId'>
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        public async Task<SchemaVersionReadDto> PatchSchemaVersionAsync(SchemaVersionUpdateDto body, System.Guid workspaceId, System.Guid schemaId, System.Guid schemaVersionId, CancellationToken cancellationToken = default)
+        {
+            using (var _result = await PatchSchemaVersionWithHttpMessagesAsync(body, workspaceId, schemaId, schemaVersionId, null, cancellationToken).ConfigureAwait(false))
+            {
+                return _result.Body;
+            }
+        }
+
+        /// <summary>
+        /// Activate schema version
+        /// </summary>
+        /// <param name='workspaceId'>
+        /// </param>
+        /// <param name='schemaId'>
+        /// </param>
+        /// <param name='schemaVersionId'>
+        /// </param>
+        /// <param name='customHeaders'>
+        /// Headers that will be added to request.
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        /// <exception cref="HttpOperationException">
+        /// Thrown when the operation returned an invalid status code
+        /// </exception>
+        /// <exception cref="SerializationException">
+        /// Thrown when unable to deserialize the response
+        /// </exception>
+        /// <return>
+        /// A response object containing the response body and response headers.
+        /// </return>
+        public async Task<HttpOperationResponse<SchemaVersionReadDto>> ActivateSchemaVersionWithHttpMessagesAsync(System.Guid workspaceId, System.Guid schemaId, System.Guid schemaVersionId, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default)
+        {
+            // Construct URL
+            var _baseUrl = Client.HttpClient.BaseAddress?.AbsoluteUri ?? Client.BaseUri.AbsoluteUri;
+            var _url = new System.Uri(new System.Uri(_baseUrl + (_baseUrl.EndsWith("/") ? "" : "/")), "workspaces/{workspaceId}/schemas/{schemaId}/schemaversions/{schemaVersionId}/activate").ToString();
+            _url = _url.Replace("{workspaceId}", System.Uri.EscapeDataString(Microsoft.Rest.Serialization.SafeJsonConvert.SerializeObject(workspaceId, Client.SerializationSettings).Trim('"')));
+            _url = _url.Replace("{schemaId}", System.Uri.EscapeDataString(Microsoft.Rest.Serialization.SafeJsonConvert.SerializeObject(schemaId, Client.SerializationSettings).Trim('"')));
+            _url = _url.Replace("{schemaVersionId}", System.Uri.EscapeDataString(Microsoft.Rest.Serialization.SafeJsonConvert.SerializeObject(schemaVersionId, Client.SerializationSettings).Trim('"')));
+            // Create HTTP transport objects
+            var _httpRequest = new HttpRequestMessage();
+            HttpResponseMessage _httpResponse = null;
+            _httpRequest.Method = new HttpMethod("POST");
+            _httpRequest.RequestUri = new System.Uri(_url);
+            // Set Headers
+
+
+            if (customHeaders != null)
+            {
+                foreach(var _header in customHeaders)
+                {
+                    if (_httpRequest.Headers.Contains(_header.Key))
+                    {
+                        _httpRequest.Headers.Remove(_header.Key);
+                    }
+                    _httpRequest.Headers.TryAddWithoutValidation(_header.Key, _header.Value);
+                }
+            }
+
+            // Serialize Request
+            string _requestContent = null;
+            // Send Request
+            cancellationToken.ThrowIfCancellationRequested();
+            _httpResponse = await Client.HttpClient.SendAsync(_httpRequest, cancellationToken).ConfigureAwait(false);
+            HttpStatusCode _statusCode = _httpResponse.StatusCode;
+            cancellationToken.ThrowIfCancellationRequested();
+            string _responseContent = null;
+            if ((int)_statusCode != 200)
+            {
+                var ex = new HttpOperationException(string.Format("Operation returned an invalid status code '{0}'", _statusCode));
+                if (_httpResponse.Content != null) {
+                    _responseContent = await _httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
+                }
+                else {
+                    _responseContent = string.Empty;
+                }
+                ex.Request = new HttpRequestMessageWrapper(_httpRequest, _requestContent);
+                ex.Response = new HttpResponseMessageWrapper(_httpResponse, _responseContent);
+                _httpRequest.Dispose();
+                if (_httpResponse != null)
+                {
+                    _httpResponse.Dispose();
+                }
+                throw ex;
+            }
+            // Create Result
+            var _result = new HttpOperationResponse<SchemaVersionReadDto>();
+            _result.Request = _httpRequest;
+            _result.Response = _httpResponse;
+            // Deserialize Response
+            if ((int)_statusCode == 200)
+            {
+                _responseContent = await _httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
+                try
+                {
+                    _result.Body = Microsoft.Rest.Serialization.SafeJsonConvert.DeserializeObject<SchemaVersionReadDto>(_responseContent, Client.DeserializationSettings);
+                }
+                catch (JsonException ex)
+                {
+                    _httpRequest.Dispose();
+                    if (_httpResponse != null)
+                    {
+                        _httpResponse.Dispose();
+                    }
+                    throw new SerializationException("Unable to deserialize the response.", _responseContent, ex);
+                }
+            }
+            return _result;
+        }
+        /// <summary>
+        /// Activate schema version
+        /// </summary>
+        /// <param name='workspaceId'>
+        /// </param>
+        /// <param name='schemaId'>
+        /// </param>
+        /// <param name='schemaVersionId'>
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        public async Task<SchemaVersionReadDto> ActivateSchemaVersionAsync(System.Guid workspaceId, System.Guid schemaId, System.Guid schemaVersionId, CancellationToken cancellationToken = default)
+        {
+            using (var _result = await ActivateSchemaVersionWithHttpMessagesAsync(workspaceId, schemaId, schemaVersionId, null, cancellationToken).ConfigureAwait(false))
+            {
+                return _result.Body;
+            }
+        }
+
+        /// <summary>
+        /// Locks a schema version
+        /// </summary>
+        /// <param name='workspaceId'>
+        /// </param>
+        /// <param name='schemaId'>
+        /// </param>
+        /// <param name='versionId'>
+        /// </param>
+        /// <param name='customHeaders'>
+        /// Headers that will be added to request.
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        /// <exception cref="HttpOperationException">
+        /// Thrown when the operation returned an invalid status code
+        /// </exception>
+        /// <return>
+        /// A response object containing the response body and response headers.
+        /// </return>
+        public async Task<HttpOperationResponse> LockSchemaVersionWithHttpMessagesAsync(System.Guid workspaceId, System.Guid schemaId, System.Guid versionId, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default)
+        {
+            // Construct URL
+            var _baseUrl = Client.HttpClient.BaseAddress?.AbsoluteUri ?? Client.BaseUri.AbsoluteUri;
+            var _url = new System.Uri(new System.Uri(_baseUrl + (_baseUrl.EndsWith("/") ? "" : "/")), "workspaces/{workspaceId}/schemas/{schemaId}/schemaversions/{versionId}/lock").ToString();
+            _url = _url.Replace("{workspaceId}", System.Uri.EscapeDataString(Microsoft.Rest.Serialization.SafeJsonConvert.SerializeObject(workspaceId, Client.SerializationSettings).Trim('"')));
+            _url = _url.Replace("{schemaId}", System.Uri.EscapeDataString(Microsoft.Rest.Serialization.SafeJsonConvert.SerializeObject(schemaId, Client.SerializationSettings).Trim('"')));
+            _url = _url.Replace("{versionId}", System.Uri.EscapeDataString(Microsoft.Rest.Serialization.SafeJsonConvert.SerializeObject(versionId, Client.SerializationSettings).Trim('"')));
+            // Create HTTP transport objects
+            var _httpRequest = new HttpRequestMessage();
+            HttpResponseMessage _httpResponse = null;
+            _httpRequest.Method = new HttpMethod("POST");
+            _httpRequest.RequestUri = new System.Uri(_url);
+            // Set Headers
+
+
+            if (customHeaders != null)
+            {
+                foreach(var _header in customHeaders)
+                {
+                    if (_httpRequest.Headers.Contains(_header.Key))
+                    {
+                        _httpRequest.Headers.Remove(_header.Key);
+                    }
+                    _httpRequest.Headers.TryAddWithoutValidation(_header.Key, _header.Value);
+                }
+            }
+
+            // Serialize Request
+            string _requestContent = null;
+            // Send Request
+            cancellationToken.ThrowIfCancellationRequested();
+            _httpResponse = await Client.HttpClient.SendAsync(_httpRequest, cancellationToken).ConfigureAwait(false);
+            HttpStatusCode _statusCode = _httpResponse.StatusCode;
+            cancellationToken.ThrowIfCancellationRequested();
+            string _responseContent = null;
+            if ((int)_statusCode != 200)
+            {
+                var ex = new HttpOperationException(string.Format("Operation returned an invalid status code '{0}'", _statusCode));
+                if (_httpResponse.Content != null) {
+                    _responseContent = await _httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
+                }
+                else {
+                    _responseContent = string.Empty;
+                }
+                ex.Request = new HttpRequestMessageWrapper(_httpRequest, _requestContent);
+                ex.Response = new HttpResponseMessageWrapper(_httpResponse, _responseContent);
+                _httpRequest.Dispose();
+                if (_httpResponse != null)
+                {
+                    _httpResponse.Dispose();
+                }
+                throw ex;
+            }
+            // Create Result
+            var _result = new HttpOperationResponse();
+            _result.Request = _httpRequest;
+            _result.Response = _httpResponse;
+            return _result;
+        }
+        /// <summary>
+        /// Locks a schema version
+        /// </summary>
+        /// <param name='workspaceId'>
+        /// </param>
+        /// <param name='schemaId'>
+        /// </param>
+        /// <param name='versionId'>
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        public async Task LockSchemaVersionAsync(System.Guid workspaceId, System.Guid schemaId, System.Guid versionId, CancellationToken cancellationToken = default)
+        {
+            (await LockSchemaVersionWithHttpMessagesAsync(workspaceId, schemaId, versionId, null, cancellationToken).ConfigureAwait(false)).Dispose();
         }
 
     }

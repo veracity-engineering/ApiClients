@@ -78,11 +78,6 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataWorkbenchApiV2.Interfaces
         ITenants Tenants { get; }
 
         /// <summary>
-        /// Gets the IAnalysis.
-        /// </summary>
-        IAnalysis Analysis { get; }
-
-        /// <summary>
         /// Gets the IDataOrders.
         /// </summary>
         IDataOrders DataOrders { get; }
@@ -108,14 +103,19 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataWorkbenchApiV2.Interfaces
         ISchemas Schemas { get; }
 
         /// <summary>
-        /// Gets the IStorages.
+        /// Gets the IShareRequests.
         /// </summary>
-        IStorages Storages { get; }
+        IShareRequests ShareRequests { get; }
 
         /// <summary>
         /// Gets the IShares.
         /// </summary>
         IShares Shares { get; }
+
+        /// <summary>
+        /// Gets the IStorages.
+        /// </summary>
+        IStorages Storages { get; }
 
     }
 }

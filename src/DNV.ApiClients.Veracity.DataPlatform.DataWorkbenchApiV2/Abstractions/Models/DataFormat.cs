@@ -30,7 +30,11 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataWorkbenchApiV2.Models
         [EnumMember(Value = "Double")]
         Double,
         [EnumMember(Value = "DateTime")]
-        DateTime
+        DateTime,
+        [EnumMember(Value = "DateOnly")]
+        DateOnly,
+        [EnumMember(Value = "TimeOnly")]
+        TimeOnly
     }
     internal static class DataFormatEnumExtension
     {
@@ -57,6 +61,10 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataWorkbenchApiV2.Models
                     return "Double";
                 case DataFormat.DateTime:
                     return "DateTime";
+                case DataFormat.DateOnly:
+                    return "DateOnly";
+                case DataFormat.TimeOnly:
+                    return "TimeOnly";
             }
             return null;
         }
@@ -79,6 +87,10 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataWorkbenchApiV2.Models
                     return DataFormat.Double;
                 case "DateTime":
                     return DataFormat.DateTime;
+                case "DateOnly":
+                    return DataFormat.DateOnly;
+                case "TimeOnly":
+                    return DataFormat.TimeOnly;
             }
             return null;
         }

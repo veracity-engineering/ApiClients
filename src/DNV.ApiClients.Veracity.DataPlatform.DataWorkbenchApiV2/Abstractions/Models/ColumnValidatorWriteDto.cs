@@ -25,7 +25,8 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataWorkbenchApiV2.Models
         /// Initializes a new instance of the ColumnValidatorWriteDto class.
         /// </summary>
         /// <param name="dataFormat">Possible values include: 'String',
-        /// 'Boolean', 'Int32', 'Int64', 'Float', 'Double', 'DateTime'</param>
+        /// 'Boolean', 'Int32', 'Int64', 'Float', 'Double', 'DateTime',
+        /// 'DateOnly', 'TimeOnly'</param>
         public ColumnValidatorWriteDto(string name = default, bool? notEmpty = default, DataFormat? dataFormat = default, double? minimum = default, double? maximum = default, bool? exclusiveMinimum = default, bool? exclusiveMaximum = default, int? minLength = default, int? maxLength = default, string pattern = default, IEnumerable<string> enumProperty = default, string errorMessage = default, string fallbackValue = default)
         {
             Name = name;
@@ -61,7 +62,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataWorkbenchApiV2.Models
 
         /// <summary>
         /// Gets or sets possible values include: 'String', 'Boolean', 'Int32',
-        /// 'Int64', 'Float', 'Double', 'DateTime'
+        /// 'Int64', 'Float', 'Double', 'DateTime', 'DateOnly', 'TimeOnly'
         /// </summary>
         [JsonProperty(PropertyName = "dataFormat")]
         public DataFormat? DataFormat { get; set; }

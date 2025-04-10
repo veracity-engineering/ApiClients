@@ -39,7 +39,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataWorkbenchApiV2.Interfaces
         /// <exception cref="Microsoft.Rest.SerializationException">
         /// Thrown when unable to deserialize the response
         /// </exception>
-        Task<HttpOperationResponse<string>> GetSASTokenForStorageDatasetByShareIdWithHttpMessagesAsync(System.Guid workspaceId, System.Guid shareId, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default);
+        Task<HttpOperationResponse<SasTokenResultDTO>> GetSASTokenForStorageDatasetByShareIdV2WithHttpMessagesAsync(System.Guid workspaceId, System.Guid shareId, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default);
 
         /// <summary>
         /// Get storage sas token by share id
@@ -53,10 +53,253 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataWorkbenchApiV2.Interfaces
         /// <param name='cancellationToken'>
         /// The cancellation token.
         /// </param>
-        Task<string> GetSASTokenForStorageDatasetByShareIdAsync(System.Guid workspaceId, System.Guid shareId, CancellationToken cancellationToken = default);
+        Task<SasTokenResultDTO> GetSASTokenForStorageDatasetByShareIdV2Async(System.Guid workspaceId, System.Guid shareId, CancellationToken cancellationToken = default);
 
         /// <summary>
-        /// Get storage sas token for current workspace
+        /// List sas policies for current workspace.
+        /// </summary>
+        /// <remarks>
+        /// /// Sample request For Revoke Sas Token:
+        ///
+        /// POST {workspaceId}/storages/external/policies
+        /// {
+        /// "containerName": "string",
+        /// "connectionString": "string"
+        /// }
+        /// * ContainerName is the name of the container for which the SAS
+        /// policy needs to be revoked.
+        /// * ConnectionString is the connection string of the external storage
+        /// account.
+        ///
+        /// Notes -
+        /// * This endpoint helps to list all the SAS policies for external
+        /// storage which are active.
+        /// </remarks>
+        /// <param name='body'>
+        /// </param>
+        /// <param name='workspaceId'>
+        /// </param>
+        /// <param name='customHeaders'>
+        /// The headers that will be added to request.
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        /// <exception cref="Microsoft.Rest.HttpOperationException">
+        /// Thrown when the operation returned an invalid status code
+        /// </exception>
+        /// <exception cref="Microsoft.Rest.SerializationException">
+        /// Thrown when unable to deserialize the response
+        /// </exception>
+        /// <exception cref="Microsoft.Rest.ValidationException">
+        /// Thrown when a required parameter is null
+        /// </exception>
+        Task<HttpOperationResponse<IEnumerable<SasPolicyDTO>>> ListExternalStorageSASPoliciesWithHttpMessagesAsync(ConnectionSettingsDTO body, System.Guid workspaceId, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default);
+
+        /// <summary>
+        /// List sas policies for current workspace.
+        /// </summary>
+        /// <remarks>
+        /// /// Sample request For Revoke Sas Token:
+        ///
+        /// POST {workspaceId}/storages/external/policies
+        /// {
+        /// "containerName": "string",
+        /// "connectionString": "string"
+        /// }
+        /// * ContainerName is the name of the container for which the SAS
+        /// policy needs to be revoked.
+        /// * ConnectionString is the connection string of the external storage
+        /// account.
+        ///
+        /// Notes -
+        /// * This endpoint helps to list all the SAS policies for external
+        /// storage which are active.
+        /// </remarks>
+        /// <param name='body'>
+        /// </param>
+        /// <param name='workspaceId'>
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        Task<IEnumerable<SasPolicyDTO>> ListExternalStorageSASPoliciesAsync(ConnectionSettingsDTO body, System.Guid workspaceId, CancellationToken cancellationToken = default);
+
+        /// <summary>
+        /// Get external storage sas token for current workspace
+        /// </summary>
+        /// <remarks>
+        /// Sample request For Storage Sas Token:
+        ///
+        /// POST {workspaceId}/storages/external/sas
+        /// {
+        /// "settings": {
+        /// "containerName": "string",
+        /// "connectionString": "string"
+        /// },
+        /// "filters": {
+        /// "path": "18a4a7ab-022c-4964-9d1b-6cc77e252a67/test.csv",
+        /// "readOrWritePermission": "Read",
+        /// "startsOn": "2024-05-14T09:04:12.297Z",
+        /// "expiresOn": "2024-05-14T09:04:12.297Z",
+        /// "storageName": "StorageDataset"
+        /// }
+        /// }
+        /// * ContainerName is the name of the container for which the SAS
+        /// policy needs to be revoked.
+        /// * ConnectionString is the connection string of the external storage
+        /// account.
+        /// * Path – string, path of the resource you want to generate the SAS
+        /// Token for. It is optional, if it is left empty or not provided, the
+        /// default path of internal storage will be considered.(which means
+        /// ContainerName which was specified while creating the internal
+        /// storage). If provided, it should be valid path pointing to a
+        /// resource.
+        /// * ReadOrWritePermission – string, type of permission you want to
+        /// give on the resource, it can only have values Read/Write.
+        /// * StartsOn – DateTime, datetime from which the SAS Token will be
+        /// valid. It is optional, if not provided current UTC date time will
+        /// be considered. If provided, it should not be a past date time.
+        /// * ExpiresOn – DateTime, datetime till when the SAS Token will be
+        /// valid.It should not be a past date time and should be greater than
+        /// StartsOn.
+        /// * StorageName - string, name of the storage for which the SAS token
+        /// needs to be generated. It is optional, if not provided the default
+        /// internal storage dataset will be considered. If it is provided it
+        /// should be a valid storage dataset name.
+        ///
+        /// Notes -
+        /// * A user of Workspace who has role of Reader can only generate
+        /// tokens with Read permission, if he tries to generate token with
+        /// Write permission, he will be unauthorized.
+        /// * A user of Workspace who has role of Administrator can generate
+        /// tokens with both Read/Write permissions.
+        /// * Service Accounts should generate only Read token. If they need to
+        /// generate Write SAS Token, they need to get access for it.
+        /// </remarks>
+        /// <param name='body'>
+        /// </param>
+        /// <param name='workspaceId'>
+        /// </param>
+        /// <param name='customHeaders'>
+        /// The headers that will be added to request.
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        /// <exception cref="Microsoft.Rest.HttpOperationException">
+        /// Thrown when the operation returned an invalid status code
+        /// </exception>
+        /// <exception cref="Microsoft.Rest.SerializationException">
+        /// Thrown when unable to deserialize the response
+        /// </exception>
+        /// <exception cref="Microsoft.Rest.ValidationException">
+        /// Thrown when a required parameter is null
+        /// </exception>
+        Task<HttpOperationResponse<string>> GetSASTokenForExternalStorageWithHttpMessagesAsync(GetSasTokenForExternalDTO body, System.Guid workspaceId, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default);
+
+        /// <summary>
+        /// Get external storage sas token for current workspace
+        /// </summary>
+        /// <remarks>
+        /// Sample request For Storage Sas Token:
+        ///
+        /// POST {workspaceId}/storages/external/sas
+        /// {
+        /// "settings": {
+        /// "containerName": "string",
+        /// "connectionString": "string"
+        /// },
+        /// "filters": {
+        /// "path": "18a4a7ab-022c-4964-9d1b-6cc77e252a67/test.csv",
+        /// "readOrWritePermission": "Read",
+        /// "startsOn": "2024-05-14T09:04:12.297Z",
+        /// "expiresOn": "2024-05-14T09:04:12.297Z",
+        /// "storageName": "StorageDataset"
+        /// }
+        /// }
+        /// * ContainerName is the name of the container for which the SAS
+        /// policy needs to be revoked.
+        /// * ConnectionString is the connection string of the external storage
+        /// account.
+        /// * Path – string, path of the resource you want to generate the SAS
+        /// Token for. It is optional, if it is left empty or not provided, the
+        /// default path of internal storage will be considered.(which means
+        /// ContainerName which was specified while creating the internal
+        /// storage). If provided, it should be valid path pointing to a
+        /// resource.
+        /// * ReadOrWritePermission – string, type of permission you want to
+        /// give on the resource, it can only have values Read/Write.
+        /// * StartsOn – DateTime, datetime from which the SAS Token will be
+        /// valid. It is optional, if not provided current UTC date time will
+        /// be considered. If provided, it should not be a past date time.
+        /// * ExpiresOn – DateTime, datetime till when the SAS Token will be
+        /// valid.It should not be a past date time and should be greater than
+        /// StartsOn.
+        /// * StorageName - string, name of the storage for which the SAS token
+        /// needs to be generated. It is optional, if not provided the default
+        /// internal storage dataset will be considered. If it is provided it
+        /// should be a valid storage dataset name.
+        ///
+        /// Notes -
+        /// * A user of Workspace who has role of Reader can only generate
+        /// tokens with Read permission, if he tries to generate token with
+        /// Write permission, he will be unauthorized.
+        /// * A user of Workspace who has role of Administrator can generate
+        /// tokens with both Read/Write permissions.
+        /// * Service Accounts should generate only Read token. If they need to
+        /// generate Write SAS Token, they need to get access for it.
+        /// </remarks>
+        /// <param name='body'>
+        /// </param>
+        /// <param name='workspaceId'>
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        Task<string> GetSASTokenForExternalStorageAsync(GetSasTokenForExternalDTO body, System.Guid workspaceId, CancellationToken cancellationToken = default);
+
+        /// <summary>
+        /// List sas policies for current workspace.
+        /// </summary>
+        /// <remarks>
+        /// Notes -
+        /// * This endpoint helps to list all the SAS policies for internal
+        /// storage which are active.
+        /// </remarks>
+        /// <param name='workspaceId'>
+        /// </param>
+        /// <param name='customHeaders'>
+        /// The headers that will be added to request.
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        /// <exception cref="Microsoft.Rest.HttpOperationException">
+        /// Thrown when the operation returned an invalid status code
+        /// </exception>
+        /// <exception cref="Microsoft.Rest.SerializationException">
+        /// Thrown when unable to deserialize the response
+        /// </exception>
+        Task<HttpOperationResponse<IEnumerable<SasPolicyDTO>>> ListInternalStorageSASPoliciesWithHttpMessagesAsync(System.Guid workspaceId, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default);
+
+        /// <summary>
+        /// List sas policies for current workspace.
+        /// </summary>
+        /// <remarks>
+        /// Notes -
+        /// * This endpoint helps to list all the SAS policies for internal
+        /// storage which are active.
+        /// </remarks>
+        /// <param name='workspaceId'>
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        Task<IEnumerable<SasPolicyDTO>> ListInternalStorageSASPoliciesAsync(System.Guid workspaceId, CancellationToken cancellationToken = default);
+
+        /// <summary>
+        /// Get internal storage sas token for current workspace
         /// </summary>
         /// <remarks>
         /// Sample request For Storage Sas Token:
@@ -116,10 +359,10 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataWorkbenchApiV2.Interfaces
         /// <exception cref="Microsoft.Rest.ValidationException">
         /// Thrown when a required parameter is null
         /// </exception>
-        Task<HttpOperationResponse<string>> GetSASTokenForStorageDatasetWithHttpMessagesAsync(StorageQueryDto body, System.Guid workspaceId, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default);
+        Task<HttpOperationResponse<string>> GetSASTokenForInternalStorageWithHttpMessagesAsync(StorageQueryDto body, System.Guid workspaceId, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default);
 
         /// <summary>
-        /// Get storage sas token for current workspace
+        /// Get internal storage sas token for current workspace
         /// </summary>
         /// <remarks>
         /// Sample request For Storage Sas Token:
@@ -167,7 +410,219 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataWorkbenchApiV2.Interfaces
         /// <param name='cancellationToken'>
         /// The cancellation token.
         /// </param>
-        Task<string> GetSASTokenForStorageDatasetAsync(StorageQueryDto body, System.Guid workspaceId, CancellationToken cancellationToken = default);
+        Task<string> GetSASTokenForInternalStorageAsync(StorageQueryDto body, System.Guid workspaceId, CancellationToken cancellationToken = default);
+
+        /// <summary>
+        /// Revoke sas policy for current workspace or based on policy name.
+        /// </summary>
+        /// <remarks>
+        /// Sample request For Revoke Sas Token:
+        ///
+        /// DELETE {workspaceId}/storages/sas/external/revoke
+        /// {
+        /// "settings": {
+        /// "containerName": "string",
+        /// "connectionString": "string"
+        /// },
+        /// "policyName": "string"
+        /// }
+        /// * ContainerName is the name of the container for which the SAS
+        /// policy needs to be revoked.
+        /// * ConnectionString is the connection string of the external storage
+        /// account.
+        ///
+        /// Notes -
+        /// * If policies are not provided, all the SAS policies for the
+        /// workspace for storage will be revoked.
+        /// * If policies are provided, only the SAS policies with the matching
+        /// names will be revoked.
+        /// * To see the policyNames for storage, call the POST endpoint -
+        /// /gateway/api/v1/workspaces/{workspaceId}/storages/sas/external/policies
+        /// endpoint.
+        /// * A user of Workspace who has role of Reader can not revoke tokens.
+        /// * A user of Workspace who has role of Administrator can only revoke
+        /// tokens.
+        /// * Service Accounts can't revoke tokens currently.
+        /// </remarks>
+        /// <param name='body'>
+        /// </param>
+        /// <param name='workspaceId'>
+        /// </param>
+        /// <param name='customHeaders'>
+        /// The headers that will be added to request.
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        /// <exception cref="Microsoft.Rest.HttpOperationException">
+        /// Thrown when the operation returned an invalid status code
+        /// </exception>
+        /// <exception cref="Microsoft.Rest.ValidationException">
+        /// Thrown when a required parameter is null
+        /// </exception>
+        Task<HttpOperationResponse> RevokeExternalPoliciesWithHttpMessagesAsync(RevokePoliciesExternalDTO body, System.Guid workspaceId, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default);
+
+        /// <summary>
+        /// Revoke sas policy for current workspace or based on policy name.
+        /// </summary>
+        /// <remarks>
+        /// Sample request For Revoke Sas Token:
+        ///
+        /// DELETE {workspaceId}/storages/sas/external/revoke
+        /// {
+        /// "settings": {
+        /// "containerName": "string",
+        /// "connectionString": "string"
+        /// },
+        /// "policyName": "string"
+        /// }
+        /// * ContainerName is the name of the container for which the SAS
+        /// policy needs to be revoked.
+        /// * ConnectionString is the connection string of the external storage
+        /// account.
+        ///
+        /// Notes -
+        /// * If policies are not provided, all the SAS policies for the
+        /// workspace for storage will be revoked.
+        /// * If policies are provided, only the SAS policies with the matching
+        /// names will be revoked.
+        /// * To see the policyNames for storage, call the POST endpoint -
+        /// /gateway/api/v1/workspaces/{workspaceId}/storages/sas/external/policies
+        /// endpoint.
+        /// * A user of Workspace who has role of Reader can not revoke tokens.
+        /// * A user of Workspace who has role of Administrator can only revoke
+        /// tokens.
+        /// * Service Accounts can't revoke tokens currently.
+        /// </remarks>
+        /// <param name='body'>
+        /// </param>
+        /// <param name='workspaceId'>
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        Task RevokeExternalPoliciesAsync(RevokePoliciesExternalDTO body, System.Guid workspaceId, CancellationToken cancellationToken = default);
+
+        /// <summary>
+        /// Revoke sas policy for current workspace or based on policy name.
+        /// </summary>
+        /// <remarks>
+        /// Notes -
+        /// * If policyName is not provided, all the SAS policies for the
+        /// workspace for storage will be revoked.
+        /// * If policyName is provided, only the SAS policy with that name
+        /// will be revoked.
+        /// * To see the policyNames for storage, call the GET endpoint -
+        /// /gateway/api/v1/workspaces/{workspaceId}/storages/sas/policies
+        /// endpoint.
+        /// * A user of Workspace who has role of Reader can not revoke tokens.
+        /// * A user of Workspace who has role of Administrator can only revoke
+        /// tokens.
+        /// * Service Accounts can't revoke tokens currently.
+        /// </remarks>
+        /// <param name='workspaceId'>
+        /// </param>
+        /// <param name='policyToRevoke'>
+        /// </param>
+        /// <param name='customHeaders'>
+        /// The headers that will be added to request.
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        /// <exception cref="HttpOperationException">
+        /// Thrown when the operation returned an invalid status code
+        /// </exception>
+        [System.Obsolete("This operation is deprecated. Please do not use it any longer.")]
+        Task<HttpOperationResponse> RevokeInternalSASTokenWithHttpMessagesAsync(System.Guid workspaceId, string policyToRevoke = default, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default);
+
+        /// <summary>
+        /// Revoke sas policy for current workspace or based on policy name.
+        /// </summary>
+        /// <remarks>
+        /// Notes -
+        /// * If policyName is not provided, all the SAS policies for the
+        /// workspace for storage will be revoked.
+        /// * If policyName is provided, only the SAS policy with that name
+        /// will be revoked.
+        /// * To see the policyNames for storage, call the GET endpoint -
+        /// /gateway/api/v1/workspaces/{workspaceId}/storages/sas/policies
+        /// endpoint.
+        /// * A user of Workspace who has role of Reader can not revoke tokens.
+        /// * A user of Workspace who has role of Administrator can only revoke
+        /// tokens.
+        /// * Service Accounts can't revoke tokens currently.
+        /// </remarks>
+        /// <param name='workspaceId'>
+        /// </param>
+        /// <param name='policyToRevoke'>
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        [System.Obsolete("This operation is deprecated. Please do not use it any longer.")]
+        Task RevokeInternalSASTokenAsync(System.Guid workspaceId, string policyToRevoke = default, CancellationToken cancellationToken = default);
+
+        /// <summary>
+        /// Revoke sas policies for current workspace or based on policy names.
+        /// </summary>
+        /// <remarks>
+        /// Notes -
+        /// * If policies are not provided, all the SAS policies for the
+        /// workspace for storage will be revoked.
+        /// * If policies are provided, only the SAS policies with the matching
+        /// names will be revoked.
+        /// * To see the policyNames for storage, call the GET endpoint -
+        /// /gateway/api/v1/workspaces/{workspaceId}/storages/sas/policies
+        /// endpoint.
+        /// * A user of Workspace who has role of Reader can not revoke tokens.
+        /// * A user of Workspace who has role of Administrator can only revoke
+        /// tokens.
+        /// * Service Accounts can't revoke tokens currently.
+        /// </remarks>
+        /// <param name='body'>
+        /// </param>
+        /// <param name='workspaceId'>
+        /// </param>
+        /// <param name='customHeaders'>
+        /// The headers that will be added to request.
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        /// <exception cref="Microsoft.Rest.HttpOperationException">
+        /// Thrown when the operation returned an invalid status code
+        /// </exception>
+        /// <exception cref="Microsoft.Rest.ValidationException">
+        /// Thrown when a required parameter is null
+        /// </exception>
+        Task<HttpOperationResponse> RevokeInternalPoliciesWithHttpMessagesAsync(RevokePoliciesInternalDTO body, System.Guid workspaceId, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default);
+
+        /// <summary>
+        /// Revoke sas policies for current workspace or based on policy names.
+        /// </summary>
+        /// <remarks>
+        /// Notes -
+        /// * If policies are not provided, all the SAS policies for the
+        /// workspace for storage will be revoked.
+        /// * If policies are provided, only the SAS policies with the matching
+        /// names will be revoked.
+        /// * To see the policyNames for storage, call the GET endpoint -
+        /// /gateway/api/v1/workspaces/{workspaceId}/storages/sas/policies
+        /// endpoint.
+        /// * A user of Workspace who has role of Reader can not revoke tokens.
+        /// * A user of Workspace who has role of Administrator can only revoke
+        /// tokens.
+        /// * Service Accounts can't revoke tokens currently.
+        /// </remarks>
+        /// <param name='body'>
+        /// </param>
+        /// <param name='workspaceId'>
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        Task RevokeInternalPoliciesAsync(RevokePoliciesInternalDTO body, System.Guid workspaceId, CancellationToken cancellationToken = default);
 
         /// <summary>
         /// Gets Storage DataSets by workspaceId

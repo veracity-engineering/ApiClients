@@ -24,7 +24,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataWorkbenchApiV2.Models
         /// <summary>
         /// Initializes a new instance of the SchemaReadDto class.
         /// </summary>
-        public SchemaReadDto(System.Guid id = default, System.Guid workspaceId = default, string name = default, string shortName = default, string description = default, IEnumerable<SchemaVersionReadDto> schemaVersions = default, string industry = default, bool isPredefined = default, int avatarColor = default, System.Guid createdBy = default, System.DateTime createdOn = default, System.Guid lastModifiedBy = default, System.DateTime lastModifiedOn = default)
+        public SchemaReadDto(System.Guid id = default, System.Guid workspaceId = default, string name = default, string shortName = default, string description = default, IEnumerable<SchemaVersionReadDto> schemaVersions = default, string industry = default, bool isPredefined = default, int avatarColor = default, System.Guid createdBy = default, System.DateTime createdOn = default, System.Guid lastModifiedBy = default, System.DateTime lastModifiedOn = default, System.Guid? ownerWorkspaceId = default)
         {
             Id = id;
             WorkspaceId = workspaceId;
@@ -39,6 +39,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataWorkbenchApiV2.Models
             CreatedOn = createdOn;
             LastModifiedBy = lastModifiedBy;
             LastModifiedOn = lastModifiedOn;
+            OwnerWorkspaceId = ownerWorkspaceId;
             CustomInit();
         }
 
@@ -111,6 +112,11 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataWorkbenchApiV2.Models
         /// </summary>
         [JsonProperty(PropertyName = "lastModifiedOn")]
         public System.DateTime LastModifiedOn { get; set; }
+
+        /// <summary>
+        /// </summary>
+        [JsonProperty(PropertyName = "ownerWorkspaceId")]
+        public System.Guid? OwnerWorkspaceId { get; set; }
 
     }
 }

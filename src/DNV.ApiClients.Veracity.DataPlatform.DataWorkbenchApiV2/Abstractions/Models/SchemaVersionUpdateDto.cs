@@ -9,26 +9,27 @@ using System.Linq;
 namespace DNV.ApiClients.Veracity.DataPlatform.DataWorkbenchApiV2.Models
 {
     using Newtonsoft.Json;
-    public partial class WorkspaceDto
+    using System.Collections;
+    using System.Collections.Generic;
+    public partial class SchemaVersionUpdateDto
     {
         /// <summary>
-        /// Initializes a new instance of the WorkspaceDto class.
+        /// Initializes a new instance of the SchemaVersionUpdateDto class.
         /// </summary>
-        public WorkspaceDto()
+        public SchemaVersionUpdateDto()
         {
             CustomInit();
         }
 
         /// <summary>
-        /// Initializes a new instance of the WorkspaceDto class.
+        /// Initializes a new instance of the SchemaVersionUpdateDto class.
         /// </summary>
-        public WorkspaceDto(string id = default, string name = default, string description = default, string region = default, string roleName = default)
+        public SchemaVersionUpdateDto(string schemaVersionName = default, string description = default, IEnumerable<ColumnWriteDto> columns = default, IEnumerable<RowValidatorDto> rowValidators = default)
         {
-            Id = id;
-            Name = name;
+            SchemaVersionName = schemaVersionName;
             Description = description;
-            Region = region;
-            RoleName = roleName;
+            Columns = columns;
+            RowValidators = rowValidators;
             CustomInit();
         }
 
@@ -39,13 +40,8 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataWorkbenchApiV2.Models
 
         /// <summary>
         /// </summary>
-        [JsonProperty(PropertyName = "id")]
-        public string Id { get; set; }
-
-        /// <summary>
-        /// </summary>
-        [JsonProperty(PropertyName = "name")]
-        public string Name { get; set; }
+        [JsonProperty(PropertyName = "schemaVersionName")]
+        public string SchemaVersionName { get; set; }
 
         /// <summary>
         /// </summary>
@@ -54,13 +50,13 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataWorkbenchApiV2.Models
 
         /// <summary>
         /// </summary>
-        [JsonProperty(PropertyName = "region")]
-        public string Region { get; set; }
+        [JsonProperty(PropertyName = "columns")]
+        public IEnumerable<ColumnWriteDto> Columns { get; set; }
 
         /// <summary>
         /// </summary>
-        [JsonProperty(PropertyName = "roleName")]
-        public string RoleName { get; set; }
+        [JsonProperty(PropertyName = "rowValidators")]
+        public IEnumerable<RowValidatorDto> RowValidators { get; set; }
 
     }
 }
