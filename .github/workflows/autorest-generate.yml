@@ -89,3 +89,6 @@ jobs:
 
           echo "::debug::Push commit to remote"
           git push
+
+          # wait for the push to be completed
+          sleep 5  

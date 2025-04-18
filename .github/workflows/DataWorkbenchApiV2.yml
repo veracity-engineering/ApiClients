@@ -25,7 +25,7 @@ jobs:
       project-name: DNV.ApiClients.Veracity.DataPlatform.DataWorkbenchApiV2.ApiClient
       output-folder: src/DNV.ApiClients.Veracity.DataPlatform.DataWorkbenchApiV2
   nuget-publish:
-    needs: autorest-generate
+    needs: [autorest-generate]
     uses: ./.github/workflows/nuget-publish.yml
     with:
       source-path: src/DNV.ApiClients.Veracity.DataPlatform.DataWorkbenchApiV2
