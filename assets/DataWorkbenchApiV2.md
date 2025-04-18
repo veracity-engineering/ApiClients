@@ -14,6 +14,11 @@ csharp:
   output-folder: ../src/DNV.ApiClients.Veracity.DataPlatform.DataWorkbenchApiV2
   clear-output-folder: true
 
-# directive:
+directive:
+- from: openapi-document
+  debug: true
+  where: $.paths..[?(@.operationId=='Schemas_GetSchemaVersionById')]
+  transform: |
+    $.responses['200'].content = {"application/json": {"schema": {"$ref": "#/components/schemas/SchemaVersionReadDto"}}};
 
 ```
