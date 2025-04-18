@@ -592,7 +592,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataWorkbenchApiV2
         /// <return>
         /// A response object containing the response body and response headers.
         /// </return>
-        public async Task<HttpOperationResponse<IEnumerable<SchemaVersionReadDto>>> GetSchemaVersionByIdWithHttpMessagesAsync(System.Guid workspaceId, System.Guid schemaVersionId, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default)
+        public async Task<HttpOperationResponse<SchemaVersionReadDto>> GetSchemaVersionByIdWithHttpMessagesAsync(System.Guid workspaceId, System.Guid schemaVersionId, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default)
         {
             // Construct URL
             var _baseUrl = Client.HttpClient.BaseAddress?.AbsoluteUri ?? Client.BaseUri.AbsoluteUri;
@@ -646,7 +646,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataWorkbenchApiV2
                 throw ex;
             }
             // Create Result
-            var _result = new HttpOperationResponse<IEnumerable<SchemaVersionReadDto>>();
+            var _result = new HttpOperationResponse<SchemaVersionReadDto>();
             _result.Request = _httpRequest;
             _result.Response = _httpResponse;
             // Deserialize Response
@@ -655,7 +655,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataWorkbenchApiV2
                 _responseContent = await _httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
                 try
                 {
-                    _result.Body = Microsoft.Rest.Serialization.SafeJsonConvert.DeserializeObject<IEnumerable<SchemaVersionReadDto>>(_responseContent, Client.DeserializationSettings);
+                    _result.Body = Microsoft.Rest.Serialization.SafeJsonConvert.DeserializeObject<SchemaVersionReadDto>(_responseContent, Client.DeserializationSettings);
                 }
                 catch (JsonException ex)
                 {
@@ -679,7 +679,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataWorkbenchApiV2
         /// <param name='cancellationToken'>
         /// The cancellation token.
         /// </param>
-        public async Task<IEnumerable<SchemaVersionReadDto>> GetSchemaVersionByIdAsync(System.Guid workspaceId, System.Guid schemaVersionId, CancellationToken cancellationToken = default)
+        public async Task<SchemaVersionReadDto> GetSchemaVersionByIdAsync(System.Guid workspaceId, System.Guid schemaVersionId, CancellationToken cancellationToken = default)
         {
             using (var _result = await GetSchemaVersionByIdWithHttpMessagesAsync(workspaceId, schemaVersionId, null, cancellationToken).ConfigureAwait(false))
             {

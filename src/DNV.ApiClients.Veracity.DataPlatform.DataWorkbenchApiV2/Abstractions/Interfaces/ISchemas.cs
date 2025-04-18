@@ -178,7 +178,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataWorkbenchApiV2.Interfaces
         /// <exception cref="Microsoft.Rest.SerializationException">
         /// Thrown when unable to deserialize the response
         /// </exception>
-        Task<HttpOperationResponse<IEnumerable<SchemaVersionReadDto>>> GetSchemaVersionByIdWithHttpMessagesAsync(System.Guid workspaceId, System.Guid schemaVersionId, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default);
+        Task<HttpOperationResponse<SchemaVersionReadDto>> GetSchemaVersionByIdWithHttpMessagesAsync(System.Guid workspaceId, System.Guid schemaVersionId, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default);
 
         /// <summary>
         /// Get a specific schema version
@@ -190,7 +190,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataWorkbenchApiV2.Interfaces
         /// <param name='cancellationToken'>
         /// The cancellation token.
         /// </param>
-        Task<IEnumerable<SchemaVersionReadDto>> GetSchemaVersionByIdAsync(System.Guid workspaceId, System.Guid schemaVersionId, CancellationToken cancellationToken = default);
+        Task<SchemaVersionReadDto> GetSchemaVersionByIdAsync(System.Guid workspaceId, System.Guid schemaVersionId, CancellationToken cancellationToken = default);
 
         /// <summary>
         /// Gets a list of column validators by workspace Id
