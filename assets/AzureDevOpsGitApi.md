@@ -3,7 +3,7 @@
 
 ```yaml
 
-input-file: PlatformApiV4.json
+input-file: AzureDevOpsGitApi.json
 
 use-extension:
   '@cuteribs/autorest.csharp': latest
