@@ -13,6 +13,7 @@ csharp:
   override-client-name: AzureDevOpsGitApiClient
   output-folder: ../src/DNV.ApiClients.Veracity.AzureDevOps.GitApi
   clear-output-folder: true
+  generate-empty-classes: true
 
 #directive:
 ```
