@@ -5,6 +5,7 @@
 // </auto-generated>
 
 using Microsoft.Rest;
+using System.Linq;
 using DNV.ApiClients.Veracity.Identity.PlatformApiV4.Interfaces;
 
 namespace DNV.ApiClients.Veracity.Identity.PlatformApiV4
@@ -19,318 +20,192 @@ namespace DNV.ApiClients.Veracity.Identity.PlatformApiV4
     using System.Net.Http;
 
     /// <summary>
-    /// ### Documentation and scenarios
+    /// This document outlines the capabilities of the **Veracity Platform API
+    /// V4**. This powerful, RESTful API provides a comprehensive suite of
+    /// tools for managing resources within the Veracity ecosystem. It allows
+    /// developers to programmatically interact with core Veracity concepts
+    /// such as **Tenants**, **Applications**, **Users**, and **Groups**.
     ///
-    /// #### Applications
+    /// The API is structured around a clear and logical resource hierarchy,
+    /// making it intuitive to use. A key feature is the extensive use of OData
+    /// query options, allowing for powerful filtering, searching, and
+    /// pagination of results, which is essential for managing large sets of
+    /// data efficiently.
     ///
-    /// The `Applications` interface provides methods to interact with
-    /// applications within a tenant. It supports retrieving applications,
-    /// verifying user licenses, and managing user and group licenses.
+    /// ## Key Concepts
     ///
-    /// - **GetApplications** (`GET /tenants/{tenantId}/applications`):
-    /// Retrieves applications installed in a tenant with support for OData
-    /// query parameters.
-    /// - **GetApplication** (`GET
-    /// /tenants/{tenantId}/applications/{applicationId}`): Retrieves a
-    /// specific application by its public ID.
-    /// - **GetLicenses** (`GET
-    /// /tenants/{tenantId}/applications/{applicationId}/licenses`): Retrieves
-    /// all direct users and groups with licenses for an application.
-    /// - **VerifyUserLicense** (`GET
-    /// /tenants/{tenantId}/applications/{applicationId}/licenses/{userId}`):
-    /// Verifies if a user has a license for an application.
-    /// - **GetApplicationUsersExploded** (`GET
-    /// /tenants/{tenantId}/applications/{applicationId}/users`): Retrieves all
-    /// users, including those inherited from groups, with deduplication
-    /// support.
-    /// - **AddUserOrGroupLicense** (`POST
-    /// /tenants/{tenantId}/applications/{applicationId}/licenses`): Adds a
-    /// user or group license to an application.
-    /// - **SetAccessLevel** (`PUT
-    /// /tenants/{tenantId}/applications/{applicationId}/licenses/{entityId}`):
-    /// Sets access level on an existing subscription.
-    /// - **UpdateLicense** (`PATCH
-    /// /tenants/{tenantId}/applications/{applicationId}/licenses/{entityId}`):
-    /// Updates license details using a JSON patch document.
-    /// - **DeleteLicense** (`DELETE
-    /// /tenants/{tenantId}/applications/{applicationId}/licenses/{entityId}`):
-    /// Removes a subscription.
-    /// - **GetTenantsForApplication** (`GET
-    /// /applications/{applicationId}/tenants`): Retrieves all tenants where
-    /// the application is installed.
-    /// - **PatchApplication** (`PATCH
-    /// /tenants/{tenantId}/applications/{applicationId}`): Updates application
-    /// extension properties using a JSON patch document.
-    /// - **GetAdministrators** (`GET
-    /// /tenants/{tenantId}/applications/{applicationId}/administrators`):
-    /// Lists application administrators.
-    /// - **AddAdministrator** (`POST
-    /// /tenants/{tenantId}/applications/{applicationId}/administrators/{userId}`):
-    /// Adds a user as an application administrator.
-    /// - **DeleteAdministrator** (`DELETE
-    /// /tenants/{tenantId}/applications/{applicationId}/administrators/{userId}`):
-    /// Removes an application administrator.
+    /// * **Tenants**: A tenant represents a customer or an organization within
+    /// Veracity. It is the top-level container for users, groups, and
+    /// application subscriptions.
+    /// * **Applications**: These are the services or tools that are installed
+    /// within a tenant. The API provides endpoints to manage application
+    /// subscriptions, licenses, and administrators.
+    /// * **Users**: These are the individual accounts within a tenant that can
+    /// be granted access to applications and resources.
+    /// * **Groups**: Groups are collections of users, used to simplify access
+    /// management. Assigning a license or a permission to a group grants it to
+    /// all members of that group.
+    /// * **Application Elements**: A flexible feature that allows applications
+    /// to create and manage their own hierarchical data structures (elements)
+    /// within a tenant, complete with their own access control.
     ///
-    /// #### Groups
+    /// ## Understanding Identifiers in the Veracity Platform API
     ///
-    /// The `Groups` interface provides methods to manage groups and their
-    /// members within a tenant. It supports retrieving groups, group members,
-    /// and updating group properties.
+    /// The Veracity API uses several types of identifiers (IDs) to reference
+    /// resources. Understanding the scope and context of each ID is crucial
+    /// for using the API correctly.
     ///
-    /// - **GetGroups** (`GET /tenants/{tenantId}/groups`): Retrieves groups in
-    /// a tenant with support for OData query parameters.
-    /// - **GetGroup** (`GET /tenants/{tenantId}/groups/{groupId}`): Retrieves
-    /// a specific group by its ID.
-    /// - **GetGroupMembers** (`GET
-    /// /tenants/{tenantId}/groups/{groupId}/members`): Retrieves all direct
-    /// users and groups within a group.
-    /// - **GetMembersExploded** (`GET
-    /// /tenants/{tenantId}/groups/{groupId}/members/exploded`): Retrieves all
-    /// users, including those inherited from groups.
-    /// - **PatchMember** (`PATCH
-    /// /tenants/{tenantId}/groups/{groupId}/members/{memberId}`): Updates
-    /// member properties using a JSON patch document.
-    /// - **PatchGroup** (`PATCH /tenants/{tenantId}/groups/{groupId}`):
-    /// Updates group properties using a JSON patch document.
-    /// - **GetMemberOf** (`GET
-    /// /tenants/{tenantId}/groups/{groupId}/memberOf`): Lists all groups a
-    /// specific group is a member of.
-    /// - **GetApplications** (`GET
-    /// /tenants/{tenantId}/groups/{groupId}/applications`) Get the
-    /// applications licensed for the group
+    /// | Identifier | Scope | Description | Example Usage |
+    /// | :--- | :--- | :--- | :--- |
+    /// | `tenantId` | Tenant | A unique identifier for a tenant, which
+    /// represents a customer or organization. | `GET /tenants/{tenantId}` |
+    /// | `applicationId` | Global | A unique identifier for an application,
+    /// corresponding to the **Service ID** in the developer portal. This ID is
+    /// the same across all tenants. | `GET
+    /// /applications/{applicationId}/manifest` |
+    /// | `applicationInstanceId` | Tenant-Specific | A unique identifier for a
+    /// specific *installation* or *subscription* of an application within a
+    /// tenant. | Returned in the body of `GET
+    /// /tenants/{tenantId}/applications/{applicationId}` |
+    /// | `profileId` | Tenant-Specific | A unique identifier for a user
+    /// account *within a specific tenant*. | `GET
+    /// /tenants/{tenantId}/users/{userId}` |
+    /// | `userId` | Global | A globally unique identifier (GUID) for a user's
+    /// core identity across the entire Veracity platform, independent of any
+    /// tenant. | Returned in the body of `GET
+    /// /tenants/{tenantId}/users/{userId}` |
+    /// | `groupId` | Tenant-Specific | A unique identifier for a group of
+    /// users *within a specific tenant*. | `GET
+    /// /tenants/{tenantId}/groups/{groupId}` |
+    /// | `elementId` | Veracity assigned | A unique identifier for an
+    /// Application Element, which is a custom resource created and managed by
+    /// an application. | `GET
+    /// /tenants/{tenantId}/applications/{applicationId}/elements/{elementId}`
+    /// |
+    /// | `elementExternalId` | Application assigned | A unique identifier for
+    /// an Application Element, which allows you to create a connection between
+    /// an element and a resource in your application. | `GET
+    /// /tenants/{tenantId}/applications/{applicationId}/elements/{elementId}`
+    /// |
+    /// | `entityId` | Polymorphic | A placeholder for an ID that can be either
+    /// a `userId` or a `groupId`. The context is determined by the
+    /// `licenseType` or `memberType` query parameter. | `DELETE
+    /// /tenants/{tenantId}/applications/{applicationId}/licenses/{entityId}?licenseType=profile`
+    /// |
+    /// | `objectId` | Polymorphic | A generic identifier returned in response
+    /// bodies. It typically represents a `userId` for users or a `groupId` for
+    /// groups, depending on the context of the license or membership. |
+    /// Returned in the body of `GET
+    /// /tenants/{tenantId}/applications/{applicationId}/licenses` |
     ///
-    /// #### Me
+    /// ## Core Functionalities
     ///
-    /// The `Me` interface provides methods to retrieve information about the
-    /// logged-on user, including their applications, groups, and tenants.
+    /// ### Tenants
     ///
-    /// - **GetMyInfo** (`GET /me`): Retrieves details for the logged-on user.
-    /// - **GetMyApplications** (`GET /me/applications`): Retrieves all
-    /// applications the user has access to.
-    /// - **GetMyTenantApplications** (`GET
-    /// /me/tenants/{tenantId}/applications`): Retrieves all applications in a
-    /// tenant the user has access to.
-    /// - **GetMyGroups** (`GET /me/tenants/{tenantId}/groups`): Retrieves the
-    /// groups the logged-on user belongs to.
-    /// - **GetMyTenants** (`GET /me/tenants`): Retrieves all tenants the
-    /// logged-on user is a member of.
-    /// - **GetMyTenantsWithApplication** (`GET
-    /// /me/applications/{applicationId}/tenants`): Retrieves all tenants the
-    /// logged-on user is a member of and has access to a specific application.
-    /// - **VerifyUserPolicy** (`GET
-    /// /me/applications/{applicationId}/.policy()`): Verifies Veracity user
-    /// policies and returns appropriate responses based on policy compliance.
+    /// The API provides endpoints to manage and query tenant information.
     ///
-    /// #### Tenants
+    /// * **Get Tenant Information**: Retrieve detailed information about a
+    /// specific tenant using its ID.
+    /// * **List Tenants for an Application**: Find all tenants where a
+    /// specific application is installed.
+    /// * **Manage Tenant Administrators**: List administrators for a tenant
+    /// and get details about a specific administrator's roles.
+    /// * **List Users and Groups**: Get a combined list of all users and
+    /// groups within a specific tenant.
+    /// * **Update Tenant Properties**: Modify custom extension properties
+    /// associated with a tenant.
     ///
-    /// The `Tenants` interface provides methods to interact with tenants,
-    /// including retrieving tenant details and managing tenant administrators.
+    /// ### Applications
     ///
-    /// - **GetTenant** (`GET /tenants/{tenantId}`): Retrieves a tenant by its
-    /// ID.
-    /// - **GetTenants** (`GET /tenants`): Retrieves a list of tenants linked
-    /// to a specific service.
-    /// - **GetAdmin** (`GET /tenants/{tenantId}/admins/{userId}`): Retrieves
-    /// admin details for a user by their ID.
-    /// - **GetAdmins** (`GET /tenants/{tenantId}/admins`): Retrieves all
-    /// admins of a tenant, both global and local.
+    /// Endpoints for managing application subscriptions and access within a
+    /// tenant.
     ///
-    /// #### Users
+    /// * **List and Get Applications**: Retrieve a list of all applications
+    /// installed in a tenant or get details for a single application.
+    /// * **Manage Licenses**:
+    /// * List all licenses (both user and group) for an application.
+    /// * Add or remove user/group licenses.
+    /// * Verify if a specific user has a license.
+    /// * Update license details, including custom extension properties.
+    /// * Set specific access levels for a subscription.
+    /// * **Manage Administrators**:
+    /// * List all administrators for an application.
+    /// * Add or remove a user as an application administrator.
+    /// * **List All Users**: Get a comprehensive list of all users with access
+    /// to an application, including those with inherited access from groups.
+    /// * **Application Manifest**: Retrieve the application's manifest, which
+    /// contains settings and configurations defined in the developer portal.
     ///
+    /// ### Users
     ///
-    /// The `Users` interface provides methods to manage users within a tenant,
-    /// including retrieving user details, groups, and applications.
+    /// A set of endpoints for user management and querying user-related
+    /// information.
     ///
-    /// - **GetUserByEmail** (`GET /tenants/{tenantId}/users/.email({email})`):
-    /// Retrieves a user by their email address.
-    /// - **GetUser** (`GET /users/{userId}`): Retrieves a user by their ID.
-    /// - **ListUsers** (`GET /tenants/{tenantId}/users`): Retrieves a list of
-    /// users in a tenant with support for OData query parameters.
-    /// - **GetUserInTenant** (`GET /tenants/{tenantId}/users/{userId}`):
-    /// Retrieves the details of a user in a tenant.
-    /// - **GetGroupsForUser** (`GET
-    /// /tenants/{tenantId}/users/{userId}/groups`): Retrieves the groups
-    /// associated with a user.
-    /// - **GetApplicationsForUser** (`GET
-    /// /tenants/{tenantId}/users/{userId}/applications`): Retrieves the
-    /// applications associated with a user.
-    /// - **GetTenantsForUser** (`GET /users/{userId}/tenants`): Retrieves the
-    /// tenants a user is a member of.
-    /// - **ResolveUsers** (`POST /tenants/{tenantId}/users`): Retrieves full
-    /// user details for a list of user IDs.
-    /// - **UpdateUserProperties** (`PATCH
-    /// /tenants/{tenantId}/users/{userId}`): Updates the extension properties
-    /// for a user using a JSON patch document.
+    /// * **List and Get Users**: List all users within a tenant or retrieve
+    /// detailed information for a specific user by their ID or email address.
+    /// * **Resolve Multiple Users**: Fetch detailed information for a list of
+    /// user IDs in a single request.
+    /// * **Manage User Properties**: Update custom extension properties for a
+    /// user.
+    /// * **User's Groups**:
+    /// * List the groups a user is a direct member of.
+    /// * List all groups a user belongs to, including through nested group
+    /// memberships.
+    /// * **User's Applications**: Get a list of all applications a user has
+    /// access to within a specific tenant.
+    /// * **User's Tenants**: Retrieve a list of all tenants a user is a member
+    /// of.
     ///
-    /// ### According JsonPatch
+    /// ### Groups
     ///
-    /// The api uses jsonPatch to update data within the graph. Common use-case
-    /// for updating an entity in the graph is to add/update or remove
-    /// extension properties. Here are some sample updates:
+    /// Functionality for managing user groups and their memberships.
     ///
-    /// Let's say we start out with this properties collection:
-    /// ```JSON
-    /// "properties": [
-    /// {
-    /// "name": "vtmd2_allowedVessels",
-    /// "value": ""
-    /// }
-    /// ]
-    /// ```
+    /// * **List and Get Groups**: List all groups within a tenant or get
+    /// detailed information for a specific group.
+    /// * **Manage Group Members**:
+    /// * List all direct members (users and other groups) of a group.
+    /// * Get a "flat" list of all users in a group, including members of any
+    /// nested groups.
+    /// * Check if a specific user is a member of a group (directly or
+    /// indirectly).
+    /// * **Manage Group Properties**: Update custom extension properties for a
+    /// group or for a specific membership.
+    /// * **Group's Applications**: List all applications for which a group has
+    /// a license.
     ///
-    /// Update a user to indicate the vessels the user can see in the app and
-    /// mark the new application user as seeb by an admin.
+    /// ### Me (Current User)
     ///
-    /// ```JSON
-    /// [
-    /// {
-    /// "value": {
-    /// "Name": "vtmd2_allowedVessels",
-    /// "Value": "7911545;7911533"
-    /// },
-    /// "path": "/properties/-",
-    /// "op": "replace"
-    /// },
-    /// {
-    /// "value": {
-    /// "Name": "vtmd2_isSeen",
-    /// "Value": "true"
-    /// },
-    /// "path": "/properties/-",
-    /// "op": "add"
-    /// }
-    /// ]
-    /// ```
+    /// These endpoints provide a convenient way for the authenticated user to
+    /// query their own permissions and resources without needing to know their
+    /// own user ID.
     ///
-    /// This result in the following properties:
-    /// ```json
-    /// "properties": [
-    /// {
-    /// "name": "vtmd2_allowedVessels",
-    /// "value": "7911545;7911533"
-    /// },
-    /// {
-    /// "name": "vtmd2_isSeen",
-    /// "value": "true"
-    /// }
-    /// ]
-    /// ```
+    /// * **Get My Information**: Retrieve details for the currently logged-in
+    /// user.
+    /// * **Get My Applications**: List all applications the user has access to
+    /// across all their tenants or within a specific tenant.
+    /// * **Get My Tenants**: List all tenants the user is a member of.
+    /// * **Get My Groups**: List all groups the user is a member of within a
+    /// specific tenant.
+    /// * **Verify Policies**: An endpoint to ensure the user has accepted all
+    /// required Veracity policies for a given application.
     ///
-    /// Let's say we want remove the allowedVessels list and reset the isSeen
-    /// flag. We remove the the  vtmd2_allowedVessels property by it's index
-    /// and then do other operations. This is due to the fact that the order of
-    /// elements can change when we do other operations, and remove does not
-    /// support removing by name.
+    /// ### Application Elements
     ///
-    /// The same type of operations can be performed on any entity or
-    /// relationship in the graph.
+    /// This advanced feature allows applications to define and manage their
+    /// own resources within the Veracity platform.
     ///
-    /// ```JSON
-    /// [
-    /// "path": "/properties/0",
-    /// "op": "remove"
-    /// },
-    /// {
-    /// "value": {
-    /// "Name": "vtmd2_isSeen",
-    /// "Value": "false"
-    /// },
-    /// "path": "/properties/-",
-    /// "op": "replace"
-    /// }
-    /// ]
-    /// ```
+    /// * **Create and Manage Elements**: Create, retrieve, update (patch), and
+    /// delete hierarchical application elements.
+    /// * **Manage Element Rights**:
+    /// * Assign and manage access rights for users and groups to specific
+    /// elements.
+    /// * Control access levels for fine-grained permission models.
+    /// * **Query User Access**:
+    /// * Get a tree view of all elements a user has access to.
+    /// * Check the effective rights a specific user has on a particular
+    /// element.
     ///
-    /// This result in the following properties:
-    /// ```json
-    /// "properties": [
-    /// {
-    /// "name": "vtmd2_isSeen",
-    /// "value": "false"
-    /// }
-    /// ]
-    /// ```
-    ///
-    /// the nuget packages Veracity provides does have helper methods to
-    /// construct these queries and run tem directly against the api.
-    ///
-    /// ```CS
-    /// user.MakeJsonPatch()
-    /// .AddOrUpdateProperty("allowedVessels", "7911545;7911533")
-    /// .AddOrUpdateProperty("isSeen", "true")
-    /// .ExecutePatchUserAsync();
-    /// ```
-    ///
-    /// ### Scenario Usage
-    ///
-    /// #### common to all
-    /// - **Policy**: use `POST /me/applications/{applicationId}/.policy()` to
-    /// check that all user policies are fulfilled, usually called right after
-    /// the token is aquired
-    ///
-    /// #### Seating Tracker for Hot Seating Workplaces (simple and
-    /// intermediate applications )
-    ///
-    /// This application type leverages Veracity Access hub to assign license
-    /// and roles to the users.
-    ///
-    /// - **Multi-tenant application**: Use `GET
-    /// /me/applications/{applicationId}/tenants` to retrieve tenants the user
-    /// has access to and the application is installed in, used to present the
-    /// tenant selector screen.
-    /// - **Access levels and permissions**: Use `GET
-    /// /tenants/{tenantId}/applications/{applicationId}/licenses`to list all
-    /// users and `GET
-    /// /tenants/{tenantId}/applications/{applicationId}/licenses/{userId}` to
-    /// manage and verify user licenses and the accessLevel.
-    ///
-    ///
-    /// #### Health and Safety Tracker Application (simple authorization model
-    /// for most users, but advanced for some)
-    ///
-    /// This application type leverages Veracity Access Hub to assign the least
-    /// privilege to the users, while advanced rights must be granted within
-    /// the application's admin module.
-    ///
-    /// - **Detailed permissions**: Use `GET /tenants/{tenantId}/groups` and
-    /// `GET /tenants/{tenantId}/groups/{groupId}/members` to manage
-    /// group-based permissions.
-    /// - **Local copy for performance**: Use `GET
-    /// /tenants/{tenantId}/applications/{applicationId}/users` to retrieve all
-    /// users (direct and indirect) and manage local copies for performance.
-    ///
-    /// #### Applications with no clear least privilege and a complex
-    /// authorization model
-    ///
-    /// This category includes applications with row or entity level security.
-    /// The authorization requirements are based on data stored in the
-    /// application and that is not know to Veracity Access Hub.
-    ///
-    /// - **Complex authorization**: Use `GET /tenants/{tenantId}/groups` and
-    /// `GET /tenants/{tenantId}/groups/{groupId}/members` to manage
-    /// group-based permissions.
-    /// - **inform veracity about application license**: Use  `POST
-    /// /tenants/{tenantId}/applications/{applicationId}/licenses`this will
-    /// show the tile in myServices and make sure that Veracity can count
-    /// licenses (and enforce cap if applicable) in the tenant.
-    ///
-    ///
-    /// #### Additional Information
-    ///
-    /// These interfaces and methods provide a comprehensive way to manage
-    /// multi-tenant applications, user permissions, and group memberships,
-    /// aligning with the scenarios described.
-    ///
-    /// All applications can leverage the Veracity domain events to replicate
-    /// data locally to improve performance and remove single points of
-    /// failure. This is not recommended for simple applications or
-    /// applications with limited budgets or developers since the complexity of
-    /// nested groups can make it too costly to implement.
-    ///
-    /// There is a NuGet package available on nuget.org that plugs into the
-    /// other packages Veracity provides: Veracity.Core.Api.V4
-    ///
-    /// &gt; Service build version 20241015.1 - Environment: Test
+    /// &gt; Service build version __BUILD_NUMBER__ - Environment: Test
     /// </summary>
     public partial class PlatformApiV4Client : ServiceClient<PlatformApiV4Client>, IPlatformApiV4Client
     {
@@ -353,6 +228,11 @@ namespace DNV.ApiClients.Veracity.Identity.PlatformApiV4
         /// Gets the IApplications.
         /// </summary>
         public virtual IApplications Applications { get; private set; }
+
+        /// <summary>
+        /// Gets the IElements.
+        /// </summary>
+        public virtual IElements Elements { get; private set; }
 
         /// <summary>
         /// Gets the IGroups.
@@ -483,6 +363,7 @@ namespace DNV.ApiClients.Veracity.Identity.PlatformApiV4
         private void Initialize()
         {
             Applications = new Applications(this);
+            Elements = new Elements(this);
             Groups = new Groups(this);
             Me = new Me(this);
             StatusService = new StatusService(this);

@@ -22,12 +22,12 @@ namespace DNV.ApiClients.Veracity.Identity.PlatformApiV4
     using System.Threading.Tasks;
 
     /// <summary>
-    /// Applications operations.
+    /// Elements operations.
     /// </summary>
-    public partial class Applications : IServiceOperations<PlatformApiV4Client>, IApplications
+    public partial class Elements : IServiceOperations<PlatformApiV4Client>, IElements
     {
         /// <summary>
-        /// Initializes a new instance of the Applications class.
+        /// Initializes a new instance of the Elements class.
         /// </summary>
         /// <param name='client'>
         /// Reference to the service client.
@@ -35,7 +35,7 @@ namespace DNV.ApiClients.Veracity.Identity.PlatformApiV4
         /// <exception cref="System.ArgumentNullException">
         /// Thrown when a required parameter is null
         /// </exception>
-        public Applications(PlatformApiV4Client client)
+        public Elements(PlatformApiV4Client client)
         {
             if (client == null)
             {
@@ -50,22 +50,18 @@ namespace DNV.ApiClients.Veracity.Identity.PlatformApiV4
         public PlatformApiV4Client Client { get; private set; }
 
         /// <summary>
-        /// List applications within a tenant
+        /// Get root level elements
         ///
         ///
         /// </summary>
         /// <remarks>
-        /// Get applications installed in the tenant
-        ///
-        /// Filterable fields: name, pricingTier, orderNumber, state
-        ///
-        /// query sample:
-        /// tenants/be0c84cb-7a4a-4114-aa17-9c0224b084cf/applications?$filter=serviceId
-        /// eq
-        /// '88dd8fdc-c6db-49d4-89f5-76bc4e7c8d57'&amp;$top=1&amp;$skip=0&amp;search=Interface&lt;br/&gt;
+        /// List all root level elements&lt;br/&gt;
         /// </remarks>
         /// <param name='tenantId'>
         /// The tenant id (or dnvCustomerId for veracity_default tenants)
+        /// </param>
+        /// <param name='applicationId'>
+        /// The applicationId is the same as serviceId in developer
         /// </param>
         /// <param name='odata'>
         /// OData query options, the values are passed as query string parameters
@@ -94,7 +90,7 @@ namespace DNV.ApiClients.Veracity.Identity.PlatformApiV4
         /// <return>
         /// A response object containing the response body and response headers.
         /// </return>
-        public async Task<HttpOperationResponse<PagedApplicationResponse>> GetApplicationsWithHttpMessagesAsync(string tenantId, IDictionary<string, string> odata = default, string requestId = default, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default)
+        public async Task<HttpOperationResponse<PagedElementResponse>> ListElementsWithHttpMessagesAsync(string tenantId, System.Guid applicationId, IDictionary<string, string> odata = default, string requestId = default, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default)
         {
             if (tenantId == null)
             {
@@ -102,8 +98,9 @@ namespace DNV.ApiClients.Veracity.Identity.PlatformApiV4
             }
             // Construct URL
             var _baseUrl = Client.HttpClient.BaseAddress?.AbsoluteUri ?? Client.BaseUri.AbsoluteUri;
-            var _url = new System.Uri(new System.Uri(_baseUrl + (_baseUrl.EndsWith("/") ? "" : "/")), "tenants/{tenantId}/applications").ToString();
+            var _url = new System.Uri(new System.Uri(_baseUrl + (_baseUrl.EndsWith("/") ? "" : "/")), "tenants/{tenantId}/applications/{applicationId}/elements").ToString();
             _url = _url.Replace("{tenantId}", System.Uri.EscapeDataString(tenantId));
+            _url = _url.Replace("{applicationId}", System.Uri.EscapeDataString(Microsoft.Rest.Serialization.SafeJsonConvert.SerializeObject(applicationId, Client.SerializationSettings).Trim('"')));
             IList<string> _queryParameters = new List<string>();
             if (odata != null)
             {
@@ -168,7 +165,7 @@ namespace DNV.ApiClients.Veracity.Identity.PlatformApiV4
                 throw ex;
             }
             // Create Result
-            var _result = new HttpOperationResponse<PagedApplicationResponse>();
+            var _result = new HttpOperationResponse<PagedElementResponse>();
             _result.Request = _httpRequest;
             _result.Response = _httpResponse;
             // Deserialize Response
@@ -177,7 +174,7 @@ namespace DNV.ApiClients.Veracity.Identity.PlatformApiV4
                 _responseContent = await _httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
                 try
                 {
-                    _result.Body = Microsoft.Rest.Serialization.SafeJsonConvert.DeserializeObject<PagedApplicationResponse>(_responseContent, Client.DeserializationSettings);
+                    _result.Body = Microsoft.Rest.Serialization.SafeJsonConvert.DeserializeObject<PagedElementResponse>(_responseContent, Client.DeserializationSettings);
                 }
                 catch (JsonException ex)
                 {
@@ -192,22 +189,18 @@ namespace DNV.ApiClients.Veracity.Identity.PlatformApiV4
             return _result;
         }
         /// <summary>
-        /// List applications within a tenant
+        /// Get root level elements
         ///
         ///
         /// </summary>
         /// <remarks>
-        /// Get applications installed in the tenant
-        ///
-        /// Filterable fields: name, pricingTier, orderNumber, state
-        ///
-        /// query sample:
-        /// tenants/be0c84cb-7a4a-4114-aa17-9c0224b084cf/applications?$filter=serviceId
-        /// eq
-        /// '88dd8fdc-c6db-49d4-89f5-76bc4e7c8d57'&amp;$top=1&amp;$skip=0&amp;search=Interface&lt;br/&gt;
+        /// List all root level elements&lt;br/&gt;
         /// </remarks>
         /// <param name='tenantId'>
         /// The tenant id (or dnvCustomerId for veracity_default tenants)
+        /// </param>
+        /// <param name='applicationId'>
+        /// The applicationId is the same as serviceId in developer
         /// </param>
         /// <param name='odata'>
         /// OData query options, the values are passed as query string parameters
@@ -218,178 +211,21 @@ namespace DNV.ApiClients.Veracity.Identity.PlatformApiV4
         /// <param name='cancellationToken'>
         /// The cancellation token.
         /// </param>
-        public async Task<PagedApplicationResponse> GetApplicationsAsync(string tenantId, IDictionary<string, string> odata = default, string requestId = default, CancellationToken cancellationToken = default)
+        public async Task<PagedElementResponse> ListElementsAsync(string tenantId, System.Guid applicationId, IDictionary<string, string> odata = default, string requestId = default, CancellationToken cancellationToken = default)
         {
-            using (var _result = await GetApplicationsWithHttpMessagesAsync(tenantId, odata, requestId, null, cancellationToken).ConfigureAwait(false))
+            using (var _result = await ListElementsWithHttpMessagesAsync(tenantId, applicationId, odata, requestId, null, cancellationToken).ConfigureAwait(false))
             {
                 return _result.Body;
             }
         }
 
         /// <summary>
-        /// Get application by its public id
+        /// create root element
         ///
         ///
         /// </summary>
         /// <remarks>
-        /// Get application by public id&lt;br/&gt;
-        /// </remarks>
-        /// <param name='tenantId'>
-        /// The tenant id (or dnvCustomerId for veracity_default tenants)
-        /// </param>
-        /// <param name='applicationId'>
-        /// The applicationId is the same as serviceId in developer
-        /// </param>
-        /// <param name='requestId'>
-        /// A correlation token to use when looking in the logs.
-        /// </param>
-        /// <param name='customHeaders'>
-        /// Headers that will be added to request.
-        /// </param>
-        /// <param name='cancellationToken'>
-        /// The cancellation token.
-        /// </param>
-        /// <exception cref="HttpOperationException">
-        /// Thrown when the operation returned an invalid status code
-        /// </exception>
-        /// <exception cref="SerializationException">
-        /// Thrown when unable to deserialize the response
-        /// </exception>
-        /// <exception cref="ValidationException">
-        /// Thrown when a required parameter is null
-        /// </exception>
-        /// <exception cref="System.ArgumentNullException">
-        /// Thrown when a required parameter is null
-        /// </exception>
-        /// <return>
-        /// A response object containing the response body and response headers.
-        /// </return>
-        public async Task<HttpOperationResponse<ApplicationResponse>> GetApplicationWithHttpMessagesAsync(string tenantId, System.Guid applicationId, string requestId = default, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default)
-        {
-            if (tenantId == null)
-            {
-                throw new ValidationException(ValidationRules.CannotBeNull, "tenantId");
-            }
-            // Construct URL
-            var _baseUrl = Client.HttpClient.BaseAddress?.AbsoluteUri ?? Client.BaseUri.AbsoluteUri;
-            var _url = new System.Uri(new System.Uri(_baseUrl + (_baseUrl.EndsWith("/") ? "" : "/")), "tenants/{tenantId}/applications/{applicationId}").ToString();
-            _url = _url.Replace("{tenantId}", System.Uri.EscapeDataString(tenantId));
-            _url = _url.Replace("{applicationId}", System.Uri.EscapeDataString(Microsoft.Rest.Serialization.SafeJsonConvert.SerializeObject(applicationId, Client.SerializationSettings).Trim('"')));
-            // Create HTTP transport objects
-            var _httpRequest = new HttpRequestMessage();
-            HttpResponseMessage _httpResponse = null;
-            _httpRequest.Method = new HttpMethod("GET");
-            _httpRequest.RequestUri = new System.Uri(_url);
-            // Set Headers
-            if (requestId != null)
-            {
-                if (_httpRequest.Headers.Contains("request-id"))
-                {
-                    _httpRequest.Headers.Remove("request-id");
-                }
-                _httpRequest.Headers.TryAddWithoutValidation("request-id", requestId);
-            }
-
-
-            if (customHeaders != null)
-            {
-                foreach(var _header in customHeaders)
-                {
-                    if (_httpRequest.Headers.Contains(_header.Key))
-                    {
-                        _httpRequest.Headers.Remove(_header.Key);
-                    }
-                    _httpRequest.Headers.TryAddWithoutValidation(_header.Key, _header.Value);
-                }
-            }
-
-            // Serialize Request
-            string _requestContent = null;
-            // Send Request
-            cancellationToken.ThrowIfCancellationRequested();
-            _httpResponse = await Client.HttpClient.SendAsync(_httpRequest, cancellationToken).ConfigureAwait(false);
-            HttpStatusCode _statusCode = _httpResponse.StatusCode;
-            cancellationToken.ThrowIfCancellationRequested();
-            string _responseContent = null;
-            if ((int)_statusCode != 200)
-            {
-                var ex = new HttpOperationException(string.Format("Operation returned an invalid status code '{0}'", _statusCode));
-                if (_httpResponse.Content != null) {
-                    _responseContent = await _httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
-                }
-                else {
-                    _responseContent = string.Empty;
-                }
-                ex.Request = new HttpRequestMessageWrapper(_httpRequest, _requestContent);
-                ex.Response = new HttpResponseMessageWrapper(_httpResponse, _responseContent);
-                _httpRequest.Dispose();
-                if (_httpResponse != null)
-                {
-                    _httpResponse.Dispose();
-                }
-                throw ex;
-            }
-            // Create Result
-            var _result = new HttpOperationResponse<ApplicationResponse>();
-            _result.Request = _httpRequest;
-            _result.Response = _httpResponse;
-            // Deserialize Response
-            if ((int)_statusCode == 200)
-            {
-                _responseContent = await _httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
-                try
-                {
-                    _result.Body = Microsoft.Rest.Serialization.SafeJsonConvert.DeserializeObject<ApplicationResponse>(_responseContent, Client.DeserializationSettings);
-                }
-                catch (JsonException ex)
-                {
-                    _httpRequest.Dispose();
-                    if (_httpResponse != null)
-                    {
-                        _httpResponse.Dispose();
-                    }
-                    throw new SerializationException("Unable to deserialize the response.", _responseContent, ex);
-                }
-            }
-            return _result;
-        }
-        /// <summary>
-        /// Get application by its public id
-        ///
-        ///
-        /// </summary>
-        /// <remarks>
-        /// Get application by public id&lt;br/&gt;
-        /// </remarks>
-        /// <param name='tenantId'>
-        /// The tenant id (or dnvCustomerId for veracity_default tenants)
-        /// </param>
-        /// <param name='applicationId'>
-        /// The applicationId is the same as serviceId in developer
-        /// </param>
-        /// <param name='requestId'>
-        /// A correlation token to use when looking in the logs.
-        /// </param>
-        /// <param name='cancellationToken'>
-        /// The cancellation token.
-        /// </param>
-        public async Task<ApplicationResponse> GetApplicationAsync(string tenantId, System.Guid applicationId, string requestId = default, CancellationToken cancellationToken = default)
-        {
-            using (var _result = await GetApplicationWithHttpMessagesAsync(tenantId, applicationId, requestId, null, cancellationToken).ConfigureAwait(false))
-            {
-                return _result.Body;
-            }
-        }
-
-        /// <summary>
-        /// Update your application's state or properties
-        ///
-        ///
-        /// </summary>
-        /// <remarks>
-        /// Update extension properties for an application. Extension properties have
-        /// the name format {prefix}_property name. Prefixes are registered in
-        /// developer.veracity.com&lt;br/&gt;
+        /// Create a root level element&lt;br/&gt;
         /// </remarks>
         /// <param name='tenantId'>
         /// The tenant id (or dnvCustomerId for veracity_default tenants)
@@ -423,364 +259,7 @@ namespace DNV.ApiClients.Veracity.Identity.PlatformApiV4
         /// <return>
         /// A response object containing the response body and response headers.
         /// </return>
-        public async Task<HttpOperationResponse<ApplicationResponse>> PatchApplicationWithHttpMessagesAsync(string tenantId, System.Guid applicationId, IEnumerable<Operation> body = default, string requestId = default, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default)
-        {
-            if (tenantId == null)
-            {
-                throw new ValidationException(ValidationRules.CannotBeNull, "tenantId");
-            }
-            // Construct URL
-            var _baseUrl = Client.HttpClient.BaseAddress?.AbsoluteUri ?? Client.BaseUri.AbsoluteUri;
-            var _url = new System.Uri(new System.Uri(_baseUrl + (_baseUrl.EndsWith("/") ? "" : "/")), "tenants/{tenantId}/applications/{applicationId}").ToString();
-            _url = _url.Replace("{tenantId}", System.Uri.EscapeDataString(tenantId));
-            _url = _url.Replace("{applicationId}", System.Uri.EscapeDataString(Microsoft.Rest.Serialization.SafeJsonConvert.SerializeObject(applicationId, Client.SerializationSettings).Trim('"')));
-            // Create HTTP transport objects
-            var _httpRequest = new HttpRequestMessage();
-            HttpResponseMessage _httpResponse = null;
-            _httpRequest.Method = new HttpMethod("PATCH");
-            _httpRequest.RequestUri = new System.Uri(_url);
-            // Set Headers
-            if (requestId != null)
-            {
-                if (_httpRequest.Headers.Contains("request-id"))
-                {
-                    _httpRequest.Headers.Remove("request-id");
-                }
-                _httpRequest.Headers.TryAddWithoutValidation("request-id", requestId);
-            }
-
-
-            if (customHeaders != null)
-            {
-                foreach(var _header in customHeaders)
-                {
-                    if (_httpRequest.Headers.Contains(_header.Key))
-                    {
-                        _httpRequest.Headers.Remove(_header.Key);
-                    }
-                    _httpRequest.Headers.TryAddWithoutValidation(_header.Key, _header.Value);
-                }
-            }
-
-            // Serialize Request
-            string _requestContent = null;
-            if(body != null)
-            {
-                _requestContent = Microsoft.Rest.Serialization.SafeJsonConvert.SerializeObject(body, Client.SerializationSettings);
-                _httpRequest.Content = new StringContent(_requestContent, System.Text.Encoding.UTF8);
-                _httpRequest.Content.Headers.ContentType =System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json-patch+json; charset=utf-8");
-            }
-            // Send Request
-            cancellationToken.ThrowIfCancellationRequested();
-            _httpResponse = await Client.HttpClient.SendAsync(_httpRequest, cancellationToken).ConfigureAwait(false);
-            HttpStatusCode _statusCode = _httpResponse.StatusCode;
-            cancellationToken.ThrowIfCancellationRequested();
-            string _responseContent = null;
-            if ((int)_statusCode != 202)
-            {
-                var ex = new HttpOperationException(string.Format("Operation returned an invalid status code '{0}'", _statusCode));
-                if (_httpResponse.Content != null) {
-                    _responseContent = await _httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
-                }
-                else {
-                    _responseContent = string.Empty;
-                }
-                ex.Request = new HttpRequestMessageWrapper(_httpRequest, _requestContent);
-                ex.Response = new HttpResponseMessageWrapper(_httpResponse, _responseContent);
-                _httpRequest.Dispose();
-                if (_httpResponse != null)
-                {
-                    _httpResponse.Dispose();
-                }
-                throw ex;
-            }
-            // Create Result
-            var _result = new HttpOperationResponse<ApplicationResponse>();
-            _result.Request = _httpRequest;
-            _result.Response = _httpResponse;
-            // Deserialize Response
-            if ((int)_statusCode == 202)
-            {
-                _responseContent = await _httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
-                try
-                {
-                    _result.Body = Microsoft.Rest.Serialization.SafeJsonConvert.DeserializeObject<ApplicationResponse>(_responseContent, Client.DeserializationSettings);
-                }
-                catch (JsonException ex)
-                {
-                    _httpRequest.Dispose();
-                    if (_httpResponse != null)
-                    {
-                        _httpResponse.Dispose();
-                    }
-                    throw new SerializationException("Unable to deserialize the response.", _responseContent, ex);
-                }
-            }
-            return _result;
-        }
-        /// <summary>
-        /// Update your application's state or properties
-        ///
-        ///
-        /// </summary>
-        /// <remarks>
-        /// Update extension properties for an application. Extension properties have
-        /// the name format {prefix}_property name. Prefixes are registered in
-        /// developer.veracity.com&lt;br/&gt;
-        /// </remarks>
-        /// <param name='tenantId'>
-        /// The tenant id (or dnvCustomerId for veracity_default tenants)
-        /// </param>
-        /// <param name='applicationId'>
-        /// The applicationId is the same as serviceId in developer
-        /// </param>
-        /// <param name='body'>
-        /// </param>
-        /// <param name='requestId'>
-        /// A correlation token to use when looking in the logs.
-        /// </param>
-        /// <param name='cancellationToken'>
-        /// The cancellation token.
-        /// </param>
-        public async Task<ApplicationResponse> PatchApplicationAsync(string tenantId, System.Guid applicationId, IEnumerable<Operation> body = default, string requestId = default, CancellationToken cancellationToken = default)
-        {
-            using (var _result = await PatchApplicationWithHttpMessagesAsync(tenantId, applicationId, body, requestId, null, cancellationToken).ConfigureAwait(false))
-            {
-                return _result.Body;
-            }
-        }
-
-        /// <summary>
-        /// LIst direct licenses granted for the application
-        ///
-        ///
-        /// </summary>
-        /// <remarks>
-        /// Get all direct users and/or groups. LicenseType values - profile: personal
-        /// licenses, userGroup: license given to a group or empty string: get both
-        /// personal and group licenses. Please note that requests with odata query
-        /// elements cannot be cached and my affect performance. OData parsing is
-        /// currently and experimental feature in this endpoint.&lt;br/&gt;
-        /// </remarks>
-        /// <param name='tenantId'>
-        /// The tenant id (or dnvCustomerId for veracity_default tenants)
-        /// </param>
-        /// <param name='applicationId'>
-        /// The applicationId is the same as serviceId in developer
-        /// </param>
-        /// <param name='licenseType'>
-        /// Represents the type of entity. Possible values include: 'profile',
-        /// 'userGroup'
-        /// </param>
-        /// <param name='odata'>
-        /// OData query options, the values are passed as query string parameters
-        /// </param>
-        /// <param name='requestId'>
-        /// A correlation token to use when looking in the logs.
-        /// </param>
-        /// <param name='customHeaders'>
-        /// Headers that will be added to request.
-        /// </param>
-        /// <param name='cancellationToken'>
-        /// The cancellation token.
-        /// </param>
-        /// <exception cref="HttpOperationException">
-        /// Thrown when the operation returned an invalid status code
-        /// </exception>
-        /// <exception cref="SerializationException">
-        /// Thrown when unable to deserialize the response
-        /// </exception>
-        /// <exception cref="ValidationException">
-        /// Thrown when a required parameter is null
-        /// </exception>
-        /// <exception cref="System.ArgumentNullException">
-        /// Thrown when a required parameter is null
-        /// </exception>
-        /// <return>
-        /// A response object containing the response body and response headers.
-        /// </return>
-        public async Task<HttpOperationResponse<IEnumerable<LicenseResponse>>> GetLicensesWithHttpMessagesAsync(string tenantId, System.Guid applicationId, string licenseType = default, IDictionary<string, string> odata = default, string requestId = default, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default)
-        {
-            if (tenantId == null)
-            {
-                throw new ValidationException(ValidationRules.CannotBeNull, "tenantId");
-            }
-            // Construct URL
-            var _baseUrl = Client.HttpClient.BaseAddress?.AbsoluteUri ?? Client.BaseUri.AbsoluteUri;
-            var _url = new System.Uri(new System.Uri(_baseUrl + (_baseUrl.EndsWith("/") ? "" : "/")), "tenants/{tenantId}/applications/{applicationId}/licenses").ToString();
-            _url = _url.Replace("{tenantId}", System.Uri.EscapeDataString(tenantId));
-            _url = _url.Replace("{applicationId}", System.Uri.EscapeDataString(Microsoft.Rest.Serialization.SafeJsonConvert.SerializeObject(applicationId, Client.SerializationSettings).Trim('"')));
-            IList<string> _queryParameters = new List<string>();
-            if (licenseType != null)
-            {
-                _queryParameters.Add(string.Format("licenseType={0}", System.Uri.EscapeDataString(Microsoft.Rest.Serialization.SafeJsonConvert.SerializeObject(licenseType, Client.SerializationSettings).Trim('"'))));
-            }
-            if (odata != null)
-            {
-                _queryParameters.Add(string.Format("odata={0}", System.Uri.EscapeDataString(Microsoft.Rest.Serialization.SafeJsonConvert.SerializeObject(odata, Client.SerializationSettings).Trim('"'))));
-            }
-            if (_queryParameters.Any())
-            {
-                _url += "?" + string.Join("&", _queryParameters);
-            }
-            // Create HTTP transport objects
-            var _httpRequest = new HttpRequestMessage();
-            HttpResponseMessage _httpResponse = null;
-            _httpRequest.Method = new HttpMethod("GET");
-            _httpRequest.RequestUri = new System.Uri(_url);
-            // Set Headers
-            if (requestId != null)
-            {
-                if (_httpRequest.Headers.Contains("request-id"))
-                {
-                    _httpRequest.Headers.Remove("request-id");
-                }
-                _httpRequest.Headers.TryAddWithoutValidation("request-id", requestId);
-            }
-
-
-            if (customHeaders != null)
-            {
-                foreach(var _header in customHeaders)
-                {
-                    if (_httpRequest.Headers.Contains(_header.Key))
-                    {
-                        _httpRequest.Headers.Remove(_header.Key);
-                    }
-                    _httpRequest.Headers.TryAddWithoutValidation(_header.Key, _header.Value);
-                }
-            }
-
-            // Serialize Request
-            string _requestContent = null;
-            // Send Request
-            cancellationToken.ThrowIfCancellationRequested();
-            _httpResponse = await Client.HttpClient.SendAsync(_httpRequest, cancellationToken).ConfigureAwait(false);
-            HttpStatusCode _statusCode = _httpResponse.StatusCode;
-            cancellationToken.ThrowIfCancellationRequested();
-            string _responseContent = null;
-            if ((int)_statusCode != 200)
-            {
-                var ex = new HttpOperationException(string.Format("Operation returned an invalid status code '{0}'", _statusCode));
-                if (_httpResponse.Content != null) {
-                    _responseContent = await _httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
-                }
-                else {
-                    _responseContent = string.Empty;
-                }
-                ex.Request = new HttpRequestMessageWrapper(_httpRequest, _requestContent);
-                ex.Response = new HttpResponseMessageWrapper(_httpResponse, _responseContent);
-                _httpRequest.Dispose();
-                if (_httpResponse != null)
-                {
-                    _httpResponse.Dispose();
-                }
-                throw ex;
-            }
-            // Create Result
-            var _result = new HttpOperationResponse<IEnumerable<LicenseResponse>>();
-            _result.Request = _httpRequest;
-            _result.Response = _httpResponse;
-            // Deserialize Response
-            if ((int)_statusCode == 200)
-            {
-                _responseContent = await _httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
-                try
-                {
-                    _result.Body = Microsoft.Rest.Serialization.SafeJsonConvert.DeserializeObject<IEnumerable<LicenseResponse>>(_responseContent, Client.DeserializationSettings);
-                }
-                catch (JsonException ex)
-                {
-                    _httpRequest.Dispose();
-                    if (_httpResponse != null)
-                    {
-                        _httpResponse.Dispose();
-                    }
-                    throw new SerializationException("Unable to deserialize the response.", _responseContent, ex);
-                }
-            }
-            return _result;
-        }
-        /// <summary>
-        /// LIst direct licenses granted for the application
-        ///
-        ///
-        /// </summary>
-        /// <remarks>
-        /// Get all direct users and/or groups. LicenseType values - profile: personal
-        /// licenses, userGroup: license given to a group or empty string: get both
-        /// personal and group licenses. Please note that requests with odata query
-        /// elements cannot be cached and my affect performance. OData parsing is
-        /// currently and experimental feature in this endpoint.&lt;br/&gt;
-        /// </remarks>
-        /// <param name='tenantId'>
-        /// The tenant id (or dnvCustomerId for veracity_default tenants)
-        /// </param>
-        /// <param name='applicationId'>
-        /// The applicationId is the same as serviceId in developer
-        /// </param>
-        /// <param name='licenseType'>
-        /// Represents the type of entity. Possible values include: 'profile',
-        /// 'userGroup'
-        /// </param>
-        /// <param name='odata'>
-        /// OData query options, the values are passed as query string parameters
-        /// </param>
-        /// <param name='requestId'>
-        /// A correlation token to use when looking in the logs.
-        /// </param>
-        /// <param name='cancellationToken'>
-        /// The cancellation token.
-        /// </param>
-        public async Task<IEnumerable<LicenseResponse>> GetLicensesAsync(string tenantId, System.Guid applicationId, string licenseType = default, IDictionary<string, string> odata = default, string requestId = default, CancellationToken cancellationToken = default)
-        {
-            using (var _result = await GetLicensesWithHttpMessagesAsync(tenantId, applicationId, licenseType, odata, requestId, null, cancellationToken).ConfigureAwait(false))
-            {
-                return _result.Body;
-            }
-        }
-
-        /// <summary>
-        /// Add a new license to a user or group
-        ///
-        ///
-        /// </summary>
-        /// <remarks>
-        /// Add user or group license to application&lt;br/&gt;
-        /// </remarks>
-        /// <param name='tenantId'>
-        /// The tenant id (or dnvCustomerId for veracity_default tenants)
-        /// </param>
-        /// <param name='applicationId'>
-        /// The applicationId is the same as serviceId in developer
-        /// </param>
-        /// <param name='body'>
-        /// </param>
-        /// <param name='requestId'>
-        /// A correlation token to use when looking in the logs.
-        /// </param>
-        /// <param name='customHeaders'>
-        /// Headers that will be added to request.
-        /// </param>
-        /// <param name='cancellationToken'>
-        /// The cancellation token.
-        /// </param>
-        /// <exception cref="HttpOperationException">
-        /// Thrown when the operation returned an invalid status code
-        /// </exception>
-        /// <exception cref="SerializationException">
-        /// Thrown when unable to deserialize the response
-        /// </exception>
-        /// <exception cref="ValidationException">
-        /// Thrown when a required parameter is null
-        /// </exception>
-        /// <exception cref="System.ArgumentNullException">
-        /// Thrown when a required parameter is null
-        /// </exception>
-        /// <return>
-        /// A response object containing the response body and response headers.
-        /// </return>
-        public async Task<HttpOperationResponse<LicenseResponse>> AddLicenseWithHttpMessagesAsync(string tenantId, System.Guid applicationId, LicenseRequest body = default, string requestId = default, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default)
+        public async Task<HttpOperationResponse<ElementResponse>> CreateElementWithHttpMessagesAsync(string tenantId, System.Guid applicationId, ElementRequest body = default, string requestId = default, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default)
         {
             if (body != null)
             {
@@ -792,7 +271,7 @@ namespace DNV.ApiClients.Veracity.Identity.PlatformApiV4
             }
             // Construct URL
             var _baseUrl = Client.HttpClient.BaseAddress?.AbsoluteUri ?? Client.BaseUri.AbsoluteUri;
-            var _url = new System.Uri(new System.Uri(_baseUrl + (_baseUrl.EndsWith("/") ? "" : "/")), "tenants/{tenantId}/applications/{applicationId}/licenses").ToString();
+            var _url = new System.Uri(new System.Uri(_baseUrl + (_baseUrl.EndsWith("/") ? "" : "/")), "tenants/{tenantId}/applications/{applicationId}/elements").ToString();
             _url = _url.Replace("{tenantId}", System.Uri.EscapeDataString(tenantId));
             _url = _url.Replace("{applicationId}", System.Uri.EscapeDataString(Microsoft.Rest.Serialization.SafeJsonConvert.SerializeObject(applicationId, Client.SerializationSettings).Trim('"')));
             // Create HTTP transport objects
@@ -856,7 +335,7 @@ namespace DNV.ApiClients.Veracity.Identity.PlatformApiV4
                 throw ex;
             }
             // Create Result
-            var _result = new HttpOperationResponse<LicenseResponse>();
+            var _result = new HttpOperationResponse<ElementResponse>();
             _result.Request = _httpRequest;
             _result.Response = _httpResponse;
             // Deserialize Response
@@ -865,7 +344,7 @@ namespace DNV.ApiClients.Veracity.Identity.PlatformApiV4
                 _responseContent = await _httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
                 try
                 {
-                    _result.Body = Microsoft.Rest.Serialization.SafeJsonConvert.DeserializeObject<LicenseResponse>(_responseContent, Client.DeserializationSettings);
+                    _result.Body = Microsoft.Rest.Serialization.SafeJsonConvert.DeserializeObject<ElementResponse>(_responseContent, Client.DeserializationSettings);
                 }
                 catch (JsonException ex)
                 {
@@ -880,12 +359,12 @@ namespace DNV.ApiClients.Veracity.Identity.PlatformApiV4
             return _result;
         }
         /// <summary>
-        /// Add a new license to a user or group
+        /// create root element
         ///
         ///
         /// </summary>
         /// <remarks>
-        /// Add user or group license to application&lt;br/&gt;
+        /// Create a root level element&lt;br/&gt;
         /// </remarks>
         /// <param name='tenantId'>
         /// The tenant id (or dnvCustomerId for veracity_default tenants)
@@ -901,21 +380,21 @@ namespace DNV.ApiClients.Veracity.Identity.PlatformApiV4
         /// <param name='cancellationToken'>
         /// The cancellation token.
         /// </param>
-        public async Task<LicenseResponse> AddLicenseAsync(string tenantId, System.Guid applicationId, LicenseRequest body = default, string requestId = default, CancellationToken cancellationToken = default)
+        public async Task<ElementResponse> CreateElementAsync(string tenantId, System.Guid applicationId, ElementRequest body = default, string requestId = default, CancellationToken cancellationToken = default)
         {
-            using (var _result = await AddLicenseWithHttpMessagesAsync(tenantId, applicationId, body, requestId, null, cancellationToken).ConfigureAwait(false))
+            using (var _result = await CreateElementWithHttpMessagesAsync(tenantId, applicationId, body, requestId, null, cancellationToken).ConfigureAwait(false))
             {
                 return _result.Body;
             }
         }
 
         /// <summary>
-        /// Get the effective rights for a user
+        /// Get child elements
         ///
         ///
         /// </summary>
         /// <remarks>
-        /// Verify user license&lt;br/&gt;
+        /// List all child elements&lt;br/&gt;
         /// </remarks>
         /// <param name='tenantId'>
         /// The tenant id (or dnvCustomerId for veracity_default tenants)
@@ -923,687 +402,12 @@ namespace DNV.ApiClients.Veracity.Identity.PlatformApiV4
         /// <param name='applicationId'>
         /// The applicationId is the same as serviceId in developer
         /// </param>
-        /// <param name='userId'>
-        /// The users id found in Veracity Identity
-        /// </param>
-        /// <param name='requestId'>
-        /// A correlation token to use when looking in the logs.
-        /// </param>
-        /// <param name='customHeaders'>
-        /// Headers that will be added to request.
-        /// </param>
-        /// <param name='cancellationToken'>
-        /// The cancellation token.
-        /// </param>
-        /// <exception cref="HttpOperationException">
-        /// Thrown when the operation returned an invalid status code
-        /// </exception>
-        /// <exception cref="SerializationException">
-        /// Thrown when unable to deserialize the response
-        /// </exception>
-        /// <exception cref="ValidationException">
-        /// Thrown when a required parameter is null
-        /// </exception>
-        /// <exception cref="System.ArgumentNullException">
-        /// Thrown when a required parameter is null
-        /// </exception>
-        /// <return>
-        /// A response object containing the response body and response headers.
-        /// </return>
-        public async Task<HttpOperationResponse<LicenseResponse>> VerifyUserLicenseWithHttpMessagesAsync(string tenantId, System.Guid applicationId, System.Guid userId, string requestId = default, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default)
-        {
-            if (tenantId == null)
-            {
-                throw new ValidationException(ValidationRules.CannotBeNull, "tenantId");
-            }
-            // Construct URL
-            var _baseUrl = Client.HttpClient.BaseAddress?.AbsoluteUri ?? Client.BaseUri.AbsoluteUri;
-            var _url = new System.Uri(new System.Uri(_baseUrl + (_baseUrl.EndsWith("/") ? "" : "/")), "tenants/{tenantId}/applications/{applicationId}/effective-licenses/{userId}").ToString();
-            _url = _url.Replace("{tenantId}", System.Uri.EscapeDataString(tenantId));
-            _url = _url.Replace("{applicationId}", System.Uri.EscapeDataString(Microsoft.Rest.Serialization.SafeJsonConvert.SerializeObject(applicationId, Client.SerializationSettings).Trim('"')));
-            _url = _url.Replace("{userId}", System.Uri.EscapeDataString(Microsoft.Rest.Serialization.SafeJsonConvert.SerializeObject(userId, Client.SerializationSettings).Trim('"')));
-            // Create HTTP transport objects
-            var _httpRequest = new HttpRequestMessage();
-            HttpResponseMessage _httpResponse = null;
-            _httpRequest.Method = new HttpMethod("GET");
-            _httpRequest.RequestUri = new System.Uri(_url);
-            // Set Headers
-            if (requestId != null)
-            {
-                if (_httpRequest.Headers.Contains("request-id"))
-                {
-                    _httpRequest.Headers.Remove("request-id");
-                }
-                _httpRequest.Headers.TryAddWithoutValidation("request-id", requestId);
-            }
-
-
-            if (customHeaders != null)
-            {
-                foreach(var _header in customHeaders)
-                {
-                    if (_httpRequest.Headers.Contains(_header.Key))
-                    {
-                        _httpRequest.Headers.Remove(_header.Key);
-                    }
-                    _httpRequest.Headers.TryAddWithoutValidation(_header.Key, _header.Value);
-                }
-            }
-
-            // Serialize Request
-            string _requestContent = null;
-            // Send Request
-            cancellationToken.ThrowIfCancellationRequested();
-            _httpResponse = await Client.HttpClient.SendAsync(_httpRequest, cancellationToken).ConfigureAwait(false);
-            HttpStatusCode _statusCode = _httpResponse.StatusCode;
-            cancellationToken.ThrowIfCancellationRequested();
-            string _responseContent = null;
-            if ((int)_statusCode != 200)
-            {
-                var ex = new HttpOperationException(string.Format("Operation returned an invalid status code '{0}'", _statusCode));
-                if (_httpResponse.Content != null) {
-                    _responseContent = await _httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
-                }
-                else {
-                    _responseContent = string.Empty;
-                }
-                ex.Request = new HttpRequestMessageWrapper(_httpRequest, _requestContent);
-                ex.Response = new HttpResponseMessageWrapper(_httpResponse, _responseContent);
-                _httpRequest.Dispose();
-                if (_httpResponse != null)
-                {
-                    _httpResponse.Dispose();
-                }
-                throw ex;
-            }
-            // Create Result
-            var _result = new HttpOperationResponse<LicenseResponse>();
-            _result.Request = _httpRequest;
-            _result.Response = _httpResponse;
-            // Deserialize Response
-            if ((int)_statusCode == 200)
-            {
-                _responseContent = await _httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
-                try
-                {
-                    _result.Body = Microsoft.Rest.Serialization.SafeJsonConvert.DeserializeObject<LicenseResponse>(_responseContent, Client.DeserializationSettings);
-                }
-                catch (JsonException ex)
-                {
-                    _httpRequest.Dispose();
-                    if (_httpResponse != null)
-                    {
-                        _httpResponse.Dispose();
-                    }
-                    throw new SerializationException("Unable to deserialize the response.", _responseContent, ex);
-                }
-            }
-            return _result;
-        }
-        /// <summary>
-        /// Get the effective rights for a user
-        ///
-        ///
-        /// </summary>
-        /// <remarks>
-        /// Verify user license&lt;br/&gt;
-        /// </remarks>
-        /// <param name='tenantId'>
-        /// The tenant id (or dnvCustomerId for veracity_default tenants)
-        /// </param>
-        /// <param name='applicationId'>
-        /// The applicationId is the same as serviceId in developer
-        /// </param>
-        /// <param name='userId'>
-        /// The users id found in Veracity Identity
-        /// </param>
-        /// <param name='requestId'>
-        /// A correlation token to use when looking in the logs.
-        /// </param>
-        /// <param name='cancellationToken'>
-        /// The cancellation token.
-        /// </param>
-        public async Task<LicenseResponse> VerifyUserLicenseAsync(string tenantId, System.Guid applicationId, System.Guid userId, string requestId = default, CancellationToken cancellationToken = default)
-        {
-            using (var _result = await VerifyUserLicenseWithHttpMessagesAsync(tenantId, applicationId, userId, requestId, null, cancellationToken).ConfigureAwait(false))
-            {
-                return _result.Body;
-            }
-        }
-
-        /// <summary>
-        /// Get direct license for the user or group
-        ///
-        ///
-        /// </summary>
-        /// <remarks>
-        /// Get the user or groups direct license&lt;br/&gt;
-        /// </remarks>
-        /// <param name='tenantId'>
-        /// The tenant id (or dnvCustomerId for veracity_default tenants)
-        /// </param>
-        /// <param name='applicationId'>
-        /// The applicationId is the same as serviceId in developer
-        /// </param>
-        /// <param name='entityId'>
-        /// </param>
-        /// <param name='requestId'>
-        /// A correlation token to use when looking in the logs.
-        /// </param>
-        /// <param name='customHeaders'>
-        /// Headers that will be added to request.
-        /// </param>
-        /// <param name='cancellationToken'>
-        /// The cancellation token.
-        /// </param>
-        /// <exception cref="HttpOperationException">
-        /// Thrown when the operation returned an invalid status code
-        /// </exception>
-        /// <exception cref="SerializationException">
-        /// Thrown when unable to deserialize the response
-        /// </exception>
-        /// <exception cref="ValidationException">
-        /// Thrown when a required parameter is null
-        /// </exception>
-        /// <exception cref="System.ArgumentNullException">
-        /// Thrown when a required parameter is null
-        /// </exception>
-        /// <return>
-        /// A response object containing the response body and response headers.
-        /// </return>
-        public async Task<HttpOperationResponse<LicenseResponse>> GetLicenseWithHttpMessagesAsync(string tenantId, System.Guid applicationId, System.Guid entityId, string requestId = default, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default)
-        {
-            if (tenantId == null)
-            {
-                throw new ValidationException(ValidationRules.CannotBeNull, "tenantId");
-            }
-            // Construct URL
-            var _baseUrl = Client.HttpClient.BaseAddress?.AbsoluteUri ?? Client.BaseUri.AbsoluteUri;
-            var _url = new System.Uri(new System.Uri(_baseUrl + (_baseUrl.EndsWith("/") ? "" : "/")), "tenants/{tenantId}/applications/{applicationId}/licenses/{entityId}").ToString();
-            _url = _url.Replace("{tenantId}", System.Uri.EscapeDataString(tenantId));
-            _url = _url.Replace("{applicationId}", System.Uri.EscapeDataString(Microsoft.Rest.Serialization.SafeJsonConvert.SerializeObject(applicationId, Client.SerializationSettings).Trim('"')));
-            _url = _url.Replace("{entityId}", System.Uri.EscapeDataString(Microsoft.Rest.Serialization.SafeJsonConvert.SerializeObject(entityId, Client.SerializationSettings).Trim('"')));
-            // Create HTTP transport objects
-            var _httpRequest = new HttpRequestMessage();
-            HttpResponseMessage _httpResponse = null;
-            _httpRequest.Method = new HttpMethod("GET");
-            _httpRequest.RequestUri = new System.Uri(_url);
-            // Set Headers
-            if (requestId != null)
-            {
-                if (_httpRequest.Headers.Contains("request-id"))
-                {
-                    _httpRequest.Headers.Remove("request-id");
-                }
-                _httpRequest.Headers.TryAddWithoutValidation("request-id", requestId);
-            }
-
-
-            if (customHeaders != null)
-            {
-                foreach(var _header in customHeaders)
-                {
-                    if (_httpRequest.Headers.Contains(_header.Key))
-                    {
-                        _httpRequest.Headers.Remove(_header.Key);
-                    }
-                    _httpRequest.Headers.TryAddWithoutValidation(_header.Key, _header.Value);
-                }
-            }
-
-            // Serialize Request
-            string _requestContent = null;
-            // Send Request
-            cancellationToken.ThrowIfCancellationRequested();
-            _httpResponse = await Client.HttpClient.SendAsync(_httpRequest, cancellationToken).ConfigureAwait(false);
-            HttpStatusCode _statusCode = _httpResponse.StatusCode;
-            cancellationToken.ThrowIfCancellationRequested();
-            string _responseContent = null;
-            if ((int)_statusCode != 200)
-            {
-                var ex = new HttpOperationException(string.Format("Operation returned an invalid status code '{0}'", _statusCode));
-                if (_httpResponse.Content != null) {
-                    _responseContent = await _httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
-                }
-                else {
-                    _responseContent = string.Empty;
-                }
-                ex.Request = new HttpRequestMessageWrapper(_httpRequest, _requestContent);
-                ex.Response = new HttpResponseMessageWrapper(_httpResponse, _responseContent);
-                _httpRequest.Dispose();
-                if (_httpResponse != null)
-                {
-                    _httpResponse.Dispose();
-                }
-                throw ex;
-            }
-            // Create Result
-            var _result = new HttpOperationResponse<LicenseResponse>();
-            _result.Request = _httpRequest;
-            _result.Response = _httpResponse;
-            // Deserialize Response
-            if ((int)_statusCode == 200)
-            {
-                _responseContent = await _httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
-                try
-                {
-                    _result.Body = Microsoft.Rest.Serialization.SafeJsonConvert.DeserializeObject<LicenseResponse>(_responseContent, Client.DeserializationSettings);
-                }
-                catch (JsonException ex)
-                {
-                    _httpRequest.Dispose();
-                    if (_httpResponse != null)
-                    {
-                        _httpResponse.Dispose();
-                    }
-                    throw new SerializationException("Unable to deserialize the response.", _responseContent, ex);
-                }
-            }
-            return _result;
-        }
-        /// <summary>
-        /// Get direct license for the user or group
-        ///
-        ///
-        /// </summary>
-        /// <remarks>
-        /// Get the user or groups direct license&lt;br/&gt;
-        /// </remarks>
-        /// <param name='tenantId'>
-        /// The tenant id (or dnvCustomerId for veracity_default tenants)
-        /// </param>
-        /// <param name='applicationId'>
-        /// The applicationId is the same as serviceId in developer
-        /// </param>
-        /// <param name='entityId'>
-        /// </param>
-        /// <param name='requestId'>
-        /// A correlation token to use when looking in the logs.
-        /// </param>
-        /// <param name='cancellationToken'>
-        /// The cancellation token.
-        /// </param>
-        public async Task<LicenseResponse> GetLicenseAsync(string tenantId, System.Guid applicationId, System.Guid entityId, string requestId = default, CancellationToken cancellationToken = default)
-        {
-            using (var _result = await GetLicenseWithHttpMessagesAsync(tenantId, applicationId, entityId, requestId, null, cancellationToken).ConfigureAwait(false))
-            {
-                return _result.Body;
-            }
-        }
-
-        /// <summary>
-        /// You can only update extension properties.
-        ///
-        ///
-        /// </summary>
-        /// <remarks>
-        /// Update license details. Extension properties have the name format
-        /// {prefix}_property name. Prefixes are registered in developer.veracity.com.
-        /// EntityId is the id of the group or the person, and licenseType
-        /// (profile,userGroup) indicates which type of license you are
-        /// updating&lt;br/&gt;
-        /// </remarks>
-        /// <param name='tenantId'>
-        /// The tenant id (or dnvCustomerId for veracity_default tenants)
-        /// </param>
-        /// <param name='applicationId'>
-        /// The applicationId is the same as serviceId in developer
-        /// </param>
-        /// <param name='entityId'>
-        /// </param>
-        /// <param name='body'>
-        /// </param>
-        /// <param name='licenseType'>
-        /// Represents the type of entity. Possible values include: 'profile',
-        /// 'userGroup'
-        /// </param>
-        /// <param name='requestId'>
-        /// A correlation token to use when looking in the logs.
-        /// </param>
-        /// <param name='customHeaders'>
-        /// Headers that will be added to request.
-        /// </param>
-        /// <param name='cancellationToken'>
-        /// The cancellation token.
-        /// </param>
-        /// <exception cref="HttpOperationException">
-        /// Thrown when the operation returned an invalid status code
-        /// </exception>
-        /// <exception cref="SerializationException">
-        /// Thrown when unable to deserialize the response
-        /// </exception>
-        /// <exception cref="ValidationException">
-        /// Thrown when a required parameter is null
-        /// </exception>
-        /// <exception cref="System.ArgumentNullException">
-        /// Thrown when a required parameter is null
-        /// </exception>
-        /// <return>
-        /// A response object containing the response body and response headers.
-        /// </return>
-        public async Task<HttpOperationResponse<LicenseResponse>> UpdateLicenseWithHttpMessagesAsync(string tenantId, System.Guid applicationId, System.Guid entityId, IEnumerable<Operation> body = default, string licenseType = default, string requestId = default, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default)
-        {
-            if (tenantId == null)
-            {
-                throw new ValidationException(ValidationRules.CannotBeNull, "tenantId");
-            }
-            // Construct URL
-            var _baseUrl = Client.HttpClient.BaseAddress?.AbsoluteUri ?? Client.BaseUri.AbsoluteUri;
-            var _url = new System.Uri(new System.Uri(_baseUrl + (_baseUrl.EndsWith("/") ? "" : "/")), "tenants/{tenantId}/applications/{applicationId}/licenses/{entityId}").ToString();
-            _url = _url.Replace("{tenantId}", System.Uri.EscapeDataString(tenantId));
-            _url = _url.Replace("{applicationId}", System.Uri.EscapeDataString(Microsoft.Rest.Serialization.SafeJsonConvert.SerializeObject(applicationId, Client.SerializationSettings).Trim('"')));
-            _url = _url.Replace("{entityId}", System.Uri.EscapeDataString(Microsoft.Rest.Serialization.SafeJsonConvert.SerializeObject(entityId, Client.SerializationSettings).Trim('"')));
-            IList<string> _queryParameters = new List<string>();
-            if (licenseType != null)
-            {
-                _queryParameters.Add(string.Format("licenseType={0}", System.Uri.EscapeDataString(Microsoft.Rest.Serialization.SafeJsonConvert.SerializeObject(licenseType, Client.SerializationSettings).Trim('"'))));
-            }
-            if (_queryParameters.Any())
-            {
-                _url += "?" + string.Join("&", _queryParameters);
-            }
-            // Create HTTP transport objects
-            var _httpRequest = new HttpRequestMessage();
-            HttpResponseMessage _httpResponse = null;
-            _httpRequest.Method = new HttpMethod("PATCH");
-            _httpRequest.RequestUri = new System.Uri(_url);
-            // Set Headers
-            if (requestId != null)
-            {
-                if (_httpRequest.Headers.Contains("request-id"))
-                {
-                    _httpRequest.Headers.Remove("request-id");
-                }
-                _httpRequest.Headers.TryAddWithoutValidation("request-id", requestId);
-            }
-
-
-            if (customHeaders != null)
-            {
-                foreach(var _header in customHeaders)
-                {
-                    if (_httpRequest.Headers.Contains(_header.Key))
-                    {
-                        _httpRequest.Headers.Remove(_header.Key);
-                    }
-                    _httpRequest.Headers.TryAddWithoutValidation(_header.Key, _header.Value);
-                }
-            }
-
-            // Serialize Request
-            string _requestContent = null;
-            if(body != null)
-            {
-                _requestContent = Microsoft.Rest.Serialization.SafeJsonConvert.SerializeObject(body, Client.SerializationSettings);
-                _httpRequest.Content = new StringContent(_requestContent, System.Text.Encoding.UTF8);
-                _httpRequest.Content.Headers.ContentType =System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json-patch+json; charset=utf-8");
-            }
-            // Send Request
-            cancellationToken.ThrowIfCancellationRequested();
-            _httpResponse = await Client.HttpClient.SendAsync(_httpRequest, cancellationToken).ConfigureAwait(false);
-            HttpStatusCode _statusCode = _httpResponse.StatusCode;
-            cancellationToken.ThrowIfCancellationRequested();
-            string _responseContent = null;
-            if ((int)_statusCode != 202)
-            {
-                var ex = new HttpOperationException(string.Format("Operation returned an invalid status code '{0}'", _statusCode));
-                if (_httpResponse.Content != null) {
-                    _responseContent = await _httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
-                }
-                else {
-                    _responseContent = string.Empty;
-                }
-                ex.Request = new HttpRequestMessageWrapper(_httpRequest, _requestContent);
-                ex.Response = new HttpResponseMessageWrapper(_httpResponse, _responseContent);
-                _httpRequest.Dispose();
-                if (_httpResponse != null)
-                {
-                    _httpResponse.Dispose();
-                }
-                throw ex;
-            }
-            // Create Result
-            var _result = new HttpOperationResponse<LicenseResponse>();
-            _result.Request = _httpRequest;
-            _result.Response = _httpResponse;
-            // Deserialize Response
-            if ((int)_statusCode == 202)
-            {
-                _responseContent = await _httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
-                try
-                {
-                    _result.Body = Microsoft.Rest.Serialization.SafeJsonConvert.DeserializeObject<LicenseResponse>(_responseContent, Client.DeserializationSettings);
-                }
-                catch (JsonException ex)
-                {
-                    _httpRequest.Dispose();
-                    if (_httpResponse != null)
-                    {
-                        _httpResponse.Dispose();
-                    }
-                    throw new SerializationException("Unable to deserialize the response.", _responseContent, ex);
-                }
-            }
-            return _result;
-        }
-        /// <summary>
-        /// You can only update extension properties.
-        ///
-        ///
-        /// </summary>
-        /// <remarks>
-        /// Update license details. Extension properties have the name format
-        /// {prefix}_property name. Prefixes are registered in developer.veracity.com.
-        /// EntityId is the id of the group or the person, and licenseType
-        /// (profile,userGroup) indicates which type of license you are
-        /// updating&lt;br/&gt;
-        /// </remarks>
-        /// <param name='tenantId'>
-        /// The tenant id (or dnvCustomerId for veracity_default tenants)
-        /// </param>
-        /// <param name='applicationId'>
-        /// The applicationId is the same as serviceId in developer
-        /// </param>
-        /// <param name='entityId'>
-        /// </param>
-        /// <param name='body'>
-        /// </param>
-        /// <param name='licenseType'>
-        /// Represents the type of entity. Possible values include: 'profile',
-        /// 'userGroup'
-        /// </param>
-        /// <param name='requestId'>
-        /// A correlation token to use when looking in the logs.
-        /// </param>
-        /// <param name='cancellationToken'>
-        /// The cancellation token.
-        /// </param>
-        public async Task<LicenseResponse> UpdateLicenseAsync(string tenantId, System.Guid applicationId, System.Guid entityId, IEnumerable<Operation> body = default, string licenseType = default, string requestId = default, CancellationToken cancellationToken = default)
-        {
-            using (var _result = await UpdateLicenseWithHttpMessagesAsync(tenantId, applicationId, entityId, body, licenseType, requestId, null, cancellationToken).ConfigureAwait(false))
-            {
-                return _result.Body;
-            }
-        }
-
-        /// <summary>
-        /// Remove a subscription from a user or a group
-        ///
-        ///
-        /// </summary>
-        /// <remarks>
-        /// Remove subscription. EntityId is the id of the group or the person, and
-        /// licenseType (profile,userGroup) indicates which type of license you are
-        /// removing&lt;br/&gt;
-        /// </remarks>
-        /// <param name='tenantId'>
-        /// The tenant id (or dnvCustomerId for veracity_default tenants)
-        /// </param>
-        /// <param name='applicationId'>
-        /// The applicationId is the same as serviceId in developer
-        /// </param>
-        /// <param name='entityId'>
-        /// </param>
-        /// <param name='licenseType'>
-        /// Represents the type of entity. Possible values include: 'profile',
-        /// 'userGroup'
-        /// </param>
-        /// <param name='requestId'>
-        /// A correlation token to use when looking in the logs.
-        /// </param>
-        /// <param name='customHeaders'>
-        /// Headers that will be added to request.
-        /// </param>
-        /// <param name='cancellationToken'>
-        /// The cancellation token.
-        /// </param>
-        /// <exception cref="HttpOperationException">
-        /// Thrown when the operation returned an invalid status code
-        /// </exception>
-        /// <exception cref="ValidationException">
-        /// Thrown when a required parameter is null
-        /// </exception>
-        /// <exception cref="System.ArgumentNullException">
-        /// Thrown when a required parameter is null
-        /// </exception>
-        /// <return>
-        /// A response object containing the response body and response headers.
-        /// </return>
-        public async Task<HttpOperationResponse> DeleteLicenseWithHttpMessagesAsync(string tenantId, System.Guid applicationId, System.Guid entityId, string licenseType = default, string requestId = default, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default)
-        {
-            if (tenantId == null)
-            {
-                throw new ValidationException(ValidationRules.CannotBeNull, "tenantId");
-            }
-            // Construct URL
-            var _baseUrl = Client.HttpClient.BaseAddress?.AbsoluteUri ?? Client.BaseUri.AbsoluteUri;
-            var _url = new System.Uri(new System.Uri(_baseUrl + (_baseUrl.EndsWith("/") ? "" : "/")), "tenants/{tenantId}/applications/{applicationId}/licenses/{entityId}").ToString();
-            _url = _url.Replace("{tenantId}", System.Uri.EscapeDataString(tenantId));
-            _url = _url.Replace("{applicationId}", System.Uri.EscapeDataString(Microsoft.Rest.Serialization.SafeJsonConvert.SerializeObject(applicationId, Client.SerializationSettings).Trim('"')));
-            _url = _url.Replace("{entityId}", System.Uri.EscapeDataString(Microsoft.Rest.Serialization.SafeJsonConvert.SerializeObject(entityId, Client.SerializationSettings).Trim('"')));
-            IList<string> _queryParameters = new List<string>();
-            if (licenseType != null)
-            {
-                _queryParameters.Add(string.Format("licenseType={0}", System.Uri.EscapeDataString(Microsoft.Rest.Serialization.SafeJsonConvert.SerializeObject(licenseType, Client.SerializationSettings).Trim('"'))));
-            }
-            if (_queryParameters.Any())
-            {
-                _url += "?" + string.Join("&", _queryParameters);
-            }
-            // Create HTTP transport objects
-            var _httpRequest = new HttpRequestMessage();
-            HttpResponseMessage _httpResponse = null;
-            _httpRequest.Method = new HttpMethod("DELETE");
-            _httpRequest.RequestUri = new System.Uri(_url);
-            // Set Headers
-            if (requestId != null)
-            {
-                if (_httpRequest.Headers.Contains("request-id"))
-                {
-                    _httpRequest.Headers.Remove("request-id");
-                }
-                _httpRequest.Headers.TryAddWithoutValidation("request-id", requestId);
-            }
-
-
-            if (customHeaders != null)
-            {
-                foreach(var _header in customHeaders)
-                {
-                    if (_httpRequest.Headers.Contains(_header.Key))
-                    {
-                        _httpRequest.Headers.Remove(_header.Key);
-                    }
-                    _httpRequest.Headers.TryAddWithoutValidation(_header.Key, _header.Value);
-                }
-            }
-
-            // Serialize Request
-            string _requestContent = null;
-            // Send Request
-            cancellationToken.ThrowIfCancellationRequested();
-            _httpResponse = await Client.HttpClient.SendAsync(_httpRequest, cancellationToken).ConfigureAwait(false);
-            HttpStatusCode _statusCode = _httpResponse.StatusCode;
-            cancellationToken.ThrowIfCancellationRequested();
-            string _responseContent = null;
-            if ((int)_statusCode != 202)
-            {
-                var ex = new HttpOperationException(string.Format("Operation returned an invalid status code '{0}'", _statusCode));
-                if (_httpResponse.Content != null) {
-                    _responseContent = await _httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
-                }
-                else {
-                    _responseContent = string.Empty;
-                }
-                ex.Request = new HttpRequestMessageWrapper(_httpRequest, _requestContent);
-                ex.Response = new HttpResponseMessageWrapper(_httpResponse, _responseContent);
-                _httpRequest.Dispose();
-                if (_httpResponse != null)
-                {
-                    _httpResponse.Dispose();
-                }
-                throw ex;
-            }
-            // Create Result
-            var _result = new HttpOperationResponse();
-            _result.Request = _httpRequest;
-            _result.Response = _httpResponse;
-            return _result;
-        }
-        /// <summary>
-        /// Remove a subscription from a user or a group
-        ///
-        ///
-        /// </summary>
-        /// <remarks>
-        /// Remove subscription. EntityId is the id of the group or the person, and
-        /// licenseType (profile,userGroup) indicates which type of license you are
-        /// removing&lt;br/&gt;
-        /// </remarks>
-        /// <param name='tenantId'>
-        /// The tenant id (or dnvCustomerId for veracity_default tenants)
-        /// </param>
-        /// <param name='applicationId'>
-        /// The applicationId is the same as serviceId in developer
-        /// </param>
-        /// <param name='entityId'>
-        /// </param>
-        /// <param name='licenseType'>
-        /// Represents the type of entity. Possible values include: 'profile',
-        /// 'userGroup'
-        /// </param>
-        /// <param name='requestId'>
-        /// A correlation token to use when looking in the logs.
-        /// </param>
-        /// <param name='cancellationToken'>
-        /// The cancellation token.
-        /// </param>
-        public async Task DeleteLicenseAsync(string tenantId, System.Guid applicationId, System.Guid entityId, string licenseType = default, string requestId = default, CancellationToken cancellationToken = default)
-        {
-            (await DeleteLicenseWithHttpMessagesAsync(tenantId, applicationId, entityId, licenseType, requestId, null, cancellationToken).ConfigureAwait(false)).Dispose();
-        }
-
-        /// <summary>
-        /// All users, both direct and inherited
-        ///
-        ///
-        /// </summary>
-        /// <remarks>
-        /// Get all users including inherited from groups, deduplication is by default
-        /// in effect. disable deduplication to detect users with multiple paths to the
-        /// application in the tenant.&lt;br/&gt;
-        /// </remarks>
-        /// <param name='tenantId'>
-        /// The tenant id (or dnvCustomerId for veracity_default tenants)
-        /// </param>
-        /// <param name='applicationId'>
-        /// The applicationId is the same as serviceId in developer
+        /// <param name='elementId'>
+        /// Can be the application internal id or the VTM elementId
         /// </param>
         /// <param name='odata'>
         /// OData query options, the values are passed as query string parameters
         /// </param>
-        /// <param name='includeDuplicates'>
-        /// </param>
         /// <param name='requestId'>
         /// A correlation token to use when looking in the logs.
         /// </param>
@@ -1628,25 +432,1034 @@ namespace DNV.ApiClients.Veracity.Identity.PlatformApiV4
         /// <return>
         /// A response object containing the response body and response headers.
         /// </return>
-        public async Task<HttpOperationResponse<IEnumerable<UserLicenseResponse>>> GetUsersWithInheritedAccessWithHttpMessagesAsync(string tenantId, System.Guid applicationId, IDictionary<string, string> odata = default, bool? includeDuplicates = default, string requestId = default, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default)
+        public async Task<HttpOperationResponse<PagedElementResponse>> ListChildElementsWithHttpMessagesAsync(string tenantId, System.Guid applicationId, string elementId, IDictionary<string, string> odata = default, string requestId = default, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default)
         {
             if (tenantId == null)
             {
                 throw new ValidationException(ValidationRules.CannotBeNull, "tenantId");
             }
+            if (elementId == null)
+            {
+                throw new ValidationException(ValidationRules.CannotBeNull, "elementId");
+            }
             // Construct URL
             var _baseUrl = Client.HttpClient.BaseAddress?.AbsoluteUri ?? Client.BaseUri.AbsoluteUri;
-            var _url = new System.Uri(new System.Uri(_baseUrl + (_baseUrl.EndsWith("/") ? "" : "/")), "tenants/{tenantId}/applications/{applicationId}/users").ToString();
+            var _url = new System.Uri(new System.Uri(_baseUrl + (_baseUrl.EndsWith("/") ? "" : "/")), "tenants/{tenantId}/applications/{applicationId}/elements/{elementId}/elements").ToString();
             _url = _url.Replace("{tenantId}", System.Uri.EscapeDataString(tenantId));
             _url = _url.Replace("{applicationId}", System.Uri.EscapeDataString(Microsoft.Rest.Serialization.SafeJsonConvert.SerializeObject(applicationId, Client.SerializationSettings).Trim('"')));
+            _url = _url.Replace("{elementId}", System.Uri.EscapeDataString(elementId));
             IList<string> _queryParameters = new List<string>();
             if (odata != null)
             {
                 _queryParameters.Add(string.Format("odata={0}", System.Uri.EscapeDataString(Microsoft.Rest.Serialization.SafeJsonConvert.SerializeObject(odata, Client.SerializationSettings).Trim('"'))));
             }
-            if (includeDuplicates != null)
+            if (_queryParameters.Any())
             {
-                _queryParameters.Add(string.Format("includeDuplicates={0}", System.Uri.EscapeDataString(Microsoft.Rest.Serialization.SafeJsonConvert.SerializeObject(includeDuplicates, Client.SerializationSettings).Trim('"'))));
+                _url += "?" + string.Join("&", _queryParameters);
+            }
+            // Create HTTP transport objects
+            var _httpRequest = new HttpRequestMessage();
+            HttpResponseMessage _httpResponse = null;
+            _httpRequest.Method = new HttpMethod("GET");
+            _httpRequest.RequestUri = new System.Uri(_url);
+            // Set Headers
+            if (requestId != null)
+            {
+                if (_httpRequest.Headers.Contains("request-id"))
+                {
+                    _httpRequest.Headers.Remove("request-id");
+                }
+                _httpRequest.Headers.TryAddWithoutValidation("request-id", requestId);
+            }
+
+
+            if (customHeaders != null)
+            {
+                foreach(var _header in customHeaders)
+                {
+                    if (_httpRequest.Headers.Contains(_header.Key))
+                    {
+                        _httpRequest.Headers.Remove(_header.Key);
+                    }
+                    _httpRequest.Headers.TryAddWithoutValidation(_header.Key, _header.Value);
+                }
+            }
+
+            // Serialize Request
+            string _requestContent = null;
+            // Send Request
+            cancellationToken.ThrowIfCancellationRequested();
+            _httpResponse = await Client.HttpClient.SendAsync(_httpRequest, cancellationToken).ConfigureAwait(false);
+            HttpStatusCode _statusCode = _httpResponse.StatusCode;
+            cancellationToken.ThrowIfCancellationRequested();
+            string _responseContent = null;
+            if ((int)_statusCode != 200)
+            {
+                var ex = new HttpOperationException(string.Format("Operation returned an invalid status code '{0}'", _statusCode));
+                if (_httpResponse.Content != null) {
+                    _responseContent = await _httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
+                }
+                else {
+                    _responseContent = string.Empty;
+                }
+                ex.Request = new HttpRequestMessageWrapper(_httpRequest, _requestContent);
+                ex.Response = new HttpResponseMessageWrapper(_httpResponse, _responseContent);
+                _httpRequest.Dispose();
+                if (_httpResponse != null)
+                {
+                    _httpResponse.Dispose();
+                }
+                throw ex;
+            }
+            // Create Result
+            var _result = new HttpOperationResponse<PagedElementResponse>();
+            _result.Request = _httpRequest;
+            _result.Response = _httpResponse;
+            // Deserialize Response
+            if ((int)_statusCode == 200)
+            {
+                _responseContent = await _httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
+                try
+                {
+                    _result.Body = Microsoft.Rest.Serialization.SafeJsonConvert.DeserializeObject<PagedElementResponse>(_responseContent, Client.DeserializationSettings);
+                }
+                catch (JsonException ex)
+                {
+                    _httpRequest.Dispose();
+                    if (_httpResponse != null)
+                    {
+                        _httpResponse.Dispose();
+                    }
+                    throw new SerializationException("Unable to deserialize the response.", _responseContent, ex);
+                }
+            }
+            return _result;
+        }
+        /// <summary>
+        /// Get child elements
+        ///
+        ///
+        /// </summary>
+        /// <remarks>
+        /// List all child elements&lt;br/&gt;
+        /// </remarks>
+        /// <param name='tenantId'>
+        /// The tenant id (or dnvCustomerId for veracity_default tenants)
+        /// </param>
+        /// <param name='applicationId'>
+        /// The applicationId is the same as serviceId in developer
+        /// </param>
+        /// <param name='elementId'>
+        /// Can be the application internal id or the VTM elementId
+        /// </param>
+        /// <param name='odata'>
+        /// OData query options, the values are passed as query string parameters
+        /// </param>
+        /// <param name='requestId'>
+        /// A correlation token to use when looking in the logs.
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        public async Task<PagedElementResponse> ListChildElementsAsync(string tenantId, System.Guid applicationId, string elementId, IDictionary<string, string> odata = default, string requestId = default, CancellationToken cancellationToken = default)
+        {
+            using (var _result = await ListChildElementsWithHttpMessagesAsync(tenantId, applicationId, elementId, odata, requestId, null, cancellationToken).ConfigureAwait(false))
+            {
+                return _result.Body;
+            }
+        }
+
+        /// <summary>
+        /// Create child element
+        ///
+        ///
+        /// </summary>
+        /// <remarks>
+        /// Create a child element&lt;br/&gt;
+        /// </remarks>
+        /// <param name='tenantId'>
+        /// The tenant id (or dnvCustomerId for veracity_default tenants)
+        /// </param>
+        /// <param name='applicationId'>
+        /// The applicationId is the same as serviceId in developer
+        /// </param>
+        /// <param name='elementId'>
+        /// Can be the application internal id or the VTM elementId
+        /// </param>
+        /// <param name='body'>
+        /// </param>
+        /// <param name='requestId'>
+        /// A correlation token to use when looking in the logs.
+        /// </param>
+        /// <param name='customHeaders'>
+        /// Headers that will be added to request.
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        /// <exception cref="HttpOperationException">
+        /// Thrown when the operation returned an invalid status code
+        /// </exception>
+        /// <exception cref="SerializationException">
+        /// Thrown when unable to deserialize the response
+        /// </exception>
+        /// <exception cref="ValidationException">
+        /// Thrown when a required parameter is null
+        /// </exception>
+        /// <exception cref="System.ArgumentNullException">
+        /// Thrown when a required parameter is null
+        /// </exception>
+        /// <return>
+        /// A response object containing the response body and response headers.
+        /// </return>
+        public async Task<HttpOperationResponse<ElementResponse>> CreateChildElementWithHttpMessagesAsync(string tenantId, System.Guid applicationId, string elementId, ElementRequest body = default, string requestId = default, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default)
+        {
+            if (body != null)
+            {
+                body.Validate();
+            }
+            if (tenantId == null)
+            {
+                throw new ValidationException(ValidationRules.CannotBeNull, "tenantId");
+            }
+            if (elementId == null)
+            {
+                throw new ValidationException(ValidationRules.CannotBeNull, "elementId");
+            }
+            // Construct URL
+            var _baseUrl = Client.HttpClient.BaseAddress?.AbsoluteUri ?? Client.BaseUri.AbsoluteUri;
+            var _url = new System.Uri(new System.Uri(_baseUrl + (_baseUrl.EndsWith("/") ? "" : "/")), "tenants/{tenantId}/applications/{applicationId}/elements/{elementId}/elements").ToString();
+            _url = _url.Replace("{tenantId}", System.Uri.EscapeDataString(tenantId));
+            _url = _url.Replace("{applicationId}", System.Uri.EscapeDataString(Microsoft.Rest.Serialization.SafeJsonConvert.SerializeObject(applicationId, Client.SerializationSettings).Trim('"')));
+            _url = _url.Replace("{elementId}", System.Uri.EscapeDataString(elementId));
+            // Create HTTP transport objects
+            var _httpRequest = new HttpRequestMessage();
+            HttpResponseMessage _httpResponse = null;
+            _httpRequest.Method = new HttpMethod("POST");
+            _httpRequest.RequestUri = new System.Uri(_url);
+            // Set Headers
+            if (requestId != null)
+            {
+                if (_httpRequest.Headers.Contains("request-id"))
+                {
+                    _httpRequest.Headers.Remove("request-id");
+                }
+                _httpRequest.Headers.TryAddWithoutValidation("request-id", requestId);
+            }
+
+
+            if (customHeaders != null)
+            {
+                foreach(var _header in customHeaders)
+                {
+                    if (_httpRequest.Headers.Contains(_header.Key))
+                    {
+                        _httpRequest.Headers.Remove(_header.Key);
+                    }
+                    _httpRequest.Headers.TryAddWithoutValidation(_header.Key, _header.Value);
+                }
+            }
+
+            // Serialize Request
+            string _requestContent = null;
+            if(body != null)
+            {
+                _requestContent = Microsoft.Rest.Serialization.SafeJsonConvert.SerializeObject(body, Client.SerializationSettings);
+                _httpRequest.Content = new StringContent(_requestContent, System.Text.Encoding.UTF8);
+                _httpRequest.Content.Headers.ContentType =System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json-patch+json; charset=utf-8");
+            }
+            // Send Request
+            cancellationToken.ThrowIfCancellationRequested();
+            _httpResponse = await Client.HttpClient.SendAsync(_httpRequest, cancellationToken).ConfigureAwait(false);
+            HttpStatusCode _statusCode = _httpResponse.StatusCode;
+            cancellationToken.ThrowIfCancellationRequested();
+            string _responseContent = null;
+            if ((int)_statusCode != 202)
+            {
+                var ex = new HttpOperationException(string.Format("Operation returned an invalid status code '{0}'", _statusCode));
+                if (_httpResponse.Content != null) {
+                    _responseContent = await _httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
+                }
+                else {
+                    _responseContent = string.Empty;
+                }
+                ex.Request = new HttpRequestMessageWrapper(_httpRequest, _requestContent);
+                ex.Response = new HttpResponseMessageWrapper(_httpResponse, _responseContent);
+                _httpRequest.Dispose();
+                if (_httpResponse != null)
+                {
+                    _httpResponse.Dispose();
+                }
+                throw ex;
+            }
+            // Create Result
+            var _result = new HttpOperationResponse<ElementResponse>();
+            _result.Request = _httpRequest;
+            _result.Response = _httpResponse;
+            // Deserialize Response
+            if ((int)_statusCode == 202)
+            {
+                _responseContent = await _httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
+                try
+                {
+                    _result.Body = Microsoft.Rest.Serialization.SafeJsonConvert.DeserializeObject<ElementResponse>(_responseContent, Client.DeserializationSettings);
+                }
+                catch (JsonException ex)
+                {
+                    _httpRequest.Dispose();
+                    if (_httpResponse != null)
+                    {
+                        _httpResponse.Dispose();
+                    }
+                    throw new SerializationException("Unable to deserialize the response.", _responseContent, ex);
+                }
+            }
+            return _result;
+        }
+        /// <summary>
+        /// Create child element
+        ///
+        ///
+        /// </summary>
+        /// <remarks>
+        /// Create a child element&lt;br/&gt;
+        /// </remarks>
+        /// <param name='tenantId'>
+        /// The tenant id (or dnvCustomerId for veracity_default tenants)
+        /// </param>
+        /// <param name='applicationId'>
+        /// The applicationId is the same as serviceId in developer
+        /// </param>
+        /// <param name='elementId'>
+        /// Can be the application internal id or the VTM elementId
+        /// </param>
+        /// <param name='body'>
+        /// </param>
+        /// <param name='requestId'>
+        /// A correlation token to use when looking in the logs.
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        public async Task<ElementResponse> CreateChildElementAsync(string tenantId, System.Guid applicationId, string elementId, ElementRequest body = default, string requestId = default, CancellationToken cancellationToken = default)
+        {
+            using (var _result = await CreateChildElementWithHttpMessagesAsync(tenantId, applicationId, elementId, body, requestId, null, cancellationToken).ConfigureAwait(false))
+            {
+                return _result.Body;
+            }
+        }
+
+        /// <summary>
+        /// Get the element hierarchy
+        ///
+        ///
+        /// </summary>
+        /// <remarks>
+        /// Get the full tree view od the application elements&lt;br/&gt;
+        /// </remarks>
+        /// <param name='tenantId'>
+        /// The tenant id (or dnvCustomerId for veracity_default tenants)
+        /// </param>
+        /// <param name='applicationId'>
+        /// The applicationId is the same as serviceId in developer
+        /// </param>
+        /// <param name='requestId'>
+        /// A correlation token to use when looking in the logs.
+        /// </param>
+        /// <param name='customHeaders'>
+        /// Headers that will be added to request.
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        /// <exception cref="HttpOperationException">
+        /// Thrown when the operation returned an invalid status code
+        /// </exception>
+        /// <exception cref="SerializationException">
+        /// Thrown when unable to deserialize the response
+        /// </exception>
+        /// <exception cref="ValidationException">
+        /// Thrown when a required parameter is null
+        /// </exception>
+        /// <exception cref="System.ArgumentNullException">
+        /// Thrown when a required parameter is null
+        /// </exception>
+        /// <return>
+        /// A response object containing the response body and response headers.
+        /// </return>
+        public async Task<HttpOperationResponse<IEnumerable<ElementTreeResponse>>> GetElementTreeWithHttpMessagesAsync(string tenantId, System.Guid applicationId, string requestId = default, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default)
+        {
+            if (tenantId == null)
+            {
+                throw new ValidationException(ValidationRules.CannotBeNull, "tenantId");
+            }
+            // Construct URL
+            var _baseUrl = Client.HttpClient.BaseAddress?.AbsoluteUri ?? Client.BaseUri.AbsoluteUri;
+            var _url = new System.Uri(new System.Uri(_baseUrl + (_baseUrl.EndsWith("/") ? "" : "/")), "tenants/{tenantId}/applications/{applicationId}/elements/element-tree").ToString();
+            _url = _url.Replace("{tenantId}", System.Uri.EscapeDataString(tenantId));
+            _url = _url.Replace("{applicationId}", System.Uri.EscapeDataString(Microsoft.Rest.Serialization.SafeJsonConvert.SerializeObject(applicationId, Client.SerializationSettings).Trim('"')));
+            // Create HTTP transport objects
+            var _httpRequest = new HttpRequestMessage();
+            HttpResponseMessage _httpResponse = null;
+            _httpRequest.Method = new HttpMethod("GET");
+            _httpRequest.RequestUri = new System.Uri(_url);
+            // Set Headers
+            if (requestId != null)
+            {
+                if (_httpRequest.Headers.Contains("request-id"))
+                {
+                    _httpRequest.Headers.Remove("request-id");
+                }
+                _httpRequest.Headers.TryAddWithoutValidation("request-id", requestId);
+            }
+
+
+            if (customHeaders != null)
+            {
+                foreach(var _header in customHeaders)
+                {
+                    if (_httpRequest.Headers.Contains(_header.Key))
+                    {
+                        _httpRequest.Headers.Remove(_header.Key);
+                    }
+                    _httpRequest.Headers.TryAddWithoutValidation(_header.Key, _header.Value);
+                }
+            }
+
+            // Serialize Request
+            string _requestContent = null;
+            // Send Request
+            cancellationToken.ThrowIfCancellationRequested();
+            _httpResponse = await Client.HttpClient.SendAsync(_httpRequest, cancellationToken).ConfigureAwait(false);
+            HttpStatusCode _statusCode = _httpResponse.StatusCode;
+            cancellationToken.ThrowIfCancellationRequested();
+            string _responseContent = null;
+            if ((int)_statusCode != 200)
+            {
+                var ex = new HttpOperationException(string.Format("Operation returned an invalid status code '{0}'", _statusCode));
+                if (_httpResponse.Content != null) {
+                    _responseContent = await _httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
+                }
+                else {
+                    _responseContent = string.Empty;
+                }
+                ex.Request = new HttpRequestMessageWrapper(_httpRequest, _requestContent);
+                ex.Response = new HttpResponseMessageWrapper(_httpResponse, _responseContent);
+                _httpRequest.Dispose();
+                if (_httpResponse != null)
+                {
+                    _httpResponse.Dispose();
+                }
+                throw ex;
+            }
+            // Create Result
+            var _result = new HttpOperationResponse<IEnumerable<ElementTreeResponse>>();
+            _result.Request = _httpRequest;
+            _result.Response = _httpResponse;
+            // Deserialize Response
+            if ((int)_statusCode == 200)
+            {
+                _responseContent = await _httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
+                try
+                {
+                    _result.Body = Microsoft.Rest.Serialization.SafeJsonConvert.DeserializeObject<IEnumerable<ElementTreeResponse>>(_responseContent, Client.DeserializationSettings);
+                }
+                catch (JsonException ex)
+                {
+                    _httpRequest.Dispose();
+                    if (_httpResponse != null)
+                    {
+                        _httpResponse.Dispose();
+                    }
+                    throw new SerializationException("Unable to deserialize the response.", _responseContent, ex);
+                }
+            }
+            return _result;
+        }
+        /// <summary>
+        /// Get the element hierarchy
+        ///
+        ///
+        /// </summary>
+        /// <remarks>
+        /// Get the full tree view od the application elements&lt;br/&gt;
+        /// </remarks>
+        /// <param name='tenantId'>
+        /// The tenant id (or dnvCustomerId for veracity_default tenants)
+        /// </param>
+        /// <param name='applicationId'>
+        /// The applicationId is the same as serviceId in developer
+        /// </param>
+        /// <param name='requestId'>
+        /// A correlation token to use when looking in the logs.
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        public async Task<IEnumerable<ElementTreeResponse>> GetElementTreeAsync(string tenantId, System.Guid applicationId, string requestId = default, CancellationToken cancellationToken = default)
+        {
+            using (var _result = await GetElementTreeWithHttpMessagesAsync(tenantId, applicationId, requestId, null, cancellationToken).ConfigureAwait(false))
+            {
+                return _result.Body;
+            }
+        }
+
+        /// <summary>
+        /// Get element
+        ///
+        ///
+        /// </summary>
+        /// <remarks>
+        /// Get an element by the id or external reference&lt;br/&gt;
+        /// </remarks>
+        /// <param name='tenantId'>
+        /// The tenant id (or dnvCustomerId for veracity_default tenants)
+        /// </param>
+        /// <param name='applicationId'>
+        /// The applicationId is the same as serviceId in developer
+        /// </param>
+        /// <param name='elementId'>
+        /// Can be the application internal id or the VTM elementId
+        /// </param>
+        /// <param name='requestId'>
+        /// A correlation token to use when looking in the logs.
+        /// </param>
+        /// <param name='customHeaders'>
+        /// Headers that will be added to request.
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        /// <exception cref="HttpOperationException">
+        /// Thrown when the operation returned an invalid status code
+        /// </exception>
+        /// <exception cref="SerializationException">
+        /// Thrown when unable to deserialize the response
+        /// </exception>
+        /// <exception cref="ValidationException">
+        /// Thrown when a required parameter is null
+        /// </exception>
+        /// <exception cref="System.ArgumentNullException">
+        /// Thrown when a required parameter is null
+        /// </exception>
+        /// <return>
+        /// A response object containing the response body and response headers.
+        /// </return>
+        public async Task<HttpOperationResponse<ElementResponse>> GetElementWithHttpMessagesAsync(string tenantId, System.Guid applicationId, string elementId, string requestId = default, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default)
+        {
+            if (tenantId == null)
+            {
+                throw new ValidationException(ValidationRules.CannotBeNull, "tenantId");
+            }
+            if (elementId == null)
+            {
+                throw new ValidationException(ValidationRules.CannotBeNull, "elementId");
+            }
+            // Construct URL
+            var _baseUrl = Client.HttpClient.BaseAddress?.AbsoluteUri ?? Client.BaseUri.AbsoluteUri;
+            var _url = new System.Uri(new System.Uri(_baseUrl + (_baseUrl.EndsWith("/") ? "" : "/")), "tenants/{tenantId}/applications/{applicationId}/elements/{elementId}").ToString();
+            _url = _url.Replace("{tenantId}", System.Uri.EscapeDataString(tenantId));
+            _url = _url.Replace("{applicationId}", System.Uri.EscapeDataString(Microsoft.Rest.Serialization.SafeJsonConvert.SerializeObject(applicationId, Client.SerializationSettings).Trim('"')));
+            _url = _url.Replace("{elementId}", System.Uri.EscapeDataString(elementId));
+            // Create HTTP transport objects
+            var _httpRequest = new HttpRequestMessage();
+            HttpResponseMessage _httpResponse = null;
+            _httpRequest.Method = new HttpMethod("GET");
+            _httpRequest.RequestUri = new System.Uri(_url);
+            // Set Headers
+            if (requestId != null)
+            {
+                if (_httpRequest.Headers.Contains("request-id"))
+                {
+                    _httpRequest.Headers.Remove("request-id");
+                }
+                _httpRequest.Headers.TryAddWithoutValidation("request-id", requestId);
+            }
+
+
+            if (customHeaders != null)
+            {
+                foreach(var _header in customHeaders)
+                {
+                    if (_httpRequest.Headers.Contains(_header.Key))
+                    {
+                        _httpRequest.Headers.Remove(_header.Key);
+                    }
+                    _httpRequest.Headers.TryAddWithoutValidation(_header.Key, _header.Value);
+                }
+            }
+
+            // Serialize Request
+            string _requestContent = null;
+            // Send Request
+            cancellationToken.ThrowIfCancellationRequested();
+            _httpResponse = await Client.HttpClient.SendAsync(_httpRequest, cancellationToken).ConfigureAwait(false);
+            HttpStatusCode _statusCode = _httpResponse.StatusCode;
+            cancellationToken.ThrowIfCancellationRequested();
+            string _responseContent = null;
+            if ((int)_statusCode != 200)
+            {
+                var ex = new HttpOperationException(string.Format("Operation returned an invalid status code '{0}'", _statusCode));
+                if (_httpResponse.Content != null) {
+                    _responseContent = await _httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
+                }
+                else {
+                    _responseContent = string.Empty;
+                }
+                ex.Request = new HttpRequestMessageWrapper(_httpRequest, _requestContent);
+                ex.Response = new HttpResponseMessageWrapper(_httpResponse, _responseContent);
+                _httpRequest.Dispose();
+                if (_httpResponse != null)
+                {
+                    _httpResponse.Dispose();
+                }
+                throw ex;
+            }
+            // Create Result
+            var _result = new HttpOperationResponse<ElementResponse>();
+            _result.Request = _httpRequest;
+            _result.Response = _httpResponse;
+            // Deserialize Response
+            if ((int)_statusCode == 200)
+            {
+                _responseContent = await _httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
+                try
+                {
+                    _result.Body = Microsoft.Rest.Serialization.SafeJsonConvert.DeserializeObject<ElementResponse>(_responseContent, Client.DeserializationSettings);
+                }
+                catch (JsonException ex)
+                {
+                    _httpRequest.Dispose();
+                    if (_httpResponse != null)
+                    {
+                        _httpResponse.Dispose();
+                    }
+                    throw new SerializationException("Unable to deserialize the response.", _responseContent, ex);
+                }
+            }
+            return _result;
+        }
+        /// <summary>
+        /// Get element
+        ///
+        ///
+        /// </summary>
+        /// <remarks>
+        /// Get an element by the id or external reference&lt;br/&gt;
+        /// </remarks>
+        /// <param name='tenantId'>
+        /// The tenant id (or dnvCustomerId for veracity_default tenants)
+        /// </param>
+        /// <param name='applicationId'>
+        /// The applicationId is the same as serviceId in developer
+        /// </param>
+        /// <param name='elementId'>
+        /// Can be the application internal id or the VTM elementId
+        /// </param>
+        /// <param name='requestId'>
+        /// A correlation token to use when looking in the logs.
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        public async Task<ElementResponse> GetElementAsync(string tenantId, System.Guid applicationId, string elementId, string requestId = default, CancellationToken cancellationToken = default)
+        {
+            using (var _result = await GetElementWithHttpMessagesAsync(tenantId, applicationId, elementId, requestId, null, cancellationToken).ConfigureAwait(false))
+            {
+                return _result.Body;
+            }
+        }
+
+        /// <summary>
+        /// Update element
+        ///
+        ///
+        /// </summary>
+        /// <remarks>
+        /// Update aspects of an element&lt;br/&gt;
+        /// </remarks>
+        /// <param name='tenantId'>
+        /// The tenant id (or dnvCustomerId for veracity_default tenants)
+        /// </param>
+        /// <param name='applicationId'>
+        /// The applicationId is the same as serviceId in developer
+        /// </param>
+        /// <param name='elementId'>
+        /// Can be the application internal id or the VTM elementId
+        /// </param>
+        /// <param name='body'>
+        /// </param>
+        /// <param name='requestId'>
+        /// A correlation token to use when looking in the logs.
+        /// </param>
+        /// <param name='customHeaders'>
+        /// Headers that will be added to request.
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        /// <exception cref="HttpOperationException">
+        /// Thrown when the operation returned an invalid status code
+        /// </exception>
+        /// <exception cref="SerializationException">
+        /// Thrown when unable to deserialize the response
+        /// </exception>
+        /// <exception cref="ValidationException">
+        /// Thrown when a required parameter is null
+        /// </exception>
+        /// <exception cref="System.ArgumentNullException">
+        /// Thrown when a required parameter is null
+        /// </exception>
+        /// <return>
+        /// A response object containing the response body and response headers.
+        /// </return>
+        public async Task<HttpOperationResponse<ElementResponse>> PatchElementWithHttpMessagesAsync(string tenantId, System.Guid applicationId, string elementId, IEnumerable<Operation> body = default, string requestId = default, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default)
+        {
+            if (tenantId == null)
+            {
+                throw new ValidationException(ValidationRules.CannotBeNull, "tenantId");
+            }
+            if (elementId == null)
+            {
+                throw new ValidationException(ValidationRules.CannotBeNull, "elementId");
+            }
+            // Construct URL
+            var _baseUrl = Client.HttpClient.BaseAddress?.AbsoluteUri ?? Client.BaseUri.AbsoluteUri;
+            var _url = new System.Uri(new System.Uri(_baseUrl + (_baseUrl.EndsWith("/") ? "" : "/")), "tenants/{tenantId}/applications/{applicationId}/elements/{elementId}").ToString();
+            _url = _url.Replace("{tenantId}", System.Uri.EscapeDataString(tenantId));
+            _url = _url.Replace("{applicationId}", System.Uri.EscapeDataString(Microsoft.Rest.Serialization.SafeJsonConvert.SerializeObject(applicationId, Client.SerializationSettings).Trim('"')));
+            _url = _url.Replace("{elementId}", System.Uri.EscapeDataString(elementId));
+            // Create HTTP transport objects
+            var _httpRequest = new HttpRequestMessage();
+            HttpResponseMessage _httpResponse = null;
+            _httpRequest.Method = new HttpMethod("PATCH");
+            _httpRequest.RequestUri = new System.Uri(_url);
+            // Set Headers
+            if (requestId != null)
+            {
+                if (_httpRequest.Headers.Contains("request-id"))
+                {
+                    _httpRequest.Headers.Remove("request-id");
+                }
+                _httpRequest.Headers.TryAddWithoutValidation("request-id", requestId);
+            }
+
+
+            if (customHeaders != null)
+            {
+                foreach(var _header in customHeaders)
+                {
+                    if (_httpRequest.Headers.Contains(_header.Key))
+                    {
+                        _httpRequest.Headers.Remove(_header.Key);
+                    }
+                    _httpRequest.Headers.TryAddWithoutValidation(_header.Key, _header.Value);
+                }
+            }
+
+            // Serialize Request
+            string _requestContent = null;
+            if(body != null)
+            {
+                _requestContent = Microsoft.Rest.Serialization.SafeJsonConvert.SerializeObject(body, Client.SerializationSettings);
+                _httpRequest.Content = new StringContent(_requestContent, System.Text.Encoding.UTF8);
+                _httpRequest.Content.Headers.ContentType =System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json-patch+json; charset=utf-8");
+            }
+            // Send Request
+            cancellationToken.ThrowIfCancellationRequested();
+            _httpResponse = await Client.HttpClient.SendAsync(_httpRequest, cancellationToken).ConfigureAwait(false);
+            HttpStatusCode _statusCode = _httpResponse.StatusCode;
+            cancellationToken.ThrowIfCancellationRequested();
+            string _responseContent = null;
+            if ((int)_statusCode != 202)
+            {
+                var ex = new HttpOperationException(string.Format("Operation returned an invalid status code '{0}'", _statusCode));
+                if (_httpResponse.Content != null) {
+                    _responseContent = await _httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
+                }
+                else {
+                    _responseContent = string.Empty;
+                }
+                ex.Request = new HttpRequestMessageWrapper(_httpRequest, _requestContent);
+                ex.Response = new HttpResponseMessageWrapper(_httpResponse, _responseContent);
+                _httpRequest.Dispose();
+                if (_httpResponse != null)
+                {
+                    _httpResponse.Dispose();
+                }
+                throw ex;
+            }
+            // Create Result
+            var _result = new HttpOperationResponse<ElementResponse>();
+            _result.Request = _httpRequest;
+            _result.Response = _httpResponse;
+            // Deserialize Response
+            if ((int)_statusCode == 202)
+            {
+                _responseContent = await _httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
+                try
+                {
+                    _result.Body = Microsoft.Rest.Serialization.SafeJsonConvert.DeserializeObject<ElementResponse>(_responseContent, Client.DeserializationSettings);
+                }
+                catch (JsonException ex)
+                {
+                    _httpRequest.Dispose();
+                    if (_httpResponse != null)
+                    {
+                        _httpResponse.Dispose();
+                    }
+                    throw new SerializationException("Unable to deserialize the response.", _responseContent, ex);
+                }
+            }
+            return _result;
+        }
+        /// <summary>
+        /// Update element
+        ///
+        ///
+        /// </summary>
+        /// <remarks>
+        /// Update aspects of an element&lt;br/&gt;
+        /// </remarks>
+        /// <param name='tenantId'>
+        /// The tenant id (or dnvCustomerId for veracity_default tenants)
+        /// </param>
+        /// <param name='applicationId'>
+        /// The applicationId is the same as serviceId in developer
+        /// </param>
+        /// <param name='elementId'>
+        /// Can be the application internal id or the VTM elementId
+        /// </param>
+        /// <param name='body'>
+        /// </param>
+        /// <param name='requestId'>
+        /// A correlation token to use when looking in the logs.
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        public async Task<ElementResponse> PatchElementAsync(string tenantId, System.Guid applicationId, string elementId, IEnumerable<Operation> body = default, string requestId = default, CancellationToken cancellationToken = default)
+        {
+            using (var _result = await PatchElementWithHttpMessagesAsync(tenantId, applicationId, elementId, body, requestId, null, cancellationToken).ConfigureAwait(false))
+            {
+                return _result.Body;
+            }
+        }
+
+        /// <summary>
+        /// Delete element
+        ///
+        ///
+        /// </summary>
+        /// <remarks>
+        /// Delete an element from the application&lt;br/&gt;
+        /// </remarks>
+        /// <param name='tenantId'>
+        /// The tenant id (or dnvCustomerId for veracity_default tenants)
+        /// </param>
+        /// <param name='applicationId'>
+        /// The applicationId is the same as serviceId in developer
+        /// </param>
+        /// <param name='elementId'>
+        /// Can be the application internal id or the VTM elementId
+        /// </param>
+        /// <param name='requestId'>
+        /// A correlation token to use when looking in the logs.
+        /// </param>
+        /// <param name='customHeaders'>
+        /// Headers that will be added to request.
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        /// <exception cref="HttpOperationException">
+        /// Thrown when the operation returned an invalid status code
+        /// </exception>
+        /// <exception cref="ValidationException">
+        /// Thrown when a required parameter is null
+        /// </exception>
+        /// <exception cref="System.ArgumentNullException">
+        /// Thrown when a required parameter is null
+        /// </exception>
+        /// <return>
+        /// A response object containing the response body and response headers.
+        /// </return>
+        public async Task<HttpOperationResponse> DeleteElementWithHttpMessagesAsync(string tenantId, System.Guid applicationId, string elementId, string requestId = default, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default)
+        {
+            if (tenantId == null)
+            {
+                throw new ValidationException(ValidationRules.CannotBeNull, "tenantId");
+            }
+            if (elementId == null)
+            {
+                throw new ValidationException(ValidationRules.CannotBeNull, "elementId");
+            }
+            // Construct URL
+            var _baseUrl = Client.HttpClient.BaseAddress?.AbsoluteUri ?? Client.BaseUri.AbsoluteUri;
+            var _url = new System.Uri(new System.Uri(_baseUrl + (_baseUrl.EndsWith("/") ? "" : "/")), "tenants/{tenantId}/applications/{applicationId}/elements/{elementId}").ToString();
+            _url = _url.Replace("{tenantId}", System.Uri.EscapeDataString(tenantId));
+            _url = _url.Replace("{applicationId}", System.Uri.EscapeDataString(Microsoft.Rest.Serialization.SafeJsonConvert.SerializeObject(applicationId, Client.SerializationSettings).Trim('"')));
+            _url = _url.Replace("{elementId}", System.Uri.EscapeDataString(elementId));
+            // Create HTTP transport objects
+            var _httpRequest = new HttpRequestMessage();
+            HttpResponseMessage _httpResponse = null;
+            _httpRequest.Method = new HttpMethod("DELETE");
+            _httpRequest.RequestUri = new System.Uri(_url);
+            // Set Headers
+            if (requestId != null)
+            {
+                if (_httpRequest.Headers.Contains("request-id"))
+                {
+                    _httpRequest.Headers.Remove("request-id");
+                }
+                _httpRequest.Headers.TryAddWithoutValidation("request-id", requestId);
+            }
+
+
+            if (customHeaders != null)
+            {
+                foreach(var _header in customHeaders)
+                {
+                    if (_httpRequest.Headers.Contains(_header.Key))
+                    {
+                        _httpRequest.Headers.Remove(_header.Key);
+                    }
+                    _httpRequest.Headers.TryAddWithoutValidation(_header.Key, _header.Value);
+                }
+            }
+
+            // Serialize Request
+            string _requestContent = null;
+            // Send Request
+            cancellationToken.ThrowIfCancellationRequested();
+            _httpResponse = await Client.HttpClient.SendAsync(_httpRequest, cancellationToken).ConfigureAwait(false);
+            HttpStatusCode _statusCode = _httpResponse.StatusCode;
+            cancellationToken.ThrowIfCancellationRequested();
+            string _responseContent = null;
+            if ((int)_statusCode != 202)
+            {
+                var ex = new HttpOperationException(string.Format("Operation returned an invalid status code '{0}'", _statusCode));
+                if (_httpResponse.Content != null) {
+                    _responseContent = await _httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
+                }
+                else {
+                    _responseContent = string.Empty;
+                }
+                ex.Request = new HttpRequestMessageWrapper(_httpRequest, _requestContent);
+                ex.Response = new HttpResponseMessageWrapper(_httpResponse, _responseContent);
+                _httpRequest.Dispose();
+                if (_httpResponse != null)
+                {
+                    _httpResponse.Dispose();
+                }
+                throw ex;
+            }
+            // Create Result
+            var _result = new HttpOperationResponse();
+            _result.Request = _httpRequest;
+            _result.Response = _httpResponse;
+            return _result;
+        }
+        /// <summary>
+        /// Delete element
+        ///
+        ///
+        /// </summary>
+        /// <remarks>
+        /// Delete an element from the application&lt;br/&gt;
+        /// </remarks>
+        /// <param name='tenantId'>
+        /// The tenant id (or dnvCustomerId for veracity_default tenants)
+        /// </param>
+        /// <param name='applicationId'>
+        /// The applicationId is the same as serviceId in developer
+        /// </param>
+        /// <param name='elementId'>
+        /// Can be the application internal id or the VTM elementId
+        /// </param>
+        /// <param name='requestId'>
+        /// A correlation token to use when looking in the logs.
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        public async Task DeleteElementAsync(string tenantId, System.Guid applicationId, string elementId, string requestId = default, CancellationToken cancellationToken = default)
+        {
+            (await DeleteElementWithHttpMessagesAsync(tenantId, applicationId, elementId, requestId, null, cancellationToken).ConfigureAwait(false)).Dispose();
+        }
+
+        /// <summary>
+        /// Get direct rights
+        ///
+        ///
+        /// </summary>
+        /// <remarks>
+        /// Get the direct element rights&lt;br/&gt;
+        /// </remarks>
+        /// <param name='tenantId'>
+        /// The tenant id (or dnvCustomerId for veracity_default tenants)
+        /// </param>
+        /// <param name='applicationId'>
+        /// The applicationId is the same as serviceId in developer
+        /// </param>
+        /// <param name='elementId'>
+        /// Can be the application internal id or the VTM elementId
+        /// </param>
+        /// <param name='memberType'>
+        /// the type of member, profile or userGroup. Possible values include:
+        /// 'profile', 'userGroup'
+        /// </param>
+        /// <param name='odata'>
+        /// OData query options, the values are passed as query string parameters
+        /// </param>
+        /// <param name='requestId'>
+        /// A correlation token to use when looking in the logs.
+        /// </param>
+        /// <param name='customHeaders'>
+        /// Headers that will be added to request.
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        /// <exception cref="HttpOperationException">
+        /// Thrown when the operation returned an invalid status code
+        /// </exception>
+        /// <exception cref="SerializationException">
+        /// Thrown when unable to deserialize the response
+        /// </exception>
+        /// <exception cref="ValidationException">
+        /// Thrown when a required parameter is null
+        /// </exception>
+        /// <exception cref="System.ArgumentNullException">
+        /// Thrown when a required parameter is null
+        /// </exception>
+        /// <return>
+        /// A response object containing the response body and response headers.
+        /// </return>
+        public async Task<HttpOperationResponse<IEnumerable<ElementRightResponse>>> GetElementRightsWithHttpMessagesAsync(string tenantId, System.Guid applicationId, string elementId, string memberType = default, IDictionary<string, string> odata = default, string requestId = default, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default)
+        {
+            if (tenantId == null)
+            {
+                throw new ValidationException(ValidationRules.CannotBeNull, "tenantId");
+            }
+            if (elementId == null)
+            {
+                throw new ValidationException(ValidationRules.CannotBeNull, "elementId");
+            }
+            // Construct URL
+            var _baseUrl = Client.HttpClient.BaseAddress?.AbsoluteUri ?? Client.BaseUri.AbsoluteUri;
+            var _url = new System.Uri(new System.Uri(_baseUrl + (_baseUrl.EndsWith("/") ? "" : "/")), "tenants/{tenantId}/applications/{applicationId}/elements/{elementId}/rights").ToString();
+            _url = _url.Replace("{tenantId}", System.Uri.EscapeDataString(tenantId));
+            _url = _url.Replace("{applicationId}", System.Uri.EscapeDataString(Microsoft.Rest.Serialization.SafeJsonConvert.SerializeObject(applicationId, Client.SerializationSettings).Trim('"')));
+            _url = _url.Replace("{elementId}", System.Uri.EscapeDataString(elementId));
+            IList<string> _queryParameters = new List<string>();
+            if (memberType != null)
+            {
+                _queryParameters.Add(string.Format("memberType={0}", System.Uri.EscapeDataString(Microsoft.Rest.Serialization.SafeJsonConvert.SerializeObject(memberType, Client.SerializationSettings).Trim('"'))));
+            }
+            if (odata != null)
+            {
+                _queryParameters.Add(string.Format("odata={0}", System.Uri.EscapeDataString(Microsoft.Rest.Serialization.SafeJsonConvert.SerializeObject(odata, Client.SerializationSettings).Trim('"'))));
             }
             if (_queryParameters.Any())
             {
@@ -1707,7 +1520,7 @@ namespace DNV.ApiClients.Veracity.Identity.PlatformApiV4
                 throw ex;
             }
             // Create Result
-            var _result = new HttpOperationResponse<IEnumerable<UserLicenseResponse>>();
+            var _result = new HttpOperationResponse<IEnumerable<ElementRightResponse>>();
             _result.Request = _httpRequest;
             _result.Response = _httpResponse;
             // Deserialize Response
@@ -1716,7 +1529,7 @@ namespace DNV.ApiClients.Veracity.Identity.PlatformApiV4
                 _responseContent = await _httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
                 try
                 {
-                    _result.Body = Microsoft.Rest.Serialization.SafeJsonConvert.DeserializeObject<IEnumerable<UserLicenseResponse>>(_responseContent, Client.DeserializationSettings);
+                    _result.Body = Microsoft.Rest.Serialization.SafeJsonConvert.DeserializeObject<IEnumerable<ElementRightResponse>>(_responseContent, Client.DeserializationSettings);
                 }
                 catch (JsonException ex)
                 {
@@ -1731,14 +1544,12 @@ namespace DNV.ApiClients.Veracity.Identity.PlatformApiV4
             return _result;
         }
         /// <summary>
-        /// All users, both direct and inherited
+        /// Get direct rights
         ///
         ///
         /// </summary>
         /// <remarks>
-        /// Get all users including inherited from groups, deduplication is by default
-        /// in effect. disable deduplication to detect users with multiple paths to the
-        /// application in the tenant.&lt;br/&gt;
+        /// Get the direct element rights&lt;br/&gt;
         /// </remarks>
         /// <param name='tenantId'>
         /// The tenant id (or dnvCustomerId for veracity_default tenants)
@@ -1746,10 +1557,15 @@ namespace DNV.ApiClients.Veracity.Identity.PlatformApiV4
         /// <param name='applicationId'>
         /// The applicationId is the same as serviceId in developer
         /// </param>
+        /// <param name='elementId'>
+        /// Can be the application internal id or the VTM elementId
+        /// </param>
+        /// <param name='memberType'>
+        /// the type of member, profile or userGroup. Possible values include:
+        /// 'profile', 'userGroup'
+        /// </param>
         /// <param name='odata'>
         /// OData query options, the values are passed as query string parameters
-        /// </param>
-        /// <param name='includeDuplicates'>
         /// </param>
         /// <param name='requestId'>
         /// A correlation token to use when looking in the logs.
@@ -1757,23 +1573,21 @@ namespace DNV.ApiClients.Veracity.Identity.PlatformApiV4
         /// <param name='cancellationToken'>
         /// The cancellation token.
         /// </param>
-        public async Task<IEnumerable<UserLicenseResponse>> GetUsersWithInheritedAccessAsync(string tenantId, System.Guid applicationId, IDictionary<string, string> odata = default, bool? includeDuplicates = default, string requestId = default, CancellationToken cancellationToken = default)
+        public async Task<IEnumerable<ElementRightResponse>> GetElementRightsAsync(string tenantId, System.Guid applicationId, string elementId, string memberType = default, IDictionary<string, string> odata = default, string requestId = default, CancellationToken cancellationToken = default)
         {
-            using (var _result = await GetUsersWithInheritedAccessWithHttpMessagesAsync(tenantId, applicationId, odata, includeDuplicates, requestId, null, cancellationToken).ConfigureAwait(false))
+            using (var _result = await GetElementRightsWithHttpMessagesAsync(tenantId, applicationId, elementId, memberType, odata, requestId, null, cancellationToken).ConfigureAwait(false))
             {
                 return _result.Body;
             }
         }
 
         /// <summary>
-        /// Only applicable for applications with access levels
+        /// Add right to a user or group
         ///
         ///
         /// </summary>
         /// <remarks>
-        /// Set access level on an existing subscription. entityId is the id of the
-        /// group or the person, and licenseType (profile,userGroup) indicates which
-        /// type of license you are updating&lt;br/&gt;
+        /// Add element right to the user or group.&lt;br/&gt;
         /// </remarks>
         /// <param name='tenantId'>
         /// The tenant id (or dnvCustomerId for veracity_default tenants)
@@ -1781,13 +1595,10 @@ namespace DNV.ApiClients.Veracity.Identity.PlatformApiV4
         /// <param name='applicationId'>
         /// The applicationId is the same as serviceId in developer
         /// </param>
-        /// <param name='entityId'>
+        /// <param name='elementId'>
+        /// Can be the application internal id or the VTM elementId
         /// </param>
         /// <param name='body'>
-        /// </param>
-        /// <param name='licenseType'>
-        /// Represents the type of entity. Possible values include: 'profile',
-        /// 'userGroup'
         /// </param>
         /// <param name='requestId'>
         /// A correlation token to use when looking in the logs.
@@ -1813,22 +1624,217 @@ namespace DNV.ApiClients.Veracity.Identity.PlatformApiV4
         /// <return>
         /// A response object containing the response body and response headers.
         /// </return>
-        public async Task<HttpOperationResponse<LicenseResponse>> SetAccessLevelWithHttpMessagesAsync(string tenantId, System.Guid applicationId, System.Guid entityId, IEnumerable<Operation> body = default, string licenseType = default, string requestId = default, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default)
+        public async Task<HttpOperationResponse<ElementRightResponse>> AddElementRightsWithHttpMessagesAsync(string tenantId, System.Guid applicationId, string elementId, ElementRightRequest body = default, string requestId = default, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default)
+        {
+            if (body != null)
+            {
+                body.Validate();
+            }
+            if (tenantId == null)
+            {
+                throw new ValidationException(ValidationRules.CannotBeNull, "tenantId");
+            }
+            if (elementId == null)
+            {
+                throw new ValidationException(ValidationRules.CannotBeNull, "elementId");
+            }
+            // Construct URL
+            var _baseUrl = Client.HttpClient.BaseAddress?.AbsoluteUri ?? Client.BaseUri.AbsoluteUri;
+            var _url = new System.Uri(new System.Uri(_baseUrl + (_baseUrl.EndsWith("/") ? "" : "/")), "tenants/{tenantId}/applications/{applicationId}/elements/{elementId}/rights").ToString();
+            _url = _url.Replace("{tenantId}", System.Uri.EscapeDataString(tenantId));
+            _url = _url.Replace("{applicationId}", System.Uri.EscapeDataString(Microsoft.Rest.Serialization.SafeJsonConvert.SerializeObject(applicationId, Client.SerializationSettings).Trim('"')));
+            _url = _url.Replace("{elementId}", System.Uri.EscapeDataString(elementId));
+            // Create HTTP transport objects
+            var _httpRequest = new HttpRequestMessage();
+            HttpResponseMessage _httpResponse = null;
+            _httpRequest.Method = new HttpMethod("POST");
+            _httpRequest.RequestUri = new System.Uri(_url);
+            // Set Headers
+            if (requestId != null)
+            {
+                if (_httpRequest.Headers.Contains("request-id"))
+                {
+                    _httpRequest.Headers.Remove("request-id");
+                }
+                _httpRequest.Headers.TryAddWithoutValidation("request-id", requestId);
+            }
+
+
+            if (customHeaders != null)
+            {
+                foreach(var _header in customHeaders)
+                {
+                    if (_httpRequest.Headers.Contains(_header.Key))
+                    {
+                        _httpRequest.Headers.Remove(_header.Key);
+                    }
+                    _httpRequest.Headers.TryAddWithoutValidation(_header.Key, _header.Value);
+                }
+            }
+
+            // Serialize Request
+            string _requestContent = null;
+            if(body != null)
+            {
+                _requestContent = Microsoft.Rest.Serialization.SafeJsonConvert.SerializeObject(body, Client.SerializationSettings);
+                _httpRequest.Content = new StringContent(_requestContent, System.Text.Encoding.UTF8);
+                _httpRequest.Content.Headers.ContentType =System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json-patch+json; charset=utf-8");
+            }
+            // Send Request
+            cancellationToken.ThrowIfCancellationRequested();
+            _httpResponse = await Client.HttpClient.SendAsync(_httpRequest, cancellationToken).ConfigureAwait(false);
+            HttpStatusCode _statusCode = _httpResponse.StatusCode;
+            cancellationToken.ThrowIfCancellationRequested();
+            string _responseContent = null;
+            if ((int)_statusCode != 202)
+            {
+                var ex = new HttpOperationException(string.Format("Operation returned an invalid status code '{0}'", _statusCode));
+                if (_httpResponse.Content != null) {
+                    _responseContent = await _httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
+                }
+                else {
+                    _responseContent = string.Empty;
+                }
+                ex.Request = new HttpRequestMessageWrapper(_httpRequest, _requestContent);
+                ex.Response = new HttpResponseMessageWrapper(_httpResponse, _responseContent);
+                _httpRequest.Dispose();
+                if (_httpResponse != null)
+                {
+                    _httpResponse.Dispose();
+                }
+                throw ex;
+            }
+            // Create Result
+            var _result = new HttpOperationResponse<ElementRightResponse>();
+            _result.Request = _httpRequest;
+            _result.Response = _httpResponse;
+            // Deserialize Response
+            if ((int)_statusCode == 202)
+            {
+                _responseContent = await _httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
+                try
+                {
+                    _result.Body = Microsoft.Rest.Serialization.SafeJsonConvert.DeserializeObject<ElementRightResponse>(_responseContent, Client.DeserializationSettings);
+                }
+                catch (JsonException ex)
+                {
+                    _httpRequest.Dispose();
+                    if (_httpResponse != null)
+                    {
+                        _httpResponse.Dispose();
+                    }
+                    throw new SerializationException("Unable to deserialize the response.", _responseContent, ex);
+                }
+            }
+            return _result;
+        }
+        /// <summary>
+        /// Add right to a user or group
+        ///
+        ///
+        /// </summary>
+        /// <remarks>
+        /// Add element right to the user or group.&lt;br/&gt;
+        /// </remarks>
+        /// <param name='tenantId'>
+        /// The tenant id (or dnvCustomerId for veracity_default tenants)
+        /// </param>
+        /// <param name='applicationId'>
+        /// The applicationId is the same as serviceId in developer
+        /// </param>
+        /// <param name='elementId'>
+        /// Can be the application internal id or the VTM elementId
+        /// </param>
+        /// <param name='body'>
+        /// </param>
+        /// <param name='requestId'>
+        /// A correlation token to use when looking in the logs.
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        public async Task<ElementRightResponse> AddElementRightsAsync(string tenantId, System.Guid applicationId, string elementId, ElementRightRequest body = default, string requestId = default, CancellationToken cancellationToken = default)
+        {
+            using (var _result = await AddElementRightsWithHttpMessagesAsync(tenantId, applicationId, elementId, body, requestId, null, cancellationToken).ConfigureAwait(false))
+            {
+                return _result.Body;
+            }
+        }
+
+        /// <summary>
+        /// Update right for a user or group
+        ///
+        ///
+        /// </summary>
+        /// <remarks>
+        /// Update the element right&lt;br/&gt;
+        /// </remarks>
+        /// <param name='tenantId'>
+        /// The tenant id (or dnvCustomerId for veracity_default tenants)
+        /// </param>
+        /// <param name='applicationId'>
+        /// The applicationId is the same as serviceId in developer
+        /// </param>
+        /// <param name='elementId'>
+        /// Can be the application internal id or the VTM elementId
+        /// </param>
+        /// <param name='entityId'>
+        /// </param>
+        /// <param name='body'>
+        /// </param>
+        /// <param name='memberType'>
+        /// the type of member, profile or userGroup. Possible values include:
+        /// 'profile', 'userGroup'
+        /// </param>
+        /// <param name='requestId'>
+        /// A correlation token to use when looking in the logs.
+        /// </param>
+        /// <param name='customHeaders'>
+        /// Headers that will be added to request.
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        /// <exception cref="HttpOperationException">
+        /// Thrown when the operation returned an invalid status code
+        /// </exception>
+        /// <exception cref="SerializationException">
+        /// Thrown when unable to deserialize the response
+        /// </exception>
+        /// <exception cref="ValidationException">
+        /// Thrown when a required parameter is null
+        /// </exception>
+        /// <exception cref="System.ArgumentNullException">
+        /// Thrown when a required parameter is null
+        /// </exception>
+        /// <return>
+        /// A response object containing the response body and response headers.
+        /// </return>
+        public async Task<HttpOperationResponse<ElementRightResponse>> UpdateElementRightsWithHttpMessagesAsync(string tenantId, System.Guid applicationId, string elementId, string entityId, IEnumerable<Operation> body = default, string memberType = default, string requestId = default, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default)
         {
             if (tenantId == null)
             {
                 throw new ValidationException(ValidationRules.CannotBeNull, "tenantId");
             }
+            if (elementId == null)
+            {
+                throw new ValidationException(ValidationRules.CannotBeNull, "elementId");
+            }
+            if (entityId == null)
+            {
+                throw new ValidationException(ValidationRules.CannotBeNull, "entityId");
+            }
             // Construct URL
             var _baseUrl = Client.HttpClient.BaseAddress?.AbsoluteUri ?? Client.BaseUri.AbsoluteUri;
-            var _url = new System.Uri(new System.Uri(_baseUrl + (_baseUrl.EndsWith("/") ? "" : "/")), "tenants/{tenantId}/applications/{applicationId}/licenses/{entityId}/accessLevel").ToString();
+            var _url = new System.Uri(new System.Uri(_baseUrl + (_baseUrl.EndsWith("/") ? "" : "/")), "tenants/{tenantId}/applications/{applicationId}/elements/{elementId}/rights/{entityId}").ToString();
             _url = _url.Replace("{tenantId}", System.Uri.EscapeDataString(tenantId));
             _url = _url.Replace("{applicationId}", System.Uri.EscapeDataString(Microsoft.Rest.Serialization.SafeJsonConvert.SerializeObject(applicationId, Client.SerializationSettings).Trim('"')));
-            _url = _url.Replace("{entityId}", System.Uri.EscapeDataString(Microsoft.Rest.Serialization.SafeJsonConvert.SerializeObject(entityId, Client.SerializationSettings).Trim('"')));
+            _url = _url.Replace("{elementId}", System.Uri.EscapeDataString(elementId));
+            _url = _url.Replace("{entityId}", System.Uri.EscapeDataString(entityId));
             IList<string> _queryParameters = new List<string>();
-            if (licenseType != null)
+            if (memberType != null)
             {
-                _queryParameters.Add(string.Format("licenseType={0}", System.Uri.EscapeDataString(Microsoft.Rest.Serialization.SafeJsonConvert.SerializeObject(licenseType, Client.SerializationSettings).Trim('"'))));
+                _queryParameters.Add(string.Format("memberType={0}", System.Uri.EscapeDataString(Microsoft.Rest.Serialization.SafeJsonConvert.SerializeObject(memberType, Client.SerializationSettings).Trim('"'))));
             }
             if (_queryParameters.Any())
             {
@@ -1895,7 +1901,7 @@ namespace DNV.ApiClients.Veracity.Identity.PlatformApiV4
                 throw ex;
             }
             // Create Result
-            var _result = new HttpOperationResponse<LicenseResponse>();
+            var _result = new HttpOperationResponse<ElementRightResponse>();
             _result.Request = _httpRequest;
             _result.Response = _httpResponse;
             // Deserialize Response
@@ -1904,7 +1910,7 @@ namespace DNV.ApiClients.Veracity.Identity.PlatformApiV4
                 _responseContent = await _httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
                 try
                 {
-                    _result.Body = Microsoft.Rest.Serialization.SafeJsonConvert.DeserializeObject<LicenseResponse>(_responseContent, Client.DeserializationSettings);
+                    _result.Body = Microsoft.Rest.Serialization.SafeJsonConvert.DeserializeObject<ElementRightResponse>(_responseContent, Client.DeserializationSettings);
                 }
                 catch (JsonException ex)
                 {
@@ -1919,28 +1925,29 @@ namespace DNV.ApiClients.Veracity.Identity.PlatformApiV4
             return _result;
         }
         /// <summary>
-        /// Only applicable for applications with access levels
+        /// Update right for a user or group
         ///
         ///
         /// </summary>
         /// <remarks>
-        /// Set access level on an existing subscription. entityId is the id of the
-        /// group or the person, and licenseType (profile,userGroup) indicates which
-        /// type of license you are updating&lt;br/&gt;
+        /// Update the element right&lt;br/&gt;
         /// </remarks>
         /// <param name='tenantId'>
         /// The tenant id (or dnvCustomerId for veracity_default tenants)
         /// </param>
         /// <param name='applicationId'>
         /// The applicationId is the same as serviceId in developer
+        /// </param>
+        /// <param name='elementId'>
+        /// Can be the application internal id or the VTM elementId
         /// </param>
         /// <param name='entityId'>
         /// </param>
         /// <param name='body'>
         /// </param>
-        /// <param name='licenseType'>
-        /// Represents the type of entity. Possible values include: 'profile',
-        /// 'userGroup'
+        /// <param name='memberType'>
+        /// the type of member, profile or userGroup. Possible values include:
+        /// 'profile', 'userGroup'
         /// </param>
         /// <param name='requestId'>
         /// A correlation token to use when looking in the logs.
@@ -1948,159 +1955,21 @@ namespace DNV.ApiClients.Veracity.Identity.PlatformApiV4
         /// <param name='cancellationToken'>
         /// The cancellation token.
         /// </param>
-        public async Task<LicenseResponse> SetAccessLevelAsync(string tenantId, System.Guid applicationId, System.Guid entityId, IEnumerable<Operation> body = default, string licenseType = default, string requestId = default, CancellationToken cancellationToken = default)
+        public async Task<ElementRightResponse> UpdateElementRightsAsync(string tenantId, System.Guid applicationId, string elementId, string entityId, IEnumerable<Operation> body = default, string memberType = default, string requestId = default, CancellationToken cancellationToken = default)
         {
-            using (var _result = await SetAccessLevelWithHttpMessagesAsync(tenantId, applicationId, entityId, body, licenseType, requestId, null, cancellationToken).ConfigureAwait(false))
+            using (var _result = await UpdateElementRightsWithHttpMessagesAsync(tenantId, applicationId, elementId, entityId, body, memberType, requestId, null, cancellationToken).ConfigureAwait(false))
             {
                 return _result.Body;
             }
         }
 
         /// <summary>
-        /// Get application tenants
+        /// Delete a right from a user or group
         ///
         ///
         /// </summary>
         /// <remarks>
-        /// Get all tenants where application is installed&lt;br/&gt;
-        /// </remarks>
-        /// <param name='applicationId'>
-        /// The applicationId is the same as serviceId in developer
-        /// </param>
-        /// <param name='requestId'>
-        /// A correlation token to use when looking in the logs.
-        /// </param>
-        /// <param name='customHeaders'>
-        /// Headers that will be added to request.
-        /// </param>
-        /// <param name='cancellationToken'>
-        /// The cancellation token.
-        /// </param>
-        /// <exception cref="HttpOperationException">
-        /// Thrown when the operation returned an invalid status code
-        /// </exception>
-        /// <exception cref="SerializationException">
-        /// Thrown when unable to deserialize the response
-        /// </exception>
-        /// <return>
-        /// A response object containing the response body and response headers.
-        /// </return>
-        public async Task<HttpOperationResponse<IEnumerable<TenantResponse>>> GetTenantsForApplicationWithHttpMessagesAsync(System.Guid applicationId, string requestId = default, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default)
-        {
-            // Construct URL
-            var _baseUrl = Client.HttpClient.BaseAddress?.AbsoluteUri ?? Client.BaseUri.AbsoluteUri;
-            var _url = new System.Uri(new System.Uri(_baseUrl + (_baseUrl.EndsWith("/") ? "" : "/")), "applications/{applicationId}/tenants").ToString();
-            _url = _url.Replace("{applicationId}", System.Uri.EscapeDataString(Microsoft.Rest.Serialization.SafeJsonConvert.SerializeObject(applicationId, Client.SerializationSettings).Trim('"')));
-            // Create HTTP transport objects
-            var _httpRequest = new HttpRequestMessage();
-            HttpResponseMessage _httpResponse = null;
-            _httpRequest.Method = new HttpMethod("GET");
-            _httpRequest.RequestUri = new System.Uri(_url);
-            // Set Headers
-            if (requestId != null)
-            {
-                if (_httpRequest.Headers.Contains("request-id"))
-                {
-                    _httpRequest.Headers.Remove("request-id");
-                }
-                _httpRequest.Headers.TryAddWithoutValidation("request-id", requestId);
-            }
-
-
-            if (customHeaders != null)
-            {
-                foreach(var _header in customHeaders)
-                {
-                    if (_httpRequest.Headers.Contains(_header.Key))
-                    {
-                        _httpRequest.Headers.Remove(_header.Key);
-                    }
-                    _httpRequest.Headers.TryAddWithoutValidation(_header.Key, _header.Value);
-                }
-            }
-
-            // Serialize Request
-            string _requestContent = null;
-            // Send Request
-            cancellationToken.ThrowIfCancellationRequested();
-            _httpResponse = await Client.HttpClient.SendAsync(_httpRequest, cancellationToken).ConfigureAwait(false);
-            HttpStatusCode _statusCode = _httpResponse.StatusCode;
-            cancellationToken.ThrowIfCancellationRequested();
-            string _responseContent = null;
-            if ((int)_statusCode != 200)
-            {
-                var ex = new HttpOperationException(string.Format("Operation returned an invalid status code '{0}'", _statusCode));
-                if (_httpResponse.Content != null) {
-                    _responseContent = await _httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
-                }
-                else {
-                    _responseContent = string.Empty;
-                }
-                ex.Request = new HttpRequestMessageWrapper(_httpRequest, _requestContent);
-                ex.Response = new HttpResponseMessageWrapper(_httpResponse, _responseContent);
-                _httpRequest.Dispose();
-                if (_httpResponse != null)
-                {
-                    _httpResponse.Dispose();
-                }
-                throw ex;
-            }
-            // Create Result
-            var _result = new HttpOperationResponse<IEnumerable<TenantResponse>>();
-            _result.Request = _httpRequest;
-            _result.Response = _httpResponse;
-            // Deserialize Response
-            if ((int)_statusCode == 200)
-            {
-                _responseContent = await _httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
-                try
-                {
-                    _result.Body = Microsoft.Rest.Serialization.SafeJsonConvert.DeserializeObject<IEnumerable<TenantResponse>>(_responseContent, Client.DeserializationSettings);
-                }
-                catch (JsonException ex)
-                {
-                    _httpRequest.Dispose();
-                    if (_httpResponse != null)
-                    {
-                        _httpResponse.Dispose();
-                    }
-                    throw new SerializationException("Unable to deserialize the response.", _responseContent, ex);
-                }
-            }
-            return _result;
-        }
-        /// <summary>
-        /// Get application tenants
-        ///
-        ///
-        /// </summary>
-        /// <remarks>
-        /// Get all tenants where application is installed&lt;br/&gt;
-        /// </remarks>
-        /// <param name='applicationId'>
-        /// The applicationId is the same as serviceId in developer
-        /// </param>
-        /// <param name='requestId'>
-        /// A correlation token to use when looking in the logs.
-        /// </param>
-        /// <param name='cancellationToken'>
-        /// The cancellation token.
-        /// </param>
-        public async Task<IEnumerable<TenantResponse>> GetTenantsForApplicationAsync(System.Guid applicationId, string requestId = default, CancellationToken cancellationToken = default)
-        {
-            using (var _result = await GetTenantsForApplicationWithHttpMessagesAsync(applicationId, requestId, null, cancellationToken).ConfigureAwait(false))
-            {
-                return _result.Body;
-            }
-        }
-
-        /// <summary>
-        /// List application admins
-        ///
-        ///
-        /// </summary>
-        /// <remarks>
-        /// List application administrators&lt;br/&gt;
+        /// Delete element right&lt;br/&gt;
         /// </remarks>
         /// <param name='tenantId'>
         /// The tenant id (or dnvCustomerId for veracity_default tenants)
@@ -2108,169 +1977,14 @@ namespace DNV.ApiClients.Veracity.Identity.PlatformApiV4
         /// <param name='applicationId'>
         /// The applicationId is the same as serviceId in developer
         /// </param>
-        /// <param name='requestId'>
-        /// A correlation token to use when looking in the logs.
+        /// <param name='elementId'>
+        /// Can be the application internal id or the VTM elementId
         /// </param>
-        /// <param name='customHeaders'>
-        /// Headers that will be added to request.
+        /// <param name='entityId'>
         /// </param>
-        /// <param name='cancellationToken'>
-        /// The cancellation token.
-        /// </param>
-        /// <exception cref="HttpOperationException">
-        /// Thrown when the operation returned an invalid status code
-        /// </exception>
-        /// <exception cref="SerializationException">
-        /// Thrown when unable to deserialize the response
-        /// </exception>
-        /// <exception cref="ValidationException">
-        /// Thrown when a required parameter is null
-        /// </exception>
-        /// <exception cref="System.ArgumentNullException">
-        /// Thrown when a required parameter is null
-        /// </exception>
-        /// <return>
-        /// A response object containing the response body and response headers.
-        /// </return>
-        public async Task<HttpOperationResponse<IEnumerable<AdminUser>>> GetAdministratorsWithHttpMessagesAsync(string tenantId, System.Guid applicationId, string requestId = default, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default)
-        {
-            if (tenantId == null)
-            {
-                throw new ValidationException(ValidationRules.CannotBeNull, "tenantId");
-            }
-            // Construct URL
-            var _baseUrl = Client.HttpClient.BaseAddress?.AbsoluteUri ?? Client.BaseUri.AbsoluteUri;
-            var _url = new System.Uri(new System.Uri(_baseUrl + (_baseUrl.EndsWith("/") ? "" : "/")), "tenants/{tenantId}/applications/{applicationId}/administrators").ToString();
-            _url = _url.Replace("{tenantId}", System.Uri.EscapeDataString(tenantId));
-            _url = _url.Replace("{applicationId}", System.Uri.EscapeDataString(Microsoft.Rest.Serialization.SafeJsonConvert.SerializeObject(applicationId, Client.SerializationSettings).Trim('"')));
-            // Create HTTP transport objects
-            var _httpRequest = new HttpRequestMessage();
-            HttpResponseMessage _httpResponse = null;
-            _httpRequest.Method = new HttpMethod("GET");
-            _httpRequest.RequestUri = new System.Uri(_url);
-            // Set Headers
-            if (requestId != null)
-            {
-                if (_httpRequest.Headers.Contains("request-id"))
-                {
-                    _httpRequest.Headers.Remove("request-id");
-                }
-                _httpRequest.Headers.TryAddWithoutValidation("request-id", requestId);
-            }
-
-
-            if (customHeaders != null)
-            {
-                foreach(var _header in customHeaders)
-                {
-                    if (_httpRequest.Headers.Contains(_header.Key))
-                    {
-                        _httpRequest.Headers.Remove(_header.Key);
-                    }
-                    _httpRequest.Headers.TryAddWithoutValidation(_header.Key, _header.Value);
-                }
-            }
-
-            // Serialize Request
-            string _requestContent = null;
-            // Send Request
-            cancellationToken.ThrowIfCancellationRequested();
-            _httpResponse = await Client.HttpClient.SendAsync(_httpRequest, cancellationToken).ConfigureAwait(false);
-            HttpStatusCode _statusCode = _httpResponse.StatusCode;
-            cancellationToken.ThrowIfCancellationRequested();
-            string _responseContent = null;
-            if ((int)_statusCode != 200)
-            {
-                var ex = new HttpOperationException(string.Format("Operation returned an invalid status code '{0}'", _statusCode));
-                if (_httpResponse.Content != null) {
-                    _responseContent = await _httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
-                }
-                else {
-                    _responseContent = string.Empty;
-                }
-                ex.Request = new HttpRequestMessageWrapper(_httpRequest, _requestContent);
-                ex.Response = new HttpResponseMessageWrapper(_httpResponse, _responseContent);
-                _httpRequest.Dispose();
-                if (_httpResponse != null)
-                {
-                    _httpResponse.Dispose();
-                }
-                throw ex;
-            }
-            // Create Result
-            var _result = new HttpOperationResponse<IEnumerable<AdminUser>>();
-            _result.Request = _httpRequest;
-            _result.Response = _httpResponse;
-            // Deserialize Response
-            if ((int)_statusCode == 200)
-            {
-                _responseContent = await _httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
-                try
-                {
-                    _result.Body = Microsoft.Rest.Serialization.SafeJsonConvert.DeserializeObject<IEnumerable<AdminUser>>(_responseContent, Client.DeserializationSettings);
-                }
-                catch (JsonException ex)
-                {
-                    _httpRequest.Dispose();
-                    if (_httpResponse != null)
-                    {
-                        _httpResponse.Dispose();
-                    }
-                    throw new SerializationException("Unable to deserialize the response.", _responseContent, ex);
-                }
-            }
-            return _result;
-        }
-        /// <summary>
-        /// List application admins
-        ///
-        ///
-        /// </summary>
-        /// <remarks>
-        /// List application administrators&lt;br/&gt;
-        /// </remarks>
-        /// <param name='tenantId'>
-        /// The tenant id (or dnvCustomerId for veracity_default tenants)
-        /// </param>
-        /// <param name='applicationId'>
-        /// The applicationId is the same as serviceId in developer
-        /// </param>
-        /// <param name='requestId'>
-        /// A correlation token to use when looking in the logs.
-        /// </param>
-        /// <param name='cancellationToken'>
-        /// The cancellation token.
-        /// </param>
-        public async Task<IEnumerable<AdminUser>> GetAdministratorsAsync(string tenantId, System.Guid applicationId, string requestId = default, CancellationToken cancellationToken = default)
-        {
-            using (var _result = await GetAdministratorsWithHttpMessagesAsync(tenantId, applicationId, requestId, null, cancellationToken).ConfigureAwait(false))
-            {
-                return _result.Body;
-            }
-        }
-
-        /// <summary>
-        /// Add application admin
-        ///
-        ///
-        /// </summary>
-        /// <remarks>
-        /// Add user as application administrator, this is only used by hybrid and
-        /// service managed applications. If the application has access levels defined,
-        /// this must be provided if the user doesn't have a license from before. Only
-        /// applicable for applications without access levels or with access levels
-        /// V1&lt;br/&gt;
-        /// </remarks>
-        /// <param name='tenantId'>
-        /// The tenant id (or dnvCustomerId for veracity_default tenants)
-        /// </param>
-        /// <param name='applicationId'>
-        /// The applicationId is the same as serviceId in developer
-        /// </param>
-        /// <param name='userId'>
-        /// The users id found in Veracity Identity
-        /// </param>
-        /// <param name='accessLevel'>
+        /// <param name='memberType'>
+        /// the type of member, profile or userGroup. Possible values include:
+        /// 'profile', 'userGroup'
         /// </param>
         /// <param name='requestId'>
         /// A correlation token to use when looking in the logs.
@@ -2293,179 +2007,31 @@ namespace DNV.ApiClients.Veracity.Identity.PlatformApiV4
         /// <return>
         /// A response object containing the response body and response headers.
         /// </return>
-        public async Task<HttpOperationResponse> AddAdministratorWithHttpMessagesAsync(string tenantId, System.Guid applicationId, System.Guid userId, string accessLevel = default, string requestId = default, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default)
+        public async Task<HttpOperationResponse> DeleteElementRightsWithHttpMessagesAsync(string tenantId, System.Guid applicationId, string elementId, string entityId, string memberType = default, string requestId = default, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default)
         {
             if (tenantId == null)
             {
                 throw new ValidationException(ValidationRules.CannotBeNull, "tenantId");
             }
+            if (elementId == null)
+            {
+                throw new ValidationException(ValidationRules.CannotBeNull, "elementId");
+            }
+            if (entityId == null)
+            {
+                throw new ValidationException(ValidationRules.CannotBeNull, "entityId");
+            }
             // Construct URL
             var _baseUrl = Client.HttpClient.BaseAddress?.AbsoluteUri ?? Client.BaseUri.AbsoluteUri;
-            var _url = new System.Uri(new System.Uri(_baseUrl + (_baseUrl.EndsWith("/") ? "" : "/")), "tenants/{tenantId}/applications/{applicationId}/administrators/{userId}").ToString();
+            var _url = new System.Uri(new System.Uri(_baseUrl + (_baseUrl.EndsWith("/") ? "" : "/")), "tenants/{tenantId}/applications/{applicationId}/elements/{elementId}/rights/{entityId}").ToString();
             _url = _url.Replace("{tenantId}", System.Uri.EscapeDataString(tenantId));
             _url = _url.Replace("{applicationId}", System.Uri.EscapeDataString(Microsoft.Rest.Serialization.SafeJsonConvert.SerializeObject(applicationId, Client.SerializationSettings).Trim('"')));
-            _url = _url.Replace("{userId}", System.Uri.EscapeDataString(Microsoft.Rest.Serialization.SafeJsonConvert.SerializeObject(userId, Client.SerializationSettings).Trim('"')));
+            _url = _url.Replace("{elementId}", System.Uri.EscapeDataString(elementId));
+            _url = _url.Replace("{entityId}", System.Uri.EscapeDataString(entityId));
             IList<string> _queryParameters = new List<string>();
-            if (accessLevel != null)
+            if (memberType != null)
             {
-                _queryParameters.Add(string.Format("accessLevel={0}", System.Uri.EscapeDataString(accessLevel)));
-            }
-            if (_queryParameters.Any())
-            {
-                _url += "?" + string.Join("&", _queryParameters);
-            }
-            // Create HTTP transport objects
-            var _httpRequest = new HttpRequestMessage();
-            HttpResponseMessage _httpResponse = null;
-            _httpRequest.Method = new HttpMethod("POST");
-            _httpRequest.RequestUri = new System.Uri(_url);
-            // Set Headers
-            if (requestId != null)
-            {
-                if (_httpRequest.Headers.Contains("request-id"))
-                {
-                    _httpRequest.Headers.Remove("request-id");
-                }
-                _httpRequest.Headers.TryAddWithoutValidation("request-id", requestId);
-            }
-
-
-            if (customHeaders != null)
-            {
-                foreach(var _header in customHeaders)
-                {
-                    if (_httpRequest.Headers.Contains(_header.Key))
-                    {
-                        _httpRequest.Headers.Remove(_header.Key);
-                    }
-                    _httpRequest.Headers.TryAddWithoutValidation(_header.Key, _header.Value);
-                }
-            }
-
-            // Serialize Request
-            string _requestContent = null;
-            // Send Request
-            cancellationToken.ThrowIfCancellationRequested();
-            _httpResponse = await Client.HttpClient.SendAsync(_httpRequest, cancellationToken).ConfigureAwait(false);
-            HttpStatusCode _statusCode = _httpResponse.StatusCode;
-            cancellationToken.ThrowIfCancellationRequested();
-            string _responseContent = null;
-            if ((int)_statusCode != 202)
-            {
-                var ex = new HttpOperationException(string.Format("Operation returned an invalid status code '{0}'", _statusCode));
-                if (_httpResponse.Content != null) {
-                    _responseContent = await _httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
-                }
-                else {
-                    _responseContent = string.Empty;
-                }
-                ex.Request = new HttpRequestMessageWrapper(_httpRequest, _requestContent);
-                ex.Response = new HttpResponseMessageWrapper(_httpResponse, _responseContent);
-                _httpRequest.Dispose();
-                if (_httpResponse != null)
-                {
-                    _httpResponse.Dispose();
-                }
-                throw ex;
-            }
-            // Create Result
-            var _result = new HttpOperationResponse();
-            _result.Request = _httpRequest;
-            _result.Response = _httpResponse;
-            return _result;
-        }
-        /// <summary>
-        /// Add application admin
-        ///
-        ///
-        /// </summary>
-        /// <remarks>
-        /// Add user as application administrator, this is only used by hybrid and
-        /// service managed applications. If the application has access levels defined,
-        /// this must be provided if the user doesn't have a license from before. Only
-        /// applicable for applications without access levels or with access levels
-        /// V1&lt;br/&gt;
-        /// </remarks>
-        /// <param name='tenantId'>
-        /// The tenant id (or dnvCustomerId for veracity_default tenants)
-        /// </param>
-        /// <param name='applicationId'>
-        /// The applicationId is the same as serviceId in developer
-        /// </param>
-        /// <param name='userId'>
-        /// The users id found in Veracity Identity
-        /// </param>
-        /// <param name='accessLevel'>
-        /// </param>
-        /// <param name='requestId'>
-        /// A correlation token to use when looking in the logs.
-        /// </param>
-        /// <param name='cancellationToken'>
-        /// The cancellation token.
-        /// </param>
-        public async Task AddAdministratorAsync(string tenantId, System.Guid applicationId, System.Guid userId, string accessLevel = default, string requestId = default, CancellationToken cancellationToken = default)
-        {
-            (await AddAdministratorWithHttpMessagesAsync(tenantId, applicationId, userId, accessLevel, requestId, null, cancellationToken).ConfigureAwait(false)).Dispose();
-        }
-
-        /// <summary>
-        /// remove an admin
-        ///
-        ///
-        /// </summary>
-        /// <remarks>
-        /// Remove application administrator, this is only used by hybrid and service
-        /// managed applications. Only applicable for applications without access
-        /// levels or with access levels V1&lt;br/&gt;
-        /// </remarks>
-        /// <param name='tenantId'>
-        /// The tenant id (or dnvCustomerId for veracity_default tenants)
-        /// </param>
-        /// <param name='applicationId'>
-        /// The applicationId is the same as serviceId in developer
-        /// </param>
-        /// <param name='userId'>
-        /// The users id found in Veracity Identity
-        /// </param>
-        /// <param name='removeLicense'>
-        /// </param>
-        /// <param name='requestId'>
-        /// A correlation token to use when looking in the logs.
-        /// </param>
-        /// <param name='customHeaders'>
-        /// Headers that will be added to request.
-        /// </param>
-        /// <param name='cancellationToken'>
-        /// The cancellation token.
-        /// </param>
-        /// <exception cref="HttpOperationException">
-        /// Thrown when the operation returned an invalid status code
-        /// </exception>
-        /// <exception cref="ValidationException">
-        /// Thrown when a required parameter is null
-        /// </exception>
-        /// <exception cref="System.ArgumentNullException">
-        /// Thrown when a required parameter is null
-        /// </exception>
-        /// <return>
-        /// A response object containing the response body and response headers.
-        /// </return>
-        public async Task<HttpOperationResponse> DeleteAdministratorWithHttpMessagesAsync(string tenantId, System.Guid applicationId, System.Guid userId, bool? removeLicense = default, string requestId = default, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default)
-        {
-            if (tenantId == null)
-            {
-                throw new ValidationException(ValidationRules.CannotBeNull, "tenantId");
-            }
-            // Construct URL
-            var _baseUrl = Client.HttpClient.BaseAddress?.AbsoluteUri ?? Client.BaseUri.AbsoluteUri;
-            var _url = new System.Uri(new System.Uri(_baseUrl + (_baseUrl.EndsWith("/") ? "" : "/")), "tenants/{tenantId}/applications/{applicationId}/administrators/{userId}").ToString();
-            _url = _url.Replace("{tenantId}", System.Uri.EscapeDataString(tenantId));
-            _url = _url.Replace("{applicationId}", System.Uri.EscapeDataString(Microsoft.Rest.Serialization.SafeJsonConvert.SerializeObject(applicationId, Client.SerializationSettings).Trim('"')));
-            _url = _url.Replace("{userId}", System.Uri.EscapeDataString(Microsoft.Rest.Serialization.SafeJsonConvert.SerializeObject(userId, Client.SerializationSettings).Trim('"')));
-            IList<string> _queryParameters = new List<string>();
-            if (removeLicense != null)
-            {
-                _queryParameters.Add(string.Format("removeLicense={0}", System.Uri.EscapeDataString(Microsoft.Rest.Serialization.SafeJsonConvert.SerializeObject(removeLicense, Client.SerializationSettings).Trim('"'))));
+                _queryParameters.Add(string.Format("memberType={0}", System.Uri.EscapeDataString(Microsoft.Rest.Serialization.SafeJsonConvert.SerializeObject(memberType, Client.SerializationSettings).Trim('"'))));
             }
             if (_queryParameters.Any())
             {
@@ -2532,14 +2098,217 @@ namespace DNV.ApiClients.Veracity.Identity.PlatformApiV4
             return _result;
         }
         /// <summary>
-        /// remove an admin
+        /// Delete a right from a user or group
         ///
         ///
         /// </summary>
         /// <remarks>
-        /// Remove application administrator, this is only used by hybrid and service
-        /// managed applications. Only applicable for applications without access
-        /// levels or with access levels V1&lt;br/&gt;
+        /// Delete element right&lt;br/&gt;
+        /// </remarks>
+        /// <param name='tenantId'>
+        /// The tenant id (or dnvCustomerId for veracity_default tenants)
+        /// </param>
+        /// <param name='applicationId'>
+        /// The applicationId is the same as serviceId in developer
+        /// </param>
+        /// <param name='elementId'>
+        /// Can be the application internal id or the VTM elementId
+        /// </param>
+        /// <param name='entityId'>
+        /// </param>
+        /// <param name='memberType'>
+        /// the type of member, profile or userGroup. Possible values include:
+        /// 'profile', 'userGroup'
+        /// </param>
+        /// <param name='requestId'>
+        /// A correlation token to use when looking in the logs.
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        public async Task DeleteElementRightsAsync(string tenantId, System.Guid applicationId, string elementId, string entityId, string memberType = default, string requestId = default, CancellationToken cancellationToken = default)
+        {
+            (await DeleteElementRightsWithHttpMessagesAsync(tenantId, applicationId, elementId, entityId, memberType, requestId, null, cancellationToken).ConfigureAwait(false)).Dispose();
+        }
+
+        /// <summary>
+        /// direct right for an entity
+        ///
+        ///
+        /// </summary>
+        /// <remarks>
+        /// Get the direct right for a user or group&lt;br/&gt;
+        /// </remarks>
+        /// <param name='tenantId'>
+        /// The tenant id (or dnvCustomerId for veracity_default tenants)
+        /// </param>
+        /// <param name='applicationId'>
+        /// The applicationId is the same as serviceId in developer
+        /// </param>
+        /// <param name='elementId'>
+        /// Can be the application internal id or the VTM elementId
+        /// </param>
+        /// <param name='entityId'>
+        /// </param>
+        /// <param name='requestId'>
+        /// A correlation token to use when looking in the logs.
+        /// </param>
+        /// <param name='customHeaders'>
+        /// Headers that will be added to request.
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        /// <exception cref="HttpOperationException">
+        /// Thrown when the operation returned an invalid status code
+        /// </exception>
+        /// <exception cref="SerializationException">
+        /// Thrown when unable to deserialize the response
+        /// </exception>
+        /// <exception cref="ValidationException">
+        /// Thrown when a required parameter is null
+        /// </exception>
+        /// <exception cref="System.ArgumentNullException">
+        /// Thrown when a required parameter is null
+        /// </exception>
+        /// <return>
+        /// A response object containing the response body and response headers.
+        /// </return>
+        public async Task<HttpOperationResponse<ElementRightResponse>> GetElementRightWithHttpMessagesAsync(string tenantId, System.Guid applicationId, string elementId, System.Guid entityId, string requestId = default, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default)
+        {
+            if (tenantId == null)
+            {
+                throw new ValidationException(ValidationRules.CannotBeNull, "tenantId");
+            }
+            if (elementId == null)
+            {
+                throw new ValidationException(ValidationRules.CannotBeNull, "elementId");
+            }
+            // Construct URL
+            var _baseUrl = Client.HttpClient.BaseAddress?.AbsoluteUri ?? Client.BaseUri.AbsoluteUri;
+            var _url = new System.Uri(new System.Uri(_baseUrl + (_baseUrl.EndsWith("/") ? "" : "/")), "tenants/{tenantId}/applications/{applicationId}/elements/{elementId}/rights/{entityId}").ToString();
+            _url = _url.Replace("{tenantId}", System.Uri.EscapeDataString(tenantId));
+            _url = _url.Replace("{applicationId}", System.Uri.EscapeDataString(Microsoft.Rest.Serialization.SafeJsonConvert.SerializeObject(applicationId, Client.SerializationSettings).Trim('"')));
+            _url = _url.Replace("{elementId}", System.Uri.EscapeDataString(elementId));
+            _url = _url.Replace("{entityId}", System.Uri.EscapeDataString(Microsoft.Rest.Serialization.SafeJsonConvert.SerializeObject(entityId, Client.SerializationSettings).Trim('"')));
+            // Create HTTP transport objects
+            var _httpRequest = new HttpRequestMessage();
+            HttpResponseMessage _httpResponse = null;
+            _httpRequest.Method = new HttpMethod("GET");
+            _httpRequest.RequestUri = new System.Uri(_url);
+            // Set Headers
+            if (requestId != null)
+            {
+                if (_httpRequest.Headers.Contains("request-id"))
+                {
+                    _httpRequest.Headers.Remove("request-id");
+                }
+                _httpRequest.Headers.TryAddWithoutValidation("request-id", requestId);
+            }
+
+
+            if (customHeaders != null)
+            {
+                foreach(var _header in customHeaders)
+                {
+                    if (_httpRequest.Headers.Contains(_header.Key))
+                    {
+                        _httpRequest.Headers.Remove(_header.Key);
+                    }
+                    _httpRequest.Headers.TryAddWithoutValidation(_header.Key, _header.Value);
+                }
+            }
+
+            // Serialize Request
+            string _requestContent = null;
+            // Send Request
+            cancellationToken.ThrowIfCancellationRequested();
+            _httpResponse = await Client.HttpClient.SendAsync(_httpRequest, cancellationToken).ConfigureAwait(false);
+            HttpStatusCode _statusCode = _httpResponse.StatusCode;
+            cancellationToken.ThrowIfCancellationRequested();
+            string _responseContent = null;
+            if ((int)_statusCode != 200)
+            {
+                var ex = new HttpOperationException(string.Format("Operation returned an invalid status code '{0}'", _statusCode));
+                if (_httpResponse.Content != null) {
+                    _responseContent = await _httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
+                }
+                else {
+                    _responseContent = string.Empty;
+                }
+                ex.Request = new HttpRequestMessageWrapper(_httpRequest, _requestContent);
+                ex.Response = new HttpResponseMessageWrapper(_httpResponse, _responseContent);
+                _httpRequest.Dispose();
+                if (_httpResponse != null)
+                {
+                    _httpResponse.Dispose();
+                }
+                throw ex;
+            }
+            // Create Result
+            var _result = new HttpOperationResponse<ElementRightResponse>();
+            _result.Request = _httpRequest;
+            _result.Response = _httpResponse;
+            // Deserialize Response
+            if ((int)_statusCode == 200)
+            {
+                _responseContent = await _httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
+                try
+                {
+                    _result.Body = Microsoft.Rest.Serialization.SafeJsonConvert.DeserializeObject<ElementRightResponse>(_responseContent, Client.DeserializationSettings);
+                }
+                catch (JsonException ex)
+                {
+                    _httpRequest.Dispose();
+                    if (_httpResponse != null)
+                    {
+                        _httpResponse.Dispose();
+                    }
+                    throw new SerializationException("Unable to deserialize the response.", _responseContent, ex);
+                }
+            }
+            return _result;
+        }
+        /// <summary>
+        /// direct right for an entity
+        ///
+        ///
+        /// </summary>
+        /// <remarks>
+        /// Get the direct right for a user or group&lt;br/&gt;
+        /// </remarks>
+        /// <param name='tenantId'>
+        /// The tenant id (or dnvCustomerId for veracity_default tenants)
+        /// </param>
+        /// <param name='applicationId'>
+        /// The applicationId is the same as serviceId in developer
+        /// </param>
+        /// <param name='elementId'>
+        /// Can be the application internal id or the VTM elementId
+        /// </param>
+        /// <param name='entityId'>
+        /// </param>
+        /// <param name='requestId'>
+        /// A correlation token to use when looking in the logs.
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        public async Task<ElementRightResponse> GetElementRightAsync(string tenantId, System.Guid applicationId, string elementId, System.Guid entityId, string requestId = default, CancellationToken cancellationToken = default)
+        {
+            using (var _result = await GetElementRightWithHttpMessagesAsync(tenantId, applicationId, elementId, entityId, requestId, null, cancellationToken).ConfigureAwait(false))
+            {
+                return _result.Body;
+            }
+        }
+
+        /// <summary>
+        /// Get rights for a user
+        ///
+        ///
+        /// </summary>
+        /// <remarks>
+        /// Get all element rights for a user&lt;br/&gt;
         /// </remarks>
         /// <param name='tenantId'>
         /// The tenant id (or dnvCustomerId for veracity_default tenants)
@@ -2550,7 +2319,136 @@ namespace DNV.ApiClients.Veracity.Identity.PlatformApiV4
         /// <param name='userId'>
         /// The users id found in Veracity Identity
         /// </param>
-        /// <param name='removeLicense'>
+        /// <param name='requestId'>
+        /// A correlation token to use when looking in the logs.
+        /// </param>
+        /// <param name='customHeaders'>
+        /// Headers that will be added to request.
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        /// <exception cref="HttpOperationException">
+        /// Thrown when the operation returned an invalid status code
+        /// </exception>
+        /// <exception cref="SerializationException">
+        /// Thrown when unable to deserialize the response
+        /// </exception>
+        /// <exception cref="ValidationException">
+        /// Thrown when a required parameter is null
+        /// </exception>
+        /// <exception cref="System.ArgumentNullException">
+        /// Thrown when a required parameter is null
+        /// </exception>
+        /// <return>
+        /// A response object containing the response body and response headers.
+        /// </return>
+        public async Task<HttpOperationResponse<IEnumerable<ElementRightTreeResponse>>> GetUserElementsWithHttpMessagesAsync(string tenantId, System.Guid applicationId, System.Guid userId, string requestId = default, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default)
+        {
+            if (tenantId == null)
+            {
+                throw new ValidationException(ValidationRules.CannotBeNull, "tenantId");
+            }
+            // Construct URL
+            var _baseUrl = Client.HttpClient.BaseAddress?.AbsoluteUri ?? Client.BaseUri.AbsoluteUri;
+            var _url = new System.Uri(new System.Uri(_baseUrl + (_baseUrl.EndsWith("/") ? "" : "/")), "tenants/{tenantId}/applications/{applicationId}/elements/users/{userId}/elements/all").ToString();
+            _url = _url.Replace("{tenantId}", System.Uri.EscapeDataString(tenantId));
+            _url = _url.Replace("{applicationId}", System.Uri.EscapeDataString(Microsoft.Rest.Serialization.SafeJsonConvert.SerializeObject(applicationId, Client.SerializationSettings).Trim('"')));
+            _url = _url.Replace("{userId}", System.Uri.EscapeDataString(Microsoft.Rest.Serialization.SafeJsonConvert.SerializeObject(userId, Client.SerializationSettings).Trim('"')));
+            // Create HTTP transport objects
+            var _httpRequest = new HttpRequestMessage();
+            HttpResponseMessage _httpResponse = null;
+            _httpRequest.Method = new HttpMethod("GET");
+            _httpRequest.RequestUri = new System.Uri(_url);
+            // Set Headers
+            if (requestId != null)
+            {
+                if (_httpRequest.Headers.Contains("request-id"))
+                {
+                    _httpRequest.Headers.Remove("request-id");
+                }
+                _httpRequest.Headers.TryAddWithoutValidation("request-id", requestId);
+            }
+
+
+            if (customHeaders != null)
+            {
+                foreach(var _header in customHeaders)
+                {
+                    if (_httpRequest.Headers.Contains(_header.Key))
+                    {
+                        _httpRequest.Headers.Remove(_header.Key);
+                    }
+                    _httpRequest.Headers.TryAddWithoutValidation(_header.Key, _header.Value);
+                }
+            }
+
+            // Serialize Request
+            string _requestContent = null;
+            // Send Request
+            cancellationToken.ThrowIfCancellationRequested();
+            _httpResponse = await Client.HttpClient.SendAsync(_httpRequest, cancellationToken).ConfigureAwait(false);
+            HttpStatusCode _statusCode = _httpResponse.StatusCode;
+            cancellationToken.ThrowIfCancellationRequested();
+            string _responseContent = null;
+            if ((int)_statusCode != 200)
+            {
+                var ex = new HttpOperationException(string.Format("Operation returned an invalid status code '{0}'", _statusCode));
+                if (_httpResponse.Content != null) {
+                    _responseContent = await _httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
+                }
+                else {
+                    _responseContent = string.Empty;
+                }
+                ex.Request = new HttpRequestMessageWrapper(_httpRequest, _requestContent);
+                ex.Response = new HttpResponseMessageWrapper(_httpResponse, _responseContent);
+                _httpRequest.Dispose();
+                if (_httpResponse != null)
+                {
+                    _httpResponse.Dispose();
+                }
+                throw ex;
+            }
+            // Create Result
+            var _result = new HttpOperationResponse<IEnumerable<ElementRightTreeResponse>>();
+            _result.Request = _httpRequest;
+            _result.Response = _httpResponse;
+            // Deserialize Response
+            if ((int)_statusCode == 200)
+            {
+                _responseContent = await _httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
+                try
+                {
+                    _result.Body = Microsoft.Rest.Serialization.SafeJsonConvert.DeserializeObject<IEnumerable<ElementRightTreeResponse>>(_responseContent, Client.DeserializationSettings);
+                }
+                catch (JsonException ex)
+                {
+                    _httpRequest.Dispose();
+                    if (_httpResponse != null)
+                    {
+                        _httpResponse.Dispose();
+                    }
+                    throw new SerializationException("Unable to deserialize the response.", _responseContent, ex);
+                }
+            }
+            return _result;
+        }
+        /// <summary>
+        /// Get rights for a user
+        ///
+        ///
+        /// </summary>
+        /// <remarks>
+        /// Get all element rights for a user&lt;br/&gt;
+        /// </remarks>
+        /// <param name='tenantId'>
+        /// The tenant id (or dnvCustomerId for veracity_default tenants)
+        /// </param>
+        /// <param name='applicationId'>
+        /// The applicationId is the same as serviceId in developer
+        /// </param>
+        /// <param name='userId'>
+        /// The users id found in Veracity Identity
         /// </param>
         /// <param name='requestId'>
         /// A correlation token to use when looking in the logs.
@@ -2558,21 +2456,198 @@ namespace DNV.ApiClients.Veracity.Identity.PlatformApiV4
         /// <param name='cancellationToken'>
         /// The cancellation token.
         /// </param>
-        public async Task DeleteAdministratorAsync(string tenantId, System.Guid applicationId, System.Guid userId, bool? removeLicense = default, string requestId = default, CancellationToken cancellationToken = default)
+        public async Task<IEnumerable<ElementRightTreeResponse>> GetUserElementsAsync(string tenantId, System.Guid applicationId, System.Guid userId, string requestId = default, CancellationToken cancellationToken = default)
         {
-            (await DeleteAdministratorWithHttpMessagesAsync(tenantId, applicationId, userId, removeLicense, requestId, null, cancellationToken).ConfigureAwait(false)).Dispose();
+            using (var _result = await GetUserElementsWithHttpMessagesAsync(tenantId, applicationId, userId, requestId, null, cancellationToken).ConfigureAwait(false))
+            {
+                return _result.Body;
+            }
         }
 
         /// <summary>
-        /// Get the application manifest
+        /// Get the effective rights for a user
         ///
         ///
         /// </summary>
         /// <remarks>
-        /// Get application manifest, which contains the application settings and the
-        /// administrators. All these settings are controlled in
-        /// developer.veracity.com&lt;br/&gt;
+        /// Get the effective rights for a specific element for a user&lt;br/&gt;
         /// </remarks>
+        /// <param name='tenantId'>
+        /// The tenant id (or dnvCustomerId for veracity_default tenants)
+        /// </param>
+        /// <param name='applicationId'>
+        /// The applicationId is the same as serviceId in developer
+        /// </param>
+        /// <param name='userId'>
+        /// The users id found in Veracity Identity
+        /// </param>
+        /// <param name='elementId'>
+        /// Can be the application internal id or the VTM elementId
+        /// </param>
+        /// <param name='requestId'>
+        /// A correlation token to use when looking in the logs.
+        /// </param>
+        /// <param name='customHeaders'>
+        /// Headers that will be added to request.
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        /// <exception cref="HttpOperationException">
+        /// Thrown when the operation returned an invalid status code
+        /// </exception>
+        /// <exception cref="SerializationException">
+        /// Thrown when unable to deserialize the response
+        /// </exception>
+        /// <exception cref="ValidationException">
+        /// Thrown when a required parameter is null
+        /// </exception>
+        /// <exception cref="System.ArgumentNullException">
+        /// Thrown when a required parameter is null
+        /// </exception>
+        /// <return>
+        /// A response object containing the response body and response headers.
+        /// </return>
+        public async Task<HttpOperationResponse<ElementRightResponse>> GetUserElementWithHttpMessagesAsync(string tenantId, System.Guid applicationId, System.Guid userId, string elementId, string requestId = default, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default)
+        {
+            if (tenantId == null)
+            {
+                throw new ValidationException(ValidationRules.CannotBeNull, "tenantId");
+            }
+            if (elementId == null)
+            {
+                throw new ValidationException(ValidationRules.CannotBeNull, "elementId");
+            }
+            // Construct URL
+            var _baseUrl = Client.HttpClient.BaseAddress?.AbsoluteUri ?? Client.BaseUri.AbsoluteUri;
+            var _url = new System.Uri(new System.Uri(_baseUrl + (_baseUrl.EndsWith("/") ? "" : "/")), "tenants/{tenantId}/applications/{applicationId}/elements/{elementId}/effective-rights/{userId}").ToString();
+            _url = _url.Replace("{tenantId}", System.Uri.EscapeDataString(tenantId));
+            _url = _url.Replace("{applicationId}", System.Uri.EscapeDataString(Microsoft.Rest.Serialization.SafeJsonConvert.SerializeObject(applicationId, Client.SerializationSettings).Trim('"')));
+            _url = _url.Replace("{userId}", System.Uri.EscapeDataString(Microsoft.Rest.Serialization.SafeJsonConvert.SerializeObject(userId, Client.SerializationSettings).Trim('"')));
+            _url = _url.Replace("{elementId}", System.Uri.EscapeDataString(elementId));
+            // Create HTTP transport objects
+            var _httpRequest = new HttpRequestMessage();
+            HttpResponseMessage _httpResponse = null;
+            _httpRequest.Method = new HttpMethod("GET");
+            _httpRequest.RequestUri = new System.Uri(_url);
+            // Set Headers
+            if (requestId != null)
+            {
+                if (_httpRequest.Headers.Contains("request-id"))
+                {
+                    _httpRequest.Headers.Remove("request-id");
+                }
+                _httpRequest.Headers.TryAddWithoutValidation("request-id", requestId);
+            }
+
+
+            if (customHeaders != null)
+            {
+                foreach(var _header in customHeaders)
+                {
+                    if (_httpRequest.Headers.Contains(_header.Key))
+                    {
+                        _httpRequest.Headers.Remove(_header.Key);
+                    }
+                    _httpRequest.Headers.TryAddWithoutValidation(_header.Key, _header.Value);
+                }
+            }
+
+            // Serialize Request
+            string _requestContent = null;
+            // Send Request
+            cancellationToken.ThrowIfCancellationRequested();
+            _httpResponse = await Client.HttpClient.SendAsync(_httpRequest, cancellationToken).ConfigureAwait(false);
+            HttpStatusCode _statusCode = _httpResponse.StatusCode;
+            cancellationToken.ThrowIfCancellationRequested();
+            string _responseContent = null;
+            if ((int)_statusCode != 200)
+            {
+                var ex = new HttpOperationException(string.Format("Operation returned an invalid status code '{0}'", _statusCode));
+                if (_httpResponse.Content != null) {
+                    _responseContent = await _httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
+                }
+                else {
+                    _responseContent = string.Empty;
+                }
+                ex.Request = new HttpRequestMessageWrapper(_httpRequest, _requestContent);
+                ex.Response = new HttpResponseMessageWrapper(_httpResponse, _responseContent);
+                _httpRequest.Dispose();
+                if (_httpResponse != null)
+                {
+                    _httpResponse.Dispose();
+                }
+                throw ex;
+            }
+            // Create Result
+            var _result = new HttpOperationResponse<ElementRightResponse>();
+            _result.Request = _httpRequest;
+            _result.Response = _httpResponse;
+            // Deserialize Response
+            if ((int)_statusCode == 200)
+            {
+                _responseContent = await _httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
+                try
+                {
+                    _result.Body = Microsoft.Rest.Serialization.SafeJsonConvert.DeserializeObject<ElementRightResponse>(_responseContent, Client.DeserializationSettings);
+                }
+                catch (JsonException ex)
+                {
+                    _httpRequest.Dispose();
+                    if (_httpResponse != null)
+                    {
+                        _httpResponse.Dispose();
+                    }
+                    throw new SerializationException("Unable to deserialize the response.", _responseContent, ex);
+                }
+            }
+            return _result;
+        }
+        /// <summary>
+        /// Get the effective rights for a user
+        ///
+        ///
+        /// </summary>
+        /// <remarks>
+        /// Get the effective rights for a specific element for a user&lt;br/&gt;
+        /// </remarks>
+        /// <param name='tenantId'>
+        /// The tenant id (or dnvCustomerId for veracity_default tenants)
+        /// </param>
+        /// <param name='applicationId'>
+        /// The applicationId is the same as serviceId in developer
+        /// </param>
+        /// <param name='userId'>
+        /// The users id found in Veracity Identity
+        /// </param>
+        /// <param name='elementId'>
+        /// Can be the application internal id or the VTM elementId
+        /// </param>
+        /// <param name='requestId'>
+        /// A correlation token to use when looking in the logs.
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        public async Task<ElementRightResponse> GetUserElementAsync(string tenantId, System.Guid applicationId, System.Guid userId, string elementId, string requestId = default, CancellationToken cancellationToken = default)
+        {
+            using (var _result = await GetUserElementWithHttpMessagesAsync(tenantId, applicationId, userId, elementId, requestId, null, cancellationToken).ConfigureAwait(false))
+            {
+                return _result.Body;
+            }
+        }
+
+        /// <summary>
+        /// Get the rights for the logged in user
+        ///
+        ///
+        /// </summary>
+        /// <remarks>
+        /// Get element rights for the logged in user&lt;br/&gt;
+        /// </remarks>
+        /// <param name='tenantId'>
+        /// The tenant id (or dnvCustomerId for veracity_default tenants)
+        /// </param>
         /// <param name='applicationId'>
         /// The applicationId is the same as serviceId in developer
         /// </param>
@@ -2591,14 +2666,25 @@ namespace DNV.ApiClients.Veracity.Identity.PlatformApiV4
         /// <exception cref="SerializationException">
         /// Thrown when unable to deserialize the response
         /// </exception>
+        /// <exception cref="ValidationException">
+        /// Thrown when a required parameter is null
+        /// </exception>
+        /// <exception cref="System.ArgumentNullException">
+        /// Thrown when a required parameter is null
+        /// </exception>
         /// <return>
         /// A response object containing the response body and response headers.
         /// </return>
-        public async Task<HttpOperationResponse<ApplicationManifest>> GetApplicationManifestWithHttpMessagesAsync(System.Guid applicationId, string requestId = default, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default)
+        public async Task<HttpOperationResponse<IEnumerable<ElementRightTreeResponse>>> GetCurentUserElementsWithHttpMessagesAsync(string tenantId, System.Guid applicationId, string requestId = default, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default)
         {
+            if (tenantId == null)
+            {
+                throw new ValidationException(ValidationRules.CannotBeNull, "tenantId");
+            }
             // Construct URL
             var _baseUrl = Client.HttpClient.BaseAddress?.AbsoluteUri ?? Client.BaseUri.AbsoluteUri;
-            var _url = new System.Uri(new System.Uri(_baseUrl + (_baseUrl.EndsWith("/") ? "" : "/")), "applications/{applicationId}/manifest").ToString();
+            var _url = new System.Uri(new System.Uri(_baseUrl + (_baseUrl.EndsWith("/") ? "" : "/")), "tenants/{tenantId}/applications/{applicationId}/elements/users/me/elements/all").ToString();
+            _url = _url.Replace("{tenantId}", System.Uri.EscapeDataString(tenantId));
             _url = _url.Replace("{applicationId}", System.Uri.EscapeDataString(Microsoft.Rest.Serialization.SafeJsonConvert.SerializeObject(applicationId, Client.SerializationSettings).Trim('"')));
             // Create HTTP transport objects
             var _httpRequest = new HttpRequestMessage();
@@ -2655,7 +2741,7 @@ namespace DNV.ApiClients.Veracity.Identity.PlatformApiV4
                 throw ex;
             }
             // Create Result
-            var _result = new HttpOperationResponse<ApplicationManifest>();
+            var _result = new HttpOperationResponse<IEnumerable<ElementRightTreeResponse>>();
             _result.Request = _httpRequest;
             _result.Response = _httpResponse;
             // Deserialize Response
@@ -2664,7 +2750,7 @@ namespace DNV.ApiClients.Veracity.Identity.PlatformApiV4
                 _responseContent = await _httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
                 try
                 {
-                    _result.Body = Microsoft.Rest.Serialization.SafeJsonConvert.DeserializeObject<ApplicationManifest>(_responseContent, Client.DeserializationSettings);
+                    _result.Body = Microsoft.Rest.Serialization.SafeJsonConvert.DeserializeObject<IEnumerable<ElementRightTreeResponse>>(_responseContent, Client.DeserializationSettings);
                 }
                 catch (JsonException ex)
                 {
@@ -2679,15 +2765,16 @@ namespace DNV.ApiClients.Veracity.Identity.PlatformApiV4
             return _result;
         }
         /// <summary>
-        /// Get the application manifest
+        /// Get the rights for the logged in user
         ///
         ///
         /// </summary>
         /// <remarks>
-        /// Get application manifest, which contains the application settings and the
-        /// administrators. All these settings are controlled in
-        /// developer.veracity.com&lt;br/&gt;
+        /// Get element rights for the logged in user&lt;br/&gt;
         /// </remarks>
+        /// <param name='tenantId'>
+        /// The tenant id (or dnvCustomerId for veracity_default tenants)
+        /// </param>
         /// <param name='applicationId'>
         /// The applicationId is the same as serviceId in developer
         /// </param>
@@ -2697,9 +2784,177 @@ namespace DNV.ApiClients.Veracity.Identity.PlatformApiV4
         /// <param name='cancellationToken'>
         /// The cancellation token.
         /// </param>
-        public async Task<ApplicationManifest> GetApplicationManifestAsync(System.Guid applicationId, string requestId = default, CancellationToken cancellationToken = default)
+        public async Task<IEnumerable<ElementRightTreeResponse>> GetCurentUserElementsAsync(string tenantId, System.Guid applicationId, string requestId = default, CancellationToken cancellationToken = default)
         {
-            using (var _result = await GetApplicationManifestWithHttpMessagesAsync(applicationId, requestId, null, cancellationToken).ConfigureAwait(false))
+            using (var _result = await GetCurentUserElementsWithHttpMessagesAsync(tenantId, applicationId, requestId, null, cancellationToken).ConfigureAwait(false))
+            {
+                return _result.Body;
+            }
+        }
+
+        /// <summary>
+        /// Get the effective rights for the logged in user
+        ///
+        ///
+        /// </summary>
+        /// <remarks>
+        /// Get the effective rights for a specific element for the logged in
+        /// user&lt;br/&gt;
+        /// </remarks>
+        /// <param name='tenantId'>
+        /// The tenant id (or dnvCustomerId for veracity_default tenants)
+        /// </param>
+        /// <param name='applicationId'>
+        /// The applicationId is the same as serviceId in developer
+        /// </param>
+        /// <param name='elementId'>
+        /// Can be the application internal id or the VTM elementId
+        /// </param>
+        /// <param name='requestId'>
+        /// A correlation token to use when looking in the logs.
+        /// </param>
+        /// <param name='customHeaders'>
+        /// Headers that will be added to request.
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        /// <exception cref="HttpOperationException">
+        /// Thrown when the operation returned an invalid status code
+        /// </exception>
+        /// <exception cref="SerializationException">
+        /// Thrown when unable to deserialize the response
+        /// </exception>
+        /// <exception cref="ValidationException">
+        /// Thrown when a required parameter is null
+        /// </exception>
+        /// <exception cref="System.ArgumentNullException">
+        /// Thrown when a required parameter is null
+        /// </exception>
+        /// <return>
+        /// A response object containing the response body and response headers.
+        /// </return>
+        public async Task<HttpOperationResponse<ElementRightResponse>> GetCurentUserElementWithHttpMessagesAsync(string tenantId, System.Guid applicationId, string elementId, string requestId = default, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default)
+        {
+            if (tenantId == null)
+            {
+                throw new ValidationException(ValidationRules.CannotBeNull, "tenantId");
+            }
+            if (elementId == null)
+            {
+                throw new ValidationException(ValidationRules.CannotBeNull, "elementId");
+            }
+            // Construct URL
+            var _baseUrl = Client.HttpClient.BaseAddress?.AbsoluteUri ?? Client.BaseUri.AbsoluteUri;
+            var _url = new System.Uri(new System.Uri(_baseUrl + (_baseUrl.EndsWith("/") ? "" : "/")), "tenants/{tenantId}/applications/{applicationId}/elements/{elementId}/effective-rights/me").ToString();
+            _url = _url.Replace("{tenantId}", System.Uri.EscapeDataString(tenantId));
+            _url = _url.Replace("{applicationId}", System.Uri.EscapeDataString(Microsoft.Rest.Serialization.SafeJsonConvert.SerializeObject(applicationId, Client.SerializationSettings).Trim('"')));
+            _url = _url.Replace("{elementId}", System.Uri.EscapeDataString(elementId));
+            // Create HTTP transport objects
+            var _httpRequest = new HttpRequestMessage();
+            HttpResponseMessage _httpResponse = null;
+            _httpRequest.Method = new HttpMethod("GET");
+            _httpRequest.RequestUri = new System.Uri(_url);
+            // Set Headers
+            if (requestId != null)
+            {
+                if (_httpRequest.Headers.Contains("request-id"))
+                {
+                    _httpRequest.Headers.Remove("request-id");
+                }
+                _httpRequest.Headers.TryAddWithoutValidation("request-id", requestId);
+            }
+
+
+            if (customHeaders != null)
+            {
+                foreach(var _header in customHeaders)
+                {
+                    if (_httpRequest.Headers.Contains(_header.Key))
+                    {
+                        _httpRequest.Headers.Remove(_header.Key);
+                    }
+                    _httpRequest.Headers.TryAddWithoutValidation(_header.Key, _header.Value);
+                }
+            }
+
+            // Serialize Request
+            string _requestContent = null;
+            // Send Request
+            cancellationToken.ThrowIfCancellationRequested();
+            _httpResponse = await Client.HttpClient.SendAsync(_httpRequest, cancellationToken).ConfigureAwait(false);
+            HttpStatusCode _statusCode = _httpResponse.StatusCode;
+            cancellationToken.ThrowIfCancellationRequested();
+            string _responseContent = null;
+            if ((int)_statusCode != 200)
+            {
+                var ex = new HttpOperationException(string.Format("Operation returned an invalid status code '{0}'", _statusCode));
+                if (_httpResponse.Content != null) {
+                    _responseContent = await _httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
+                }
+                else {
+                    _responseContent = string.Empty;
+                }
+                ex.Request = new HttpRequestMessageWrapper(_httpRequest, _requestContent);
+                ex.Response = new HttpResponseMessageWrapper(_httpResponse, _responseContent);
+                _httpRequest.Dispose();
+                if (_httpResponse != null)
+                {
+                    _httpResponse.Dispose();
+                }
+                throw ex;
+            }
+            // Create Result
+            var _result = new HttpOperationResponse<ElementRightResponse>();
+            _result.Request = _httpRequest;
+            _result.Response = _httpResponse;
+            // Deserialize Response
+            if ((int)_statusCode == 200)
+            {
+                _responseContent = await _httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
+                try
+                {
+                    _result.Body = Microsoft.Rest.Serialization.SafeJsonConvert.DeserializeObject<ElementRightResponse>(_responseContent, Client.DeserializationSettings);
+                }
+                catch (JsonException ex)
+                {
+                    _httpRequest.Dispose();
+                    if (_httpResponse != null)
+                    {
+                        _httpResponse.Dispose();
+                    }
+                    throw new SerializationException("Unable to deserialize the response.", _responseContent, ex);
+                }
+            }
+            return _result;
+        }
+        /// <summary>
+        /// Get the effective rights for the logged in user
+        ///
+        ///
+        /// </summary>
+        /// <remarks>
+        /// Get the effective rights for a specific element for the logged in
+        /// user&lt;br/&gt;
+        /// </remarks>
+        /// <param name='tenantId'>
+        /// The tenant id (or dnvCustomerId for veracity_default tenants)
+        /// </param>
+        /// <param name='applicationId'>
+        /// The applicationId is the same as serviceId in developer
+        /// </param>
+        /// <param name='elementId'>
+        /// Can be the application internal id or the VTM elementId
+        /// </param>
+        /// <param name='requestId'>
+        /// A correlation token to use when looking in the logs.
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        public async Task<ElementRightResponse> GetCurentUserElementAsync(string tenantId, System.Guid applicationId, string elementId, string requestId = default, CancellationToken cancellationToken = default)
+        {
+            using (var _result = await GetCurentUserElementWithHttpMessagesAsync(tenantId, applicationId, elementId, requestId, null, cancellationToken).ConfigureAwait(false))
             {
                 return _result.Body;
             }

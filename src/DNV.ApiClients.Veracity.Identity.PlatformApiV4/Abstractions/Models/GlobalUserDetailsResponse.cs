@@ -12,18 +12,18 @@ namespace DNV.ApiClients.Veracity.Identity.PlatformApiV4.Models
     /// <summary>
     /// Represents the response containing user details.
     /// </summary>
-    public partial class UserDetails2Response
+    public partial class GlobalUserDetailsResponse
     {
         /// <summary>
-        /// Initializes a new instance of the UserDetails2Response class.
+        /// Initializes a new instance of the GlobalUserDetailsResponse class.
         /// </summary>
-        public UserDetails2Response()
+        public GlobalUserDetailsResponse()
         {
             CustomInit();
         }
 
         /// <summary>
-        /// Initializes a new instance of the UserDetails2Response class.
+        /// Initializes a new instance of the GlobalUserDetailsResponse class.
         /// </summary>
         /// <param name="userId">The veracity UserId for the user.</param>
         /// <param name="name">the users display name.</param>
@@ -35,7 +35,7 @@ namespace DNV.ApiClients.Veracity.Identity.PlatformApiV4.Models
         /// principal or not.</param>
         /// <param name="isActivated">indicates if the user is activated or
         /// not.</param>
-        public UserDetails2Response(System.Guid? userId = default, string name = default, string email = default, string phoneNumber = default, string firstName = default, string lastName = default, bool? isServicePrincipal = default, bool? isActivated = default)
+        public GlobalUserDetailsResponse(System.Guid? userId = default, string name = default, string email = default, string phoneNumber = default, string firstName = default, string lastName = default, bool? isServicePrincipal = default, bool? isActivated = default)
         {
             UserId = userId;
             Name = name;

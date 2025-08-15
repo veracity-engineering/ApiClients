@@ -9,31 +9,24 @@ using System.Linq;
 namespace DNV.ApiClients.Veracity.Identity.PlatformApiV4.Models
 {
     using Newtonsoft.Json;
-    /// <summary>
-    /// An operation to perform against a resource property. eg update the
-    /// 'name' property of a resource
-    /// <see href="https://tools.ietf.org/html/rfc6902" />
-    /// </summary>
-    public partial class Operation
+    public partial class PatchOp
     {
         /// <summary>
-        /// Initializes a new instance of the Operation class.
+        /// Initializes a new instance of the PatchOp class.
         /// </summary>
-        public Operation()
+        public PatchOp()
         {
             CustomInit();
         }
 
         /// <summary>
-        /// Initializes a new instance of the Operation class.
+        /// Initializes a new instance of the PatchOp class.
         /// </summary>
-        /// <param name="op">Possible values include: 'add', 'remove',
-        /// 'replace', 'move', 'copy'</param>
-        public Operation(OperationOp? op = default, string value = default, string path = default, string fromProperty = default)
+        public PatchOp(object value = default, string path = default, string op = default, string fromProperty = default)
         {
-            Op = op;
             Value = value;
             Path = path;
+            Op = op;
             FromProperty = fromProperty;
             CustomInit();
         }
@@ -44,21 +37,19 @@ namespace DNV.ApiClients.Veracity.Identity.PlatformApiV4.Models
         partial void CustomInit();
 
         /// <summary>
-        /// Gets or sets possible values include: 'add', 'remove', 'replace',
-        /// 'move', 'copy'
-        /// </summary>
-        [JsonProperty(PropertyName = "op")]
-        public OperationOp? Op { get; set; }
-
-        /// <summary>
         /// </summary>
         [JsonProperty(PropertyName = "value")]
-        public string Value { get; set; }
+        public object Value { get; set; }
 
         /// <summary>
         /// </summary>
         [JsonProperty(PropertyName = "path")]
         public string Path { get; set; }
+
+        /// <summary>
+        /// </summary>
+        [JsonProperty(PropertyName = "op")]
+        public string Op { get; set; }
 
         /// <summary>
         /// </summary>

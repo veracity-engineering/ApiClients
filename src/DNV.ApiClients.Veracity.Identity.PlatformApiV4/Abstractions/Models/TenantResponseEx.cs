@@ -28,6 +28,7 @@ namespace DNV.ApiClients.Veracity.Identity.PlatformApiV4.Models
         /// for the tenant</param>
         /// <param name="isAdmin">Indicates if the user that is used in the
         /// query is an admin of the tenant</param>
+        /// <param name="name">The display name of the tenant.</param>
         /// <param name="legalEntityName">The legal entity name.</param>
         /// <param name="dnvCustomerId">The DNV customer ID.</param>
         /// <param name="legalEntityId">The legal entity ID.</param>
@@ -35,29 +36,34 @@ namespace DNV.ApiClients.Veracity.Identity.PlatformApiV4.Models
         /// <param name="logoUri">The logo URI.</param>
         /// <param name="groupsIsActivated">Value indicating if group is
         /// activated</param>
-        /// <param name="name">The name of the tenant entity.</param>
         /// <param name="tenantId">The ID of the tenant.</param>
         /// <param name="properties">The extension properties of the tenant
-        /// entity. extension properties are case sensitive and shall user
+        /// entity. extension properties are case-sensitive and shall user
         /// {appPrefix}_{propertyName} format, appPrefixes are defined in
         /// developer.veracity.com.</param>
         /// <param name="accessHubTenantHomeUrl">get the url to the tenants
         /// home page in access hub</param>
-        public TenantResponseEx(System.Guid? userId = default, bool? isAdmin = default, string legalEntityName = default, string dnvCustomerId = default, string legalEntityId = default, string tenantType = default, string logoUri = default, bool? groupsIsActivated = default, string name = default, System.Guid? tenantId = default, Metadata metadata = default, IEnumerable<ExtensionProperty> properties = default, string accessHubTenantHomeUrl = default)
+        /// <param name="systemTags">Gets or sets the list of system generated
+        /// tags associated with the tenant entity.</param>
+        /// <param name="tags">Gets or sets the list of tags associated with
+        /// the tenant entity.</param>
+        public TenantResponseEx(System.Guid? userId = default, bool? isAdmin = default, string name = default, string legalEntityName = default, string dnvCustomerId = default, string legalEntityId = default, string tenantType = default, string logoUri = default, bool? groupsIsActivated = default, System.Guid? tenantId = default, Metadata metadata = default, IEnumerable<ExtensionProperty> properties = default, string accessHubTenantHomeUrl = default, IEnumerable<string> systemTags = default, IEnumerable<string> tags = default)
         {
             UserId = userId;
             IsAdmin = isAdmin;
+            Name = name;
             LegalEntityName = legalEntityName;
             DnvCustomerId = dnvCustomerId;
             LegalEntityId = legalEntityId;
             TenantType = tenantType;
             LogoUri = logoUri;
             GroupsIsActivated = groupsIsActivated;
-            Name = name;
             TenantId = tenantId;
             Metadata = metadata;
             Properties = properties;
             AccessHubTenantHomeUrl = accessHubTenantHomeUrl;
+            SystemTags = systemTags;
+            Tags = tags;
             CustomInit();
         }
 
@@ -79,6 +85,12 @@ namespace DNV.ApiClients.Veracity.Identity.PlatformApiV4.Models
         /// </summary>
         [JsonProperty(PropertyName = "isAdmin")]
         public bool? IsAdmin { get; set; }
+
+        /// <summary>
+        /// Gets or sets the display name of the tenant.
+        /// </summary>
+        [JsonProperty(PropertyName = "name")]
+        public string Name { get; set; }
 
         /// <summary>
         /// Gets or sets the legal entity name.
@@ -117,12 +129,6 @@ namespace DNV.ApiClients.Veracity.Identity.PlatformApiV4.Models
         public bool? GroupsIsActivated { get; set; }
 
         /// <summary>
-        /// Gets or sets the name of the tenant entity.
-        /// </summary>
-        [JsonProperty(PropertyName = "name")]
-        public string Name { get; set; }
-
-        /// <summary>
         /// Gets or sets the ID of the tenant.
         /// </summary>
         [JsonProperty(PropertyName = "tenantId")]
@@ -135,7 +141,7 @@ namespace DNV.ApiClients.Veracity.Identity.PlatformApiV4.Models
 
         /// <summary>
         /// Gets or sets the extension properties of the tenant entity.
-        /// extension properties are case sensitive and shall user
+        /// extension properties are case-sensitive and shall user
         /// {appPrefix}_{propertyName} format, appPrefixes are defined in
         /// developer.veracity.com.
         /// </summary>
@@ -147,6 +153,19 @@ namespace DNV.ApiClients.Veracity.Identity.PlatformApiV4.Models
         /// </summary>
         [JsonProperty(PropertyName = "accessHubTenantHomeUrl")]
         public string AccessHubTenantHomeUrl { get; set; }
+
+        /// <summary>
+        /// Gets or sets the list of system generated tags associated with the
+        /// tenant entity.
+        /// </summary>
+        [JsonProperty(PropertyName = "systemTags")]
+        public IEnumerable<string> SystemTags { get; set; }
+
+        /// <summary>
+        /// Gets or sets the list of tags associated with the tenant entity.
+        /// </summary>
+        [JsonProperty(PropertyName = "tags")]
+        public IEnumerable<string> Tags { get; set; }
 
     }
 }

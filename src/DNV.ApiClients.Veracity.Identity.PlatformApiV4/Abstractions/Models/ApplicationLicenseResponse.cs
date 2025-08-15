@@ -30,31 +30,40 @@ namespace DNV.ApiClients.Veracity.Identity.PlatformApiV4.Models
         /// <param name="accessLevel">The access level of the license. Only
         /// applicable for application that has access levels defined in
         /// developer.veracity.com.</param>
+        /// <param name="applicationUrl">The url to the application page in
+        /// including tenant id if not system tenant</param>
+        /// <param name="name">The name of the application.</param>
         /// <param name="applicationId">The ID of the application. This is the
         /// same as the serviceId in developer.</param>
         /// <param name="applicationInstanceId">The globally unique identifier
         /// (GUID) for the application.</param>
         /// <param name="accessHubApplicationUrl">The url to the application
         /// page in access hub.</param>
-        /// <param name="name">The name of the tenant entity.</param>
         /// <param name="tenantId">The ID of the tenant.</param>
         /// <param name="properties">The extension properties of the tenant
-        /// entity. extension properties are case sensitive and shall user
+        /// entity. extension properties are case-sensitive and shall user
         /// {appPrefix}_{propertyName} format, appPrefixes are defined in
         /// developer.veracity.com.</param>
         /// <param name="accessHubTenantHomeUrl">get the url to the tenants
         /// home page in access hub</param>
-        public ApplicationLicenseResponse(string accessLevel = default, System.Guid? applicationId = default, System.Guid? applicationInstanceId = default, string accessHubApplicationUrl = default, string name = default, System.Guid? tenantId = default, Metadata metadata = default, IEnumerable<ExtensionProperty> properties = default, string accessHubTenantHomeUrl = default)
+        /// <param name="systemTags">Gets or sets the list of system generated
+        /// tags associated with the tenant entity.</param>
+        /// <param name="tags">Gets or sets the list of tags associated with
+        /// the tenant entity.</param>
+        public ApplicationLicenseResponse(string accessLevel = default, string applicationUrl = default, string name = default, System.Guid? applicationId = default, System.Guid? applicationInstanceId = default, string accessHubApplicationUrl = default, System.Guid? tenantId = default, Metadata metadata = default, IEnumerable<ExtensionProperty> properties = default, string accessHubTenantHomeUrl = default, IEnumerable<string> systemTags = default, IEnumerable<string> tags = default)
         {
             AccessLevel = accessLevel;
+            ApplicationUrl = applicationUrl;
+            Name = name;
             ApplicationId = applicationId;
             ApplicationInstanceId = applicationInstanceId;
             AccessHubApplicationUrl = accessHubApplicationUrl;
-            Name = name;
             TenantId = tenantId;
             Metadata = metadata;
             Properties = properties;
             AccessHubTenantHomeUrl = accessHubTenantHomeUrl;
+            SystemTags = systemTags;
+            Tags = tags;
             CustomInit();
         }
 
@@ -70,6 +79,19 @@ namespace DNV.ApiClients.Veracity.Identity.PlatformApiV4.Models
         /// </summary>
         [JsonProperty(PropertyName = "accessLevel")]
         public string AccessLevel { get; set; }
+
+        /// <summary>
+        /// Gets or sets the url to the application page in including tenant id
+        /// if not system tenant
+        /// </summary>
+        [JsonProperty(PropertyName = "applicationUrl")]
+        public string ApplicationUrl { get; set; }
+
+        /// <summary>
+        /// Gets or sets the name of the application.
+        /// </summary>
+        [JsonProperty(PropertyName = "name")]
+        public string Name { get; set; }
 
         /// <summary>
         /// Gets or sets the ID of the application. This is the same as the
@@ -92,12 +114,6 @@ namespace DNV.ApiClients.Veracity.Identity.PlatformApiV4.Models
         public string AccessHubApplicationUrl { get; set; }
 
         /// <summary>
-        /// Gets or sets the name of the tenant entity.
-        /// </summary>
-        [JsonProperty(PropertyName = "name")]
-        public string Name { get; set; }
-
-        /// <summary>
         /// Gets or sets the ID of the tenant.
         /// </summary>
         [JsonProperty(PropertyName = "tenantId")]
@@ -110,7 +126,7 @@ namespace DNV.ApiClients.Veracity.Identity.PlatformApiV4.Models
 
         /// <summary>
         /// Gets or sets the extension properties of the tenant entity.
-        /// extension properties are case sensitive and shall user
+        /// extension properties are case-sensitive and shall user
         /// {appPrefix}_{propertyName} format, appPrefixes are defined in
         /// developer.veracity.com.
         /// </summary>
@@ -122,6 +138,19 @@ namespace DNV.ApiClients.Veracity.Identity.PlatformApiV4.Models
         /// </summary>
         [JsonProperty(PropertyName = "accessHubTenantHomeUrl")]
         public string AccessHubTenantHomeUrl { get; set; }
+
+        /// <summary>
+        /// Gets or sets the list of system generated tags associated with the
+        /// tenant entity.
+        /// </summary>
+        [JsonProperty(PropertyName = "systemTags")]
+        public IEnumerable<string> SystemTags { get; set; }
+
+        /// <summary>
+        /// Gets or sets the list of tags associated with the tenant entity.
+        /// </summary>
+        [JsonProperty(PropertyName = "tags")]
+        public IEnumerable<string> Tags { get; set; }
 
     }
 }

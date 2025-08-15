@@ -19,10 +19,15 @@ namespace DNV.ApiClients.Veracity.Identity.PlatformApiV4.Interfaces
     public partial interface ITenants
     {
         /// <summary>
-        /// Get tenant by id, tenantId can be the guid or the dnvCustomerId for
-        /// the tenant&lt;br/&gt;
+        /// Get tenant
+        ///
+        ///
         /// </summary>
+        /// <remarks>
+        /// Get tenant by id&lt;br/&gt;
+        /// </remarks>
         /// <param name='tenantId'>
+        /// The tenant id (or dnvCustomerId for veracity_default tenants)
         /// </param>
         /// <param name='requestId'>
         /// A correlation token to use when looking in the logs.
@@ -45,10 +50,15 @@ namespace DNV.ApiClients.Veracity.Identity.PlatformApiV4.Interfaces
         Task<HttpOperationResponse<TenantResponse>> GetTenantWithHttpMessagesAsync(string tenantId, string requestId = default, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default);
 
         /// <summary>
-        /// Get tenant by id, tenantId can be the guid or the dnvCustomerId for
-        /// the tenant&lt;br/&gt;
+        /// Get tenant
+        ///
+        ///
         /// </summary>
+        /// <remarks>
+        /// Get tenant by id&lt;br/&gt;
+        /// </remarks>
         /// <param name='tenantId'>
+        /// The tenant id (or dnvCustomerId for veracity_default tenants)
         /// </param>
         /// <param name='requestId'>
         /// A correlation token to use when looking in the logs.
@@ -59,9 +69,15 @@ namespace DNV.ApiClients.Veracity.Identity.PlatformApiV4.Interfaces
         Task<TenantResponse> GetTenantAsync(string tenantId, string requestId = default, CancellationToken cancellationToken = default);
 
         /// <summary>
-        /// Get list of tenants linked to your service&lt;br/&gt;
+        /// Get application tenants
+        ///
+        ///
         /// </summary>
+        /// <remarks>
+        /// Get list of tenants linked to your service&lt;br/&gt;
+        /// </remarks>
         /// <param name='applicationId'>
+        /// The applicationId is the same as serviceId in developer
         /// </param>
         /// <param name='requestId'>
         /// A correlation token to use when looking in the logs.
@@ -81,9 +97,15 @@ namespace DNV.ApiClients.Veracity.Identity.PlatformApiV4.Interfaces
         Task<HttpOperationResponse<IEnumerable<TenantResponse>>> GetTenantsWithHttpMessagesAsync(string applicationId = default, string requestId = default, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default);
 
         /// <summary>
-        /// Get list of tenants linked to your service&lt;br/&gt;
+        /// Get application tenants
+        ///
+        ///
         /// </summary>
+        /// <remarks>
+        /// Get list of tenants linked to your service&lt;br/&gt;
+        /// </remarks>
         /// <param name='applicationId'>
+        /// The applicationId is the same as serviceId in developer
         /// </param>
         /// <param name='requestId'>
         /// A correlation token to use when looking in the logs.
@@ -94,11 +116,75 @@ namespace DNV.ApiClients.Veracity.Identity.PlatformApiV4.Interfaces
         Task<IEnumerable<TenantResponse>> GetTenantsAsync(string applicationId = default, string requestId = default, CancellationToken cancellationToken = default);
 
         /// <summary>
-        /// Get the admin details for a user by their id&lt;br/&gt;
+        /// Add/update application properties for the tenant
+        ///
+        ///
         /// </summary>
+        /// <remarks>
+        /// Update the tenant extension properties. Extension properties have
+        /// the name format {prefix}_property name. Prefixes are registered in
+        /// developer.veracity.com. Pleas note that the order of operations can
+        /// impact the result&lt;br/&gt;
+        /// </remarks>
+        /// <param name='body'>
+        /// </param>
         /// <param name='tenantId'>
+        /// The tenant id (or dnvCustomerId for veracity_default tenants)
+        /// </param>
+        /// <param name='requestId'>
+        /// A correlation token to use when looking in the logs.
+        /// </param>
+        /// <param name='customHeaders'>
+        /// The headers that will be added to request.
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        /// <exception cref="Microsoft.Rest.HttpOperationException">
+        /// Thrown when the operation returned an invalid status code
+        /// </exception>
+        /// <exception cref="Microsoft.Rest.SerializationException">
+        /// Thrown when unable to deserialize the response
+        /// </exception>
+        Task<HttpOperationResponse<TenantResponse>> PatchTenantWithHttpMessagesAsync(IEnumerable<Operation> body = default, string tenantId = default, string requestId = default, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default);
+
+        /// <summary>
+        /// Add/update application properties for the tenant
+        ///
+        ///
+        /// </summary>
+        /// <remarks>
+        /// Update the tenant extension properties. Extension properties have
+        /// the name format {prefix}_property name. Prefixes are registered in
+        /// developer.veracity.com. Pleas note that the order of operations can
+        /// impact the result&lt;br/&gt;
+        /// </remarks>
+        /// <param name='body'>
+        /// </param>
+        /// <param name='tenantId'>
+        /// The tenant id (or dnvCustomerId for veracity_default tenants)
+        /// </param>
+        /// <param name='requestId'>
+        /// A correlation token to use when looking in the logs.
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        Task<TenantResponse> PatchTenantAsync(IEnumerable<Operation> body = default, string tenantId = default, string requestId = default, CancellationToken cancellationToken = default);
+
+        /// <summary>
+        /// Get global admin rights for the user
+        ///
+        ///
+        /// </summary>
+        /// <remarks>
+        /// Get the admin details for a user by their id&lt;br/&gt;
+        /// </remarks>
+        /// <param name='tenantId'>
+        /// The tenant id (or dnvCustomerId for veracity_default tenants)
         /// </param>
         /// <param name='userId'>
+        /// The users id found in Veracity Identity
         /// </param>
         /// <param name='requestId'>
         /// A correlation token to use when looking in the logs.
@@ -121,11 +207,18 @@ namespace DNV.ApiClients.Veracity.Identity.PlatformApiV4.Interfaces
         Task<HttpOperationResponse<UserRoles>> GetAdminWithHttpMessagesAsync(string tenantId, System.Guid userId, string requestId = default, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default);
 
         /// <summary>
-        /// Get the admin details for a user by their id&lt;br/&gt;
+        /// Get global admin rights for the user
+        ///
+        ///
         /// </summary>
+        /// <remarks>
+        /// Get the admin details for a user by their id&lt;br/&gt;
+        /// </remarks>
         /// <param name='tenantId'>
+        /// The tenant id (or dnvCustomerId for veracity_default tenants)
         /// </param>
         /// <param name='userId'>
+        /// The users id found in Veracity Identity
         /// </param>
         /// <param name='requestId'>
         /// A correlation token to use when looking in the logs.
@@ -136,9 +229,15 @@ namespace DNV.ApiClients.Veracity.Identity.PlatformApiV4.Interfaces
         Task<UserRoles> GetAdminAsync(string tenantId, System.Guid userId, string requestId = default, CancellationToken cancellationToken = default);
 
         /// <summary>
-        /// Get all admins of the tenant, both global and local.&lt;br/&gt;
+        /// LIst global admins
+        ///
+        ///
         /// </summary>
+        /// <remarks>
+        /// Get all admins of the tenant, both global and local.&lt;br/&gt;
+        /// </remarks>
         /// <param name='tenantId'>
+        /// The tenant id (or dnvCustomerId for veracity_default tenants)
         /// </param>
         /// <param name='requestId'>
         /// A correlation token to use when looking in the logs.
@@ -161,9 +260,15 @@ namespace DNV.ApiClients.Veracity.Identity.PlatformApiV4.Interfaces
         Task<HttpOperationResponse<IEnumerable<UserRoles>>> GetAdminsWithHttpMessagesAsync(string tenantId, string requestId = default, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default);
 
         /// <summary>
-        /// Get all admins of the tenant, both global and local.&lt;br/&gt;
+        /// LIst global admins
+        ///
+        ///
         /// </summary>
+        /// <remarks>
+        /// Get all admins of the tenant, both global and local.&lt;br/&gt;
+        /// </remarks>
         /// <param name='tenantId'>
+        /// The tenant id (or dnvCustomerId for veracity_default tenants)
         /// </param>
         /// <param name='requestId'>
         /// A correlation token to use when looking in the logs.
@@ -172,6 +277,64 @@ namespace DNV.ApiClients.Veracity.Identity.PlatformApiV4.Interfaces
         /// The cancellation token.
         /// </param>
         Task<IEnumerable<UserRoles>> GetAdminsAsync(string tenantId, string requestId = default, CancellationToken cancellationToken = default);
+
+        /// <summary>
+        /// List users and groups
+        ///
+        ///
+        /// </summary>
+        /// <remarks>
+        /// Retrieves all users and groups from a tenant&lt;br/&gt;
+        /// </remarks>
+        /// <param name='tenantId'>
+        /// The tenant id (or dnvCustomerId for veracity_default tenants)
+        /// </param>
+        /// <param name='odata'>
+        /// OData query options, the values are passed as query string
+        /// parameters
+        /// </param>
+        /// <param name='requestId'>
+        /// A correlation token to use when looking in the logs.
+        /// </param>
+        /// <param name='customHeaders'>
+        /// The headers that will be added to request.
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        /// <exception cref="Microsoft.Rest.HttpOperationException">
+        /// Thrown when the operation returned an invalid status code
+        /// </exception>
+        /// <exception cref="Microsoft.Rest.SerializationException">
+        /// Thrown when unable to deserialize the response
+        /// </exception>
+        /// <exception cref="Microsoft.Rest.ValidationException">
+        /// Thrown when a required parameter is null
+        /// </exception>
+        Task<HttpOperationResponse<PagedUserOrGroup>> GetUsersAndGroupsWithHttpMessagesAsync(string tenantId, IDictionary<string, string> odata = default, string requestId = default, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default);
+
+        /// <summary>
+        /// List users and groups
+        ///
+        ///
+        /// </summary>
+        /// <remarks>
+        /// Retrieves all users and groups from a tenant&lt;br/&gt;
+        /// </remarks>
+        /// <param name='tenantId'>
+        /// The tenant id (or dnvCustomerId for veracity_default tenants)
+        /// </param>
+        /// <param name='odata'>
+        /// OData query options, the values are passed as query string
+        /// parameters
+        /// </param>
+        /// <param name='requestId'>
+        /// A correlation token to use when looking in the logs.
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        Task<PagedUserOrGroup> GetUsersAndGroupsAsync(string tenantId, IDictionary<string, string> odata = default, string requestId = default, CancellationToken cancellationToken = default);
 
     }
 }

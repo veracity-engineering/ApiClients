@@ -14,27 +14,23 @@ namespace DNV.ApiClients.Veracity.Identity.PlatformApiV4.Interfaces
     using System.Threading.Tasks;
 
     /// <summary>
-    /// Applications operations.
+    /// Elements operations.
     /// </summary>
-    public partial interface IApplications
+    public partial interface IElements
     {
         /// <summary>
-        /// List applications within a tenant
+        /// Get root level elements
         ///
         ///
         /// </summary>
         /// <remarks>
-        /// Get applications installed in the tenant
-        ///
-        /// Filterable fields: name, pricingTier, orderNumber, state
-        ///
-        /// query sample:
-        /// tenants/be0c84cb-7a4a-4114-aa17-9c0224b084cf/applications?$filter=serviceId
-        /// eq
-        /// '88dd8fdc-c6db-49d4-89f5-76bc4e7c8d57'&amp;$top=1&amp;$skip=0&amp;search=Interface&lt;br/&gt;
+        /// List all root level elements&lt;br/&gt;
         /// </remarks>
         /// <param name='tenantId'>
         /// The tenant id (or dnvCustomerId for veracity_default tenants)
+        /// </param>
+        /// <param name='applicationId'>
+        /// The applicationId is the same as serviceId in developer
         /// </param>
         /// <param name='odata'>
         /// OData query options, the values are passed as query string
@@ -58,25 +54,21 @@ namespace DNV.ApiClients.Veracity.Identity.PlatformApiV4.Interfaces
         /// <exception cref="Microsoft.Rest.ValidationException">
         /// Thrown when a required parameter is null
         /// </exception>
-        Task<HttpOperationResponse<PagedApplicationResponse>> GetApplicationsWithHttpMessagesAsync(string tenantId, IDictionary<string, string> odata = default, string requestId = default, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default);
+        Task<HttpOperationResponse<PagedElementResponse>> ListElementsWithHttpMessagesAsync(string tenantId, System.Guid applicationId, IDictionary<string, string> odata = default, string requestId = default, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default);
 
         /// <summary>
-        /// List applications within a tenant
+        /// Get root level elements
         ///
         ///
         /// </summary>
         /// <remarks>
-        /// Get applications installed in the tenant
-        ///
-        /// Filterable fields: name, pricingTier, orderNumber, state
-        ///
-        /// query sample:
-        /// tenants/be0c84cb-7a4a-4114-aa17-9c0224b084cf/applications?$filter=serviceId
-        /// eq
-        /// '88dd8fdc-c6db-49d4-89f5-76bc4e7c8d57'&amp;$top=1&amp;$skip=0&amp;search=Interface&lt;br/&gt;
+        /// List all root level elements&lt;br/&gt;
         /// </remarks>
         /// <param name='tenantId'>
         /// The tenant id (or dnvCustomerId for veracity_default tenants)
+        /// </param>
+        /// <param name='applicationId'>
+        /// The applicationId is the same as serviceId in developer
         /// </param>
         /// <param name='odata'>
         /// OData query options, the values are passed as query string
@@ -88,73 +80,15 @@ namespace DNV.ApiClients.Veracity.Identity.PlatformApiV4.Interfaces
         /// <param name='cancellationToken'>
         /// The cancellation token.
         /// </param>
-        Task<PagedApplicationResponse> GetApplicationsAsync(string tenantId, IDictionary<string, string> odata = default, string requestId = default, CancellationToken cancellationToken = default);
+        Task<PagedElementResponse> ListElementsAsync(string tenantId, System.Guid applicationId, IDictionary<string, string> odata = default, string requestId = default, CancellationToken cancellationToken = default);
 
         /// <summary>
-        /// Get application by its public id
+        /// create root element
         ///
         ///
         /// </summary>
         /// <remarks>
-        /// Get application by public id&lt;br/&gt;
-        /// </remarks>
-        /// <param name='tenantId'>
-        /// The tenant id (or dnvCustomerId for veracity_default tenants)
-        /// </param>
-        /// <param name='applicationId'>
-        /// The applicationId is the same as serviceId in developer
-        /// </param>
-        /// <param name='requestId'>
-        /// A correlation token to use when looking in the logs.
-        /// </param>
-        /// <param name='customHeaders'>
-        /// The headers that will be added to request.
-        /// </param>
-        /// <param name='cancellationToken'>
-        /// The cancellation token.
-        /// </param>
-        /// <exception cref="Microsoft.Rest.HttpOperationException">
-        /// Thrown when the operation returned an invalid status code
-        /// </exception>
-        /// <exception cref="Microsoft.Rest.SerializationException">
-        /// Thrown when unable to deserialize the response
-        /// </exception>
-        /// <exception cref="Microsoft.Rest.ValidationException">
-        /// Thrown when a required parameter is null
-        /// </exception>
-        Task<HttpOperationResponse<ApplicationResponse>> GetApplicationWithHttpMessagesAsync(string tenantId, System.Guid applicationId, string requestId = default, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default);
-
-        /// <summary>
-        /// Get application by its public id
-        ///
-        ///
-        /// </summary>
-        /// <remarks>
-        /// Get application by public id&lt;br/&gt;
-        /// </remarks>
-        /// <param name='tenantId'>
-        /// The tenant id (or dnvCustomerId for veracity_default tenants)
-        /// </param>
-        /// <param name='applicationId'>
-        /// The applicationId is the same as serviceId in developer
-        /// </param>
-        /// <param name='requestId'>
-        /// A correlation token to use when looking in the logs.
-        /// </param>
-        /// <param name='cancellationToken'>
-        /// The cancellation token.
-        /// </param>
-        Task<ApplicationResponse> GetApplicationAsync(string tenantId, System.Guid applicationId, string requestId = default, CancellationToken cancellationToken = default);
-
-        /// <summary>
-        /// Update your application's state or properties
-        ///
-        ///
-        /// </summary>
-        /// <remarks>
-        /// Update extension properties for an application. Extension
-        /// properties have the name format {prefix}_property name. Prefixes
-        /// are registered in developer.veracity.com&lt;br/&gt;
+        /// Create a root level element&lt;br/&gt;
         /// </remarks>
         /// <param name='tenantId'>
         /// The tenant id (or dnvCustomerId for veracity_default tenants)
@@ -182,17 +116,15 @@ namespace DNV.ApiClients.Veracity.Identity.PlatformApiV4.Interfaces
         /// <exception cref="Microsoft.Rest.ValidationException">
         /// Thrown when a required parameter is null
         /// </exception>
-        Task<HttpOperationResponse<ApplicationResponse>> PatchApplicationWithHttpMessagesAsync(string tenantId, System.Guid applicationId, IEnumerable<Operation> body = default, string requestId = default, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default);
+        Task<HttpOperationResponse<ElementResponse>> CreateElementWithHttpMessagesAsync(string tenantId, System.Guid applicationId, ElementRequest body = default, string requestId = default, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default);
 
         /// <summary>
-        /// Update your application's state or properties
+        /// create root element
         ///
         ///
         /// </summary>
         /// <remarks>
-        /// Update extension properties for an application. Extension
-        /// properties have the name format {prefix}_property name. Prefixes
-        /// are registered in developer.veracity.com&lt;br/&gt;
+        /// Create a root level element&lt;br/&gt;
         /// </remarks>
         /// <param name='tenantId'>
         /// The tenant id (or dnvCustomerId for veracity_default tenants)
@@ -208,20 +140,15 @@ namespace DNV.ApiClients.Veracity.Identity.PlatformApiV4.Interfaces
         /// <param name='cancellationToken'>
         /// The cancellation token.
         /// </param>
-        Task<ApplicationResponse> PatchApplicationAsync(string tenantId, System.Guid applicationId, IEnumerable<Operation> body = default, string requestId = default, CancellationToken cancellationToken = default);
+        Task<ElementResponse> CreateElementAsync(string tenantId, System.Guid applicationId, ElementRequest body = default, string requestId = default, CancellationToken cancellationToken = default);
 
         /// <summary>
-        /// LIst direct licenses granted for the application
+        /// Get child elements
         ///
         ///
         /// </summary>
         /// <remarks>
-        /// Get all direct users and/or groups. LicenseType values - profile:
-        /// personal licenses, userGroup: license given to a group or empty
-        /// string: get both personal and group licenses. Please note that
-        /// requests with odata query elements cannot be cached and my affect
-        /// performance. OData parsing is currently and experimental feature in
-        /// this endpoint.&lt;br/&gt;
+        /// List all child elements&lt;br/&gt;
         /// </remarks>
         /// <param name='tenantId'>
         /// The tenant id (or dnvCustomerId for veracity_default tenants)
@@ -229,9 +156,8 @@ namespace DNV.ApiClients.Veracity.Identity.PlatformApiV4.Interfaces
         /// <param name='applicationId'>
         /// The applicationId is the same as serviceId in developer
         /// </param>
-        /// <param name='licenseType'>
-        /// Represents the type of entity. Possible values include: 'profile',
-        /// 'userGroup'
+        /// <param name='elementId'>
+        /// Can be the application internal id or the VTM elementId
         /// </param>
         /// <param name='odata'>
         /// OData query options, the values are passed as query string
@@ -255,20 +181,15 @@ namespace DNV.ApiClients.Veracity.Identity.PlatformApiV4.Interfaces
         /// <exception cref="Microsoft.Rest.ValidationException">
         /// Thrown when a required parameter is null
         /// </exception>
-        Task<HttpOperationResponse<IEnumerable<LicenseResponse>>> GetLicensesWithHttpMessagesAsync(string tenantId, System.Guid applicationId, string licenseType = default, IDictionary<string, string> odata = default, string requestId = default, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default);
+        Task<HttpOperationResponse<PagedElementResponse>> ListChildElementsWithHttpMessagesAsync(string tenantId, System.Guid applicationId, string elementId, IDictionary<string, string> odata = default, string requestId = default, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default);
 
         /// <summary>
-        /// LIst direct licenses granted for the application
+        /// Get child elements
         ///
         ///
         /// </summary>
         /// <remarks>
-        /// Get all direct users and/or groups. LicenseType values - profile:
-        /// personal licenses, userGroup: license given to a group or empty
-        /// string: get both personal and group licenses. Please note that
-        /// requests with odata query elements cannot be cached and my affect
-        /// performance. OData parsing is currently and experimental feature in
-        /// this endpoint.&lt;br/&gt;
+        /// List all child elements&lt;br/&gt;
         /// </remarks>
         /// <param name='tenantId'>
         /// The tenant id (or dnvCustomerId for veracity_default tenants)
@@ -276,9 +197,8 @@ namespace DNV.ApiClients.Veracity.Identity.PlatformApiV4.Interfaces
         /// <param name='applicationId'>
         /// The applicationId is the same as serviceId in developer
         /// </param>
-        /// <param name='licenseType'>
-        /// Represents the type of entity. Possible values include: 'profile',
-        /// 'userGroup'
+        /// <param name='elementId'>
+        /// Can be the application internal id or the VTM elementId
         /// </param>
         /// <param name='odata'>
         /// OData query options, the values are passed as query string
@@ -290,21 +210,24 @@ namespace DNV.ApiClients.Veracity.Identity.PlatformApiV4.Interfaces
         /// <param name='cancellationToken'>
         /// The cancellation token.
         /// </param>
-        Task<IEnumerable<LicenseResponse>> GetLicensesAsync(string tenantId, System.Guid applicationId, string licenseType = default, IDictionary<string, string> odata = default, string requestId = default, CancellationToken cancellationToken = default);
+        Task<PagedElementResponse> ListChildElementsAsync(string tenantId, System.Guid applicationId, string elementId, IDictionary<string, string> odata = default, string requestId = default, CancellationToken cancellationToken = default);
 
         /// <summary>
-        /// Add a new license to a user or group
+        /// Create child element
         ///
         ///
         /// </summary>
         /// <remarks>
-        /// Add user or group license to application&lt;br/&gt;
+        /// Create a child element&lt;br/&gt;
         /// </remarks>
         /// <param name='tenantId'>
         /// The tenant id (or dnvCustomerId for veracity_default tenants)
         /// </param>
         /// <param name='applicationId'>
         /// The applicationId is the same as serviceId in developer
+        /// </param>
+        /// <param name='elementId'>
+        /// Can be the application internal id or the VTM elementId
         /// </param>
         /// <param name='body'>
         /// </param>
@@ -326,21 +249,24 @@ namespace DNV.ApiClients.Veracity.Identity.PlatformApiV4.Interfaces
         /// <exception cref="Microsoft.Rest.ValidationException">
         /// Thrown when a required parameter is null
         /// </exception>
-        Task<HttpOperationResponse<LicenseResponse>> AddLicenseWithHttpMessagesAsync(string tenantId, System.Guid applicationId, LicenseRequest body = default, string requestId = default, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default);
+        Task<HttpOperationResponse<ElementResponse>> CreateChildElementWithHttpMessagesAsync(string tenantId, System.Guid applicationId, string elementId, ElementRequest body = default, string requestId = default, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default);
 
         /// <summary>
-        /// Add a new license to a user or group
+        /// Create child element
         ///
         ///
         /// </summary>
         /// <remarks>
-        /// Add user or group license to application&lt;br/&gt;
+        /// Create a child element&lt;br/&gt;
         /// </remarks>
         /// <param name='tenantId'>
         /// The tenant id (or dnvCustomerId for veracity_default tenants)
         /// </param>
         /// <param name='applicationId'>
         /// The applicationId is the same as serviceId in developer
+        /// </param>
+        /// <param name='elementId'>
+        /// Can be the application internal id or the VTM elementId
         /// </param>
         /// <param name='body'>
         /// </param>
@@ -350,7 +276,671 @@ namespace DNV.ApiClients.Veracity.Identity.PlatformApiV4.Interfaces
         /// <param name='cancellationToken'>
         /// The cancellation token.
         /// </param>
-        Task<LicenseResponse> AddLicenseAsync(string tenantId, System.Guid applicationId, LicenseRequest body = default, string requestId = default, CancellationToken cancellationToken = default);
+        Task<ElementResponse> CreateChildElementAsync(string tenantId, System.Guid applicationId, string elementId, ElementRequest body = default, string requestId = default, CancellationToken cancellationToken = default);
+
+        /// <summary>
+        /// Get the element hierarchy
+        ///
+        ///
+        /// </summary>
+        /// <remarks>
+        /// Get the full tree view od the application elements&lt;br/&gt;
+        /// </remarks>
+        /// <param name='tenantId'>
+        /// The tenant id (or dnvCustomerId for veracity_default tenants)
+        /// </param>
+        /// <param name='applicationId'>
+        /// The applicationId is the same as serviceId in developer
+        /// </param>
+        /// <param name='requestId'>
+        /// A correlation token to use when looking in the logs.
+        /// </param>
+        /// <param name='customHeaders'>
+        /// The headers that will be added to request.
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        /// <exception cref="Microsoft.Rest.HttpOperationException">
+        /// Thrown when the operation returned an invalid status code
+        /// </exception>
+        /// <exception cref="Microsoft.Rest.SerializationException">
+        /// Thrown when unable to deserialize the response
+        /// </exception>
+        /// <exception cref="Microsoft.Rest.ValidationException">
+        /// Thrown when a required parameter is null
+        /// </exception>
+        Task<HttpOperationResponse<IEnumerable<ElementTreeResponse>>> GetElementTreeWithHttpMessagesAsync(string tenantId, System.Guid applicationId, string requestId = default, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default);
+
+        /// <summary>
+        /// Get the element hierarchy
+        ///
+        ///
+        /// </summary>
+        /// <remarks>
+        /// Get the full tree view od the application elements&lt;br/&gt;
+        /// </remarks>
+        /// <param name='tenantId'>
+        /// The tenant id (or dnvCustomerId for veracity_default tenants)
+        /// </param>
+        /// <param name='applicationId'>
+        /// The applicationId is the same as serviceId in developer
+        /// </param>
+        /// <param name='requestId'>
+        /// A correlation token to use when looking in the logs.
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        Task<IEnumerable<ElementTreeResponse>> GetElementTreeAsync(string tenantId, System.Guid applicationId, string requestId = default, CancellationToken cancellationToken = default);
+
+        /// <summary>
+        /// Get element
+        ///
+        ///
+        /// </summary>
+        /// <remarks>
+        /// Get an element by the id or external reference&lt;br/&gt;
+        /// </remarks>
+        /// <param name='tenantId'>
+        /// The tenant id (or dnvCustomerId for veracity_default tenants)
+        /// </param>
+        /// <param name='applicationId'>
+        /// The applicationId is the same as serviceId in developer
+        /// </param>
+        /// <param name='elementId'>
+        /// Can be the application internal id or the VTM elementId
+        /// </param>
+        /// <param name='requestId'>
+        /// A correlation token to use when looking in the logs.
+        /// </param>
+        /// <param name='customHeaders'>
+        /// The headers that will be added to request.
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        /// <exception cref="Microsoft.Rest.HttpOperationException">
+        /// Thrown when the operation returned an invalid status code
+        /// </exception>
+        /// <exception cref="Microsoft.Rest.SerializationException">
+        /// Thrown when unable to deserialize the response
+        /// </exception>
+        /// <exception cref="Microsoft.Rest.ValidationException">
+        /// Thrown when a required parameter is null
+        /// </exception>
+        Task<HttpOperationResponse<ElementResponse>> GetElementWithHttpMessagesAsync(string tenantId, System.Guid applicationId, string elementId, string requestId = default, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default);
+
+        /// <summary>
+        /// Get element
+        ///
+        ///
+        /// </summary>
+        /// <remarks>
+        /// Get an element by the id or external reference&lt;br/&gt;
+        /// </remarks>
+        /// <param name='tenantId'>
+        /// The tenant id (or dnvCustomerId for veracity_default tenants)
+        /// </param>
+        /// <param name='applicationId'>
+        /// The applicationId is the same as serviceId in developer
+        /// </param>
+        /// <param name='elementId'>
+        /// Can be the application internal id or the VTM elementId
+        /// </param>
+        /// <param name='requestId'>
+        /// A correlation token to use when looking in the logs.
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        Task<ElementResponse> GetElementAsync(string tenantId, System.Guid applicationId, string elementId, string requestId = default, CancellationToken cancellationToken = default);
+
+        /// <summary>
+        /// Update element
+        ///
+        ///
+        /// </summary>
+        /// <remarks>
+        /// Update aspects of an element&lt;br/&gt;
+        /// </remarks>
+        /// <param name='tenantId'>
+        /// The tenant id (or dnvCustomerId for veracity_default tenants)
+        /// </param>
+        /// <param name='applicationId'>
+        /// The applicationId is the same as serviceId in developer
+        /// </param>
+        /// <param name='elementId'>
+        /// Can be the application internal id or the VTM elementId
+        /// </param>
+        /// <param name='body'>
+        /// </param>
+        /// <param name='requestId'>
+        /// A correlation token to use when looking in the logs.
+        /// </param>
+        /// <param name='customHeaders'>
+        /// The headers that will be added to request.
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        /// <exception cref="Microsoft.Rest.HttpOperationException">
+        /// Thrown when the operation returned an invalid status code
+        /// </exception>
+        /// <exception cref="Microsoft.Rest.SerializationException">
+        /// Thrown when unable to deserialize the response
+        /// </exception>
+        /// <exception cref="Microsoft.Rest.ValidationException">
+        /// Thrown when a required parameter is null
+        /// </exception>
+        Task<HttpOperationResponse<ElementResponse>> PatchElementWithHttpMessagesAsync(string tenantId, System.Guid applicationId, string elementId, IEnumerable<Operation> body = default, string requestId = default, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default);
+
+        /// <summary>
+        /// Update element
+        ///
+        ///
+        /// </summary>
+        /// <remarks>
+        /// Update aspects of an element&lt;br/&gt;
+        /// </remarks>
+        /// <param name='tenantId'>
+        /// The tenant id (or dnvCustomerId for veracity_default tenants)
+        /// </param>
+        /// <param name='applicationId'>
+        /// The applicationId is the same as serviceId in developer
+        /// </param>
+        /// <param name='elementId'>
+        /// Can be the application internal id or the VTM elementId
+        /// </param>
+        /// <param name='body'>
+        /// </param>
+        /// <param name='requestId'>
+        /// A correlation token to use when looking in the logs.
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        Task<ElementResponse> PatchElementAsync(string tenantId, System.Guid applicationId, string elementId, IEnumerable<Operation> body = default, string requestId = default, CancellationToken cancellationToken = default);
+
+        /// <summary>
+        /// Delete element
+        ///
+        ///
+        /// </summary>
+        /// <remarks>
+        /// Delete an element from the application&lt;br/&gt;
+        /// </remarks>
+        /// <param name='tenantId'>
+        /// The tenant id (or dnvCustomerId for veracity_default tenants)
+        /// </param>
+        /// <param name='applicationId'>
+        /// The applicationId is the same as serviceId in developer
+        /// </param>
+        /// <param name='elementId'>
+        /// Can be the application internal id or the VTM elementId
+        /// </param>
+        /// <param name='requestId'>
+        /// A correlation token to use when looking in the logs.
+        /// </param>
+        /// <param name='customHeaders'>
+        /// The headers that will be added to request.
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        /// <exception cref="Microsoft.Rest.HttpOperationException">
+        /// Thrown when the operation returned an invalid status code
+        /// </exception>
+        /// <exception cref="Microsoft.Rest.ValidationException">
+        /// Thrown when a required parameter is null
+        /// </exception>
+        Task<HttpOperationResponse> DeleteElementWithHttpMessagesAsync(string tenantId, System.Guid applicationId, string elementId, string requestId = default, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default);
+
+        /// <summary>
+        /// Delete element
+        ///
+        ///
+        /// </summary>
+        /// <remarks>
+        /// Delete an element from the application&lt;br/&gt;
+        /// </remarks>
+        /// <param name='tenantId'>
+        /// The tenant id (or dnvCustomerId for veracity_default tenants)
+        /// </param>
+        /// <param name='applicationId'>
+        /// The applicationId is the same as serviceId in developer
+        /// </param>
+        /// <param name='elementId'>
+        /// Can be the application internal id or the VTM elementId
+        /// </param>
+        /// <param name='requestId'>
+        /// A correlation token to use when looking in the logs.
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        Task DeleteElementAsync(string tenantId, System.Guid applicationId, string elementId, string requestId = default, CancellationToken cancellationToken = default);
+
+        /// <summary>
+        /// Get direct rights
+        ///
+        ///
+        /// </summary>
+        /// <remarks>
+        /// Get the direct element rights&lt;br/&gt;
+        /// </remarks>
+        /// <param name='tenantId'>
+        /// The tenant id (or dnvCustomerId for veracity_default tenants)
+        /// </param>
+        /// <param name='applicationId'>
+        /// The applicationId is the same as serviceId in developer
+        /// </param>
+        /// <param name='elementId'>
+        /// Can be the application internal id or the VTM elementId
+        /// </param>
+        /// <param name='memberType'>
+        /// the type of member, profile or userGroup. Possible values include:
+        /// 'profile', 'userGroup'
+        /// </param>
+        /// <param name='odata'>
+        /// OData query options, the values are passed as query string
+        /// parameters
+        /// </param>
+        /// <param name='requestId'>
+        /// A correlation token to use when looking in the logs.
+        /// </param>
+        /// <param name='customHeaders'>
+        /// The headers that will be added to request.
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        /// <exception cref="Microsoft.Rest.HttpOperationException">
+        /// Thrown when the operation returned an invalid status code
+        /// </exception>
+        /// <exception cref="Microsoft.Rest.SerializationException">
+        /// Thrown when unable to deserialize the response
+        /// </exception>
+        /// <exception cref="Microsoft.Rest.ValidationException">
+        /// Thrown when a required parameter is null
+        /// </exception>
+        Task<HttpOperationResponse<IEnumerable<ElementRightResponse>>> GetElementRightsWithHttpMessagesAsync(string tenantId, System.Guid applicationId, string elementId, string memberType = default, IDictionary<string, string> odata = default, string requestId = default, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default);
+
+        /// <summary>
+        /// Get direct rights
+        ///
+        ///
+        /// </summary>
+        /// <remarks>
+        /// Get the direct element rights&lt;br/&gt;
+        /// </remarks>
+        /// <param name='tenantId'>
+        /// The tenant id (or dnvCustomerId for veracity_default tenants)
+        /// </param>
+        /// <param name='applicationId'>
+        /// The applicationId is the same as serviceId in developer
+        /// </param>
+        /// <param name='elementId'>
+        /// Can be the application internal id or the VTM elementId
+        /// </param>
+        /// <param name='memberType'>
+        /// the type of member, profile or userGroup. Possible values include:
+        /// 'profile', 'userGroup'
+        /// </param>
+        /// <param name='odata'>
+        /// OData query options, the values are passed as query string
+        /// parameters
+        /// </param>
+        /// <param name='requestId'>
+        /// A correlation token to use when looking in the logs.
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        Task<IEnumerable<ElementRightResponse>> GetElementRightsAsync(string tenantId, System.Guid applicationId, string elementId, string memberType = default, IDictionary<string, string> odata = default, string requestId = default, CancellationToken cancellationToken = default);
+
+        /// <summary>
+        /// Add right to a user or group
+        ///
+        ///
+        /// </summary>
+        /// <remarks>
+        /// Add element right to the user or group.&lt;br/&gt;
+        /// </remarks>
+        /// <param name='tenantId'>
+        /// The tenant id (or dnvCustomerId for veracity_default tenants)
+        /// </param>
+        /// <param name='applicationId'>
+        /// The applicationId is the same as serviceId in developer
+        /// </param>
+        /// <param name='elementId'>
+        /// Can be the application internal id or the VTM elementId
+        /// </param>
+        /// <param name='body'>
+        /// </param>
+        /// <param name='requestId'>
+        /// A correlation token to use when looking in the logs.
+        /// </param>
+        /// <param name='customHeaders'>
+        /// The headers that will be added to request.
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        /// <exception cref="Microsoft.Rest.HttpOperationException">
+        /// Thrown when the operation returned an invalid status code
+        /// </exception>
+        /// <exception cref="Microsoft.Rest.SerializationException">
+        /// Thrown when unable to deserialize the response
+        /// </exception>
+        /// <exception cref="Microsoft.Rest.ValidationException">
+        /// Thrown when a required parameter is null
+        /// </exception>
+        Task<HttpOperationResponse<ElementRightResponse>> AddElementRightsWithHttpMessagesAsync(string tenantId, System.Guid applicationId, string elementId, ElementRightRequest body = default, string requestId = default, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default);
+
+        /// <summary>
+        /// Add right to a user or group
+        ///
+        ///
+        /// </summary>
+        /// <remarks>
+        /// Add element right to the user or group.&lt;br/&gt;
+        /// </remarks>
+        /// <param name='tenantId'>
+        /// The tenant id (or dnvCustomerId for veracity_default tenants)
+        /// </param>
+        /// <param name='applicationId'>
+        /// The applicationId is the same as serviceId in developer
+        /// </param>
+        /// <param name='elementId'>
+        /// Can be the application internal id or the VTM elementId
+        /// </param>
+        /// <param name='body'>
+        /// </param>
+        /// <param name='requestId'>
+        /// A correlation token to use when looking in the logs.
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        Task<ElementRightResponse> AddElementRightsAsync(string tenantId, System.Guid applicationId, string elementId, ElementRightRequest body = default, string requestId = default, CancellationToken cancellationToken = default);
+
+        /// <summary>
+        /// Update right for a user or group
+        ///
+        ///
+        /// </summary>
+        /// <remarks>
+        /// Update the element right&lt;br/&gt;
+        /// </remarks>
+        /// <param name='tenantId'>
+        /// The tenant id (or dnvCustomerId for veracity_default tenants)
+        /// </param>
+        /// <param name='applicationId'>
+        /// The applicationId is the same as serviceId in developer
+        /// </param>
+        /// <param name='elementId'>
+        /// Can be the application internal id or the VTM elementId
+        /// </param>
+        /// <param name='entityId'>
+        /// </param>
+        /// <param name='body'>
+        /// </param>
+        /// <param name='memberType'>
+        /// the type of member, profile or userGroup. Possible values include:
+        /// 'profile', 'userGroup'
+        /// </param>
+        /// <param name='requestId'>
+        /// A correlation token to use when looking in the logs.
+        /// </param>
+        /// <param name='customHeaders'>
+        /// The headers that will be added to request.
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        /// <exception cref="Microsoft.Rest.HttpOperationException">
+        /// Thrown when the operation returned an invalid status code
+        /// </exception>
+        /// <exception cref="Microsoft.Rest.SerializationException">
+        /// Thrown when unable to deserialize the response
+        /// </exception>
+        /// <exception cref="Microsoft.Rest.ValidationException">
+        /// Thrown when a required parameter is null
+        /// </exception>
+        Task<HttpOperationResponse<ElementRightResponse>> UpdateElementRightsWithHttpMessagesAsync(string tenantId, System.Guid applicationId, string elementId, string entityId, IEnumerable<Operation> body = default, string memberType = default, string requestId = default, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default);
+
+        /// <summary>
+        /// Update right for a user or group
+        ///
+        ///
+        /// </summary>
+        /// <remarks>
+        /// Update the element right&lt;br/&gt;
+        /// </remarks>
+        /// <param name='tenantId'>
+        /// The tenant id (or dnvCustomerId for veracity_default tenants)
+        /// </param>
+        /// <param name='applicationId'>
+        /// The applicationId is the same as serviceId in developer
+        /// </param>
+        /// <param name='elementId'>
+        /// Can be the application internal id or the VTM elementId
+        /// </param>
+        /// <param name='entityId'>
+        /// </param>
+        /// <param name='body'>
+        /// </param>
+        /// <param name='memberType'>
+        /// the type of member, profile or userGroup. Possible values include:
+        /// 'profile', 'userGroup'
+        /// </param>
+        /// <param name='requestId'>
+        /// A correlation token to use when looking in the logs.
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        Task<ElementRightResponse> UpdateElementRightsAsync(string tenantId, System.Guid applicationId, string elementId, string entityId, IEnumerable<Operation> body = default, string memberType = default, string requestId = default, CancellationToken cancellationToken = default);
+
+        /// <summary>
+        /// Delete a right from a user or group
+        ///
+        ///
+        /// </summary>
+        /// <remarks>
+        /// Delete element right&lt;br/&gt;
+        /// </remarks>
+        /// <param name='tenantId'>
+        /// The tenant id (or dnvCustomerId for veracity_default tenants)
+        /// </param>
+        /// <param name='applicationId'>
+        /// The applicationId is the same as serviceId in developer
+        /// </param>
+        /// <param name='elementId'>
+        /// Can be the application internal id or the VTM elementId
+        /// </param>
+        /// <param name='entityId'>
+        /// </param>
+        /// <param name='memberType'>
+        /// the type of member, profile or userGroup. Possible values include:
+        /// 'profile', 'userGroup'
+        /// </param>
+        /// <param name='requestId'>
+        /// A correlation token to use when looking in the logs.
+        /// </param>
+        /// <param name='customHeaders'>
+        /// The headers that will be added to request.
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        /// <exception cref="Microsoft.Rest.HttpOperationException">
+        /// Thrown when the operation returned an invalid status code
+        /// </exception>
+        /// <exception cref="Microsoft.Rest.ValidationException">
+        /// Thrown when a required parameter is null
+        /// </exception>
+        Task<HttpOperationResponse> DeleteElementRightsWithHttpMessagesAsync(string tenantId, System.Guid applicationId, string elementId, string entityId, string memberType = default, string requestId = default, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default);
+
+        /// <summary>
+        /// Delete a right from a user or group
+        ///
+        ///
+        /// </summary>
+        /// <remarks>
+        /// Delete element right&lt;br/&gt;
+        /// </remarks>
+        /// <param name='tenantId'>
+        /// The tenant id (or dnvCustomerId for veracity_default tenants)
+        /// </param>
+        /// <param name='applicationId'>
+        /// The applicationId is the same as serviceId in developer
+        /// </param>
+        /// <param name='elementId'>
+        /// Can be the application internal id or the VTM elementId
+        /// </param>
+        /// <param name='entityId'>
+        /// </param>
+        /// <param name='memberType'>
+        /// the type of member, profile or userGroup. Possible values include:
+        /// 'profile', 'userGroup'
+        /// </param>
+        /// <param name='requestId'>
+        /// A correlation token to use when looking in the logs.
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        Task DeleteElementRightsAsync(string tenantId, System.Guid applicationId, string elementId, string entityId, string memberType = default, string requestId = default, CancellationToken cancellationToken = default);
+
+        /// <summary>
+        /// direct right for an entity
+        ///
+        ///
+        /// </summary>
+        /// <remarks>
+        /// Get the direct right for a user or group&lt;br/&gt;
+        /// </remarks>
+        /// <param name='tenantId'>
+        /// The tenant id (or dnvCustomerId for veracity_default tenants)
+        /// </param>
+        /// <param name='applicationId'>
+        /// The applicationId is the same as serviceId in developer
+        /// </param>
+        /// <param name='elementId'>
+        /// Can be the application internal id or the VTM elementId
+        /// </param>
+        /// <param name='entityId'>
+        /// </param>
+        /// <param name='requestId'>
+        /// A correlation token to use when looking in the logs.
+        /// </param>
+        /// <param name='customHeaders'>
+        /// The headers that will be added to request.
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        /// <exception cref="Microsoft.Rest.HttpOperationException">
+        /// Thrown when the operation returned an invalid status code
+        /// </exception>
+        /// <exception cref="Microsoft.Rest.SerializationException">
+        /// Thrown when unable to deserialize the response
+        /// </exception>
+        /// <exception cref="Microsoft.Rest.ValidationException">
+        /// Thrown when a required parameter is null
+        /// </exception>
+        Task<HttpOperationResponse<ElementRightResponse>> GetElementRightWithHttpMessagesAsync(string tenantId, System.Guid applicationId, string elementId, System.Guid entityId, string requestId = default, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default);
+
+        /// <summary>
+        /// direct right for an entity
+        ///
+        ///
+        /// </summary>
+        /// <remarks>
+        /// Get the direct right for a user or group&lt;br/&gt;
+        /// </remarks>
+        /// <param name='tenantId'>
+        /// The tenant id (or dnvCustomerId for veracity_default tenants)
+        /// </param>
+        /// <param name='applicationId'>
+        /// The applicationId is the same as serviceId in developer
+        /// </param>
+        /// <param name='elementId'>
+        /// Can be the application internal id or the VTM elementId
+        /// </param>
+        /// <param name='entityId'>
+        /// </param>
+        /// <param name='requestId'>
+        /// A correlation token to use when looking in the logs.
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        Task<ElementRightResponse> GetElementRightAsync(string tenantId, System.Guid applicationId, string elementId, System.Guid entityId, string requestId = default, CancellationToken cancellationToken = default);
+
+        /// <summary>
+        /// Get rights for a user
+        ///
+        ///
+        /// </summary>
+        /// <remarks>
+        /// Get all element rights for a user&lt;br/&gt;
+        /// </remarks>
+        /// <param name='tenantId'>
+        /// The tenant id (or dnvCustomerId for veracity_default tenants)
+        /// </param>
+        /// <param name='applicationId'>
+        /// The applicationId is the same as serviceId in developer
+        /// </param>
+        /// <param name='userId'>
+        /// The users id found in Veracity Identity
+        /// </param>
+        /// <param name='requestId'>
+        /// A correlation token to use when looking in the logs.
+        /// </param>
+        /// <param name='customHeaders'>
+        /// The headers that will be added to request.
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        /// <exception cref="Microsoft.Rest.HttpOperationException">
+        /// Thrown when the operation returned an invalid status code
+        /// </exception>
+        /// <exception cref="Microsoft.Rest.SerializationException">
+        /// Thrown when unable to deserialize the response
+        /// </exception>
+        /// <exception cref="Microsoft.Rest.ValidationException">
+        /// Thrown when a required parameter is null
+        /// </exception>
+        Task<HttpOperationResponse<IEnumerable<ElementRightTreeResponse>>> GetUserElementsWithHttpMessagesAsync(string tenantId, System.Guid applicationId, System.Guid userId, string requestId = default, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default);
+
+        /// <summary>
+        /// Get rights for a user
+        ///
+        ///
+        /// </summary>
+        /// <remarks>
+        /// Get all element rights for a user&lt;br/&gt;
+        /// </remarks>
+        /// <param name='tenantId'>
+        /// The tenant id (or dnvCustomerId for veracity_default tenants)
+        /// </param>
+        /// <param name='applicationId'>
+        /// The applicationId is the same as serviceId in developer
+        /// </param>
+        /// <param name='userId'>
+        /// The users id found in Veracity Identity
+        /// </param>
+        /// <param name='requestId'>
+        /// A correlation token to use when looking in the logs.
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        Task<IEnumerable<ElementRightTreeResponse>> GetUserElementsAsync(string tenantId, System.Guid applicationId, System.Guid userId, string requestId = default, CancellationToken cancellationToken = default);
 
         /// <summary>
         /// Get the effective rights for a user
@@ -358,7 +948,8 @@ namespace DNV.ApiClients.Veracity.Identity.PlatformApiV4.Interfaces
         ///
         /// </summary>
         /// <remarks>
-        /// Verify user license&lt;br/&gt;
+        /// Get the effective rights for a specific element for a
+        /// user&lt;br/&gt;
         /// </remarks>
         /// <param name='tenantId'>
         /// The tenant id (or dnvCustomerId for veracity_default tenants)
@@ -368,6 +959,9 @@ namespace DNV.ApiClients.Veracity.Identity.PlatformApiV4.Interfaces
         /// </param>
         /// <param name='userId'>
         /// The users id found in Veracity Identity
+        /// </param>
+        /// <param name='elementId'>
+        /// Can be the application internal id or the VTM elementId
         /// </param>
         /// <param name='requestId'>
         /// A correlation token to use when looking in the logs.
@@ -387,7 +981,7 @@ namespace DNV.ApiClients.Veracity.Identity.PlatformApiV4.Interfaces
         /// <exception cref="Microsoft.Rest.ValidationException">
         /// Thrown when a required parameter is null
         /// </exception>
-        Task<HttpOperationResponse<LicenseResponse>> VerifyUserLicenseWithHttpMessagesAsync(string tenantId, System.Guid applicationId, System.Guid userId, string requestId = default, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default);
+        Task<HttpOperationResponse<ElementRightResponse>> GetUserElementWithHttpMessagesAsync(string tenantId, System.Guid applicationId, System.Guid userId, string elementId, string requestId = default, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default);
 
         /// <summary>
         /// Get the effective rights for a user
@@ -395,7 +989,8 @@ namespace DNV.ApiClients.Veracity.Identity.PlatformApiV4.Interfaces
         ///
         /// </summary>
         /// <remarks>
-        /// Verify user license&lt;br/&gt;
+        /// Get the effective rights for a specific element for a
+        /// user&lt;br/&gt;
         /// </remarks>
         /// <param name='tenantId'>
         /// The tenant id (or dnvCustomerId for veracity_default tenants)
@@ -406,65 +1001,8 @@ namespace DNV.ApiClients.Veracity.Identity.PlatformApiV4.Interfaces
         /// <param name='userId'>
         /// The users id found in Veracity Identity
         /// </param>
-        /// <param name='requestId'>
-        /// A correlation token to use when looking in the logs.
-        /// </param>
-        /// <param name='cancellationToken'>
-        /// The cancellation token.
-        /// </param>
-        Task<LicenseResponse> VerifyUserLicenseAsync(string tenantId, System.Guid applicationId, System.Guid userId, string requestId = default, CancellationToken cancellationToken = default);
-
-        /// <summary>
-        /// Get direct license for the user or group
-        ///
-        ///
-        /// </summary>
-        /// <remarks>
-        /// Get the user or groups direct license&lt;br/&gt;
-        /// </remarks>
-        /// <param name='tenantId'>
-        /// The tenant id (or dnvCustomerId for veracity_default tenants)
-        /// </param>
-        /// <param name='applicationId'>
-        /// The applicationId is the same as serviceId in developer
-        /// </param>
-        /// <param name='entityId'>
-        /// </param>
-        /// <param name='requestId'>
-        /// A correlation token to use when looking in the logs.
-        /// </param>
-        /// <param name='customHeaders'>
-        /// The headers that will be added to request.
-        /// </param>
-        /// <param name='cancellationToken'>
-        /// The cancellation token.
-        /// </param>
-        /// <exception cref="Microsoft.Rest.HttpOperationException">
-        /// Thrown when the operation returned an invalid status code
-        /// </exception>
-        /// <exception cref="Microsoft.Rest.SerializationException">
-        /// Thrown when unable to deserialize the response
-        /// </exception>
-        /// <exception cref="Microsoft.Rest.ValidationException">
-        /// Thrown when a required parameter is null
-        /// </exception>
-        Task<HttpOperationResponse<LicenseResponse>> GetLicenseWithHttpMessagesAsync(string tenantId, System.Guid applicationId, System.Guid entityId, string requestId = default, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default);
-
-        /// <summary>
-        /// Get direct license for the user or group
-        ///
-        ///
-        /// </summary>
-        /// <remarks>
-        /// Get the user or groups direct license&lt;br/&gt;
-        /// </remarks>
-        /// <param name='tenantId'>
-        /// The tenant id (or dnvCustomerId for veracity_default tenants)
-        /// </param>
-        /// <param name='applicationId'>
-        /// The applicationId is the same as serviceId in developer
-        /// </param>
-        /// <param name='entityId'>
+        /// <param name='elementId'>
+        /// Can be the application internal id or the VTM elementId
         /// </param>
         /// <param name='requestId'>
         /// A correlation token to use when looking in the logs.
@@ -472,359 +1010,15 @@ namespace DNV.ApiClients.Veracity.Identity.PlatformApiV4.Interfaces
         /// <param name='cancellationToken'>
         /// The cancellation token.
         /// </param>
-        Task<LicenseResponse> GetLicenseAsync(string tenantId, System.Guid applicationId, System.Guid entityId, string requestId = default, CancellationToken cancellationToken = default);
+        Task<ElementRightResponse> GetUserElementAsync(string tenantId, System.Guid applicationId, System.Guid userId, string elementId, string requestId = default, CancellationToken cancellationToken = default);
 
         /// <summary>
-        /// You can only update extension properties.
+        /// Get the rights for the logged in user
         ///
         ///
         /// </summary>
         /// <remarks>
-        /// Update license details. Extension properties have the name format
-        /// {prefix}_property name. Prefixes are registered in
-        /// developer.veracity.com. EntityId is the id of the group or the
-        /// person, and licenseType (profile,userGroup) indicates which type of
-        /// license you are updating&lt;br/&gt;
-        /// </remarks>
-        /// <param name='tenantId'>
-        /// The tenant id (or dnvCustomerId for veracity_default tenants)
-        /// </param>
-        /// <param name='applicationId'>
-        /// The applicationId is the same as serviceId in developer
-        /// </param>
-        /// <param name='entityId'>
-        /// </param>
-        /// <param name='body'>
-        /// </param>
-        /// <param name='licenseType'>
-        /// Represents the type of entity. Possible values include: 'profile',
-        /// 'userGroup'
-        /// </param>
-        /// <param name='requestId'>
-        /// A correlation token to use when looking in the logs.
-        /// </param>
-        /// <param name='customHeaders'>
-        /// The headers that will be added to request.
-        /// </param>
-        /// <param name='cancellationToken'>
-        /// The cancellation token.
-        /// </param>
-        /// <exception cref="Microsoft.Rest.HttpOperationException">
-        /// Thrown when the operation returned an invalid status code
-        /// </exception>
-        /// <exception cref="Microsoft.Rest.SerializationException">
-        /// Thrown when unable to deserialize the response
-        /// </exception>
-        /// <exception cref="Microsoft.Rest.ValidationException">
-        /// Thrown when a required parameter is null
-        /// </exception>
-        Task<HttpOperationResponse<LicenseResponse>> UpdateLicenseWithHttpMessagesAsync(string tenantId, System.Guid applicationId, System.Guid entityId, IEnumerable<Operation> body = default, string licenseType = default, string requestId = default, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default);
-
-        /// <summary>
-        /// You can only update extension properties.
-        ///
-        ///
-        /// </summary>
-        /// <remarks>
-        /// Update license details. Extension properties have the name format
-        /// {prefix}_property name. Prefixes are registered in
-        /// developer.veracity.com. EntityId is the id of the group or the
-        /// person, and licenseType (profile,userGroup) indicates which type of
-        /// license you are updating&lt;br/&gt;
-        /// </remarks>
-        /// <param name='tenantId'>
-        /// The tenant id (or dnvCustomerId for veracity_default tenants)
-        /// </param>
-        /// <param name='applicationId'>
-        /// The applicationId is the same as serviceId in developer
-        /// </param>
-        /// <param name='entityId'>
-        /// </param>
-        /// <param name='body'>
-        /// </param>
-        /// <param name='licenseType'>
-        /// Represents the type of entity. Possible values include: 'profile',
-        /// 'userGroup'
-        /// </param>
-        /// <param name='requestId'>
-        /// A correlation token to use when looking in the logs.
-        /// </param>
-        /// <param name='cancellationToken'>
-        /// The cancellation token.
-        /// </param>
-        Task<LicenseResponse> UpdateLicenseAsync(string tenantId, System.Guid applicationId, System.Guid entityId, IEnumerable<Operation> body = default, string licenseType = default, string requestId = default, CancellationToken cancellationToken = default);
-
-        /// <summary>
-        /// Remove a subscription from a user or a group
-        ///
-        ///
-        /// </summary>
-        /// <remarks>
-        /// Remove subscription. EntityId is the id of the group or the person,
-        /// and licenseType (profile,userGroup) indicates which type of license
-        /// you are removing&lt;br/&gt;
-        /// </remarks>
-        /// <param name='tenantId'>
-        /// The tenant id (or dnvCustomerId for veracity_default tenants)
-        /// </param>
-        /// <param name='applicationId'>
-        /// The applicationId is the same as serviceId in developer
-        /// </param>
-        /// <param name='entityId'>
-        /// </param>
-        /// <param name='licenseType'>
-        /// Represents the type of entity. Possible values include: 'profile',
-        /// 'userGroup'
-        /// </param>
-        /// <param name='requestId'>
-        /// A correlation token to use when looking in the logs.
-        /// </param>
-        /// <param name='customHeaders'>
-        /// The headers that will be added to request.
-        /// </param>
-        /// <param name='cancellationToken'>
-        /// The cancellation token.
-        /// </param>
-        /// <exception cref="Microsoft.Rest.HttpOperationException">
-        /// Thrown when the operation returned an invalid status code
-        /// </exception>
-        /// <exception cref="Microsoft.Rest.ValidationException">
-        /// Thrown when a required parameter is null
-        /// </exception>
-        Task<HttpOperationResponse> DeleteLicenseWithHttpMessagesAsync(string tenantId, System.Guid applicationId, System.Guid entityId, string licenseType = default, string requestId = default, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default);
-
-        /// <summary>
-        /// Remove a subscription from a user or a group
-        ///
-        ///
-        /// </summary>
-        /// <remarks>
-        /// Remove subscription. EntityId is the id of the group or the person,
-        /// and licenseType (profile,userGroup) indicates which type of license
-        /// you are removing&lt;br/&gt;
-        /// </remarks>
-        /// <param name='tenantId'>
-        /// The tenant id (or dnvCustomerId for veracity_default tenants)
-        /// </param>
-        /// <param name='applicationId'>
-        /// The applicationId is the same as serviceId in developer
-        /// </param>
-        /// <param name='entityId'>
-        /// </param>
-        /// <param name='licenseType'>
-        /// Represents the type of entity. Possible values include: 'profile',
-        /// 'userGroup'
-        /// </param>
-        /// <param name='requestId'>
-        /// A correlation token to use when looking in the logs.
-        /// </param>
-        /// <param name='cancellationToken'>
-        /// The cancellation token.
-        /// </param>
-        Task DeleteLicenseAsync(string tenantId, System.Guid applicationId, System.Guid entityId, string licenseType = default, string requestId = default, CancellationToken cancellationToken = default);
-
-        /// <summary>
-        /// All users, both direct and inherited
-        ///
-        ///
-        /// </summary>
-        /// <remarks>
-        /// Get all users including inherited from groups, deduplication is by
-        /// default in effect. disable deduplication to detect users with
-        /// multiple paths to the application in the tenant.&lt;br/&gt;
-        /// </remarks>
-        /// <param name='tenantId'>
-        /// The tenant id (or dnvCustomerId for veracity_default tenants)
-        /// </param>
-        /// <param name='applicationId'>
-        /// The applicationId is the same as serviceId in developer
-        /// </param>
-        /// <param name='odata'>
-        /// OData query options, the values are passed as query string
-        /// parameters
-        /// </param>
-        /// <param name='includeDuplicates'>
-        /// </param>
-        /// <param name='requestId'>
-        /// A correlation token to use when looking in the logs.
-        /// </param>
-        /// <param name='customHeaders'>
-        /// The headers that will be added to request.
-        /// </param>
-        /// <param name='cancellationToken'>
-        /// The cancellation token.
-        /// </param>
-        /// <exception cref="Microsoft.Rest.HttpOperationException">
-        /// Thrown when the operation returned an invalid status code
-        /// </exception>
-        /// <exception cref="Microsoft.Rest.SerializationException">
-        /// Thrown when unable to deserialize the response
-        /// </exception>
-        /// <exception cref="Microsoft.Rest.ValidationException">
-        /// Thrown when a required parameter is null
-        /// </exception>
-        Task<HttpOperationResponse<IEnumerable<UserLicenseResponse>>> GetUsersWithInheritedAccessWithHttpMessagesAsync(string tenantId, System.Guid applicationId, IDictionary<string, string> odata = default, bool? includeDuplicates = default, string requestId = default, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default);
-
-        /// <summary>
-        /// All users, both direct and inherited
-        ///
-        ///
-        /// </summary>
-        /// <remarks>
-        /// Get all users including inherited from groups, deduplication is by
-        /// default in effect. disable deduplication to detect users with
-        /// multiple paths to the application in the tenant.&lt;br/&gt;
-        /// </remarks>
-        /// <param name='tenantId'>
-        /// The tenant id (or dnvCustomerId for veracity_default tenants)
-        /// </param>
-        /// <param name='applicationId'>
-        /// The applicationId is the same as serviceId in developer
-        /// </param>
-        /// <param name='odata'>
-        /// OData query options, the values are passed as query string
-        /// parameters
-        /// </param>
-        /// <param name='includeDuplicates'>
-        /// </param>
-        /// <param name='requestId'>
-        /// A correlation token to use when looking in the logs.
-        /// </param>
-        /// <param name='cancellationToken'>
-        /// The cancellation token.
-        /// </param>
-        Task<IEnumerable<UserLicenseResponse>> GetUsersWithInheritedAccessAsync(string tenantId, System.Guid applicationId, IDictionary<string, string> odata = default, bool? includeDuplicates = default, string requestId = default, CancellationToken cancellationToken = default);
-
-        /// <summary>
-        /// Only applicable for applications with access levels
-        ///
-        ///
-        /// </summary>
-        /// <remarks>
-        /// Set access level on an existing subscription. entityId is the id of
-        /// the group or the person, and licenseType (profile,userGroup)
-        /// indicates which type of license you are updating&lt;br/&gt;
-        /// </remarks>
-        /// <param name='tenantId'>
-        /// The tenant id (or dnvCustomerId for veracity_default tenants)
-        /// </param>
-        /// <param name='applicationId'>
-        /// The applicationId is the same as serviceId in developer
-        /// </param>
-        /// <param name='entityId'>
-        /// </param>
-        /// <param name='body'>
-        /// </param>
-        /// <param name='licenseType'>
-        /// Represents the type of entity. Possible values include: 'profile',
-        /// 'userGroup'
-        /// </param>
-        /// <param name='requestId'>
-        /// A correlation token to use when looking in the logs.
-        /// </param>
-        /// <param name='customHeaders'>
-        /// The headers that will be added to request.
-        /// </param>
-        /// <param name='cancellationToken'>
-        /// The cancellation token.
-        /// </param>
-        /// <exception cref="Microsoft.Rest.HttpOperationException">
-        /// Thrown when the operation returned an invalid status code
-        /// </exception>
-        /// <exception cref="Microsoft.Rest.SerializationException">
-        /// Thrown when unable to deserialize the response
-        /// </exception>
-        /// <exception cref="Microsoft.Rest.ValidationException">
-        /// Thrown when a required parameter is null
-        /// </exception>
-        Task<HttpOperationResponse<LicenseResponse>> SetAccessLevelWithHttpMessagesAsync(string tenantId, System.Guid applicationId, System.Guid entityId, IEnumerable<Operation> body = default, string licenseType = default, string requestId = default, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default);
-
-        /// <summary>
-        /// Only applicable for applications with access levels
-        ///
-        ///
-        /// </summary>
-        /// <remarks>
-        /// Set access level on an existing subscription. entityId is the id of
-        /// the group or the person, and licenseType (profile,userGroup)
-        /// indicates which type of license you are updating&lt;br/&gt;
-        /// </remarks>
-        /// <param name='tenantId'>
-        /// The tenant id (or dnvCustomerId for veracity_default tenants)
-        /// </param>
-        /// <param name='applicationId'>
-        /// The applicationId is the same as serviceId in developer
-        /// </param>
-        /// <param name='entityId'>
-        /// </param>
-        /// <param name='body'>
-        /// </param>
-        /// <param name='licenseType'>
-        /// Represents the type of entity. Possible values include: 'profile',
-        /// 'userGroup'
-        /// </param>
-        /// <param name='requestId'>
-        /// A correlation token to use when looking in the logs.
-        /// </param>
-        /// <param name='cancellationToken'>
-        /// The cancellation token.
-        /// </param>
-        Task<LicenseResponse> SetAccessLevelAsync(string tenantId, System.Guid applicationId, System.Guid entityId, IEnumerable<Operation> body = default, string licenseType = default, string requestId = default, CancellationToken cancellationToken = default);
-
-        /// <summary>
-        /// Get application tenants
-        ///
-        ///
-        /// </summary>
-        /// <remarks>
-        /// Get all tenants where application is installed&lt;br/&gt;
-        /// </remarks>
-        /// <param name='applicationId'>
-        /// The applicationId is the same as serviceId in developer
-        /// </param>
-        /// <param name='requestId'>
-        /// A correlation token to use when looking in the logs.
-        /// </param>
-        /// <param name='customHeaders'>
-        /// The headers that will be added to request.
-        /// </param>
-        /// <param name='cancellationToken'>
-        /// The cancellation token.
-        /// </param>
-        /// <exception cref="Microsoft.Rest.HttpOperationException">
-        /// Thrown when the operation returned an invalid status code
-        /// </exception>
-        /// <exception cref="Microsoft.Rest.SerializationException">
-        /// Thrown when unable to deserialize the response
-        /// </exception>
-        Task<HttpOperationResponse<IEnumerable<TenantResponse>>> GetTenantsForApplicationWithHttpMessagesAsync(System.Guid applicationId, string requestId = default, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default);
-
-        /// <summary>
-        /// Get application tenants
-        ///
-        ///
-        /// </summary>
-        /// <remarks>
-        /// Get all tenants where application is installed&lt;br/&gt;
-        /// </remarks>
-        /// <param name='applicationId'>
-        /// The applicationId is the same as serviceId in developer
-        /// </param>
-        /// <param name='requestId'>
-        /// A correlation token to use when looking in the logs.
-        /// </param>
-        /// <param name='cancellationToken'>
-        /// The cancellation token.
-        /// </param>
-        Task<IEnumerable<TenantResponse>> GetTenantsForApplicationAsync(System.Guid applicationId, string requestId = default, CancellationToken cancellationToken = default);
-
-        /// <summary>
-        /// List application admins
-        ///
-        ///
-        /// </summary>
-        /// <remarks>
-        /// List application administrators&lt;br/&gt;
+        /// Get element rights for the logged in user&lt;br/&gt;
         /// </remarks>
         /// <param name='tenantId'>
         /// The tenant id (or dnvCustomerId for veracity_default tenants)
@@ -850,15 +1044,15 @@ namespace DNV.ApiClients.Veracity.Identity.PlatformApiV4.Interfaces
         /// <exception cref="Microsoft.Rest.ValidationException">
         /// Thrown when a required parameter is null
         /// </exception>
-        Task<HttpOperationResponse<IEnumerable<AdminUser>>> GetAdministratorsWithHttpMessagesAsync(string tenantId, System.Guid applicationId, string requestId = default, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default);
+        Task<HttpOperationResponse<IEnumerable<ElementRightTreeResponse>>> GetCurentUserElementsWithHttpMessagesAsync(string tenantId, System.Guid applicationId, string requestId = default, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default);
 
         /// <summary>
-        /// List application admins
+        /// Get the rights for the logged in user
         ///
         ///
         /// </summary>
         /// <remarks>
-        /// List application administrators&lt;br/&gt;
+        /// Get element rights for the logged in user&lt;br/&gt;
         /// </remarks>
         /// <param name='tenantId'>
         /// The tenant id (or dnvCustomerId for veracity_default tenants)
@@ -872,19 +1066,16 @@ namespace DNV.ApiClients.Veracity.Identity.PlatformApiV4.Interfaces
         /// <param name='cancellationToken'>
         /// The cancellation token.
         /// </param>
-        Task<IEnumerable<AdminUser>> GetAdministratorsAsync(string tenantId, System.Guid applicationId, string requestId = default, CancellationToken cancellationToken = default);
+        Task<IEnumerable<ElementRightTreeResponse>> GetCurentUserElementsAsync(string tenantId, System.Guid applicationId, string requestId = default, CancellationToken cancellationToken = default);
 
         /// <summary>
-        /// Add application admin
+        /// Get the effective rights for the logged in user
         ///
         ///
         /// </summary>
         /// <remarks>
-        /// Add user as application administrator, this is only used by hybrid
-        /// and service managed applications. If the application has access
-        /// levels defined, this must be provided if the user doesn't have a
-        /// license from before. Only applicable for applications without
-        /// access levels or with access levels V1&lt;br/&gt;
+        /// Get the effective rights for a specific element for the logged in
+        /// user&lt;br/&gt;
         /// </remarks>
         /// <param name='tenantId'>
         /// The tenant id (or dnvCustomerId for veracity_default tenants)
@@ -892,138 +1083,8 @@ namespace DNV.ApiClients.Veracity.Identity.PlatformApiV4.Interfaces
         /// <param name='applicationId'>
         /// The applicationId is the same as serviceId in developer
         /// </param>
-        /// <param name='userId'>
-        /// The users id found in Veracity Identity
-        /// </param>
-        /// <param name='accessLevel'>
-        /// </param>
-        /// <param name='requestId'>
-        /// A correlation token to use when looking in the logs.
-        /// </param>
-        /// <param name='customHeaders'>
-        /// The headers that will be added to request.
-        /// </param>
-        /// <param name='cancellationToken'>
-        /// The cancellation token.
-        /// </param>
-        /// <exception cref="Microsoft.Rest.HttpOperationException">
-        /// Thrown when the operation returned an invalid status code
-        /// </exception>
-        /// <exception cref="Microsoft.Rest.ValidationException">
-        /// Thrown when a required parameter is null
-        /// </exception>
-        Task<HttpOperationResponse> AddAdministratorWithHttpMessagesAsync(string tenantId, System.Guid applicationId, System.Guid userId, string accessLevel = default, string requestId = default, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default);
-
-        /// <summary>
-        /// Add application admin
-        ///
-        ///
-        /// </summary>
-        /// <remarks>
-        /// Add user as application administrator, this is only used by hybrid
-        /// and service managed applications. If the application has access
-        /// levels defined, this must be provided if the user doesn't have a
-        /// license from before. Only applicable for applications without
-        /// access levels or with access levels V1&lt;br/&gt;
-        /// </remarks>
-        /// <param name='tenantId'>
-        /// The tenant id (or dnvCustomerId for veracity_default tenants)
-        /// </param>
-        /// <param name='applicationId'>
-        /// The applicationId is the same as serviceId in developer
-        /// </param>
-        /// <param name='userId'>
-        /// The users id found in Veracity Identity
-        /// </param>
-        /// <param name='accessLevel'>
-        /// </param>
-        /// <param name='requestId'>
-        /// A correlation token to use when looking in the logs.
-        /// </param>
-        /// <param name='cancellationToken'>
-        /// The cancellation token.
-        /// </param>
-        Task AddAdministratorAsync(string tenantId, System.Guid applicationId, System.Guid userId, string accessLevel = default, string requestId = default, CancellationToken cancellationToken = default);
-
-        /// <summary>
-        /// remove an admin
-        ///
-        ///
-        /// </summary>
-        /// <remarks>
-        /// Remove application administrator, this is only used by hybrid and
-        /// service managed applications. Only applicable for applications
-        /// without access levels or with access levels V1&lt;br/&gt;
-        /// </remarks>
-        /// <param name='tenantId'>
-        /// The tenant id (or dnvCustomerId for veracity_default tenants)
-        /// </param>
-        /// <param name='applicationId'>
-        /// The applicationId is the same as serviceId in developer
-        /// </param>
-        /// <param name='userId'>
-        /// The users id found in Veracity Identity
-        /// </param>
-        /// <param name='removeLicense'>
-        /// </param>
-        /// <param name='requestId'>
-        /// A correlation token to use when looking in the logs.
-        /// </param>
-        /// <param name='customHeaders'>
-        /// The headers that will be added to request.
-        /// </param>
-        /// <param name='cancellationToken'>
-        /// The cancellation token.
-        /// </param>
-        /// <exception cref="Microsoft.Rest.HttpOperationException">
-        /// Thrown when the operation returned an invalid status code
-        /// </exception>
-        /// <exception cref="Microsoft.Rest.ValidationException">
-        /// Thrown when a required parameter is null
-        /// </exception>
-        Task<HttpOperationResponse> DeleteAdministratorWithHttpMessagesAsync(string tenantId, System.Guid applicationId, System.Guid userId, bool? removeLicense = default, string requestId = default, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default);
-
-        /// <summary>
-        /// remove an admin
-        ///
-        ///
-        /// </summary>
-        /// <remarks>
-        /// Remove application administrator, this is only used by hybrid and
-        /// service managed applications. Only applicable for applications
-        /// without access levels or with access levels V1&lt;br/&gt;
-        /// </remarks>
-        /// <param name='tenantId'>
-        /// The tenant id (or dnvCustomerId for veracity_default tenants)
-        /// </param>
-        /// <param name='applicationId'>
-        /// The applicationId is the same as serviceId in developer
-        /// </param>
-        /// <param name='userId'>
-        /// The users id found in Veracity Identity
-        /// </param>
-        /// <param name='removeLicense'>
-        /// </param>
-        /// <param name='requestId'>
-        /// A correlation token to use when looking in the logs.
-        /// </param>
-        /// <param name='cancellationToken'>
-        /// The cancellation token.
-        /// </param>
-        Task DeleteAdministratorAsync(string tenantId, System.Guid applicationId, System.Guid userId, bool? removeLicense = default, string requestId = default, CancellationToken cancellationToken = default);
-
-        /// <summary>
-        /// Get the application manifest
-        ///
-        ///
-        /// </summary>
-        /// <remarks>
-        /// Get application manifest, which contains the application settings
-        /// and the administrators. All these settings are controlled in
-        /// developer.veracity.com&lt;br/&gt;
-        /// </remarks>
-        /// <param name='applicationId'>
-        /// The applicationId is the same as serviceId in developer
+        /// <param name='elementId'>
+        /// Can be the application internal id or the VTM elementId
         /// </param>
         /// <param name='requestId'>
         /// A correlation token to use when looking in the logs.
@@ -1040,20 +1101,28 @@ namespace DNV.ApiClients.Veracity.Identity.PlatformApiV4.Interfaces
         /// <exception cref="Microsoft.Rest.SerializationException">
         /// Thrown when unable to deserialize the response
         /// </exception>
-        Task<HttpOperationResponse<ApplicationManifest>> GetApplicationManifestWithHttpMessagesAsync(System.Guid applicationId, string requestId = default, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default);
+        /// <exception cref="Microsoft.Rest.ValidationException">
+        /// Thrown when a required parameter is null
+        /// </exception>
+        Task<HttpOperationResponse<ElementRightResponse>> GetCurentUserElementWithHttpMessagesAsync(string tenantId, System.Guid applicationId, string elementId, string requestId = default, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default);
 
         /// <summary>
-        /// Get the application manifest
+        /// Get the effective rights for the logged in user
         ///
         ///
         /// </summary>
         /// <remarks>
-        /// Get application manifest, which contains the application settings
-        /// and the administrators. All these settings are controlled in
-        /// developer.veracity.com&lt;br/&gt;
+        /// Get the effective rights for a specific element for the logged in
+        /// user&lt;br/&gt;
         /// </remarks>
+        /// <param name='tenantId'>
+        /// The tenant id (or dnvCustomerId for veracity_default tenants)
+        /// </param>
         /// <param name='applicationId'>
         /// The applicationId is the same as serviceId in developer
+        /// </param>
+        /// <param name='elementId'>
+        /// Can be the application internal id or the VTM elementId
         /// </param>
         /// <param name='requestId'>
         /// A correlation token to use when looking in the logs.
@@ -1061,7 +1130,7 @@ namespace DNV.ApiClients.Veracity.Identity.PlatformApiV4.Interfaces
         /// <param name='cancellationToken'>
         /// The cancellation token.
         /// </param>
-        Task<ApplicationManifest> GetApplicationManifestAsync(System.Guid applicationId, string requestId = default, CancellationToken cancellationToken = default);
+        Task<ElementRightResponse> GetCurentUserElementAsync(string tenantId, System.Guid applicationId, string elementId, string requestId = default, CancellationToken cancellationToken = default);
 
     }
 }

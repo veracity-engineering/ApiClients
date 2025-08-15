@@ -27,11 +27,24 @@ namespace DNV.ApiClients.Veracity.Identity.PlatformApiV4.Models
         /// <summary>
         /// Initializes a new instance of the UserRoles class.
         /// </summary>
+        /// <param name="isTenantAdmin">Indicates if the user is a full
+        /// administrator of the tenant</param>
+        /// <param name="isUserAdmin">Indicates if the user is a user
+        /// administrator in the tenant</param>
+        /// <param name="adminOfApplications">a list of applications the user
+        /// is an admin of</param>
+        /// <param name="adminOfGroups">a list of groups the user is an admin
+        /// of</param>
+        /// <param name="email">The email of the user</param>
         /// <param name="name">The name of the tenant entity.</param>
         /// <param name="tenantId">The ID of the tenant.</param>
         /// <param name="accessHubTenantHomeUrl">get the url to the tenants
         /// home page in access hub</param>
-        public UserRoles(bool? isTenantAdmin = default, bool? isUserAdmin = default, IEnumerable<AdminItem> adminOfApplications = default, IEnumerable<AdminItem> adminOfGroups = default, string id = default, object email = default, string userId = default, string name = default, System.Guid? tenantId = default, string accessHubTenantHomeUrl = default)
+        /// <param name="systemTags">Gets or sets the list of system generated
+        /// tags associated with the tenant entity.</param>
+        /// <param name="tags">Gets or sets the list of tags associated with
+        /// the tenant entity.</param>
+        public UserRoles(bool? isTenantAdmin = default, bool? isUserAdmin = default, IEnumerable<AdminItem> adminOfApplications = default, IEnumerable<AdminItem> adminOfGroups = default, string id = default, string email = default, string userId = default, string name = default, System.Guid? tenantId = default, string accessHubTenantHomeUrl = default, IEnumerable<string> systemTags = default, IEnumerable<string> tags = default)
         {
             IsTenantAdmin = isTenantAdmin;
             IsUserAdmin = isUserAdmin;
@@ -43,6 +56,8 @@ namespace DNV.ApiClients.Veracity.Identity.PlatformApiV4.Models
             Name = name;
             TenantId = tenantId;
             AccessHubTenantHomeUrl = accessHubTenantHomeUrl;
+            SystemTags = systemTags;
+            Tags = tags;
             CustomInit();
         }
 
@@ -52,21 +67,27 @@ namespace DNV.ApiClients.Veracity.Identity.PlatformApiV4.Models
         partial void CustomInit();
 
         /// <summary>
+        /// Gets or sets indicates if the user is a full administrator of the
+        /// tenant
         /// </summary>
         [JsonProperty(PropertyName = "isTenantAdmin")]
         public bool? IsTenantAdmin { get; set; }
 
         /// <summary>
+        /// Gets or sets indicates if the user is a user administrator in the
+        /// tenant
         /// </summary>
         [JsonProperty(PropertyName = "isUserAdmin")]
         public bool? IsUserAdmin { get; set; }
 
         /// <summary>
+        /// Gets or sets a list of applications the user is an admin of
         /// </summary>
         [JsonProperty(PropertyName = "adminOfApplications")]
         public IEnumerable<AdminItem> AdminOfApplications { get; set; }
 
         /// <summary>
+        /// Gets or sets a list of groups the user is an admin of
         /// </summary>
         [JsonProperty(PropertyName = "adminOfGroups")]
         public IEnumerable<AdminItem> AdminOfGroups { get; set; }
@@ -77,9 +98,10 @@ namespace DNV.ApiClients.Veracity.Identity.PlatformApiV4.Models
         public string Id { get; set; }
 
         /// <summary>
+        /// Gets or sets the email of the user
         /// </summary>
         [JsonProperty(PropertyName = "email")]
-        public object Email { get; set; }
+        public string Email { get; set; }
 
         /// <summary>
         /// </summary>
@@ -103,6 +125,19 @@ namespace DNV.ApiClients.Veracity.Identity.PlatformApiV4.Models
         /// </summary>
         [JsonProperty(PropertyName = "accessHubTenantHomeUrl")]
         public string AccessHubTenantHomeUrl { get; set; }
+
+        /// <summary>
+        /// Gets or sets the list of system generated tags associated with the
+        /// tenant entity.
+        /// </summary>
+        [JsonProperty(PropertyName = "systemTags")]
+        public IEnumerable<string> SystemTags { get; set; }
+
+        /// <summary>
+        /// Gets or sets the list of tags associated with the tenant entity.
+        /// </summary>
+        [JsonProperty(PropertyName = "tags")]
+        public IEnumerable<string> Tags { get; set; }
 
     }
 }

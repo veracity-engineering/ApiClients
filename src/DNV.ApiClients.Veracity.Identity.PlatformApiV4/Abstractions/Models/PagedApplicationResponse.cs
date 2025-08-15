@@ -15,18 +15,18 @@ namespace DNV.ApiClients.Veracity.Identity.PlatformApiV4.Models
     /// A paged list of items. This class is used to represent the result of a
     /// paged query.
     /// </summary>
-    public partial class UserResponseModel
+    public partial class PagedApplicationResponse
     {
         /// <summary>
-        /// Initializes a new instance of the UserResponseModel class.
+        /// Initializes a new instance of the PagedApplicationResponse class.
         /// </summary>
-        public UserResponseModel()
+        public PagedApplicationResponse()
         {
             CustomInit();
         }
 
         /// <summary>
-        /// Initializes a new instance of the UserResponseModel class.
+        /// Initializes a new instance of the PagedApplicationResponse class.
         /// </summary>
         /// <param name="items">The items in the current page</param>
         /// <param name="pageCount">The number of items in the current
@@ -36,7 +36,7 @@ namespace DNV.ApiClients.Veracity.Identity.PlatformApiV4.Models
         /// <param name="nextPageUrl">Contains the relative url to the next
         /// page of the result set. The url is only present if there are more
         /// results to fetch. It assumes a constant page size.</param>
-        public UserResponseModel(IEnumerable<UserResponse> items = default, int? pageCount = default, long? totalCount = default, string nextPageUrl = default)
+        public PagedApplicationResponse(IEnumerable<ApplicationResponse> items = default, int? pageCount = default, long? totalCount = default, string nextPageUrl = default)
         {
             Items = items;
             PageCount = pageCount;
@@ -54,7 +54,7 @@ namespace DNV.ApiClients.Veracity.Identity.PlatformApiV4.Models
         /// Gets or sets the items in the current page
         /// </summary>
         [JsonProperty(PropertyName = "items")]
-        public IEnumerable<UserResponse> Items { get; set; }
+        public IEnumerable<ApplicationResponse> Items { get; set; }
 
         /// <summary>
         /// Gets the number of items in the current page

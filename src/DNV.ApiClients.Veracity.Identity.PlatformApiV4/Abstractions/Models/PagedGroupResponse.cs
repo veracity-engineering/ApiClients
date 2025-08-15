@@ -15,18 +15,18 @@ namespace DNV.ApiClients.Veracity.Identity.PlatformApiV4.Models
     /// A paged list of items. This class is used to represent the result of a
     /// paged query.
     /// </summary>
-    public partial class GroupResponseModel
+    public partial class PagedGroupResponse
     {
         /// <summary>
-        /// Initializes a new instance of the GroupResponseModel class.
+        /// Initializes a new instance of the PagedGroupResponse class.
         /// </summary>
-        public GroupResponseModel()
+        public PagedGroupResponse()
         {
             CustomInit();
         }
 
         /// <summary>
-        /// Initializes a new instance of the GroupResponseModel class.
+        /// Initializes a new instance of the PagedGroupResponse class.
         /// </summary>
         /// <param name="items">The items in the current page</param>
         /// <param name="pageCount">The number of items in the current
@@ -36,7 +36,7 @@ namespace DNV.ApiClients.Veracity.Identity.PlatformApiV4.Models
         /// <param name="nextPageUrl">Contains the relative url to the next
         /// page of the result set. The url is only present if there are more
         /// results to fetch. It assumes a constant page size.</param>
-        public GroupResponseModel(IEnumerable<GroupResponse> items = default, int? pageCount = default, long? totalCount = default, string nextPageUrl = default)
+        public PagedGroupResponse(IEnumerable<GroupResponse> items = default, int? pageCount = default, long? totalCount = default, string nextPageUrl = default)
         {
             Items = items;
             PageCount = pageCount;

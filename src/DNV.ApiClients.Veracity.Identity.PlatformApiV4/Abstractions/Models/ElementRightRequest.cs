@@ -12,20 +12,20 @@ namespace DNV.ApiClients.Veracity.Identity.PlatformApiV4.Models
     using System.Collections;
     using System.Collections.Generic;
     /// <summary>
-    /// Represents a license request.
+    /// Represents a request to manage element rights for a user or group.
     /// </summary>
-    public partial class LicenseRequest
+    public partial class ElementRightRequest
     {
         /// <summary>
-        /// Initializes a new instance of the LicenseRequest class.
+        /// Initializes a new instance of the ElementRightRequest class.
         /// </summary>
-        public LicenseRequest()
+        public ElementRightRequest()
         {
             CustomInit();
         }
 
         /// <summary>
-        /// Initializes a new instance of the LicenseRequest class.
+        /// Initializes a new instance of the ElementRightRequest class.
         /// </summary>
         /// <param name="entityId">The veracity user id for profile members and
         /// the group id for group members</param>
@@ -41,7 +41,7 @@ namespace DNV.ApiClients.Veracity.Identity.PlatformApiV4.Models
         /// users to the tenant</param>
         /// <param name="properties">The extension properties. Extra
         /// information kept on the object.</param>
-        public LicenseRequest(System.Guid entityId, EntityTypes licenseType, string accessLevel = default, bool? isAdmin = default, bool? canAddUsersToTenant = default, IEnumerable<ExtensionProperty> properties = default)
+        public ElementRightRequest(System.Guid entityId, EntityTypes licenseType, string accessLevel = default, bool? isAdmin = default, bool? canAddUsersToTenant = default, IEnumerable<ExtensionProperty> properties = default)
         {
             EntityId = entityId;
             LicenseType = licenseType;

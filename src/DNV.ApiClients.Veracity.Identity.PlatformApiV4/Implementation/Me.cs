@@ -50,9 +50,13 @@ namespace DNV.ApiClients.Veracity.Identity.PlatformApiV4
         public PlatformApiV4Client Client { get; private set; }
 
         /// <summary>
-        /// Get details for the logged on user&lt;br/&gt;tenantId can be the guid or
-        /// the dnvCustomerId for the tenant
+        /// Get the user info for the logged in user
+        ///
+        ///
         /// </summary>
+        /// <remarks>
+        /// Get details for the logged on user&lt;br/&gt;
+        /// </remarks>
         /// <param name='requestId'>
         /// A correlation token to use when looking in the logs.
         /// </param>
@@ -71,7 +75,7 @@ namespace DNV.ApiClients.Veracity.Identity.PlatformApiV4
         /// <return>
         /// A response object containing the response body and response headers.
         /// </return>
-        public async Task<HttpOperationResponse<UserDetails2Response>> GetMyInfoWithHttpMessagesAsync(string requestId = default, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default)
+        public async Task<HttpOperationResponse<GlobalUserDetailsResponse>> GetMyInfoWithHttpMessagesAsync(string requestId = default, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default)
         {
             // Construct URL
             var _baseUrl = Client.HttpClient.BaseAddress?.AbsoluteUri ?? Client.BaseUri.AbsoluteUri;
@@ -131,7 +135,7 @@ namespace DNV.ApiClients.Veracity.Identity.PlatformApiV4
                 throw ex;
             }
             // Create Result
-            var _result = new HttpOperationResponse<UserDetails2Response>();
+            var _result = new HttpOperationResponse<GlobalUserDetailsResponse>();
             _result.Request = _httpRequest;
             _result.Response = _httpResponse;
             // Deserialize Response
@@ -140,7 +144,7 @@ namespace DNV.ApiClients.Veracity.Identity.PlatformApiV4
                 _responseContent = await _httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
                 try
                 {
-                    _result.Body = Microsoft.Rest.Serialization.SafeJsonConvert.DeserializeObject<UserDetails2Response>(_responseContent, Client.DeserializationSettings);
+                    _result.Body = Microsoft.Rest.Serialization.SafeJsonConvert.DeserializeObject<GlobalUserDetailsResponse>(_responseContent, Client.DeserializationSettings);
                 }
                 catch (JsonException ex)
                 {
@@ -155,16 +159,20 @@ namespace DNV.ApiClients.Veracity.Identity.PlatformApiV4
             return _result;
         }
         /// <summary>
-        /// Get details for the logged on user&lt;br/&gt;tenantId can be the guid or
-        /// the dnvCustomerId for the tenant
+        /// Get the user info for the logged in user
+        ///
+        ///
         /// </summary>
+        /// <remarks>
+        /// Get details for the logged on user&lt;br/&gt;
+        /// </remarks>
         /// <param name='requestId'>
         /// A correlation token to use when looking in the logs.
         /// </param>
         /// <param name='cancellationToken'>
         /// The cancellation token.
         /// </param>
-        public async Task<UserDetails2Response> GetMyInfoAsync(string requestId = default, CancellationToken cancellationToken = default)
+        public async Task<GlobalUserDetailsResponse> GetMyInfoAsync(string requestId = default, CancellationToken cancellationToken = default)
         {
             using (var _result = await GetMyInfoWithHttpMessagesAsync(requestId, null, cancellationToken).ConfigureAwait(false))
             {
@@ -173,9 +181,13 @@ namespace DNV.ApiClients.Veracity.Identity.PlatformApiV4
         }
 
         /// <summary>
-        /// Get all applications the user has access to&lt;br/&gt;tenantId can be the
-        /// guid or the dnvCustomerId for the tenant
+        /// Get the applications the user has a license for
+        ///
+        ///
         /// </summary>
+        /// <remarks>
+        /// Get all applications the user has access to&lt;br/&gt;
+        /// </remarks>
         /// <param name='requestId'>
         /// A correlation token to use when looking in the logs.
         /// </param>
@@ -278,9 +290,13 @@ namespace DNV.ApiClients.Veracity.Identity.PlatformApiV4
             return _result;
         }
         /// <summary>
-        /// Get all applications the user has access to&lt;br/&gt;tenantId can be the
-        /// guid or the dnvCustomerId for the tenant
+        /// Get the applications the user has a license for
+        ///
+        ///
         /// </summary>
+        /// <remarks>
+        /// Get all applications the user has access to&lt;br/&gt;
+        /// </remarks>
         /// <param name='requestId'>
         /// A correlation token to use when looking in the logs.
         /// </param>
@@ -296,10 +312,15 @@ namespace DNV.ApiClients.Veracity.Identity.PlatformApiV4
         }
 
         /// <summary>
-        /// Get all applications in a tenant the user has access to&lt;br/&gt;tenantId
-        /// can be the guid or the dnvCustomerId for the tenant
+        /// Get all applications the user has a license for in a given tenant
+        ///
+        ///
         /// </summary>
+        /// <remarks>
+        /// Get all applications in a tenant the user has access to&lt;br/&gt;
+        /// </remarks>
         /// <param name='tenantId'>
+        /// The tenant id (or dnvCustomerId for veracity_default tenants)
         /// </param>
         /// <param name='requestId'>
         /// A correlation token to use when looking in the logs.
@@ -414,10 +435,15 @@ namespace DNV.ApiClients.Veracity.Identity.PlatformApiV4
             return _result;
         }
         /// <summary>
-        /// Get all applications in a tenant the user has access to&lt;br/&gt;tenantId
-        /// can be the guid or the dnvCustomerId for the tenant
+        /// Get all applications the user has a license for in a given tenant
+        ///
+        ///
         /// </summary>
+        /// <remarks>
+        /// Get all applications in a tenant the user has access to&lt;br/&gt;
+        /// </remarks>
         /// <param name='tenantId'>
+        /// The tenant id (or dnvCustomerId for veracity_default tenants)
         /// </param>
         /// <param name='requestId'>
         /// A correlation token to use when looking in the logs.
@@ -434,10 +460,15 @@ namespace DNV.ApiClients.Veracity.Identity.PlatformApiV4
         }
 
         /// <summary>
-        /// Get the groups the logged on user belongs to&lt;br/&gt;tenantId can be the
-        /// guid or the dnvCustomerId for the tenant
+        /// Get the users group memberships
+        ///
+        ///
         /// </summary>
+        /// <remarks>
+        /// Get the groups the logged on user belongs to&lt;br/&gt;
+        /// </remarks>
         /// <param name='tenantId'>
+        /// The tenant id (or dnvCustomerId for veracity_default tenants)
         /// </param>
         /// <param name='requestId'>
         /// A correlation token to use when looking in the logs.
@@ -552,10 +583,15 @@ namespace DNV.ApiClients.Veracity.Identity.PlatformApiV4
             return _result;
         }
         /// <summary>
-        /// Get the groups the logged on user belongs to&lt;br/&gt;tenantId can be the
-        /// guid or the dnvCustomerId for the tenant
+        /// Get the users group memberships
+        ///
+        ///
         /// </summary>
+        /// <remarks>
+        /// Get the groups the logged on user belongs to&lt;br/&gt;
+        /// </remarks>
         /// <param name='tenantId'>
+        /// The tenant id (or dnvCustomerId for veracity_default tenants)
         /// </param>
         /// <param name='requestId'>
         /// A correlation token to use when looking in the logs.
@@ -572,9 +608,13 @@ namespace DNV.ApiClients.Veracity.Identity.PlatformApiV4
         }
 
         /// <summary>
-        /// Get all tenants the logged on user is a member of&lt;br/&gt;tenantId can be
-        /// the guid or the dnvCustomerId for the tenant
+        /// Get all tenants the user is a member of
+        ///
+        ///
         /// </summary>
+        /// <remarks>
+        /// Get all tenants the logged on user is a member of&lt;br/&gt;
+        /// </remarks>
         /// <param name='requestId'>
         /// A correlation token to use when looking in the logs.
         /// </param>
@@ -677,9 +717,13 @@ namespace DNV.ApiClients.Veracity.Identity.PlatformApiV4
             return _result;
         }
         /// <summary>
-        /// Get all tenants the logged on user is a member of&lt;br/&gt;tenantId can be
-        /// the guid or the dnvCustomerId for the tenant
+        /// Get all tenants the user is a member of
+        ///
+        ///
         /// </summary>
+        /// <remarks>
+        /// Get all tenants the logged on user is a member of&lt;br/&gt;
+        /// </remarks>
         /// <param name='requestId'>
         /// A correlation token to use when looking in the logs.
         /// </param>
@@ -695,11 +739,16 @@ namespace DNV.ApiClients.Veracity.Identity.PlatformApiV4
         }
 
         /// <summary>
-        /// Get all tenants the logged on user is a member of and has access to the
-        /// application&lt;br/&gt;tenantId can be the guid or the dnvCustomerId for the
-        /// tenant
+        /// Get tenants with the application installed and the user has a license
+        ///
+        ///
         /// </summary>
+        /// <remarks>
+        /// Get all tenants the logged on user is a member of and has access to the
+        /// application&lt;br/&gt;
+        /// </remarks>
         /// <param name='applicationId'>
+        /// The applicationId is the same as serviceId in developer
         /// </param>
         /// <param name='requestId'>
         /// A correlation token to use when looking in the logs.
@@ -804,11 +853,16 @@ namespace DNV.ApiClients.Veracity.Identity.PlatformApiV4
             return _result;
         }
         /// <summary>
-        /// Get all tenants the logged on user is a member of and has access to the
-        /// application&lt;br/&gt;tenantId can be the guid or the dnvCustomerId for the
-        /// tenant
+        /// Get tenants with the application installed and the user has a license
+        ///
+        ///
         /// </summary>
+        /// <remarks>
+        /// Get all tenants the logged on user is a member of and has access to the
+        /// application&lt;br/&gt;
+        /// </remarks>
         /// <param name='applicationId'>
+        /// The applicationId is the same as serviceId in developer
         /// </param>
         /// <param name='requestId'>
         /// A correlation token to use when looking in the logs.
@@ -825,17 +879,18 @@ namespace DNV.ApiClients.Veracity.Identity.PlatformApiV4
         }
 
         /// <summary>
-        /// ! This endpoint will ensure that federated users are properly enrolled !
+        /// Important process, verifies that the authenticated user has accepted all
+        /// required Veracity policies for the given application.
         ///
         ///
         /// </summary>
         /// <remarks>
         /// Verify Veracity user policies, returns an empty 202 response if all
         /// policies are ok, 406 with an error response that contains the url to send
-        /// the user to correct the policy issue&lt;br/&gt;tenantId can be the guid or
-        /// the dnvCustomerId for the tenant
+        /// the user to correct the policy issue&lt;br/&gt;
         /// </remarks>
         /// <param name='applicationId'>
+        /// The applicationId is the same as serviceId in developer
         /// </param>
         /// <param name='returnUrl'>
         /// </param>
@@ -858,7 +913,7 @@ namespace DNV.ApiClients.Veracity.Identity.PlatformApiV4
         {
             // Construct URL
             var _baseUrl = Client.HttpClient.BaseAddress?.AbsoluteUri ?? Client.BaseUri.AbsoluteUri;
-            var _url = new System.Uri(new System.Uri(_baseUrl + (_baseUrl.EndsWith("/") ? "" : "/")), "me/applications/{applicationId}/.policy()").ToString();
+            var _url = new System.Uri(new System.Uri(_baseUrl + (_baseUrl.EndsWith("/") ? "" : "/")), "me/policy-verifications/{applicationId}").ToString();
             _url = _url.Replace("{applicationId}", System.Uri.EscapeDataString(Microsoft.Rest.Serialization.SafeJsonConvert.SerializeObject(applicationId, Client.SerializationSettings).Trim('"')));
             IList<string> _queryParameters = new List<string>();
             if (returnUrl != null)
@@ -905,7 +960,7 @@ namespace DNV.ApiClients.Veracity.Identity.PlatformApiV4
             HttpStatusCode _statusCode = _httpResponse.StatusCode;
             cancellationToken.ThrowIfCancellationRequested();
             string _responseContent = null;
-            if ((int)_statusCode != 202)
+            if ((int)_statusCode != 200)
             {
                 var ex = new HttpOperationException(string.Format("Operation returned an invalid status code '{0}'", _statusCode));
                 if (_httpResponse.Content != null) {
@@ -930,17 +985,18 @@ namespace DNV.ApiClients.Veracity.Identity.PlatformApiV4
             return _result;
         }
         /// <summary>
-        /// ! This endpoint will ensure that federated users are properly enrolled !
+        /// Important process, verifies that the authenticated user has accepted all
+        /// required Veracity policies for the given application.
         ///
         ///
         /// </summary>
         /// <remarks>
         /// Verify Veracity user policies, returns an empty 202 response if all
         /// policies are ok, 406 with an error response that contains the url to send
-        /// the user to correct the policy issue&lt;br/&gt;tenantId can be the guid or
-        /// the dnvCustomerId for the tenant
+        /// the user to correct the policy issue&lt;br/&gt;
         /// </remarks>
         /// <param name='applicationId'>
+        /// The applicationId is the same as serviceId in developer
         /// </param>
         /// <param name='returnUrl'>
         /// </param>

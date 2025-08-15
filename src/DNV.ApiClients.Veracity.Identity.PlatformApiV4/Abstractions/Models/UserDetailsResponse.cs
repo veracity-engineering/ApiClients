@@ -34,6 +34,9 @@ namespace DNV.ApiClients.Veracity.Identity.PlatformApiV4.Models
         /// the user (across all tenants)¨.</param>
         /// <param name="accessHubProfileUrl">Get the url to the member profile
         /// page in access hub, this is only valid for profile members</param>
+        /// <param name="profilePictureUrl">Returns the relative profile
+        /// picture URL of the user if the middleware is added to the web
+        /// application.</param>
         /// <param name="email">The email of the user.</param>
         /// <param name="userId">The ID of the user.</param>
         /// <param name="isServicePrincipal">Value indicating whether the user
@@ -41,18 +44,23 @@ namespace DNV.ApiClients.Veracity.Identity.PlatformApiV4.Models
         /// <param name="name">The name of the tenant entity.</param>
         /// <param name="tenantId">The ID of the tenant.</param>
         /// <param name="properties">The extension properties of the tenant
-        /// entity. extension properties are case sensitive and shall user
+        /// entity. extension properties are case-sensitive and shall user
         /// {appPrefix}_{propertyName} format, appPrefixes are defined in
         /// developer.veracity.com.</param>
         /// <param name="accessHubTenantHomeUrl">get the url to the tenants
         /// home page in access hub</param>
-        public UserDetailsResponse(string firstName = default, string lastName = default, string phoneNumber = default, System.Guid? profileId = default, string accessHubProfileUrl = default, string email = default, System.Guid? userId = default, bool? isServicePrincipal = default, string name = default, System.Guid? tenantId = default, Metadata metadata = default, IEnumerable<ExtensionProperty> properties = default, string accessHubTenantHomeUrl = default)
+        /// <param name="systemTags">Gets or sets the list of system generated
+        /// tags associated with the tenant entity.</param>
+        /// <param name="tags">Gets or sets the list of tags associated with
+        /// the tenant entity.</param>
+        public UserDetailsResponse(string firstName = default, string lastName = default, string phoneNumber = default, System.Guid? profileId = default, string accessHubProfileUrl = default, string profilePictureUrl = default, string email = default, System.Guid? userId = default, bool? isServicePrincipal = default, string name = default, System.Guid? tenantId = default, Metadata metadata = default, IEnumerable<ExtensionProperty> properties = default, string accessHubTenantHomeUrl = default, IEnumerable<string> systemTags = default, IEnumerable<string> tags = default)
         {
             FirstName = firstName;
             LastName = lastName;
             PhoneNumber = phoneNumber;
             ProfileId = profileId;
             AccessHubProfileUrl = accessHubProfileUrl;
+            ProfilePictureUrl = profilePictureUrl;
             Email = email;
             UserId = userId;
             IsServicePrincipal = isServicePrincipal;
@@ -61,6 +69,8 @@ namespace DNV.ApiClients.Veracity.Identity.PlatformApiV4.Models
             Metadata = metadata;
             Properties = properties;
             AccessHubTenantHomeUrl = accessHubTenantHomeUrl;
+            SystemTags = systemTags;
+            Tags = tags;
             CustomInit();
         }
 
@@ -102,6 +112,13 @@ namespace DNV.ApiClients.Veracity.Identity.PlatformApiV4.Models
         public string AccessHubProfileUrl { get; set; }
 
         /// <summary>
+        /// Gets returns the relative profile picture URL of the user if the
+        /// middleware is added to the web application.
+        /// </summary>
+        [JsonProperty(PropertyName = "profilePictureUrl")]
+        public string ProfilePictureUrl { get; private set; }
+
+        /// <summary>
         /// Gets or sets the email of the user.
         /// </summary>
         [JsonProperty(PropertyName = "email")]
@@ -139,7 +156,7 @@ namespace DNV.ApiClients.Veracity.Identity.PlatformApiV4.Models
 
         /// <summary>
         /// Gets or sets the extension properties of the tenant entity.
-        /// extension properties are case sensitive and shall user
+        /// extension properties are case-sensitive and shall user
         /// {appPrefix}_{propertyName} format, appPrefixes are defined in
         /// developer.veracity.com.
         /// </summary>
@@ -151,6 +168,19 @@ namespace DNV.ApiClients.Veracity.Identity.PlatformApiV4.Models
         /// </summary>
         [JsonProperty(PropertyName = "accessHubTenantHomeUrl")]
         public string AccessHubTenantHomeUrl { get; set; }
+
+        /// <summary>
+        /// Gets or sets the list of system generated tags associated with the
+        /// tenant entity.
+        /// </summary>
+        [JsonProperty(PropertyName = "systemTags")]
+        public IEnumerable<string> SystemTags { get; set; }
+
+        /// <summary>
+        /// Gets or sets the list of tags associated with the tenant entity.
+        /// </summary>
+        [JsonProperty(PropertyName = "tags")]
+        public IEnumerable<string> Tags { get; set; }
 
     }
 }

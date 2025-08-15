@@ -50,18 +50,25 @@ namespace DNV.ApiClients.Veracity.Identity.PlatformApiV4
         public PlatformApiV4Client Client { get; private set; }
 
         /// <summary>
+        /// Get groups within the tenant
+        ///
+        ///
+        /// </summary>
+        /// <remarks>
         /// Get groups in the tenant
+        ///
+        /// Fliterable fields: name
         ///
         /// query sample:
         /// tenants/be0c84cb-7a4a-4114-aa17-9c0224b084cf/groups?$filter=name eq
         /// 'AN_Techleads'&amp;$top=1&amp;$skip=0&lt;br/&gt;Retrieve groups and group
         /// members to determine access rights within your application
-        ///
-        /// tenantId can be the guid or the dnvCustomerId for the tenant
-        /// </summary>
+        /// </remarks>
         /// <param name='tenantId'>
+        /// The tenant id (or dnvCustomerId for veracity_default tenants)
         /// </param>
         /// <param name='odata'>
+        /// OData query options, the values are passed as query string parameters
         /// </param>
         /// <param name='requestId'>
         /// A correlation token to use when looking in the logs.
@@ -87,7 +94,7 @@ namespace DNV.ApiClients.Veracity.Identity.PlatformApiV4
         /// <return>
         /// A response object containing the response body and response headers.
         /// </return>
-        public async Task<HttpOperationResponse<GroupResponseModel>> GetGroupsWithHttpMessagesAsync(string tenantId, IDictionary<string, string> odata = default, string requestId = default, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default)
+        public async Task<HttpOperationResponse<PagedGroupResponse>> GetGroupsWithHttpMessagesAsync(string tenantId, IDictionary<string, string> odata = default, string requestId = default, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default)
         {
             if (tenantId == null)
             {
@@ -161,7 +168,7 @@ namespace DNV.ApiClients.Veracity.Identity.PlatformApiV4
                 throw ex;
             }
             // Create Result
-            var _result = new HttpOperationResponse<GroupResponseModel>();
+            var _result = new HttpOperationResponse<PagedGroupResponse>();
             _result.Request = _httpRequest;
             _result.Response = _httpResponse;
             // Deserialize Response
@@ -170,7 +177,7 @@ namespace DNV.ApiClients.Veracity.Identity.PlatformApiV4
                 _responseContent = await _httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
                 try
                 {
-                    _result.Body = Microsoft.Rest.Serialization.SafeJsonConvert.DeserializeObject<GroupResponseModel>(_responseContent, Client.DeserializationSettings);
+                    _result.Body = Microsoft.Rest.Serialization.SafeJsonConvert.DeserializeObject<PagedGroupResponse>(_responseContent, Client.DeserializationSettings);
                 }
                 catch (JsonException ex)
                 {
@@ -185,18 +192,25 @@ namespace DNV.ApiClients.Veracity.Identity.PlatformApiV4
             return _result;
         }
         /// <summary>
+        /// Get groups within the tenant
+        ///
+        ///
+        /// </summary>
+        /// <remarks>
         /// Get groups in the tenant
+        ///
+        /// Fliterable fields: name
         ///
         /// query sample:
         /// tenants/be0c84cb-7a4a-4114-aa17-9c0224b084cf/groups?$filter=name eq
         /// 'AN_Techleads'&amp;$top=1&amp;$skip=0&lt;br/&gt;Retrieve groups and group
         /// members to determine access rights within your application
-        ///
-        /// tenantId can be the guid or the dnvCustomerId for the tenant
-        /// </summary>
+        /// </remarks>
         /// <param name='tenantId'>
+        /// The tenant id (or dnvCustomerId for veracity_default tenants)
         /// </param>
         /// <param name='odata'>
+        /// OData query options, the values are passed as query string parameters
         /// </param>
         /// <param name='requestId'>
         /// A correlation token to use when looking in the logs.
@@ -204,7 +218,7 @@ namespace DNV.ApiClients.Veracity.Identity.PlatformApiV4
         /// <param name='cancellationToken'>
         /// The cancellation token.
         /// </param>
-        public async Task<GroupResponseModel> GetGroupsAsync(string tenantId, IDictionary<string, string> odata = default, string requestId = default, CancellationToken cancellationToken = default)
+        public async Task<PagedGroupResponse> GetGroupsAsync(string tenantId, IDictionary<string, string> odata = default, string requestId = default, CancellationToken cancellationToken = default)
         {
             using (var _result = await GetGroupsWithHttpMessagesAsync(tenantId, odata, requestId, null, cancellationToken).ConfigureAwait(false))
             {
@@ -213,14 +227,19 @@ namespace DNV.ApiClients.Veracity.Identity.PlatformApiV4
         }
 
         /// <summary>
+        /// Get group by id
+        ///
+        ///
+        /// </summary>
+        /// <remarks>
         /// Get group by id&lt;br/&gt;Retrieve groups and group members to determine
         /// access rights within your application
-        ///
-        /// tenantId can be the guid or the dnvCustomerId for the tenant
-        /// </summary>
+        /// </remarks>
         /// <param name='tenantId'>
+        /// The tenant id (or dnvCustomerId for veracity_default tenants)
         /// </param>
         /// <param name='groupId'>
+        /// The ID of the group
         /// </param>
         /// <param name='requestId'>
         /// A correlation token to use when looking in the logs.
@@ -336,14 +355,19 @@ namespace DNV.ApiClients.Veracity.Identity.PlatformApiV4
             return _result;
         }
         /// <summary>
+        /// Get group by id
+        ///
+        ///
+        /// </summary>
+        /// <remarks>
         /// Get group by id&lt;br/&gt;Retrieve groups and group members to determine
         /// access rights within your application
-        ///
-        /// tenantId can be the guid or the dnvCustomerId for the tenant
-        /// </summary>
+        /// </remarks>
         /// <param name='tenantId'>
+        /// The tenant id (or dnvCustomerId for veracity_default tenants)
         /// </param>
         /// <param name='groupId'>
+        /// The ID of the group
         /// </param>
         /// <param name='requestId'>
         /// A correlation token to use when looking in the logs.
@@ -360,17 +384,22 @@ namespace DNV.ApiClients.Veracity.Identity.PlatformApiV4
         }
 
         /// <summary>
+        /// Update the group
+        ///
+        ///
+        /// </summary>
+        /// <remarks>
         /// Update extension properties for a group. Extension properties have the name
         /// format {prefix}_property name. Prefixes are registered in
         /// developer.veracity.com. Pleas note that the order of operations can impact
         /// the result&lt;br/&gt;Retrieve groups and group members to determine access
         /// rights within your application
-        ///
-        /// tenantId can be the guid or the dnvCustomerId for the tenant
-        /// </summary>
+        /// </remarks>
         /// <param name='tenantId'>
+        /// The tenant id (or dnvCustomerId for veracity_default tenants)
         /// </param>
         /// <param name='groupId'>
+        /// The ID of the group
         /// </param>
         /// <param name='body'>
         /// </param>
@@ -494,17 +523,22 @@ namespace DNV.ApiClients.Veracity.Identity.PlatformApiV4
             return _result;
         }
         /// <summary>
+        /// Update the group
+        ///
+        ///
+        /// </summary>
+        /// <remarks>
         /// Update extension properties for a group. Extension properties have the name
         /// format {prefix}_property name. Prefixes are registered in
         /// developer.veracity.com. Pleas note that the order of operations can impact
         /// the result&lt;br/&gt;Retrieve groups and group members to determine access
         /// rights within your application
-        ///
-        /// tenantId can be the guid or the dnvCustomerId for the tenant
-        /// </summary>
+        /// </remarks>
         /// <param name='tenantId'>
+        /// The tenant id (or dnvCustomerId for veracity_default tenants)
         /// </param>
         /// <param name='groupId'>
+        /// The ID of the group
         /// </param>
         /// <param name='body'>
         /// </param>
@@ -523,18 +557,28 @@ namespace DNV.ApiClients.Veracity.Identity.PlatformApiV4
         }
 
         /// <summary>
-        /// Get all direct users and groups&lt;br/&gt;Retrieve groups and group members
-        /// to determine access rights within your application
+        /// Get direct members
         ///
-        /// tenantId can be the guid or the dnvCustomerId for the tenant
+        ///
         /// </summary>
+        /// <remarks>
+        /// Get all direct users and groups.  Please note that requests with odata
+        /// query elements cannot be cached and my affect performance. OData parsing is
+        /// currently and experimental feature in this endpoint.&lt;br/&gt;Retrieve
+        /// groups and group members to determine access rights within your application
+        /// </remarks>
         /// <param name='tenantId'>
+        /// The tenant id (or dnvCustomerId for veracity_default tenants)
         /// </param>
         /// <param name='groupId'>
+        /// The ID of the group
         /// </param>
         /// <param name='memberType'>
-        /// Represents the type of entity. Possible values include: 'profile',
-        /// 'userGroup'
+        /// the type of member, profile or userGroup. Possible values include:
+        /// 'profile', 'userGroup'
+        /// </param>
+        /// <param name='odata'>
+        /// OData query options, the values are passed as query string parameters
         /// </param>
         /// <param name='requestId'>
         /// A correlation token to use when looking in the logs.
@@ -560,7 +604,7 @@ namespace DNV.ApiClients.Veracity.Identity.PlatformApiV4
         /// <return>
         /// A response object containing the response body and response headers.
         /// </return>
-        public async Task<HttpOperationResponse<IEnumerable<MemberResponse>>> GetGroupMembersWithHttpMessagesAsync(string tenantId, System.Guid groupId, string memberType = default, string requestId = default, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default)
+        public async Task<HttpOperationResponse<IEnumerable<MemberResponse>>> GetGroupMembersWithHttpMessagesAsync(string tenantId, System.Guid groupId, string memberType = default, IDictionary<string, string> odata = default, string requestId = default, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default)
         {
             if (tenantId == null)
             {
@@ -575,6 +619,10 @@ namespace DNV.ApiClients.Veracity.Identity.PlatformApiV4
             if (memberType != null)
             {
                 _queryParameters.Add(string.Format("memberType={0}", System.Uri.EscapeDataString(Microsoft.Rest.Serialization.SafeJsonConvert.SerializeObject(memberType, Client.SerializationSettings).Trim('"'))));
+            }
+            if (odata != null)
+            {
+                _queryParameters.Add(string.Format("odata={0}", System.Uri.EscapeDataString(Microsoft.Rest.Serialization.SafeJsonConvert.SerializeObject(odata, Client.SerializationSettings).Trim('"'))));
             }
             if (_queryParameters.Any())
             {
@@ -659,18 +707,28 @@ namespace DNV.ApiClients.Veracity.Identity.PlatformApiV4
             return _result;
         }
         /// <summary>
-        /// Get all direct users and groups&lt;br/&gt;Retrieve groups and group members
-        /// to determine access rights within your application
+        /// Get direct members
         ///
-        /// tenantId can be the guid or the dnvCustomerId for the tenant
+        ///
         /// </summary>
+        /// <remarks>
+        /// Get all direct users and groups.  Please note that requests with odata
+        /// query elements cannot be cached and my affect performance. OData parsing is
+        /// currently and experimental feature in this endpoint.&lt;br/&gt;Retrieve
+        /// groups and group members to determine access rights within your application
+        /// </remarks>
         /// <param name='tenantId'>
+        /// The tenant id (or dnvCustomerId for veracity_default tenants)
         /// </param>
         /// <param name='groupId'>
+        /// The ID of the group
         /// </param>
         /// <param name='memberType'>
-        /// Represents the type of entity. Possible values include: 'profile',
-        /// 'userGroup'
+        /// the type of member, profile or userGroup. Possible values include:
+        /// 'profile', 'userGroup'
+        /// </param>
+        /// <param name='odata'>
+        /// OData query options, the values are passed as query string parameters
         /// </param>
         /// <param name='requestId'>
         /// A correlation token to use when looking in the logs.
@@ -678,23 +736,31 @@ namespace DNV.ApiClients.Veracity.Identity.PlatformApiV4
         /// <param name='cancellationToken'>
         /// The cancellation token.
         /// </param>
-        public async Task<IEnumerable<MemberResponse>> GetGroupMembersAsync(string tenantId, System.Guid groupId, string memberType = default, string requestId = default, CancellationToken cancellationToken = default)
+        public async Task<IEnumerable<MemberResponse>> GetGroupMembersAsync(string tenantId, System.Guid groupId, string memberType = default, IDictionary<string, string> odata = default, string requestId = default, CancellationToken cancellationToken = default)
         {
-            using (var _result = await GetGroupMembersWithHttpMessagesAsync(tenantId, groupId, memberType, requestId, null, cancellationToken).ConfigureAwait(false))
+            using (var _result = await GetGroupMembersWithHttpMessagesAsync(tenantId, groupId, memberType, odata, requestId, null, cancellationToken).ConfigureAwait(false))
             {
                 return _result.Body;
             }
         }
 
         /// <summary>
+        /// Get all users
+        ///
+        ///
+        /// </summary>
+        /// <remarks>
         /// Get all users including inherited from groups&lt;br/&gt;Retrieve groups and
         /// group members to determine access rights within your application
-        ///
-        /// tenantId can be the guid or the dnvCustomerId for the tenant
-        /// </summary>
+        /// </remarks>
         /// <param name='tenantId'>
+        /// The tenant id (or dnvCustomerId for veracity_default tenants)
         /// </param>
         /// <param name='groupId'>
+        /// The ID of the group
+        /// </param>
+        /// <param name='odata'>
+        /// OData query options, the values are passed as query string parameters
         /// </param>
         /// <param name='requestId'>
         /// A correlation token to use when looking in the logs.
@@ -720,7 +786,7 @@ namespace DNV.ApiClients.Veracity.Identity.PlatformApiV4
         /// <return>
         /// A response object containing the response body and response headers.
         /// </return>
-        public async Task<HttpOperationResponse<IEnumerable<UserResponse>>> GetMembersExplodedWithHttpMessagesAsync(string tenantId, System.Guid groupId, string requestId = default, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default)
+        public async Task<HttpOperationResponse<IEnumerable<UserResponse>>> GetMembersWithInheritedMembershipsWithHttpMessagesAsync(string tenantId, System.Guid groupId, IDictionary<string, string> odata = default, string requestId = default, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default)
         {
             if (tenantId == null)
             {
@@ -728,9 +794,18 @@ namespace DNV.ApiClients.Veracity.Identity.PlatformApiV4
             }
             // Construct URL
             var _baseUrl = Client.HttpClient.BaseAddress?.AbsoluteUri ?? Client.BaseUri.AbsoluteUri;
-            var _url = new System.Uri(new System.Uri(_baseUrl + (_baseUrl.EndsWith("/") ? "" : "/")), "tenants/{tenantId}/groups/{groupId}/users/exploded").ToString();
+            var _url = new System.Uri(new System.Uri(_baseUrl + (_baseUrl.EndsWith("/") ? "" : "/")), "tenants/{tenantId}/groups/{groupId}/members/recursive").ToString();
             _url = _url.Replace("{tenantId}", System.Uri.EscapeDataString(tenantId));
             _url = _url.Replace("{groupId}", System.Uri.EscapeDataString(Microsoft.Rest.Serialization.SafeJsonConvert.SerializeObject(groupId, Client.SerializationSettings).Trim('"')));
+            IList<string> _queryParameters = new List<string>();
+            if (odata != null)
+            {
+                _queryParameters.Add(string.Format("odata={0}", System.Uri.EscapeDataString(Microsoft.Rest.Serialization.SafeJsonConvert.SerializeObject(odata, Client.SerializationSettings).Trim('"'))));
+            }
+            if (_queryParameters.Any())
+            {
+                _url += "?" + string.Join("&", _queryParameters);
+            }
             // Create HTTP transport objects
             var _httpRequest = new HttpRequestMessage();
             HttpResponseMessage _httpResponse = null;
@@ -810,14 +885,22 @@ namespace DNV.ApiClients.Veracity.Identity.PlatformApiV4
             return _result;
         }
         /// <summary>
+        /// Get all users
+        ///
+        ///
+        /// </summary>
+        /// <remarks>
         /// Get all users including inherited from groups&lt;br/&gt;Retrieve groups and
         /// group members to determine access rights within your application
-        ///
-        /// tenantId can be the guid or the dnvCustomerId for the tenant
-        /// </summary>
+        /// </remarks>
         /// <param name='tenantId'>
+        /// The tenant id (or dnvCustomerId for veracity_default tenants)
         /// </param>
         /// <param name='groupId'>
+        /// The ID of the group
+        /// </param>
+        /// <param name='odata'>
+        /// OData query options, the values are passed as query string parameters
         /// </param>
         /// <param name='requestId'>
         /// A correlation token to use when looking in the logs.
@@ -825,25 +908,30 @@ namespace DNV.ApiClients.Veracity.Identity.PlatformApiV4
         /// <param name='cancellationToken'>
         /// The cancellation token.
         /// </param>
-        public async Task<IEnumerable<UserResponse>> GetMembersExplodedAsync(string tenantId, System.Guid groupId, string requestId = default, CancellationToken cancellationToken = default)
+        public async Task<IEnumerable<UserResponse>> GetMembersWithInheritedMembershipsAsync(string tenantId, System.Guid groupId, IDictionary<string, string> odata = default, string requestId = default, CancellationToken cancellationToken = default)
         {
-            using (var _result = await GetMembersExplodedWithHttpMessagesAsync(tenantId, groupId, requestId, null, cancellationToken).ConfigureAwait(false))
+            using (var _result = await GetMembersWithInheritedMembershipsWithHttpMessagesAsync(tenantId, groupId, odata, requestId, null, cancellationToken).ConfigureAwait(false))
             {
                 return _result.Body;
             }
         }
 
         /// <summary>
+        /// Update a member
+        ///
+        ///
+        /// </summary>
+        /// <remarks>
         /// Update extension properties  for a group membership. extension properties
         /// have the name format {prefix}_property name. Prefixes are registered in
         /// developer.veracity.com&lt;br/&gt;Retrieve groups and group members to
         /// determine access rights within your application
-        ///
-        /// tenantId can be the guid or the dnvCustomerId for the tenant
-        /// </summary>
+        /// </remarks>
         /// <param name='tenantId'>
+        /// The tenant id (or dnvCustomerId for veracity_default tenants)
         /// </param>
         /// <param name='groupId'>
+        /// The ID of the group
         /// </param>
         /// <param name='entityId'>
         /// </param>
@@ -983,16 +1071,21 @@ namespace DNV.ApiClients.Veracity.Identity.PlatformApiV4
             return _result;
         }
         /// <summary>
+        /// Update a member
+        ///
+        ///
+        /// </summary>
+        /// <remarks>
         /// Update extension properties  for a group membership. extension properties
         /// have the name format {prefix}_property name. Prefixes are registered in
         /// developer.veracity.com&lt;br/&gt;Retrieve groups and group members to
         /// determine access rights within your application
-        ///
-        /// tenantId can be the guid or the dnvCustomerId for the tenant
-        /// </summary>
+        /// </remarks>
         /// <param name='tenantId'>
+        /// The tenant id (or dnvCustomerId for veracity_default tenants)
         /// </param>
         /// <param name='groupId'>
+        /// The ID of the group
         /// </param>
         /// <param name='entityId'>
         /// </param>
@@ -1017,14 +1110,181 @@ namespace DNV.ApiClients.Veracity.Identity.PlatformApiV4
         }
 
         /// <summary>
-        /// List all groups this group is a member of&lt;br/&gt;Retrieve groups and
-        /// group members to determine access rights within your application
+        /// Get direct user or group member
         ///
-        /// tenantId can be the guid or the dnvCustomerId for the tenant
+        ///
         /// </summary>
+        /// <remarks>
+        /// get direct member&lt;br/&gt;Retrieve groups and group members to determine
+        /// access rights within your application
+        /// </remarks>
         /// <param name='tenantId'>
+        /// The tenant id (or dnvCustomerId for veracity_default tenants)
         /// </param>
         /// <param name='groupId'>
+        /// The ID of the group
+        /// </param>
+        /// <param name='entityId'>
+        /// </param>
+        /// <param name='requestId'>
+        /// A correlation token to use when looking in the logs.
+        /// </param>
+        /// <param name='customHeaders'>
+        /// Headers that will be added to request.
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        /// <exception cref="HttpOperationException">
+        /// Thrown when the operation returned an invalid status code
+        /// </exception>
+        /// <exception cref="SerializationException">
+        /// Thrown when unable to deserialize the response
+        /// </exception>
+        /// <exception cref="ValidationException">
+        /// Thrown when a required parameter is null
+        /// </exception>
+        /// <exception cref="System.ArgumentNullException">
+        /// Thrown when a required parameter is null
+        /// </exception>
+        /// <return>
+        /// A response object containing the response body and response headers.
+        /// </return>
+        public async Task<HttpOperationResponse<MemberResponse>> GetDirectMemberWithHttpMessagesAsync(string tenantId, System.Guid groupId, System.Guid entityId, string requestId = default, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default)
+        {
+            if (tenantId == null)
+            {
+                throw new ValidationException(ValidationRules.CannotBeNull, "tenantId");
+            }
+            // Construct URL
+            var _baseUrl = Client.HttpClient.BaseAddress?.AbsoluteUri ?? Client.BaseUri.AbsoluteUri;
+            var _url = new System.Uri(new System.Uri(_baseUrl + (_baseUrl.EndsWith("/") ? "" : "/")), "tenants/{tenantId}/groups/{groupId}/members/{entityId}").ToString();
+            _url = _url.Replace("{tenantId}", System.Uri.EscapeDataString(tenantId));
+            _url = _url.Replace("{groupId}", System.Uri.EscapeDataString(Microsoft.Rest.Serialization.SafeJsonConvert.SerializeObject(groupId, Client.SerializationSettings).Trim('"')));
+            _url = _url.Replace("{entityId}", System.Uri.EscapeDataString(Microsoft.Rest.Serialization.SafeJsonConvert.SerializeObject(entityId, Client.SerializationSettings).Trim('"')));
+            // Create HTTP transport objects
+            var _httpRequest = new HttpRequestMessage();
+            HttpResponseMessage _httpResponse = null;
+            _httpRequest.Method = new HttpMethod("GET");
+            _httpRequest.RequestUri = new System.Uri(_url);
+            // Set Headers
+            if (requestId != null)
+            {
+                if (_httpRequest.Headers.Contains("request-id"))
+                {
+                    _httpRequest.Headers.Remove("request-id");
+                }
+                _httpRequest.Headers.TryAddWithoutValidation("request-id", requestId);
+            }
+
+
+            if (customHeaders != null)
+            {
+                foreach(var _header in customHeaders)
+                {
+                    if (_httpRequest.Headers.Contains(_header.Key))
+                    {
+                        _httpRequest.Headers.Remove(_header.Key);
+                    }
+                    _httpRequest.Headers.TryAddWithoutValidation(_header.Key, _header.Value);
+                }
+            }
+
+            // Serialize Request
+            string _requestContent = null;
+            // Send Request
+            cancellationToken.ThrowIfCancellationRequested();
+            _httpResponse = await Client.HttpClient.SendAsync(_httpRequest, cancellationToken).ConfigureAwait(false);
+            HttpStatusCode _statusCode = _httpResponse.StatusCode;
+            cancellationToken.ThrowIfCancellationRequested();
+            string _responseContent = null;
+            if ((int)_statusCode != 200)
+            {
+                var ex = new HttpOperationException(string.Format("Operation returned an invalid status code '{0}'", _statusCode));
+                if (_httpResponse.Content != null) {
+                    _responseContent = await _httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
+                }
+                else {
+                    _responseContent = string.Empty;
+                }
+                ex.Request = new HttpRequestMessageWrapper(_httpRequest, _requestContent);
+                ex.Response = new HttpResponseMessageWrapper(_httpResponse, _responseContent);
+                _httpRequest.Dispose();
+                if (_httpResponse != null)
+                {
+                    _httpResponse.Dispose();
+                }
+                throw ex;
+            }
+            // Create Result
+            var _result = new HttpOperationResponse<MemberResponse>();
+            _result.Request = _httpRequest;
+            _result.Response = _httpResponse;
+            // Deserialize Response
+            if ((int)_statusCode == 200)
+            {
+                _responseContent = await _httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
+                try
+                {
+                    _result.Body = Microsoft.Rest.Serialization.SafeJsonConvert.DeserializeObject<MemberResponse>(_responseContent, Client.DeserializationSettings);
+                }
+                catch (JsonException ex)
+                {
+                    _httpRequest.Dispose();
+                    if (_httpResponse != null)
+                    {
+                        _httpResponse.Dispose();
+                    }
+                    throw new SerializationException("Unable to deserialize the response.", _responseContent, ex);
+                }
+            }
+            return _result;
+        }
+        /// <summary>
+        /// Get direct user or group member
+        ///
+        ///
+        /// </summary>
+        /// <remarks>
+        /// get direct member&lt;br/&gt;Retrieve groups and group members to determine
+        /// access rights within your application
+        /// </remarks>
+        /// <param name='tenantId'>
+        /// The tenant id (or dnvCustomerId for veracity_default tenants)
+        /// </param>
+        /// <param name='groupId'>
+        /// The ID of the group
+        /// </param>
+        /// <param name='entityId'>
+        /// </param>
+        /// <param name='requestId'>
+        /// A correlation token to use when looking in the logs.
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        public async Task<MemberResponse> GetDirectMemberAsync(string tenantId, System.Guid groupId, System.Guid entityId, string requestId = default, CancellationToken cancellationToken = default)
+        {
+            using (var _result = await GetDirectMemberWithHttpMessagesAsync(tenantId, groupId, entityId, requestId, null, cancellationToken).ConfigureAwait(false))
+            {
+                return _result.Body;
+            }
+        }
+
+        /// <summary>
+        /// List the groups the given group is a member of
+        ///
+        ///
+        /// </summary>
+        /// <remarks>
+        /// List all groups this group is a member of&lt;br/&gt;Retrieve groups and
+        /// group members to determine access rights within your application
+        /// </remarks>
+        /// <param name='tenantId'>
+        /// The tenant id (or dnvCustomerId for veracity_default tenants)
+        /// </param>
+        /// <param name='groupId'>
+        /// The ID of the group
         /// </param>
         /// <param name='requestId'>
         /// A correlation token to use when looking in the logs.
@@ -1140,14 +1400,19 @@ namespace DNV.ApiClients.Veracity.Identity.PlatformApiV4
             return _result;
         }
         /// <summary>
+        /// List the groups the given group is a member of
+        ///
+        ///
+        /// </summary>
+        /// <remarks>
         /// List all groups this group is a member of&lt;br/&gt;Retrieve groups and
         /// group members to determine access rights within your application
-        ///
-        /// tenantId can be the guid or the dnvCustomerId for the tenant
-        /// </summary>
+        /// </remarks>
         /// <param name='tenantId'>
+        /// The tenant id (or dnvCustomerId for veracity_default tenants)
         /// </param>
         /// <param name='groupId'>
+        /// The ID of the group
         /// </param>
         /// <param name='requestId'>
         /// A correlation token to use when looking in the logs.
@@ -1164,14 +1429,19 @@ namespace DNV.ApiClients.Veracity.Identity.PlatformApiV4
         }
 
         /// <summary>
+        /// Get the application licenses the group has
+        ///
+        ///
+        /// </summary>
+        /// <remarks>
         /// Get all applications this group has a license for&lt;br/&gt;Retrieve groups
         /// and group members to determine access rights within your application
-        ///
-        /// tenantId can be the guid or the dnvCustomerId for the tenant
-        /// </summary>
+        /// </remarks>
         /// <param name='tenantId'>
+        /// The tenant id (or dnvCustomerId for veracity_default tenants)
         /// </param>
         /// <param name='groupId'>
+        /// The ID of the group
         /// </param>
         /// <param name='requestId'>
         /// A correlation token to use when looking in the logs.
@@ -1287,14 +1557,19 @@ namespace DNV.ApiClients.Veracity.Identity.PlatformApiV4
             return _result;
         }
         /// <summary>
+        /// Get the application licenses the group has
+        ///
+        ///
+        /// </summary>
+        /// <remarks>
         /// Get all applications this group has a license for&lt;br/&gt;Retrieve groups
         /// and group members to determine access rights within your application
-        ///
-        /// tenantId can be the guid or the dnvCustomerId for the tenant
-        /// </summary>
+        /// </remarks>
         /// <param name='tenantId'>
+        /// The tenant id (or dnvCustomerId for veracity_default tenants)
         /// </param>
         /// <param name='groupId'>
+        /// The ID of the group
         /// </param>
         /// <param name='requestId'>
         /// A correlation token to use when looking in the logs.
@@ -1305,6 +1580,172 @@ namespace DNV.ApiClients.Veracity.Identity.PlatformApiV4
         public async Task<IEnumerable<ApplicationResponse>> GetApplicationsAsync(string tenantId, System.Guid groupId, string requestId = default, CancellationToken cancellationToken = default)
         {
             using (var _result = await GetApplicationsWithHttpMessagesAsync(tenantId, groupId, requestId, null, cancellationToken).ConfigureAwait(false))
+            {
+                return _result.Body;
+            }
+        }
+
+        /// <summary>
+        /// Check if a user is a member of the group
+        ///
+        ///
+        /// </summary>
+        /// <remarks>
+        /// Check if the user is a member of this group, either direct or
+        /// inherited&lt;br/&gt;Retrieve groups and group members to determine access
+        /// rights within your application
+        /// </remarks>
+        /// <param name='tenantId'>
+        /// The tenant id (or dnvCustomerId for veracity_default tenants)
+        /// </param>
+        /// <param name='groupId'>
+        /// The ID of the group
+        /// </param>
+        /// <param name='userId'>
+        /// The users id found in Veracity Identity
+        /// </param>
+        /// <param name='requestId'>
+        /// A correlation token to use when looking in the logs.
+        /// </param>
+        /// <param name='customHeaders'>
+        /// Headers that will be added to request.
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        /// <exception cref="HttpOperationException">
+        /// Thrown when the operation returned an invalid status code
+        /// </exception>
+        /// <exception cref="SerializationException">
+        /// Thrown when unable to deserialize the response
+        /// </exception>
+        /// <exception cref="ValidationException">
+        /// Thrown when a required parameter is null
+        /// </exception>
+        /// <exception cref="System.ArgumentNullException">
+        /// Thrown when a required parameter is null
+        /// </exception>
+        /// <return>
+        /// A response object containing the response body and response headers.
+        /// </return>
+        public async Task<HttpOperationResponse<IsMemberResponse>> IsUserMemberOfGroupWithHttpMessagesAsync(string tenantId, System.Guid groupId, System.Guid userId, string requestId = default, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default)
+        {
+            if (tenantId == null)
+            {
+                throw new ValidationException(ValidationRules.CannotBeNull, "tenantId");
+            }
+            // Construct URL
+            var _baseUrl = Client.HttpClient.BaseAddress?.AbsoluteUri ?? Client.BaseUri.AbsoluteUri;
+            var _url = new System.Uri(new System.Uri(_baseUrl + (_baseUrl.EndsWith("/") ? "" : "/")), "tenants/{tenantId}/groups/{groupId}/effective-users/{userId}").ToString();
+            _url = _url.Replace("{tenantId}", System.Uri.EscapeDataString(tenantId));
+            _url = _url.Replace("{groupId}", System.Uri.EscapeDataString(Microsoft.Rest.Serialization.SafeJsonConvert.SerializeObject(groupId, Client.SerializationSettings).Trim('"')));
+            _url = _url.Replace("{userId}", System.Uri.EscapeDataString(Microsoft.Rest.Serialization.SafeJsonConvert.SerializeObject(userId, Client.SerializationSettings).Trim('"')));
+            // Create HTTP transport objects
+            var _httpRequest = new HttpRequestMessage();
+            HttpResponseMessage _httpResponse = null;
+            _httpRequest.Method = new HttpMethod("GET");
+            _httpRequest.RequestUri = new System.Uri(_url);
+            // Set Headers
+            if (requestId != null)
+            {
+                if (_httpRequest.Headers.Contains("request-id"))
+                {
+                    _httpRequest.Headers.Remove("request-id");
+                }
+                _httpRequest.Headers.TryAddWithoutValidation("request-id", requestId);
+            }
+
+
+            if (customHeaders != null)
+            {
+                foreach(var _header in customHeaders)
+                {
+                    if (_httpRequest.Headers.Contains(_header.Key))
+                    {
+                        _httpRequest.Headers.Remove(_header.Key);
+                    }
+                    _httpRequest.Headers.TryAddWithoutValidation(_header.Key, _header.Value);
+                }
+            }
+
+            // Serialize Request
+            string _requestContent = null;
+            // Send Request
+            cancellationToken.ThrowIfCancellationRequested();
+            _httpResponse = await Client.HttpClient.SendAsync(_httpRequest, cancellationToken).ConfigureAwait(false);
+            HttpStatusCode _statusCode = _httpResponse.StatusCode;
+            cancellationToken.ThrowIfCancellationRequested();
+            string _responseContent = null;
+            if ((int)_statusCode != 200)
+            {
+                var ex = new HttpOperationException(string.Format("Operation returned an invalid status code '{0}'", _statusCode));
+                if (_httpResponse.Content != null) {
+                    _responseContent = await _httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
+                }
+                else {
+                    _responseContent = string.Empty;
+                }
+                ex.Request = new HttpRequestMessageWrapper(_httpRequest, _requestContent);
+                ex.Response = new HttpResponseMessageWrapper(_httpResponse, _responseContent);
+                _httpRequest.Dispose();
+                if (_httpResponse != null)
+                {
+                    _httpResponse.Dispose();
+                }
+                throw ex;
+            }
+            // Create Result
+            var _result = new HttpOperationResponse<IsMemberResponse>();
+            _result.Request = _httpRequest;
+            _result.Response = _httpResponse;
+            // Deserialize Response
+            if ((int)_statusCode == 200)
+            {
+                _responseContent = await _httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
+                try
+                {
+                    _result.Body = Microsoft.Rest.Serialization.SafeJsonConvert.DeserializeObject<IsMemberResponse>(_responseContent, Client.DeserializationSettings);
+                }
+                catch (JsonException ex)
+                {
+                    _httpRequest.Dispose();
+                    if (_httpResponse != null)
+                    {
+                        _httpResponse.Dispose();
+                    }
+                    throw new SerializationException("Unable to deserialize the response.", _responseContent, ex);
+                }
+            }
+            return _result;
+        }
+        /// <summary>
+        /// Check if a user is a member of the group
+        ///
+        ///
+        /// </summary>
+        /// <remarks>
+        /// Check if the user is a member of this group, either direct or
+        /// inherited&lt;br/&gt;Retrieve groups and group members to determine access
+        /// rights within your application
+        /// </remarks>
+        /// <param name='tenantId'>
+        /// The tenant id (or dnvCustomerId for veracity_default tenants)
+        /// </param>
+        /// <param name='groupId'>
+        /// The ID of the group
+        /// </param>
+        /// <param name='userId'>
+        /// The users id found in Veracity Identity
+        /// </param>
+        /// <param name='requestId'>
+        /// A correlation token to use when looking in the logs.
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        public async Task<IsMemberResponse> IsUserMemberOfGroupAsync(string tenantId, System.Guid groupId, System.Guid userId, string requestId = default, CancellationToken cancellationToken = default)
+        {
+            using (var _result = await IsUserMemberOfGroupWithHttpMessagesAsync(tenantId, groupId, userId, requestId, null, cancellationToken).ConfigureAwait(false))
             {
                 return _result.Body;
             }

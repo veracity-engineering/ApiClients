@@ -50,12 +50,18 @@ namespace DNV.ApiClients.Veracity.Identity.PlatformApiV4
         public PlatformApiV4Client Client { get; private set; }
 
         /// <summary>
-        /// Retrieves a user by their email address&lt;br/&gt;tenantId can be the guid
-        /// or the dnvCustomerId for the tenant
+        /// Resolve user in a tenant by email
+        ///
+        ///
         /// </summary>
+        /// <remarks>
+        /// Retrieves a user by their email address&lt;br/&gt;
+        /// </remarks>
         /// <param name='tenantId'>
+        /// The tenant id (or dnvCustomerId for veracity_default tenants)
         /// </param>
         /// <param name='email'>
+        /// The email address of the user
         /// </param>
         /// <param name='requestId'>
         /// A correlation token to use when looking in the logs.
@@ -93,7 +99,7 @@ namespace DNV.ApiClients.Veracity.Identity.PlatformApiV4
             }
             // Construct URL
             var _baseUrl = Client.HttpClient.BaseAddress?.AbsoluteUri ?? Client.BaseUri.AbsoluteUri;
-            var _url = new System.Uri(new System.Uri(_baseUrl + (_baseUrl.EndsWith("/") ? "" : "/")), "tenants/{tenantId}/users/.email({email})").ToString();
+            var _url = new System.Uri(new System.Uri(_baseUrl + (_baseUrl.EndsWith("/") ? "" : "/")), "tenants/{tenantId}/emails/{email}").ToString();
             _url = _url.Replace("{tenantId}", System.Uri.EscapeDataString(tenantId));
             _url = _url.Replace("{email}", System.Uri.EscapeDataString(email));
             // Create HTTP transport objects
@@ -175,12 +181,18 @@ namespace DNV.ApiClients.Veracity.Identity.PlatformApiV4
             return _result;
         }
         /// <summary>
-        /// Retrieves a user by their email address&lt;br/&gt;tenantId can be the guid
-        /// or the dnvCustomerId for the tenant
+        /// Resolve user in a tenant by email
+        ///
+        ///
         /// </summary>
+        /// <remarks>
+        /// Retrieves a user by their email address&lt;br/&gt;
+        /// </remarks>
         /// <param name='tenantId'>
+        /// The tenant id (or dnvCustomerId for veracity_default tenants)
         /// </param>
         /// <param name='email'>
+        /// The email address of the user
         /// </param>
         /// <param name='requestId'>
         /// A correlation token to use when looking in the logs.
@@ -197,10 +209,15 @@ namespace DNV.ApiClients.Veracity.Identity.PlatformApiV4
         }
 
         /// <summary>
-        /// Get user by id&lt;br/&gt;tenantId can be the guid or the dnvCustomerId for
-        /// the tenant
+        /// Get user in a tenant
+        ///
+        ///
         /// </summary>
+        /// <remarks>
+        /// Get user by id&lt;br/&gt;
+        /// </remarks>
         /// <param name='userId'>
+        /// The users id found in Veracity Identity
         /// </param>
         /// <param name='requestId'>
         /// A correlation token to use when looking in the logs.
@@ -220,7 +237,7 @@ namespace DNV.ApiClients.Veracity.Identity.PlatformApiV4
         /// <return>
         /// A response object containing the response body and response headers.
         /// </return>
-        public async Task<HttpOperationResponse<UserDetails2Response>> GetUserWithHttpMessagesAsync(System.Guid userId, string requestId = default, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default)
+        public async Task<HttpOperationResponse<GlobalUserDetailsResponse>> GetUserWithHttpMessagesAsync(System.Guid userId, string requestId = default, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default)
         {
             // Construct URL
             var _baseUrl = Client.HttpClient.BaseAddress?.AbsoluteUri ?? Client.BaseUri.AbsoluteUri;
@@ -281,7 +298,7 @@ namespace DNV.ApiClients.Veracity.Identity.PlatformApiV4
                 throw ex;
             }
             // Create Result
-            var _result = new HttpOperationResponse<UserDetails2Response>();
+            var _result = new HttpOperationResponse<GlobalUserDetailsResponse>();
             _result.Request = _httpRequest;
             _result.Response = _httpResponse;
             // Deserialize Response
@@ -290,7 +307,7 @@ namespace DNV.ApiClients.Veracity.Identity.PlatformApiV4
                 _responseContent = await _httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
                 try
                 {
-                    _result.Body = Microsoft.Rest.Serialization.SafeJsonConvert.DeserializeObject<UserDetails2Response>(_responseContent, Client.DeserializationSettings);
+                    _result.Body = Microsoft.Rest.Serialization.SafeJsonConvert.DeserializeObject<GlobalUserDetailsResponse>(_responseContent, Client.DeserializationSettings);
                 }
                 catch (JsonException ex)
                 {
@@ -305,10 +322,15 @@ namespace DNV.ApiClients.Veracity.Identity.PlatformApiV4
             return _result;
         }
         /// <summary>
-        /// Get user by id&lt;br/&gt;tenantId can be the guid or the dnvCustomerId for
-        /// the tenant
+        /// Get user in a tenant
+        ///
+        ///
         /// </summary>
+        /// <remarks>
+        /// Get user by id&lt;br/&gt;
+        /// </remarks>
         /// <param name='userId'>
+        /// The users id found in Veracity Identity
         /// </param>
         /// <param name='requestId'>
         /// A correlation token to use when looking in the logs.
@@ -316,7 +338,7 @@ namespace DNV.ApiClients.Veracity.Identity.PlatformApiV4
         /// <param name='cancellationToken'>
         /// The cancellation token.
         /// </param>
-        public async Task<UserDetails2Response> GetUserAsync(System.Guid userId, string requestId = default, CancellationToken cancellationToken = default)
+        public async Task<GlobalUserDetailsResponse> GetUserAsync(System.Guid userId, string requestId = default, CancellationToken cancellationToken = default)
         {
             using (var _result = await GetUserWithHttpMessagesAsync(userId, requestId, null, cancellationToken).ConfigureAwait(false))
             {
@@ -325,16 +347,24 @@ namespace DNV.ApiClients.Veracity.Identity.PlatformApiV4
         }
 
         /// <summary>
-        /// List users in a tenant
+        /// List user in a tenant
+        ///
+        ///
+        /// </summary>
+        /// <remarks>
+        /// List users in a tenan
+        ///
+        /// Filterable fields: name, email, isServicePrincipal, state
         ///
         /// query sample:
         /// tenants/be0c84cb-7a4a-4114-aa17-9c0224b084cf/users?$filter=name eq
-        /// 'Normann, Ola'&amp;$top=1&amp;$skip=0&lt;br/&gt;tenantId can be the guid or
-        /// the dnvCustomerId for the tenant
-        /// </summary>
+        /// 'Normann, Ola'&amp;$top=1&amp;$skip=0&lt;br/&gt;
+        /// </remarks>
         /// <param name='tenantId'>
+        /// The tenant id (or dnvCustomerId for veracity_default tenants)
         /// </param>
         /// <param name='odata'>
+        /// OData query options, the values are passed as query string parameters
         /// </param>
         /// <param name='requestId'>
         /// A correlation token to use when looking in the logs.
@@ -360,7 +390,7 @@ namespace DNV.ApiClients.Veracity.Identity.PlatformApiV4
         /// <return>
         /// A response object containing the response body and response headers.
         /// </return>
-        public async Task<HttpOperationResponse<UserResponseModel>> ListUsersWithHttpMessagesAsync(string tenantId, IDictionary<string, string> odata = default, string requestId = default, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default)
+        public async Task<HttpOperationResponse<PagedUserResponse>> ListUsersWithHttpMessagesAsync(string tenantId, IDictionary<string, string> odata = default, string requestId = default, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default)
         {
             if (tenantId == null)
             {
@@ -434,7 +464,7 @@ namespace DNV.ApiClients.Veracity.Identity.PlatformApiV4
                 throw ex;
             }
             // Create Result
-            var _result = new HttpOperationResponse<UserResponseModel>();
+            var _result = new HttpOperationResponse<PagedUserResponse>();
             _result.Request = _httpRequest;
             _result.Response = _httpResponse;
             // Deserialize Response
@@ -443,7 +473,7 @@ namespace DNV.ApiClients.Veracity.Identity.PlatformApiV4
                 _responseContent = await _httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
                 try
                 {
-                    _result.Body = Microsoft.Rest.Serialization.SafeJsonConvert.DeserializeObject<UserResponseModel>(_responseContent, Client.DeserializationSettings);
+                    _result.Body = Microsoft.Rest.Serialization.SafeJsonConvert.DeserializeObject<PagedUserResponse>(_responseContent, Client.DeserializationSettings);
                 }
                 catch (JsonException ex)
                 {
@@ -458,16 +488,24 @@ namespace DNV.ApiClients.Veracity.Identity.PlatformApiV4
             return _result;
         }
         /// <summary>
-        /// List users in a tenant
+        /// List user in a tenant
+        ///
+        ///
+        /// </summary>
+        /// <remarks>
+        /// List users in a tenan
+        ///
+        /// Filterable fields: name, email, isServicePrincipal, state
         ///
         /// query sample:
         /// tenants/be0c84cb-7a4a-4114-aa17-9c0224b084cf/users?$filter=name eq
-        /// 'Normann, Ola'&amp;$top=1&amp;$skip=0&lt;br/&gt;tenantId can be the guid or
-        /// the dnvCustomerId for the tenant
-        /// </summary>
+        /// 'Normann, Ola'&amp;$top=1&amp;$skip=0&lt;br/&gt;
+        /// </remarks>
         /// <param name='tenantId'>
+        /// The tenant id (or dnvCustomerId for veracity_default tenants)
         /// </param>
         /// <param name='odata'>
+        /// OData query options, the values are passed as query string parameters
         /// </param>
         /// <param name='requestId'>
         /// A correlation token to use when looking in the logs.
@@ -475,7 +513,7 @@ namespace DNV.ApiClients.Veracity.Identity.PlatformApiV4
         /// <param name='cancellationToken'>
         /// The cancellation token.
         /// </param>
-        public async Task<UserResponseModel> ListUsersAsync(string tenantId, IDictionary<string, string> odata = default, string requestId = default, CancellationToken cancellationToken = default)
+        public async Task<PagedUserResponse> ListUsersAsync(string tenantId, IDictionary<string, string> odata = default, string requestId = default, CancellationToken cancellationToken = default)
         {
             using (var _result = await ListUsersWithHttpMessagesAsync(tenantId, odata, requestId, null, cancellationToken).ConfigureAwait(false))
             {
@@ -484,10 +522,15 @@ namespace DNV.ApiClients.Veracity.Identity.PlatformApiV4
         }
 
         /// <summary>
-        /// Get full user details for a list of user ids&lt;br/&gt;tenantId can be the
-        /// guid or the dnvCustomerId for the tenant
+        /// Get multiple users by ids
+        ///
+        ///
         /// </summary>
+        /// <remarks>
+        /// Get full user details for a list of user ids&lt;br/&gt;
+        /// </remarks>
         /// <param name='tenantId'>
+        /// The tenant id (or dnvCustomerId for veracity_default tenants)
         /// </param>
         /// <param name='body'>
         /// </param>
@@ -515,7 +558,7 @@ namespace DNV.ApiClients.Veracity.Identity.PlatformApiV4
         /// <return>
         /// A response object containing the response body and response headers.
         /// </return>
-        public async Task<HttpOperationResponse<IEnumerable<UserDetails2Response>>> ResolveUsersWithHttpMessagesAsync(string tenantId, IEnumerable<System.Guid?> body = default, string requestId = default, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default)
+        public async Task<HttpOperationResponse<IEnumerable<GlobalUserDetailsResponse>>> ResolveUsersWithHttpMessagesAsync(string tenantId, IEnumerable<System.Guid?> body = default, string requestId = default, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default)
         {
             if (tenantId == null)
             {
@@ -567,7 +610,7 @@ namespace DNV.ApiClients.Veracity.Identity.PlatformApiV4
             HttpStatusCode _statusCode = _httpResponse.StatusCode;
             cancellationToken.ThrowIfCancellationRequested();
             string _responseContent = null;
-            if ((int)_statusCode != 202)
+            if ((int)_statusCode != 200)
             {
                 var ex = new HttpOperationException(string.Format("Operation returned an invalid status code '{0}'", _statusCode));
                 if (_httpResponse.Content != null) {
@@ -586,16 +629,16 @@ namespace DNV.ApiClients.Veracity.Identity.PlatformApiV4
                 throw ex;
             }
             // Create Result
-            var _result = new HttpOperationResponse<IEnumerable<UserDetails2Response>>();
+            var _result = new HttpOperationResponse<IEnumerable<GlobalUserDetailsResponse>>();
             _result.Request = _httpRequest;
             _result.Response = _httpResponse;
             // Deserialize Response
-            if ((int)_statusCode == 202)
+            if ((int)_statusCode == 200)
             {
                 _responseContent = await _httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
                 try
                 {
-                    _result.Body = Microsoft.Rest.Serialization.SafeJsonConvert.DeserializeObject<IEnumerable<UserDetails2Response>>(_responseContent, Client.DeserializationSettings);
+                    _result.Body = Microsoft.Rest.Serialization.SafeJsonConvert.DeserializeObject<IEnumerable<GlobalUserDetailsResponse>>(_responseContent, Client.DeserializationSettings);
                 }
                 catch (JsonException ex)
                 {
@@ -610,10 +653,15 @@ namespace DNV.ApiClients.Veracity.Identity.PlatformApiV4
             return _result;
         }
         /// <summary>
-        /// Get full user details for a list of user ids&lt;br/&gt;tenantId can be the
-        /// guid or the dnvCustomerId for the tenant
+        /// Get multiple users by ids
+        ///
+        ///
         /// </summary>
+        /// <remarks>
+        /// Get full user details for a list of user ids&lt;br/&gt;
+        /// </remarks>
         /// <param name='tenantId'>
+        /// The tenant id (or dnvCustomerId for veracity_default tenants)
         /// </param>
         /// <param name='body'>
         /// </param>
@@ -623,7 +671,7 @@ namespace DNV.ApiClients.Veracity.Identity.PlatformApiV4
         /// <param name='cancellationToken'>
         /// The cancellation token.
         /// </param>
-        public async Task<IEnumerable<UserDetails2Response>> ResolveUsersAsync(string tenantId, IEnumerable<System.Guid?> body = default, string requestId = default, CancellationToken cancellationToken = default)
+        public async Task<IEnumerable<GlobalUserDetailsResponse>> ResolveUsersAsync(string tenantId, IEnumerable<System.Guid?> body = default, string requestId = default, CancellationToken cancellationToken = default)
         {
             using (var _result = await ResolveUsersWithHttpMessagesAsync(tenantId, body, requestId, null, cancellationToken).ConfigureAwait(false))
             {
@@ -632,12 +680,18 @@ namespace DNV.ApiClients.Veracity.Identity.PlatformApiV4
         }
 
         /// <summary>
-        /// Get user details&lt;br/&gt;tenantId can be the guid or the dnvCustomerId
-        /// for the tenant
+        /// Get user by id in a tenant
+        ///
+        ///
         /// </summary>
+        /// <remarks>
+        /// Get user details&lt;br/&gt;
+        /// </remarks>
         /// <param name='tenantId'>
+        /// The tenant id (or dnvCustomerId for veracity_default tenants)
         /// </param>
         /// <param name='userId'>
+        /// The users id found in Veracity Identity
         /// </param>
         /// <param name='requestId'>
         /// A correlation token to use when looking in the logs.
@@ -753,12 +807,18 @@ namespace DNV.ApiClients.Veracity.Identity.PlatformApiV4
             return _result;
         }
         /// <summary>
-        /// Get user details&lt;br/&gt;tenantId can be the guid or the dnvCustomerId
-        /// for the tenant
+        /// Get user by id in a tenant
+        ///
+        ///
         /// </summary>
+        /// <remarks>
+        /// Get user details&lt;br/&gt;
+        /// </remarks>
         /// <param name='tenantId'>
+        /// The tenant id (or dnvCustomerId for veracity_default tenants)
         /// </param>
         /// <param name='userId'>
+        /// The users id found in Veracity Identity
         /// </param>
         /// <param name='requestId'>
         /// A correlation token to use when looking in the logs.
@@ -775,14 +835,20 @@ namespace DNV.ApiClients.Veracity.Identity.PlatformApiV4
         }
 
         /// <summary>
+        /// Update application properties for a user
+        ///
+        ///
+        /// </summary>
+        /// <remarks>
         /// Update extension properties  for a user. Extension properties have the name
         /// format {prefix}_property name. Prefixes are registered in
-        /// developer.veracity.com&lt;br/&gt;tenantId can be the guid or the
-        /// dnvCustomerId for the tenant
-        /// </summary>
+        /// developer.veracity.com&lt;br/&gt;
+        /// </remarks>
         /// <param name='tenantId'>
+        /// The tenant id (or dnvCustomerId for veracity_default tenants)
         /// </param>
         /// <param name='userId'>
+        /// The users id found in Veracity Identity
         /// </param>
         /// <param name='body'>
         /// </param>
@@ -906,14 +972,20 @@ namespace DNV.ApiClients.Veracity.Identity.PlatformApiV4
             return _result;
         }
         /// <summary>
+        /// Update application properties for a user
+        ///
+        ///
+        /// </summary>
+        /// <remarks>
         /// Update extension properties  for a user. Extension properties have the name
         /// format {prefix}_property name. Prefixes are registered in
-        /// developer.veracity.com&lt;br/&gt;tenantId can be the guid or the
-        /// dnvCustomerId for the tenant
-        /// </summary>
+        /// developer.veracity.com&lt;br/&gt;
+        /// </remarks>
         /// <param name='tenantId'>
+        /// The tenant id (or dnvCustomerId for veracity_default tenants)
         /// </param>
         /// <param name='userId'>
+        /// The users id found in Veracity Identity
         /// </param>
         /// <param name='body'>
         /// </param>
@@ -932,12 +1004,18 @@ namespace DNV.ApiClients.Veracity.Identity.PlatformApiV4
         }
 
         /// <summary>
-        /// Get user details&lt;br/&gt;tenantId can be the guid or the dnvCustomerId
-        /// for the tenant
+        /// Get direct groups for the user
+        ///
+        ///
         /// </summary>
+        /// <remarks>
+        /// Get the direct groups for the user&lt;br/&gt;
+        /// </remarks>
         /// <param name='tenantId'>
+        /// The tenant id (or dnvCustomerId for veracity_default tenants)
         /// </param>
         /// <param name='userId'>
+        /// The users id found in Veracity Identity
         /// </param>
         /// <param name='requestId'>
         /// A correlation token to use when looking in the logs.
@@ -1053,12 +1131,18 @@ namespace DNV.ApiClients.Veracity.Identity.PlatformApiV4
             return _result;
         }
         /// <summary>
-        /// Get user details&lt;br/&gt;tenantId can be the guid or the dnvCustomerId
-        /// for the tenant
+        /// Get direct groups for the user
+        ///
+        ///
         /// </summary>
+        /// <remarks>
+        /// Get the direct groups for the user&lt;br/&gt;
+        /// </remarks>
         /// <param name='tenantId'>
+        /// The tenant id (or dnvCustomerId for veracity_default tenants)
         /// </param>
         /// <param name='userId'>
+        /// The users id found in Veracity Identity
         /// </param>
         /// <param name='requestId'>
         /// A correlation token to use when looking in the logs.
@@ -1075,12 +1159,173 @@ namespace DNV.ApiClients.Veracity.Identity.PlatformApiV4
         }
 
         /// <summary>
-        /// Get all applications in a tenant the user has access to&lt;br/&gt;tenantId
-        /// can be the guid or the dnvCustomerId for the tenant
+        /// Get all groups for a user
+        ///
+        ///
         /// </summary>
+        /// <remarks>
+        /// Get direct and inherited groups for the user&lt;br/&gt;
+        /// </remarks>
         /// <param name='tenantId'>
+        /// The tenant id (or dnvCustomerId for veracity_default tenants)
         /// </param>
         /// <param name='userId'>
+        /// The users id found in Veracity Identity
+        /// </param>
+        /// <param name='requestId'>
+        /// A correlation token to use when looking in the logs.
+        /// </param>
+        /// <param name='customHeaders'>
+        /// Headers that will be added to request.
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        /// <exception cref="HttpOperationException">
+        /// Thrown when the operation returned an invalid status code
+        /// </exception>
+        /// <exception cref="SerializationException">
+        /// Thrown when unable to deserialize the response
+        /// </exception>
+        /// <exception cref="ValidationException">
+        /// Thrown when a required parameter is null
+        /// </exception>
+        /// <exception cref="System.ArgumentNullException">
+        /// Thrown when a required parameter is null
+        /// </exception>
+        /// <return>
+        /// A response object containing the response body and response headers.
+        /// </return>
+        public async Task<HttpOperationResponse<IEnumerable<GroupResponse>>> GetGroupsForUserExplodedWithHttpMessagesAsync(string tenantId, System.Guid userId, string requestId = default, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default)
+        {
+            if (tenantId == null)
+            {
+                throw new ValidationException(ValidationRules.CannotBeNull, "tenantId");
+            }
+            // Construct URL
+            var _baseUrl = Client.HttpClient.BaseAddress?.AbsoluteUri ?? Client.BaseUri.AbsoluteUri;
+            var _url = new System.Uri(new System.Uri(_baseUrl + (_baseUrl.EndsWith("/") ? "" : "/")), "tenants/{tenantId}/users/{userId}/groups/recursive").ToString();
+            _url = _url.Replace("{tenantId}", System.Uri.EscapeDataString(tenantId));
+            _url = _url.Replace("{userId}", System.Uri.EscapeDataString(Microsoft.Rest.Serialization.SafeJsonConvert.SerializeObject(userId, Client.SerializationSettings).Trim('"')));
+            // Create HTTP transport objects
+            var _httpRequest = new HttpRequestMessage();
+            HttpResponseMessage _httpResponse = null;
+            _httpRequest.Method = new HttpMethod("GET");
+            _httpRequest.RequestUri = new System.Uri(_url);
+            // Set Headers
+            if (requestId != null)
+            {
+                if (_httpRequest.Headers.Contains("request-id"))
+                {
+                    _httpRequest.Headers.Remove("request-id");
+                }
+                _httpRequest.Headers.TryAddWithoutValidation("request-id", requestId);
+            }
+
+
+            if (customHeaders != null)
+            {
+                foreach(var _header in customHeaders)
+                {
+                    if (_httpRequest.Headers.Contains(_header.Key))
+                    {
+                        _httpRequest.Headers.Remove(_header.Key);
+                    }
+                    _httpRequest.Headers.TryAddWithoutValidation(_header.Key, _header.Value);
+                }
+            }
+
+            // Serialize Request
+            string _requestContent = null;
+            // Send Request
+            cancellationToken.ThrowIfCancellationRequested();
+            _httpResponse = await Client.HttpClient.SendAsync(_httpRequest, cancellationToken).ConfigureAwait(false);
+            HttpStatusCode _statusCode = _httpResponse.StatusCode;
+            cancellationToken.ThrowIfCancellationRequested();
+            string _responseContent = null;
+            if ((int)_statusCode != 200)
+            {
+                var ex = new HttpOperationException(string.Format("Operation returned an invalid status code '{0}'", _statusCode));
+                if (_httpResponse.Content != null) {
+                    _responseContent = await _httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
+                }
+                else {
+                    _responseContent = string.Empty;
+                }
+                ex.Request = new HttpRequestMessageWrapper(_httpRequest, _requestContent);
+                ex.Response = new HttpResponseMessageWrapper(_httpResponse, _responseContent);
+                _httpRequest.Dispose();
+                if (_httpResponse != null)
+                {
+                    _httpResponse.Dispose();
+                }
+                throw ex;
+            }
+            // Create Result
+            var _result = new HttpOperationResponse<IEnumerable<GroupResponse>>();
+            _result.Request = _httpRequest;
+            _result.Response = _httpResponse;
+            // Deserialize Response
+            if ((int)_statusCode == 200)
+            {
+                _responseContent = await _httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
+                try
+                {
+                    _result.Body = Microsoft.Rest.Serialization.SafeJsonConvert.DeserializeObject<IEnumerable<GroupResponse>>(_responseContent, Client.DeserializationSettings);
+                }
+                catch (JsonException ex)
+                {
+                    _httpRequest.Dispose();
+                    if (_httpResponse != null)
+                    {
+                        _httpResponse.Dispose();
+                    }
+                    throw new SerializationException("Unable to deserialize the response.", _responseContent, ex);
+                }
+            }
+            return _result;
+        }
+        /// <summary>
+        /// Get all groups for a user
+        ///
+        ///
+        /// </summary>
+        /// <remarks>
+        /// Get direct and inherited groups for the user&lt;br/&gt;
+        /// </remarks>
+        /// <param name='tenantId'>
+        /// The tenant id (or dnvCustomerId for veracity_default tenants)
+        /// </param>
+        /// <param name='userId'>
+        /// The users id found in Veracity Identity
+        /// </param>
+        /// <param name='requestId'>
+        /// A correlation token to use when looking in the logs.
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        public async Task<IEnumerable<GroupResponse>> GetGroupsForUserExplodedAsync(string tenantId, System.Guid userId, string requestId = default, CancellationToken cancellationToken = default)
+        {
+            using (var _result = await GetGroupsForUserExplodedWithHttpMessagesAsync(tenantId, userId, requestId, null, cancellationToken).ConfigureAwait(false))
+            {
+                return _result.Body;
+            }
+        }
+
+        /// <summary>
+        /// Get user applications
+        ///
+        ///
+        /// </summary>
+        /// <remarks>
+        /// Get all applications in a tenant the user has access to&lt;br/&gt;
+        /// </remarks>
+        /// <param name='tenantId'>
+        /// The tenant id (or dnvCustomerId for veracity_default tenants)
+        /// </param>
+        /// <param name='userId'>
+        /// The users id found in Veracity Identity
         /// </param>
         /// <param name='requestId'>
         /// A correlation token to use when looking in the logs.
@@ -1196,12 +1441,18 @@ namespace DNV.ApiClients.Veracity.Identity.PlatformApiV4
             return _result;
         }
         /// <summary>
-        /// Get all applications in a tenant the user has access to&lt;br/&gt;tenantId
-        /// can be the guid or the dnvCustomerId for the tenant
+        /// Get user applications
+        ///
+        ///
         /// </summary>
+        /// <remarks>
+        /// Get all applications in a tenant the user has access to&lt;br/&gt;
+        /// </remarks>
         /// <param name='tenantId'>
+        /// The tenant id (or dnvCustomerId for veracity_default tenants)
         /// </param>
         /// <param name='userId'>
+        /// The users id found in Veracity Identity
         /// </param>
         /// <param name='requestId'>
         /// A correlation token to use when looking in the logs.
@@ -1218,10 +1469,15 @@ namespace DNV.ApiClients.Veracity.Identity.PlatformApiV4
         }
 
         /// <summary>
-        /// Get the tenants a user is member of&lt;br/&gt;tenantId can be the guid or
-        /// the dnvCustomerId for the tenant
+        /// Get all tenants the user belongs to
+        ///
+        ///
         /// </summary>
+        /// <remarks>
+        /// Get the tenants a user is member of&lt;br/&gt;
+        /// </remarks>
         /// <param name='userId'>
+        /// The users id found in Veracity Identity
         /// </param>
         /// <param name='requestId'>
         /// A correlation token to use when looking in the logs.
@@ -1326,10 +1582,15 @@ namespace DNV.ApiClients.Veracity.Identity.PlatformApiV4
             return _result;
         }
         /// <summary>
-        /// Get the tenants a user is member of&lt;br/&gt;tenantId can be the guid or
-        /// the dnvCustomerId for the tenant
+        /// Get all tenants the user belongs to
+        ///
+        ///
         /// </summary>
+        /// <remarks>
+        /// Get the tenants a user is member of&lt;br/&gt;
+        /// </remarks>
         /// <param name='userId'>
+        /// The users id found in Veracity Identity
         /// </param>
         /// <param name='requestId'>
         /// A correlation token to use when looking in the logs.

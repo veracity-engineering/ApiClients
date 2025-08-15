@@ -27,6 +27,7 @@ namespace DNV.ApiClients.Veracity.Identity.PlatformApiV4.Models
         /// <summary>
         /// Initializes a new instance of the MemberResponse class.
         /// </summary>
+        /// <param name="name">the name of the group member</param>
         /// <param name="userId">The veracity user id for profile members and
         /// the group id for group members</param>
         /// <param name="objectId">The profile id for profile members and the
@@ -39,23 +40,23 @@ namespace DNV.ApiClients.Veracity.Identity.PlatformApiV4.Models
         /// <param name="isGroupAdmin">Indicates that the user can add/remove
         /// members of this group.</param>
         /// <param name="groupId">The ID of the group.</param>
-        /// <param name="accessHubGroupUrl">Get the url to the group page in
-        /// access hub</param>
-        /// <param name="accessHubProfileUrl">Get the url to the member profile
-        /// page in access hub, this is only valid for profile members</param>
         /// <param name="accessHubMemberGroupUrl">Get the url to the group
         /// member page in access hub, this is only valid for group
         /// members</param>
-        /// <param name="name">The name of the tenant entity.</param>
         /// <param name="tenantId">The ID of the tenant.</param>
         /// <param name="properties">The extension properties of the tenant
-        /// entity. extension properties are case sensitive and shall user
+        /// entity. extension properties are case-sensitive and shall user
         /// {appPrefix}_{propertyName} format, appPrefixes are defined in
         /// developer.veracity.com.</param>
         /// <param name="accessHubTenantHomeUrl">get the url to the tenants
         /// home page in access hub</param>
-        public MemberResponse(System.Guid? userId = default, System.Guid? objectId = default, string email = default, bool? isServicePrincipal = default, EntityTypes? memberType = default, bool? isGroupAdmin = default, System.Guid? groupId = default, string accessHubGroupUrl = default, string accessHubProfileUrl = default, string accessHubMemberGroupUrl = default, string name = default, System.Guid? tenantId = default, Metadata metadata = default, IEnumerable<ExtensionProperty> properties = default, string accessHubTenantHomeUrl = default)
+        /// <param name="systemTags">Gets or sets the list of system generated
+        /// tags associated with the tenant entity.</param>
+        /// <param name="tags">Gets or sets the list of tags associated with
+        /// the tenant entity.</param>
+        public MemberResponse(string name = default, System.Guid? userId = default, System.Guid? objectId = default, string email = default, bool? isServicePrincipal = default, EntityTypes? memberType = default, bool? isGroupAdmin = default, System.Guid? groupId = default, string accessHubGroupUrl = default, string accessHubProfileUrl = default, string accessHubMemberGroupUrl = default, System.Guid? tenantId = default, Metadata metadata = default, IEnumerable<ExtensionProperty> properties = default, string accessHubTenantHomeUrl = default, IEnumerable<string> systemTags = default, IEnumerable<string> tags = default)
         {
+            Name = name;
             UserId = userId;
             ObjectId = objectId;
             Email = email;
@@ -66,11 +67,12 @@ namespace DNV.ApiClients.Veracity.Identity.PlatformApiV4.Models
             AccessHubGroupUrl = accessHubGroupUrl;
             AccessHubProfileUrl = accessHubProfileUrl;
             AccessHubMemberGroupUrl = accessHubMemberGroupUrl;
-            Name = name;
             TenantId = tenantId;
             Metadata = metadata;
             Properties = properties;
             AccessHubTenantHomeUrl = accessHubTenantHomeUrl;
+            SystemTags = systemTags;
+            Tags = tags;
             CustomInit();
         }
 
@@ -78,6 +80,12 @@ namespace DNV.ApiClients.Veracity.Identity.PlatformApiV4.Models
         /// An initialization method that performs custom operations like setting defaults
         /// </summary>
         partial void CustomInit();
+
+        /// <summary>
+        /// Gets or sets the name of the group member
+        /// </summary>
+        [JsonProperty(PropertyName = "name")]
+        public string Name { get; set; }
 
         /// <summary>
         /// Gets or sets the veracity user id for profile members and the group
@@ -125,14 +133,11 @@ namespace DNV.ApiClients.Veracity.Identity.PlatformApiV4.Models
         public System.Guid? GroupId { get; set; }
 
         /// <summary>
-        /// Gets or sets get the url to the group page in access hub
         /// </summary>
         [JsonProperty(PropertyName = "accessHubGroupUrl")]
         public string AccessHubGroupUrl { get; set; }
 
         /// <summary>
-        /// Gets or sets get the url to the member profile page in access hub,
-        /// this is only valid for profile members
         /// </summary>
         [JsonProperty(PropertyName = "accessHubProfileUrl")]
         public string AccessHubProfileUrl { get; set; }
@@ -143,12 +148,6 @@ namespace DNV.ApiClients.Veracity.Identity.PlatformApiV4.Models
         /// </summary>
         [JsonProperty(PropertyName = "accessHubMemberGroupUrl")]
         public string AccessHubMemberGroupUrl { get; set; }
-
-        /// <summary>
-        /// Gets or sets the name of the tenant entity.
-        /// </summary>
-        [JsonProperty(PropertyName = "name")]
-        public string Name { get; set; }
 
         /// <summary>
         /// Gets or sets the ID of the tenant.
@@ -163,7 +162,7 @@ namespace DNV.ApiClients.Veracity.Identity.PlatformApiV4.Models
 
         /// <summary>
         /// Gets or sets the extension properties of the tenant entity.
-        /// extension properties are case sensitive and shall user
+        /// extension properties are case-sensitive and shall user
         /// {appPrefix}_{propertyName} format, appPrefixes are defined in
         /// developer.veracity.com.
         /// </summary>
@@ -175,6 +174,19 @@ namespace DNV.ApiClients.Veracity.Identity.PlatformApiV4.Models
         /// </summary>
         [JsonProperty(PropertyName = "accessHubTenantHomeUrl")]
         public string AccessHubTenantHomeUrl { get; set; }
+
+        /// <summary>
+        /// Gets or sets the list of system generated tags associated with the
+        /// tenant entity.
+        /// </summary>
+        [JsonProperty(PropertyName = "systemTags")]
+        public IEnumerable<string> SystemTags { get; set; }
+
+        /// <summary>
+        /// Gets or sets the list of tags associated with the tenant entity.
+        /// </summary>
+        [JsonProperty(PropertyName = "tags")]
+        public IEnumerable<string> Tags { get; set; }
 
     }
 }

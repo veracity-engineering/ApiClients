@@ -27,29 +27,32 @@ namespace DNV.ApiClients.Veracity.Identity.PlatformApiV4.Models
         /// <summary>
         /// Initializes a new instance of the GroupResponse class.
         /// </summary>
+        /// <param name="name">the name of the group</param>
         /// <param name="groupId">The ID of the group.</param>
-        /// <param name="builtIn">Value indicating whether the group is
-        /// built-in system group like TenantAdmins.</param>
         /// <param name="accessHubGroupUrl">The url to the group page in access
         /// hub</param>
-        /// <param name="name">The name of the tenant entity.</param>
         /// <param name="tenantId">The ID of the tenant.</param>
         /// <param name="properties">The extension properties of the tenant
-        /// entity. extension properties are case sensitive and shall user
+        /// entity. extension properties are case-sensitive and shall user
         /// {appPrefix}_{propertyName} format, appPrefixes are defined in
         /// developer.veracity.com.</param>
         /// <param name="accessHubTenantHomeUrl">get the url to the tenants
         /// home page in access hub</param>
-        public GroupResponse(System.Guid? groupId = default, bool? builtIn = default, string accessHubGroupUrl = default, string name = default, System.Guid? tenantId = default, Metadata metadata = default, IEnumerable<ExtensionProperty> properties = default, string accessHubTenantHomeUrl = default)
+        /// <param name="systemTags">Gets or sets the list of system generated
+        /// tags associated with the tenant entity.</param>
+        /// <param name="tags">Gets or sets the list of tags associated with
+        /// the tenant entity.</param>
+        public GroupResponse(string name = default, System.Guid? groupId = default, string accessHubGroupUrl = default, System.Guid? tenantId = default, Metadata metadata = default, IEnumerable<ExtensionProperty> properties = default, string accessHubTenantHomeUrl = default, IEnumerable<string> systemTags = default, IEnumerable<string> tags = default)
         {
-            GroupId = groupId;
-            BuiltIn = builtIn;
-            AccessHubGroupUrl = accessHubGroupUrl;
             Name = name;
+            GroupId = groupId;
+            AccessHubGroupUrl = accessHubGroupUrl;
             TenantId = tenantId;
             Metadata = metadata;
             Properties = properties;
             AccessHubTenantHomeUrl = accessHubTenantHomeUrl;
+            SystemTags = systemTags;
+            Tags = tags;
             CustomInit();
         }
 
@@ -59,29 +62,22 @@ namespace DNV.ApiClients.Veracity.Identity.PlatformApiV4.Models
         partial void CustomInit();
 
         /// <summary>
+        /// Gets or sets the name of the group
+        /// </summary>
+        [JsonProperty(PropertyName = "name")]
+        public string Name { get; set; }
+
+        /// <summary>
         /// Gets or sets the ID of the group.
         /// </summary>
         [JsonProperty(PropertyName = "groupId")]
         public System.Guid? GroupId { get; set; }
 
         /// <summary>
-        /// Gets or sets value indicating whether the group is built-in system
-        /// group like TenantAdmins.
-        /// </summary>
-        [JsonProperty(PropertyName = "builtIn")]
-        public bool? BuiltIn { get; set; }
-
-        /// <summary>
         /// Gets or sets the url to the group page in access hub
         /// </summary>
         [JsonProperty(PropertyName = "accessHubGroupUrl")]
         public string AccessHubGroupUrl { get; set; }
-
-        /// <summary>
-        /// Gets or sets the name of the tenant entity.
-        /// </summary>
-        [JsonProperty(PropertyName = "name")]
-        public string Name { get; set; }
 
         /// <summary>
         /// Gets or sets the ID of the tenant.
@@ -96,7 +92,7 @@ namespace DNV.ApiClients.Veracity.Identity.PlatformApiV4.Models
 
         /// <summary>
         /// Gets or sets the extension properties of the tenant entity.
-        /// extension properties are case sensitive and shall user
+        /// extension properties are case-sensitive and shall user
         /// {appPrefix}_{propertyName} format, appPrefixes are defined in
         /// developer.veracity.com.
         /// </summary>
@@ -108,6 +104,19 @@ namespace DNV.ApiClients.Veracity.Identity.PlatformApiV4.Models
         /// </summary>
         [JsonProperty(PropertyName = "accessHubTenantHomeUrl")]
         public string AccessHubTenantHomeUrl { get; set; }
+
+        /// <summary>
+        /// Gets or sets the list of system generated tags associated with the
+        /// tenant entity.
+        /// </summary>
+        [JsonProperty(PropertyName = "systemTags")]
+        public IEnumerable<string> SystemTags { get; set; }
+
+        /// <summary>
+        /// Gets or sets the list of tags associated with the tenant entity.
+        /// </summary>
+        [JsonProperty(PropertyName = "tags")]
+        public IEnumerable<string> Tags { get; set; }
 
     }
 }

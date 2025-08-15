@@ -11,22 +11,19 @@ namespace DNV.ApiClients.Veracity.Identity.PlatformApiV4.Models
     using Newtonsoft.Json;
     using System.Collections;
     using System.Collections.Generic;
-    public partial class LicenseResponse
+    public partial class ElementRightTreeResponse
     {
         /// <summary>
-        /// Initializes a new instance of the LicenseResponse class.
+        /// Initializes a new instance of the ElementRightTreeResponse class.
         /// </summary>
-        public LicenseResponse()
+        public ElementRightTreeResponse()
         {
             CustomInit();
         }
 
         /// <summary>
-        /// Initializes a new instance of the LicenseResponse class.
+        /// Initializes a new instance of the ElementRightTreeResponse class.
         /// </summary>
-        /// <param name="nullLicense">A null-license is a license that don't
-        /// grant any application wide rights, the effective right must be
-        /// calculated based on the element rights.</param>
         /// <param name="objectId">The globally unique identifier (GUID) for
         /// the object¨. Profile id for profile licenses and the group id for
         /// group licenses</param>
@@ -47,6 +44,8 @@ namespace DNV.ApiClients.Veracity.Identity.PlatformApiV4.Models
         /// profile licenses and the group id for group licenses</param>
         /// <param name="licenseType">Possible values include: 'profile',
         /// 'userGroup'</param>
+        /// <param name="isAdmin">Indicates that the user can add licenses to
+        /// other users for this application.</param>
         /// <param name="applicationId">The ID of the application. This is the
         /// same as the serviceId in developer.</param>
         /// <param name="applicationInstanceId">The ID of the instance of an
@@ -71,10 +70,14 @@ namespace DNV.ApiClients.Veracity.Identity.PlatformApiV4.Models
         /// tags associated with the tenant entity.</param>
         /// <param name="tags">Gets or sets the list of tags associated with
         /// the tenant entity.</param>
-        public LicenseResponse(bool? nullLicense = default, bool? isApplicationAdmin = default, System.Guid? objectId = default, string accessLevel = default, bool? isLocked = default, string email = default, LicenseStates? state = default, bool? isServicePrincipal = default, System.Guid? userId = default, EntityTypes? licenseType = default, System.Guid? applicationId = default, System.Guid? applicationInstanceId = default, string accessHubProfileUrl = default, string accessHubGroupUrl = default, string accessHubApplicationUrl = default, System.Guid? groupId = default, string applicationUrl = default, string name = default, System.Guid? tenantId = default, Metadata metadata = default, IEnumerable<ExtensionProperty> properties = default, string accessHubTenantHomeUrl = default, IEnumerable<string> systemTags = default, IEnumerable<string> tags = default)
+        public ElementRightTreeResponse(IEnumerable<ElementRightTreeResponse> children = default, string elementId = default, string elementExternalId = default, bool? isDirect = default, IEnumerable<string> path = default, string accessHubElementUrl = default, System.Guid? objectId = default, string accessLevel = default, bool? isLocked = default, string email = default, LicenseStates? state = default, bool? isServicePrincipal = default, System.Guid? userId = default, EntityTypes? licenseType = default, bool? isAdmin = default, System.Guid? applicationId = default, System.Guid? applicationInstanceId = default, string accessHubProfileUrl = default, string accessHubGroupUrl = default, string accessHubApplicationUrl = default, System.Guid? groupId = default, string applicationUrl = default, string name = default, System.Guid? tenantId = default, Metadata metadata = default, IEnumerable<ExtensionProperty> properties = default, string accessHubTenantHomeUrl = default, IEnumerable<string> systemTags = default, IEnumerable<string> tags = default)
         {
-            NullLicense = nullLicense;
-            IsApplicationAdmin = isApplicationAdmin;
+            Children = children;
+            ElementId = elementId;
+            ElementExternalId = elementExternalId;
+            IsDirect = isDirect;
+            Path = path;
+            AccessHubElementUrl = accessHubElementUrl;
             ObjectId = objectId;
             AccessLevel = accessLevel;
             IsLocked = isLocked;
@@ -83,6 +86,7 @@ namespace DNV.ApiClients.Veracity.Identity.PlatformApiV4.Models
             IsServicePrincipal = isServicePrincipal;
             UserId = userId;
             LicenseType = licenseType;
+            IsAdmin = isAdmin;
             ApplicationId = applicationId;
             ApplicationInstanceId = applicationInstanceId;
             AccessHubProfileUrl = accessHubProfileUrl;
@@ -106,17 +110,34 @@ namespace DNV.ApiClients.Veracity.Identity.PlatformApiV4.Models
         partial void CustomInit();
 
         /// <summary>
-        /// Gets or sets a null-license is a license that don't grant any
-        /// application wide rights, the effective right must be calculated
-        /// based on the element rights.
         /// </summary>
-        [JsonProperty(PropertyName = "nullLicense")]
-        public bool? NullLicense { get; set; }
+        [JsonProperty(PropertyName = "children")]
+        public IEnumerable<ElementRightTreeResponse> Children { get; set; }
 
         /// <summary>
         /// </summary>
-        [JsonProperty(PropertyName = "isApplicationAdmin")]
-        public bool? IsApplicationAdmin { get; set; }
+        [JsonProperty(PropertyName = "elementId")]
+        public string ElementId { get; set; }
+
+        /// <summary>
+        /// </summary>
+        [JsonProperty(PropertyName = "elementExternalId")]
+        public string ElementExternalId { get; set; }
+
+        /// <summary>
+        /// </summary>
+        [JsonProperty(PropertyName = "isDirect")]
+        public bool? IsDirect { get; set; }
+
+        /// <summary>
+        /// </summary>
+        [JsonProperty(PropertyName = "path")]
+        public IEnumerable<string> Path { get; set; }
+
+        /// <summary>
+        /// </summary>
+        [JsonProperty(PropertyName = "accessHubElementUrl")]
+        public string AccessHubElementUrl { get; set; }
 
         /// <summary>
         /// Gets or sets the globally unique identifier (GUID) for the object¨.
@@ -173,6 +194,13 @@ namespace DNV.ApiClients.Veracity.Identity.PlatformApiV4.Models
         /// </summary>
         [JsonProperty(PropertyName = "licenseType")]
         public EntityTypes? LicenseType { get; set; }
+
+        /// <summary>
+        /// Gets or sets indicates that the user can add licenses to other
+        /// users for this application.
+        /// </summary>
+        [JsonProperty(PropertyName = "isAdmin")]
+        public bool? IsAdmin { get; set; }
 
         /// <summary>
         /// Gets or sets the ID of the application. This is the same as the

@@ -11,30 +11,27 @@ namespace DNV.ApiClients.Veracity.Identity.PlatformApiV4.Models
     using Newtonsoft.Json;
     using System.Collections;
     using System.Collections.Generic;
-    /// <summary>
-    /// Represents a response containing tenant information.
-    /// </summary>
-    public partial class TenantResponse
+    public partial class UserOrGroup
     {
         /// <summary>
-        /// Initializes a new instance of the TenantResponse class.
+        /// Initializes a new instance of the UserOrGroup class.
         /// </summary>
-        public TenantResponse()
+        public UserOrGroup()
         {
             CustomInit();
         }
 
         /// <summary>
-        /// Initializes a new instance of the TenantResponse class.
+        /// Initializes a new instance of the UserOrGroup class.
         /// </summary>
-        /// <param name="name">The display name of the tenant.</param>
-        /// <param name="legalEntityName">The legal entity name.</param>
-        /// <param name="dnvCustomerId">The DNV customer ID.</param>
-        /// <param name="legalEntityId">The legal entity ID.</param>
-        /// <param name="tenantType">The tenant type.</param>
-        /// <param name="logoUri">The logo URI.</param>
-        /// <param name="groupsIsActivated">Value indicating if group is
-        /// activated</param>
+        /// <param name="email">The email address if the item is a user</param>
+        /// <param name="userId">The id of the user if the item is a
+        /// user</param>
+        /// <param name="groupId">The id of the group if the item is a
+        /// group</param>
+        /// <param name="isServicePrincipal">Indicates if the user is a service
+        /// principal, null if the item is a group</param>
+        /// <param name="name">The name of the tenant entity.</param>
         /// <param name="tenantId">The ID of the tenant.</param>
         /// <param name="properties">The extension properties of the tenant
         /// entity. extension properties are case-sensitive and shall user
@@ -46,15 +43,13 @@ namespace DNV.ApiClients.Veracity.Identity.PlatformApiV4.Models
         /// tags associated with the tenant entity.</param>
         /// <param name="tags">Gets or sets the list of tags associated with
         /// the tenant entity.</param>
-        public TenantResponse(string name = default, string legalEntityName = default, string dnvCustomerId = default, string legalEntityId = default, string tenantType = default, string logoUri = default, bool? groupsIsActivated = default, System.Guid? tenantId = default, Metadata metadata = default, IEnumerable<ExtensionProperty> properties = default, string accessHubTenantHomeUrl = default, IEnumerable<string> systemTags = default, IEnumerable<string> tags = default)
+        public UserOrGroup(string email = default, System.Guid? userId = default, System.Guid? groupId = default, bool? isServicePrincipal = default, string name = default, System.Guid? tenantId = default, Metadata metadata = default, IEnumerable<ExtensionProperty> properties = default, string accessHubTenantHomeUrl = default, IEnumerable<string> systemTags = default, IEnumerable<string> tags = default)
         {
+            Email = email;
+            UserId = userId;
+            GroupId = groupId;
+            IsServicePrincipal = isServicePrincipal;
             Name = name;
-            LegalEntityName = legalEntityName;
-            DnvCustomerId = dnvCustomerId;
-            LegalEntityId = legalEntityId;
-            TenantType = tenantType;
-            LogoUri = logoUri;
-            GroupsIsActivated = groupsIsActivated;
             TenantId = tenantId;
             Metadata = metadata;
             Properties = properties;
@@ -70,46 +65,35 @@ namespace DNV.ApiClients.Veracity.Identity.PlatformApiV4.Models
         partial void CustomInit();
 
         /// <summary>
-        /// Gets or sets the display name of the tenant.
+        /// Gets or sets the email address if the item is a user
+        /// </summary>
+        [JsonProperty(PropertyName = "email")]
+        public string Email { get; set; }
+
+        /// <summary>
+        /// Gets or sets the id of the user if the item is a user
+        /// </summary>
+        [JsonProperty(PropertyName = "userId")]
+        public System.Guid? UserId { get; set; }
+
+        /// <summary>
+        /// Gets or sets the id of the group if the item is a group
+        /// </summary>
+        [JsonProperty(PropertyName = "groupId")]
+        public System.Guid? GroupId { get; set; }
+
+        /// <summary>
+        /// Gets or sets indicates if the user is a service principal, null if
+        /// the item is a group
+        /// </summary>
+        [JsonProperty(PropertyName = "isServicePrincipal")]
+        public bool? IsServicePrincipal { get; set; }
+
+        /// <summary>
+        /// Gets or sets the name of the tenant entity.
         /// </summary>
         [JsonProperty(PropertyName = "name")]
         public string Name { get; set; }
-
-        /// <summary>
-        /// Gets or sets the legal entity name.
-        /// </summary>
-        [JsonProperty(PropertyName = "legalEntityName")]
-        public string LegalEntityName { get; set; }
-
-        /// <summary>
-        /// Gets or sets the DNV customer ID.
-        /// </summary>
-        [JsonProperty(PropertyName = "dnvCustomerId")]
-        public string DnvCustomerId { get; set; }
-
-        /// <summary>
-        /// Gets or sets the legal entity ID.
-        /// </summary>
-        [JsonProperty(PropertyName = "legalEntityId")]
-        public string LegalEntityId { get; set; }
-
-        /// <summary>
-        /// Gets or sets the tenant type.
-        /// </summary>
-        [JsonProperty(PropertyName = "tenantType")]
-        public string TenantType { get; set; }
-
-        /// <summary>
-        /// Gets or sets the logo URI.
-        /// </summary>
-        [JsonProperty(PropertyName = "logoUri")]
-        public string LogoUri { get; set; }
-
-        /// <summary>
-        /// Gets or sets value indicating if group is activated
-        /// </summary>
-        [JsonProperty(PropertyName = "groupsIsActivated")]
-        public bool? GroupsIsActivated { get; set; }
 
         /// <summary>
         /// Gets or sets the ID of the tenant.
