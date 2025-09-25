@@ -58,6 +58,12 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataWorkbenchApiV2
         /// <param name='shareId'>
         /// Share id of the dataset
         /// </param>
+        /// <param name='format'>
+        /// format of the sas token. Possible values include: 'String', 'Object'
+        /// </param>
+        /// <param name='sasType'>
+        /// type of sas token. Possible values include: 'dfs', 'blob'
+        /// </param>
         /// <param name='customHeaders'>
         /// Headers that will be added to request.
         /// </param>
@@ -67,19 +73,29 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataWorkbenchApiV2
         /// <exception cref="HttpOperationException">
         /// Thrown when the operation returned an invalid status code
         /// </exception>
-        /// <exception cref="SerializationException">
-        /// Thrown when unable to deserialize the response
-        /// </exception>
         /// <return>
         /// A response object containing the response body and response headers.
         /// </return>
-        public async Task<HttpOperationResponse<SasTokenResultDTO>> GetSASTokenForStorageDatasetByShareIdV2WithHttpMessagesAsync(System.Guid workspaceId, System.Guid shareId, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default)
+        public async Task<HttpOperationResponse> GetSASTokenForStorageDatasetByShareIdV2WithHttpMessagesAsync(System.Guid workspaceId, System.Guid shareId, string format = default, string sasType = default, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default)
         {
             // Construct URL
             var _baseUrl = Client.HttpClient.BaseAddress?.AbsoluteUri ?? Client.BaseUri.AbsoluteUri;
             var _url = new System.Uri(new System.Uri(_baseUrl + (_baseUrl.EndsWith("/") ? "" : "/")), "workspaces/{workspaceId}/shares/{shareId}/storages/sas").ToString();
             _url = _url.Replace("{workspaceId}", System.Uri.EscapeDataString(Microsoft.Rest.Serialization.SafeJsonConvert.SerializeObject(workspaceId, Client.SerializationSettings).Trim('"')));
             _url = _url.Replace("{shareId}", System.Uri.EscapeDataString(Microsoft.Rest.Serialization.SafeJsonConvert.SerializeObject(shareId, Client.SerializationSettings).Trim('"')));
+            IList<string> _queryParameters = new List<string>();
+            if (format != null)
+            {
+                _queryParameters.Add(string.Format("format={0}", System.Uri.EscapeDataString(Microsoft.Rest.Serialization.SafeJsonConvert.SerializeObject(format, Client.SerializationSettings).Trim('"'))));
+            }
+            if (sasType != null)
+            {
+                _queryParameters.Add(string.Format("sasType={0}", System.Uri.EscapeDataString(Microsoft.Rest.Serialization.SafeJsonConvert.SerializeObject(sasType, Client.SerializationSettings).Trim('"'))));
+            }
+            if (_queryParameters.Any())
+            {
+                _url += "?" + string.Join("&", _queryParameters);
+            }
             // Create HTTP transport objects
             var _httpRequest = new HttpRequestMessage();
             HttpResponseMessage _httpResponse = null;
@@ -127,27 +143,9 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataWorkbenchApiV2
                 throw ex;
             }
             // Create Result
-            var _result = new HttpOperationResponse<SasTokenResultDTO>();
+            var _result = new HttpOperationResponse();
             _result.Request = _httpRequest;
             _result.Response = _httpResponse;
-            // Deserialize Response
-            if ((int)_statusCode == 200)
-            {
-                _responseContent = await _httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
-                try
-                {
-                    _result.Body = Microsoft.Rest.Serialization.SafeJsonConvert.DeserializeObject<SasTokenResultDTO>(_responseContent, Client.DeserializationSettings);
-                }
-                catch (JsonException ex)
-                {
-                    _httpRequest.Dispose();
-                    if (_httpResponse != null)
-                    {
-                        _httpResponse.Dispose();
-                    }
-                    throw new SerializationException("Unable to deserialize the response.", _responseContent, ex);
-                }
-            }
             return _result;
         }
         /// <summary>
@@ -159,15 +157,18 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataWorkbenchApiV2
         /// <param name='shareId'>
         /// Share id of the dataset
         /// </param>
+        /// <param name='format'>
+        /// format of the sas token. Possible values include: 'String', 'Object'
+        /// </param>
+        /// <param name='sasType'>
+        /// type of sas token. Possible values include: 'dfs', 'blob'
+        /// </param>
         /// <param name='cancellationToken'>
         /// The cancellation token.
         /// </param>
-        public async Task<SasTokenResultDTO> GetSASTokenForStorageDatasetByShareIdV2Async(System.Guid workspaceId, System.Guid shareId, CancellationToken cancellationToken = default)
+        public async Task GetSASTokenForStorageDatasetByShareIdV2Async(System.Guid workspaceId, System.Guid shareId, string format = default, string sasType = default, CancellationToken cancellationToken = default)
         {
-            using (var _result = await GetSASTokenForStorageDatasetByShareIdV2WithHttpMessagesAsync(workspaceId, shareId, null, cancellationToken).ConfigureAwait(false))
-            {
-                return _result.Body;
-            }
+            (await GetSASTokenForStorageDatasetByShareIdV2WithHttpMessagesAsync(workspaceId, shareId, format, sasType, null, cancellationToken).ConfigureAwait(false)).Dispose();
         }
 
         /// <summary>
@@ -390,6 +391,12 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataWorkbenchApiV2
         /// </param>
         /// <param name='workspaceId'>
         /// </param>
+        /// <param name='format'>
+        /// Possible values include: 'String', 'Object'
+        /// </param>
+        /// <param name='sasType'>
+        /// Possible values include: 'dfs', 'blob'
+        /// </param>
         /// <param name='customHeaders'>
         /// Headers that will be added to request.
         /// </param>
@@ -398,9 +405,6 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataWorkbenchApiV2
         /// </param>
         /// <exception cref="HttpOperationException">
         /// Thrown when the operation returned an invalid status code
-        /// </exception>
-        /// <exception cref="SerializationException">
-        /// Thrown when unable to deserialize the response
         /// </exception>
         /// <exception cref="ValidationException">
         /// Thrown when a required parameter is null
@@ -411,7 +415,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataWorkbenchApiV2
         /// <return>
         /// A response object containing the response body and response headers.
         /// </return>
-        public async Task<HttpOperationResponse<string>> GetSASTokenForExternalStorageWithHttpMessagesAsync(GetSasTokenForExternalDTO body, System.Guid workspaceId, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default)
+        public async Task<HttpOperationResponse> GetSASTokenForExternalStorageWithHttpMessagesAsync(GetSasTokenForExternalDTO body, System.Guid workspaceId, string format = default, string sasType = default, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default)
         {
             if (body == null)
             {
@@ -421,6 +425,19 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataWorkbenchApiV2
             var _baseUrl = Client.HttpClient.BaseAddress?.AbsoluteUri ?? Client.BaseUri.AbsoluteUri;
             var _url = new System.Uri(new System.Uri(_baseUrl + (_baseUrl.EndsWith("/") ? "" : "/")), "workspaces/{workspaceId}/storages/external/sas").ToString();
             _url = _url.Replace("{workspaceId}", System.Uri.EscapeDataString(Microsoft.Rest.Serialization.SafeJsonConvert.SerializeObject(workspaceId, Client.SerializationSettings).Trim('"')));
+            IList<string> _queryParameters = new List<string>();
+            if (format != null)
+            {
+                _queryParameters.Add(string.Format("format={0}", System.Uri.EscapeDataString(Microsoft.Rest.Serialization.SafeJsonConvert.SerializeObject(format, Client.SerializationSettings).Trim('"'))));
+            }
+            if (sasType != null)
+            {
+                _queryParameters.Add(string.Format("sasType={0}", System.Uri.EscapeDataString(Microsoft.Rest.Serialization.SafeJsonConvert.SerializeObject(sasType, Client.SerializationSettings).Trim('"'))));
+            }
+            if (_queryParameters.Any())
+            {
+                _url += "?" + string.Join("&", _queryParameters);
+            }
             // Create HTTP transport objects
             var _httpRequest = new HttpRequestMessage();
             HttpResponseMessage _httpResponse = null;
@@ -474,27 +491,9 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataWorkbenchApiV2
                 throw ex;
             }
             // Create Result
-            var _result = new HttpOperationResponse<string>();
+            var _result = new HttpOperationResponse();
             _result.Request = _httpRequest;
             _result.Response = _httpResponse;
-            // Deserialize Response
-            if ((int)_statusCode == 200)
-            {
-                _responseContent = await _httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
-                try
-                {
-                    _result.Body = Microsoft.Rest.Serialization.SafeJsonConvert.DeserializeObject<string>(_responseContent, Client.DeserializationSettings);
-                }
-                catch (JsonException ex)
-                {
-                    _httpRequest.Dispose();
-                    if (_httpResponse != null)
-                    {
-                        _httpResponse.Dispose();
-                    }
-                    throw new SerializationException("Unable to deserialize the response.", _responseContent, ex);
-                }
-            }
             return _result;
         }
         /// <summary>
@@ -551,15 +550,18 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataWorkbenchApiV2
         /// </param>
         /// <param name='workspaceId'>
         /// </param>
+        /// <param name='format'>
+        /// Possible values include: 'String', 'Object'
+        /// </param>
+        /// <param name='sasType'>
+        /// Possible values include: 'dfs', 'blob'
+        /// </param>
         /// <param name='cancellationToken'>
         /// The cancellation token.
         /// </param>
-        public async Task<string> GetSASTokenForExternalStorageAsync(GetSasTokenForExternalDTO body, System.Guid workspaceId, CancellationToken cancellationToken = default)
+        public async Task GetSASTokenForExternalStorageAsync(GetSasTokenForExternalDTO body, System.Guid workspaceId, string format = default, string sasType = default, CancellationToken cancellationToken = default)
         {
-            using (var _result = await GetSASTokenForExternalStorageWithHttpMessagesAsync(body, workspaceId, null, cancellationToken).ConfigureAwait(false))
-            {
-                return _result.Body;
-            }
+            (await GetSASTokenForExternalStorageWithHttpMessagesAsync(body, workspaceId, format, sasType, null, cancellationToken).ConfigureAwait(false)).Dispose();
         }
 
         /// <summary>
@@ -728,6 +730,12 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataWorkbenchApiV2
         /// </param>
         /// <param name='workspaceId'>
         /// </param>
+        /// <param name='format'>
+        /// Possible values include: 'String', 'Object'
+        /// </param>
+        /// <param name='sasType'>
+        /// Possible values include: 'dfs', 'blob'
+        /// </param>
         /// <param name='customHeaders'>
         /// Headers that will be added to request.
         /// </param>
@@ -736,9 +744,6 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataWorkbenchApiV2
         /// </param>
         /// <exception cref="HttpOperationException">
         /// Thrown when the operation returned an invalid status code
-        /// </exception>
-        /// <exception cref="SerializationException">
-        /// Thrown when unable to deserialize the response
         /// </exception>
         /// <exception cref="ValidationException">
         /// Thrown when a required parameter is null
@@ -749,7 +754,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataWorkbenchApiV2
         /// <return>
         /// A response object containing the response body and response headers.
         /// </return>
-        public async Task<HttpOperationResponse<string>> GetSASTokenForInternalStorageWithHttpMessagesAsync(StorageQueryDto body, System.Guid workspaceId, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default)
+        public async Task<HttpOperationResponse> GetSASTokenForInternalStorageWithHttpMessagesAsync(StorageQueryDto body, System.Guid workspaceId, string format = default, string sasType = default, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default)
         {
             if (body == null)
             {
@@ -759,6 +764,19 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataWorkbenchApiV2
             var _baseUrl = Client.HttpClient.BaseAddress?.AbsoluteUri ?? Client.BaseUri.AbsoluteUri;
             var _url = new System.Uri(new System.Uri(_baseUrl + (_baseUrl.EndsWith("/") ? "" : "/")), "workspaces/{workspaceId}/storages/sas").ToString();
             _url = _url.Replace("{workspaceId}", System.Uri.EscapeDataString(Microsoft.Rest.Serialization.SafeJsonConvert.SerializeObject(workspaceId, Client.SerializationSettings).Trim('"')));
+            IList<string> _queryParameters = new List<string>();
+            if (format != null)
+            {
+                _queryParameters.Add(string.Format("format={0}", System.Uri.EscapeDataString(Microsoft.Rest.Serialization.SafeJsonConvert.SerializeObject(format, Client.SerializationSettings).Trim('"'))));
+            }
+            if (sasType != null)
+            {
+                _queryParameters.Add(string.Format("sasType={0}", System.Uri.EscapeDataString(Microsoft.Rest.Serialization.SafeJsonConvert.SerializeObject(sasType, Client.SerializationSettings).Trim('"'))));
+            }
+            if (_queryParameters.Any())
+            {
+                _url += "?" + string.Join("&", _queryParameters);
+            }
             // Create HTTP transport objects
             var _httpRequest = new HttpRequestMessage();
             HttpResponseMessage _httpResponse = null;
@@ -812,27 +830,9 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataWorkbenchApiV2
                 throw ex;
             }
             // Create Result
-            var _result = new HttpOperationResponse<string>();
+            var _result = new HttpOperationResponse();
             _result.Request = _httpRequest;
             _result.Response = _httpResponse;
-            // Deserialize Response
-            if ((int)_statusCode == 200)
-            {
-                _responseContent = await _httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
-                try
-                {
-                    _result.Body = Microsoft.Rest.Serialization.SafeJsonConvert.DeserializeObject<string>(_responseContent, Client.DeserializationSettings);
-                }
-                catch (JsonException ex)
-                {
-                    _httpRequest.Dispose();
-                    if (_httpResponse != null)
-                    {
-                        _httpResponse.Dispose();
-                    }
-                    throw new SerializationException("Unable to deserialize the response.", _responseContent, ex);
-                }
-            }
             return _result;
         }
         /// <summary>
@@ -879,15 +879,18 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataWorkbenchApiV2
         /// </param>
         /// <param name='workspaceId'>
         /// </param>
+        /// <param name='format'>
+        /// Possible values include: 'String', 'Object'
+        /// </param>
+        /// <param name='sasType'>
+        /// Possible values include: 'dfs', 'blob'
+        /// </param>
         /// <param name='cancellationToken'>
         /// The cancellation token.
         /// </param>
-        public async Task<string> GetSASTokenForInternalStorageAsync(StorageQueryDto body, System.Guid workspaceId, CancellationToken cancellationToken = default)
+        public async Task GetSASTokenForInternalStorageAsync(StorageQueryDto body, System.Guid workspaceId, string format = default, string sasType = default, CancellationToken cancellationToken = default)
         {
-            using (var _result = await GetSASTokenForInternalStorageWithHttpMessagesAsync(body, workspaceId, null, cancellationToken).ConfigureAwait(false))
-            {
-                return _result.Body;
-            }
+            (await GetSASTokenForInternalStorageWithHttpMessagesAsync(body, workspaceId, format, sasType, null, cancellationToken).ConfigureAwait(false)).Dispose();
         }
 
         /// <summary>

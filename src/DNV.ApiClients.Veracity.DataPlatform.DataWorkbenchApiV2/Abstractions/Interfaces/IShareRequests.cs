@@ -181,7 +181,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataWorkbenchApiV2.Interfaces
         /// "a33060fe-de8f-469c-8cb2-864753f46d64"
         /// ],
         /// "statuses": [
-        /// "New"
+        /// "Accepted"
         /// ]
         /// }
         ///
@@ -211,8 +211,11 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataWorkbenchApiV2.Interfaces
         /// }
         /// ],
         /// "associatedShareId": "6f9d46bd-76b4-4b79-95fa-a2c5abd2bec7",
+        /// //Will be available only after share request get accepted
+        /// "associatedDatasetId": "7aa39404-7fa4-4352-bfd0-b5c25fa8b745",
+        /// //Will be available only after share request get accepted
         /// "notes": "Test notes",
-        /// "status": "New",
+        /// "status": "Accepted",
         /// "createdBy": "55da50ee-20af-4bf1-aa7f-b5a64e72f09d",
         /// "createdOn": "2025-02-26T10:13:08.4101697Z"
         /// }
@@ -269,7 +272,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataWorkbenchApiV2.Interfaces
         /// "a33060fe-de8f-469c-8cb2-864753f46d64"
         /// ],
         /// "statuses": [
-        /// "New"
+        /// "Accepted"
         /// ]
         /// }
         ///
@@ -299,8 +302,11 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataWorkbenchApiV2.Interfaces
         /// }
         /// ],
         /// "associatedShareId": "6f9d46bd-76b4-4b79-95fa-a2c5abd2bec7",
+        /// //Will be available only after share request get accepted
+        /// "associatedDatasetId": "7aa39404-7fa4-4352-bfd0-b5c25fa8b745",
+        /// //Will be available only after share request get accepted
         /// "notes": "Test notes",
-        /// "status": "New",
+        /// "status": "Accepted",
         /// "createdBy": "55da50ee-20af-4bf1-aa7f-b5a64e72f09d",
         /// "createdOn": "2025-02-26T10:13:08.4101697Z"
         /// }
@@ -328,8 +334,9 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataWorkbenchApiV2.Interfaces
         /// <remarks>
         /// Sample request:
         ///
-        /// GET /api/v2/{workspaceId}/shareRequests/{shareRequestId}
-        /// /api/v2/196a8ff4-dfbc-4ee7-ae08-4f38b84d9c86/shareRequests/348b5dcf-edff-415b-9259-384b20932fc0
+        /// GET
+        /// /api/v2/{workspaceId}/shareRequests/{shareRequestId}?isRequestor=true
+        /// /api/v2/196a8ff4-dfbc-4ee7-ae08-4f38b84d9c86/shareRequests/348b5dcf-edff-415b-9259-384b20932fc0?isRequestor=true
         ///
         /// Sample response:
         ///
@@ -355,8 +362,11 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataWorkbenchApiV2.Interfaces
         /// }
         /// ],
         /// "associatedShareId": "4c46787e-946a-4265-9574-aaa1a1e4d2f0",
+        /// //Will be available only after share request get accepted
+        /// "associatedDatasetId": "7aa39404-7fa4-4352-bfd0-b5c25fa8b745",
+        /// //Will be available only after share request get accepted
         /// "notes": "Test notes",
-        /// "status": "New",
+        /// "status": "Accepted",
         /// "createdBy": "55da50ee-20af-4bf1-aa7f-b5a64e72f09d",
         /// "createdOn": "2025-02-26T10:13:08.4101697Z"
         /// }
@@ -364,6 +374,9 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataWorkbenchApiV2.Interfaces
         /// <param name='workspaceId'>
         /// </param>
         /// <param name='shareRequestId'>
+        /// </param>
+        /// <param name='isRequestor'>
+        /// Is workspace id from the route a requestor workspace id
         /// </param>
         /// <param name='customHeaders'>
         /// The headers that will be added to request.
@@ -377,7 +390,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataWorkbenchApiV2.Interfaces
         /// <exception cref="Microsoft.Rest.SerializationException">
         /// Thrown when unable to deserialize the response
         /// </exception>
-        Task<HttpOperationResponse<ShareRequestDto>> GetShareRequestWithHttpMessagesAsync(System.Guid workspaceId, System.Guid shareRequestId, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default);
+        Task<HttpOperationResponse<ShareRequestDto>> GetShareRequestWithHttpMessagesAsync(System.Guid workspaceId, System.Guid shareRequestId, bool? isRequestor = false, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default);
 
         /// <summary>
         /// Get share request
@@ -385,8 +398,9 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataWorkbenchApiV2.Interfaces
         /// <remarks>
         /// Sample request:
         ///
-        /// GET /api/v2/{workspaceId}/shareRequests/{shareRequestId}
-        /// /api/v2/196a8ff4-dfbc-4ee7-ae08-4f38b84d9c86/shareRequests/348b5dcf-edff-415b-9259-384b20932fc0
+        /// GET
+        /// /api/v2/{workspaceId}/shareRequests/{shareRequestId}?isRequestor=true
+        /// /api/v2/196a8ff4-dfbc-4ee7-ae08-4f38b84d9c86/shareRequests/348b5dcf-edff-415b-9259-384b20932fc0?isRequestor=true
         ///
         /// Sample response:
         ///
@@ -412,8 +426,11 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataWorkbenchApiV2.Interfaces
         /// }
         /// ],
         /// "associatedShareId": "4c46787e-946a-4265-9574-aaa1a1e4d2f0",
+        /// //Will be available only after share request get accepted
+        /// "associatedDatasetId": "7aa39404-7fa4-4352-bfd0-b5c25fa8b745",
+        /// //Will be available only after share request get accepted
         /// "notes": "Test notes",
-        /// "status": "New",
+        /// "status": "Accepted",
         /// "createdBy": "55da50ee-20af-4bf1-aa7f-b5a64e72f09d",
         /// "createdOn": "2025-02-26T10:13:08.4101697Z"
         /// }
@@ -422,10 +439,135 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataWorkbenchApiV2.Interfaces
         /// </param>
         /// <param name='shareRequestId'>
         /// </param>
+        /// <param name='isRequestor'>
+        /// Is workspace id from the route a requestor workspace id
+        /// </param>
         /// <param name='cancellationToken'>
         /// The cancellation token.
         /// </param>
-        Task<ShareRequestDto> GetShareRequestAsync(System.Guid workspaceId, System.Guid shareRequestId, CancellationToken cancellationToken = default);
+        Task<ShareRequestDto> GetShareRequestAsync(System.Guid workspaceId, System.Guid shareRequestId, bool? isRequestor = false, CancellationToken cancellationToken = default);
+
+        /// <summary>
+        /// Accept share request
+        /// </summary>
+        /// <remarks>
+        /// Sample request:
+        ///
+        /// POST
+        /// /api/v2/workspaces/{workspaceId}/shareRequests/{shareRequestId}/accept
+        /// /api/v2/workspaces/196a8ff4-dfbc-4ee7-ae08-4f38b84d9c87/ShareRequests/1ec84a50-8c2a-4d46-b291-8ed22306619f/accept
+        ///
+        /// Sample response:
+        ///
+        /// 202
+        /// {
+        /// "shareRequestId":"1ec84a50-8c2a-4d46-b291-8ed22306619f",
+        /// "status":"Pending",
+        /// "queryUri":"https://gateway.dev.internal.veracity.com/gateway/api/v2/workspaces/196a8ff4-dfbc-4ee7-ae08-4f38b84d9c87/shareRequests/1ec84a50-8c2a-4d46-b291-8ed22306619f"
+        /// }
+        /// </remarks>
+        /// <param name='workspaceId'>
+        /// Id of receiver workspace
+        /// </param>
+        /// <param name='shareRequestId'>
+        /// share request id
+        /// </param>
+        /// <param name='customHeaders'>
+        /// The headers that will be added to request.
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        /// <exception cref="Microsoft.Rest.HttpOperationException">
+        /// Thrown when the operation returned an invalid status code
+        /// </exception>
+        Task<HttpOperationResponse> AcceptShareRequestWithHttpMessagesAsync(System.Guid workspaceId, System.Guid shareRequestId, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default);
+
+        /// <summary>
+        /// Accept share request
+        /// </summary>
+        /// <remarks>
+        /// Sample request:
+        ///
+        /// POST
+        /// /api/v2/workspaces/{workspaceId}/shareRequests/{shareRequestId}/accept
+        /// /api/v2/workspaces/196a8ff4-dfbc-4ee7-ae08-4f38b84d9c87/ShareRequests/1ec84a50-8c2a-4d46-b291-8ed22306619f/accept
+        ///
+        /// Sample response:
+        ///
+        /// 202
+        /// {
+        /// "shareRequestId":"1ec84a50-8c2a-4d46-b291-8ed22306619f",
+        /// "status":"Pending",
+        /// "queryUri":"https://gateway.dev.internal.veracity.com/gateway/api/v2/workspaces/196a8ff4-dfbc-4ee7-ae08-4f38b84d9c87/shareRequests/1ec84a50-8c2a-4d46-b291-8ed22306619f"
+        /// }
+        /// </remarks>
+        /// <param name='workspaceId'>
+        /// Id of receiver workspace
+        /// </param>
+        /// <param name='shareRequestId'>
+        /// share request id
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        Task AcceptShareRequestAsync(System.Guid workspaceId, System.Guid shareRequestId, CancellationToken cancellationToken = default);
+
+        /// <summary>
+        /// Decline a share request
+        /// </summary>
+        /// <remarks>
+        /// Sample request:
+        ///
+        /// POST
+        /// /api/v2/workspaces/{workspaceId}/shareRequests/{shareRequestId}/decline
+        /// POST
+        /// /api/v2/workspaces/a33060fe-de8f-469c-8cb2-864753f46d64/ShareRequests/1a940e6a-2e2e-4cc9-894d-807cb2d90d5f/decline
+        ///
+        /// Sample response:
+        ///
+        /// 204 No Content
+        /// </remarks>
+        /// <param name='workspaceId'>
+        /// Id of receiver workspace
+        /// </param>
+        /// <param name='shareRequestId'>
+        /// </param>
+        /// <param name='customHeaders'>
+        /// The headers that will be added to request.
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        /// <exception cref="Microsoft.Rest.HttpOperationException">
+        /// Thrown when the operation returned an invalid status code
+        /// </exception>
+        Task<HttpOperationResponse> DeclineShareRequestWithHttpMessagesAsync(System.Guid workspaceId, System.Guid shareRequestId, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default);
+
+        /// <summary>
+        /// Decline a share request
+        /// </summary>
+        /// <remarks>
+        /// Sample request:
+        ///
+        /// POST
+        /// /api/v2/workspaces/{workspaceId}/shareRequests/{shareRequestId}/decline
+        /// POST
+        /// /api/v2/workspaces/a33060fe-de8f-469c-8cb2-864753f46d64/ShareRequests/1a940e6a-2e2e-4cc9-894d-807cb2d90d5f/decline
+        ///
+        /// Sample response:
+        ///
+        /// 204 No Content
+        /// </remarks>
+        /// <param name='workspaceId'>
+        /// Id of receiver workspace
+        /// </param>
+        /// <param name='shareRequestId'>
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        Task DeclineShareRequestAsync(System.Guid workspaceId, System.Guid shareRequestId, CancellationToken cancellationToken = default);
 
     }
 }

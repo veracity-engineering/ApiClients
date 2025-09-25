@@ -24,7 +24,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataWorkbenchApiV2.Models
         /// <summary>
         /// Initializes a new instance of the DataCatalogReadDtoV2 class.
         /// </summary>
-        public DataCatalogReadDtoV2(System.Guid id = default, string name = default, string description = default, System.Guid workspaceId = default, System.Guid connectionId = default, System.Guid createdBy = default, System.DateTime createdOn = default, System.Guid lastModifiedBy = default, System.DateTime lastModifiedOn = default, SchemaInfoDto schemaInfo = default, IEnumerable<QueryFilter> queries = default, IEnumerable<string> columns = default, bool isBaseDataset = default, IDictionary<string, IEnumerable<string>> tags = default)
+        public DataCatalogReadDtoV2(System.Guid id = default, string name = default, string description = default, System.Guid workspaceId = default, System.Guid connectionId = default, System.Guid createdBy = default, System.DateTime createdOn = default, System.Guid lastModifiedBy = default, System.DateTime lastModifiedOn = default, SchemaInfoDto schemaInfo = default, IEnumerable<QueryFilter> queries = default, IEnumerable<string> columns = default, bool isBaseDataset = default, IDictionary<string, IEnumerable<string>> tags = default, SharedByDTO sharedBy = default, IEnumerable<SharedWithDto> sharedWith = default)
         {
             Id = id;
             Name = name;
@@ -40,6 +40,8 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataWorkbenchApiV2.Models
             Columns = columns;
             IsBaseDataset = isBaseDataset;
             Tags = tags;
+            SharedBy = sharedBy;
+            SharedWith = sharedWith;
             CustomInit();
         }
 
@@ -117,6 +119,16 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataWorkbenchApiV2.Models
         /// </summary>
         [JsonProperty(PropertyName = "tags")]
         public IDictionary<string, IEnumerable<string>> Tags { get; set; }
+
+        /// <summary>
+        /// </summary>
+        [JsonProperty(PropertyName = "sharedBy")]
+        public SharedByDTO SharedBy { get; set; }
+
+        /// <summary>
+        /// </summary>
+        [JsonProperty(PropertyName = "sharedWith")]
+        public IEnumerable<SharedWithDto> SharedWith { get; set; }
 
     }
 }

@@ -163,6 +163,75 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataWorkbenchApiV2
         /// Get all data sets for a specific workspace. Supports pagination, enhanced
         /// filtering and sorting.
         /// </summary>
+        /// <remarks>
+        /// Sample request:
+        ///
+        /// {
+        /// "isBaseDataset": false,
+        /// "pageIndex": 1,
+        /// "pageSize": 10,
+        /// "sortColumn": "IMO",
+        /// "sortDirection": "Ascending",
+        /// "datasetName": "Share test (3)",
+        /// "tags": { "t1": ["v1"] },
+        /// "createdAfter": "2020-01-28T08:55:05.975Z",
+        /// "createdBefore": "2025-04-28T08:55:05.975Z",
+        /// "schemaId": "07961ff0-5bbd-4ef1-8ea3-7b5d9907ee62"    // Get datasets
+        /// belongs to all schema versions of the given schema
+        /// }
+        ///
+        /// Sample response:
+        ///
+        /// {
+        /// "result": [
+        /// {
+        /// "id": "0d8ac9e1-a3ce-4a43-aa6f-12a02192dbe0",
+        /// "name": "Share test (3)",
+        /// "description": "Share desc",
+        /// "workspaceId": "196a8ff4-dfbc-4ee7-ae08-4f38b84d9c86",
+        /// "connectionId": "41f00188-407e-4efa-a546-a13b47ff6717",
+        /// "createdBy": "36f17b7f-3829-4e61-8106-d9047bd04dc4",
+        /// "createdOn": "2025-04-21T01:42:22.5358667Z",
+        /// "lastModifiedBy": "36f17b7f-3829-4e61-8106-d9047bd04dc4",
+        /// "lastModifiedOn": "2025-04-21T01:42:22.535868Z",
+        /// "schemaInfo": {
+        /// "schemaVersionId": "a4276640-ab83-4ebd-a745-67bef52ac34a",
+        /// "schemaName": "Monthly emissions summary V1"
+        /// },
+        /// "queries": [
+        /// {
+        /// "column": "IMO",
+        /// "filterType": "List",
+        /// "filterValues": [
+        /// "0001016",
+        /// "1111111"
+        /// ]
+        /// }
+        /// ],
+        /// "columns": [
+        /// "IMO",
+        /// "Vessel_Name"
+        /// ],
+        /// "isBaseDataset": false,
+        /// "tags": {
+        /// "t1": [
+        /// "v1",
+        /// "v2"
+        /// ]
+        /// },
+        /// "sharedBy": {
+        /// "id": "258f29e2-769e-4841-b08c-fff3026c2f93",
+        /// "sharedByType": "Workspace",
+        /// "name": "BoolTenant, WS_Bool"
+        /// }
+        /// }
+        /// ],
+        /// "pageIndex": 1,
+        /// "pageSize": 10,
+        /// "totalCount": 1,
+        /// "totalPages": 1
+        /// }
+        /// </remarks>
         /// <param name='workspaceId'>
         /// </param>
         /// <param name='body'>
@@ -268,6 +337,75 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataWorkbenchApiV2
         /// Get all data sets for a specific workspace. Supports pagination, enhanced
         /// filtering and sorting.
         /// </summary>
+        /// <remarks>
+        /// Sample request:
+        ///
+        /// {
+        /// "isBaseDataset": false,
+        /// "pageIndex": 1,
+        /// "pageSize": 10,
+        /// "sortColumn": "IMO",
+        /// "sortDirection": "Ascending",
+        /// "datasetName": "Share test (3)",
+        /// "tags": { "t1": ["v1"] },
+        /// "createdAfter": "2020-01-28T08:55:05.975Z",
+        /// "createdBefore": "2025-04-28T08:55:05.975Z",
+        /// "schemaId": "07961ff0-5bbd-4ef1-8ea3-7b5d9907ee62"    // Get datasets
+        /// belongs to all schema versions of the given schema
+        /// }
+        ///
+        /// Sample response:
+        ///
+        /// {
+        /// "result": [
+        /// {
+        /// "id": "0d8ac9e1-a3ce-4a43-aa6f-12a02192dbe0",
+        /// "name": "Share test (3)",
+        /// "description": "Share desc",
+        /// "workspaceId": "196a8ff4-dfbc-4ee7-ae08-4f38b84d9c86",
+        /// "connectionId": "41f00188-407e-4efa-a546-a13b47ff6717",
+        /// "createdBy": "36f17b7f-3829-4e61-8106-d9047bd04dc4",
+        /// "createdOn": "2025-04-21T01:42:22.5358667Z",
+        /// "lastModifiedBy": "36f17b7f-3829-4e61-8106-d9047bd04dc4",
+        /// "lastModifiedOn": "2025-04-21T01:42:22.535868Z",
+        /// "schemaInfo": {
+        /// "schemaVersionId": "a4276640-ab83-4ebd-a745-67bef52ac34a",
+        /// "schemaName": "Monthly emissions summary V1"
+        /// },
+        /// "queries": [
+        /// {
+        /// "column": "IMO",
+        /// "filterType": "List",
+        /// "filterValues": [
+        /// "0001016",
+        /// "1111111"
+        /// ]
+        /// }
+        /// ],
+        /// "columns": [
+        /// "IMO",
+        /// "Vessel_Name"
+        /// ],
+        /// "isBaseDataset": false,
+        /// "tags": {
+        /// "t1": [
+        /// "v1",
+        /// "v2"
+        /// ]
+        /// },
+        /// "sharedBy": {
+        /// "id": "258f29e2-769e-4841-b08c-fff3026c2f93",
+        /// "sharedByType": "Workspace",
+        /// "name": "BoolTenant, WS_Bool"
+        /// }
+        /// }
+        /// ],
+        /// "pageIndex": 1,
+        /// "pageSize": 10,
+        /// "totalCount": 1,
+        /// "totalPages": 1
+        /// }
+        /// </remarks>
         /// <param name='workspaceId'>
         /// </param>
         /// <param name='body'>
@@ -398,6 +536,99 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataWorkbenchApiV2
             {
                 return _result.Body;
             }
+        }
+
+        /// <summary>
+        /// Delete a specific dataset by Workspace Id and DataSet Id
+        /// </summary>
+        /// <param name='workspaceId'>
+        /// </param>
+        /// <param name='datasetId'>
+        /// </param>
+        /// <param name='customHeaders'>
+        /// Headers that will be added to request.
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        /// <exception cref="HttpOperationException">
+        /// Thrown when the operation returned an invalid status code
+        /// </exception>
+        /// <return>
+        /// A response object containing the response body and response headers.
+        /// </return>
+        public async Task<HttpOperationResponse> DeleteDatasetWithHttpMessagesAsync(System.Guid workspaceId, System.Guid datasetId, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default)
+        {
+            // Construct URL
+            var _baseUrl = Client.HttpClient.BaseAddress?.AbsoluteUri ?? Client.BaseUri.AbsoluteUri;
+            var _url = new System.Uri(new System.Uri(_baseUrl + (_baseUrl.EndsWith("/") ? "" : "/")), "workspaces/{workspaceId}/datasets/{datasetId}").ToString();
+            _url = _url.Replace("{workspaceId}", System.Uri.EscapeDataString(Microsoft.Rest.Serialization.SafeJsonConvert.SerializeObject(workspaceId, Client.SerializationSettings).Trim('"')));
+            _url = _url.Replace("{datasetId}", System.Uri.EscapeDataString(Microsoft.Rest.Serialization.SafeJsonConvert.SerializeObject(datasetId, Client.SerializationSettings).Trim('"')));
+            // Create HTTP transport objects
+            var _httpRequest = new HttpRequestMessage();
+            HttpResponseMessage _httpResponse = null;
+            _httpRequest.Method = new HttpMethod("DELETE");
+            _httpRequest.RequestUri = new System.Uri(_url);
+            // Set Headers
+
+
+            if (customHeaders != null)
+            {
+                foreach(var _header in customHeaders)
+                {
+                    if (_httpRequest.Headers.Contains(_header.Key))
+                    {
+                        _httpRequest.Headers.Remove(_header.Key);
+                    }
+                    _httpRequest.Headers.TryAddWithoutValidation(_header.Key, _header.Value);
+                }
+            }
+
+            // Serialize Request
+            string _requestContent = null;
+            // Send Request
+            cancellationToken.ThrowIfCancellationRequested();
+            _httpResponse = await Client.HttpClient.SendAsync(_httpRequest, cancellationToken).ConfigureAwait(false);
+            HttpStatusCode _statusCode = _httpResponse.StatusCode;
+            cancellationToken.ThrowIfCancellationRequested();
+            string _responseContent = null;
+            if ((int)_statusCode != 200)
+            {
+                var ex = new HttpOperationException(string.Format("Operation returned an invalid status code '{0}'", _statusCode));
+                if (_httpResponse.Content != null) {
+                    _responseContent = await _httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
+                }
+                else {
+                    _responseContent = string.Empty;
+                }
+                ex.Request = new HttpRequestMessageWrapper(_httpRequest, _requestContent);
+                ex.Response = new HttpResponseMessageWrapper(_httpResponse, _responseContent);
+                _httpRequest.Dispose();
+                if (_httpResponse != null)
+                {
+                    _httpResponse.Dispose();
+                }
+                throw ex;
+            }
+            // Create Result
+            var _result = new HttpOperationResponse();
+            _result.Request = _httpRequest;
+            _result.Response = _httpResponse;
+            return _result;
+        }
+        /// <summary>
+        /// Delete a specific dataset by Workspace Id and DataSet Id
+        /// </summary>
+        /// <param name='workspaceId'>
+        /// </param>
+        /// <param name='datasetId'>
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        public async Task DeleteDatasetAsync(System.Guid workspaceId, System.Guid datasetId, CancellationToken cancellationToken = default)
+        {
+            (await DeleteDatasetWithHttpMessagesAsync(workspaceId, datasetId, null, cancellationToken).ConfigureAwait(false)).Dispose();
         }
 
         /// <summary>
@@ -815,9 +1046,9 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataWorkbenchApiV2
         /// <summary>
         /// Revoke multiple SAS policies for the workspace container
         /// </summary>
-        /// <param name='body'>
-        /// </param>
         /// <param name='workspaceId'>
+        /// </param>
+        /// <param name='policiesToRevoke'>
         /// </param>
         /// <param name='customHeaders'>
         /// Headers that will be added to request.
@@ -837,16 +1068,31 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataWorkbenchApiV2
         /// <return>
         /// A response object containing the response body and response headers.
         /// </return>
-        public async Task<HttpOperationResponse> RevokeSasPoliciesForContainerWithHttpMessagesAsync(RevokeSasPolicyDTO body, System.Guid workspaceId, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default)
+        public async Task<HttpOperationResponse> RevokeSasPoliciesForContainerWithHttpMessagesAsync(System.Guid workspaceId, IEnumerable<string> policiesToRevoke, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default)
         {
-            if (body == null)
+            if (policiesToRevoke == null)
             {
-                throw new ValidationException(ValidationRules.CannotBeNull, "body");
+                throw new ValidationException(ValidationRules.CannotBeNull, "policiesToRevoke");
             }
             // Construct URL
             var _baseUrl = Client.HttpClient.BaseAddress?.AbsoluteUri ?? Client.BaseUri.AbsoluteUri;
             var _url = new System.Uri(new System.Uri(_baseUrl + (_baseUrl.EndsWith("/") ? "" : "/")), "workspaces/{workspaceId}/revokesaspolicies").ToString();
             _url = _url.Replace("{workspaceId}", System.Uri.EscapeDataString(Microsoft.Rest.Serialization.SafeJsonConvert.SerializeObject(workspaceId, Client.SerializationSettings).Trim('"')));
+            IList<string> _queryParameters = new List<string>();
+            if (policiesToRevoke != null)
+            {
+                if (policiesToRevoke.Any())
+                {
+                    foreach (var _item in policiesToRevoke)
+                    {
+                        _queryParameters.Add(string.Format("policiesToRevoke={0}", System.Uri.EscapeDataString("" + _item)));
+                    }
+                }
+            }
+            if (_queryParameters.Any())
+            {
+                _url += "?" + string.Join("&", _queryParameters);
+            }
             // Create HTTP transport objects
             var _httpRequest = new HttpRequestMessage();
             HttpResponseMessage _httpResponse = null;
@@ -869,12 +1115,6 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataWorkbenchApiV2
 
             // Serialize Request
             string _requestContent = null;
-            if(body != null)
-            {
-                _requestContent = Microsoft.Rest.Serialization.SafeJsonConvert.SerializeObject(body, Client.SerializationSettings);
-                _httpRequest.Content = new StringContent(_requestContent, System.Text.Encoding.UTF8);
-                _httpRequest.Content.Headers.ContentType =System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json; charset=utf-8");
-            }
             // Send Request
             cancellationToken.ThrowIfCancellationRequested();
             _httpResponse = await Client.HttpClient.SendAsync(_httpRequest, cancellationToken).ConfigureAwait(false);
@@ -908,20 +1148,20 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataWorkbenchApiV2
         /// <summary>
         /// Revoke multiple SAS policies for the workspace container
         /// </summary>
-        /// <param name='body'>
-        /// </param>
         /// <param name='workspaceId'>
+        /// </param>
+        /// <param name='policiesToRevoke'>
         /// </param>
         /// <param name='cancellationToken'>
         /// The cancellation token.
         /// </param>
-        public async Task RevokeSasPoliciesForContainerAsync(RevokeSasPolicyDTO body, System.Guid workspaceId, CancellationToken cancellationToken = default)
+        public async Task RevokeSasPoliciesForContainerAsync(System.Guid workspaceId, IEnumerable<string> policiesToRevoke, CancellationToken cancellationToken = default)
         {
-            (await RevokeSasPoliciesForContainerWithHttpMessagesAsync(body, workspaceId, null, cancellationToken).ConfigureAwait(false)).Dispose();
+            (await RevokeSasPoliciesForContainerWithHttpMessagesAsync(workspaceId, policiesToRevoke, null, cancellationToken).ConfigureAwait(false)).Dispose();
         }
 
         /// <summary>
-        /// Revoke all SAS tokens for the workspace container
+        /// Revoke all SAS policies for the workspace container
         /// </summary>
         /// <param name='workspaceId'>
         /// </param>
@@ -996,7 +1236,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataWorkbenchApiV2
             return _result;
         }
         /// <summary>
-        /// Revoke all SAS tokens for the workspace container
+        /// Revoke all SAS policies for the workspace container
         /// </summary>
         /// <param name='workspaceId'>
         /// </param>
@@ -1114,7 +1354,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataWorkbenchApiV2
         }
 
         /// <summary>
-        /// Get a SAS policies for the workspace container
+        /// Get SAS policies for the workspace container
         /// </summary>
         /// <param name='workspaceId'>
         /// </param>
@@ -1210,7 +1450,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataWorkbenchApiV2
             return _result;
         }
         /// <summary>
-        /// Get a SAS policies for the workspace container
+        /// Get SAS policies for the workspace container
         /// </summary>
         /// <param name='workspaceId'>
         /// </param>

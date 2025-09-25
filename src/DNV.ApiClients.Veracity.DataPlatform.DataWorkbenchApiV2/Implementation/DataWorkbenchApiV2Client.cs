@@ -238,7 +238,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataWorkbenchApiV2
             ShareRequests = new ShareRequests(this);
             Shares = new Shares(this);
             Storages = new Storages(this);
-            BaseUri = new System.Uri("https://tst-api.dw.veracity.com/gateway/api/v2");
+            BaseUri = new System.Uri("https://api.dw.veracity.com/gateway/api/v2");
             SerializationSettings = new JsonSerializerSettings
             {
                 Formatting = Newtonsoft.Json.Formatting.Indented,

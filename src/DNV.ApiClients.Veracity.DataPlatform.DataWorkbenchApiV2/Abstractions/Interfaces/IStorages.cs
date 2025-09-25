@@ -27,6 +27,13 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataWorkbenchApiV2.Interfaces
         /// <param name='shareId'>
         /// Share id of the dataset
         /// </param>
+        /// <param name='format'>
+        /// format of the sas token. Possible values include: 'String',
+        /// 'Object'
+        /// </param>
+        /// <param name='sasType'>
+        /// type of sas token. Possible values include: 'dfs', 'blob'
+        /// </param>
         /// <param name='customHeaders'>
         /// The headers that will be added to request.
         /// </param>
@@ -36,10 +43,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataWorkbenchApiV2.Interfaces
         /// <exception cref="Microsoft.Rest.HttpOperationException">
         /// Thrown when the operation returned an invalid status code
         /// </exception>
-        /// <exception cref="Microsoft.Rest.SerializationException">
-        /// Thrown when unable to deserialize the response
-        /// </exception>
-        Task<HttpOperationResponse<SasTokenResultDTO>> GetSASTokenForStorageDatasetByShareIdV2WithHttpMessagesAsync(System.Guid workspaceId, System.Guid shareId, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default);
+        Task<HttpOperationResponse> GetSASTokenForStorageDatasetByShareIdV2WithHttpMessagesAsync(System.Guid workspaceId, System.Guid shareId, string format = default, string sasType = default, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default);
 
         /// <summary>
         /// Get storage sas token by share id
@@ -50,10 +54,17 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataWorkbenchApiV2.Interfaces
         /// <param name='shareId'>
         /// Share id of the dataset
         /// </param>
+        /// <param name='format'>
+        /// format of the sas token. Possible values include: 'String',
+        /// 'Object'
+        /// </param>
+        /// <param name='sasType'>
+        /// type of sas token. Possible values include: 'dfs', 'blob'
+        /// </param>
         /// <param name='cancellationToken'>
         /// The cancellation token.
         /// </param>
-        Task<SasTokenResultDTO> GetSASTokenForStorageDatasetByShareIdV2Async(System.Guid workspaceId, System.Guid shareId, CancellationToken cancellationToken = default);
+        Task GetSASTokenForStorageDatasetByShareIdV2Async(System.Guid workspaceId, System.Guid shareId, string format = default, string sasType = default, CancellationToken cancellationToken = default);
 
         /// <summary>
         /// List sas policies for current workspace.
@@ -181,6 +192,12 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataWorkbenchApiV2.Interfaces
         /// </param>
         /// <param name='workspaceId'>
         /// </param>
+        /// <param name='format'>
+        /// Possible values include: 'String', 'Object'
+        /// </param>
+        /// <param name='sasType'>
+        /// Possible values include: 'dfs', 'blob'
+        /// </param>
         /// <param name='customHeaders'>
         /// The headers that will be added to request.
         /// </param>
@@ -190,13 +207,10 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataWorkbenchApiV2.Interfaces
         /// <exception cref="Microsoft.Rest.HttpOperationException">
         /// Thrown when the operation returned an invalid status code
         /// </exception>
-        /// <exception cref="Microsoft.Rest.SerializationException">
-        /// Thrown when unable to deserialize the response
-        /// </exception>
         /// <exception cref="Microsoft.Rest.ValidationException">
         /// Thrown when a required parameter is null
         /// </exception>
-        Task<HttpOperationResponse<string>> GetSASTokenForExternalStorageWithHttpMessagesAsync(GetSasTokenForExternalDTO body, System.Guid workspaceId, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default);
+        Task<HttpOperationResponse> GetSASTokenForExternalStorageWithHttpMessagesAsync(GetSasTokenForExternalDTO body, System.Guid workspaceId, string format = default, string sasType = default, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default);
 
         /// <summary>
         /// Get external storage sas token for current workspace
@@ -254,10 +268,16 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataWorkbenchApiV2.Interfaces
         /// </param>
         /// <param name='workspaceId'>
         /// </param>
+        /// <param name='format'>
+        /// Possible values include: 'String', 'Object'
+        /// </param>
+        /// <param name='sasType'>
+        /// Possible values include: 'dfs', 'blob'
+        /// </param>
         /// <param name='cancellationToken'>
         /// The cancellation token.
         /// </param>
-        Task<string> GetSASTokenForExternalStorageAsync(GetSasTokenForExternalDTO body, System.Guid workspaceId, CancellationToken cancellationToken = default);
+        Task GetSASTokenForExternalStorageAsync(GetSasTokenForExternalDTO body, System.Guid workspaceId, string format = default, string sasType = default, CancellationToken cancellationToken = default);
 
         /// <summary>
         /// List sas policies for current workspace.
@@ -344,6 +364,12 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataWorkbenchApiV2.Interfaces
         /// </param>
         /// <param name='workspaceId'>
         /// </param>
+        /// <param name='format'>
+        /// Possible values include: 'String', 'Object'
+        /// </param>
+        /// <param name='sasType'>
+        /// Possible values include: 'dfs', 'blob'
+        /// </param>
         /// <param name='customHeaders'>
         /// The headers that will be added to request.
         /// </param>
@@ -353,13 +379,10 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataWorkbenchApiV2.Interfaces
         /// <exception cref="Microsoft.Rest.HttpOperationException">
         /// Thrown when the operation returned an invalid status code
         /// </exception>
-        /// <exception cref="Microsoft.Rest.SerializationException">
-        /// Thrown when unable to deserialize the response
-        /// </exception>
         /// <exception cref="Microsoft.Rest.ValidationException">
         /// Thrown when a required parameter is null
         /// </exception>
-        Task<HttpOperationResponse<string>> GetSASTokenForInternalStorageWithHttpMessagesAsync(StorageQueryDto body, System.Guid workspaceId, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default);
+        Task<HttpOperationResponse> GetSASTokenForInternalStorageWithHttpMessagesAsync(StorageQueryDto body, System.Guid workspaceId, string format = default, string sasType = default, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default);
 
         /// <summary>
         /// Get internal storage sas token for current workspace
@@ -407,10 +430,16 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataWorkbenchApiV2.Interfaces
         /// </param>
         /// <param name='workspaceId'>
         /// </param>
+        /// <param name='format'>
+        /// Possible values include: 'String', 'Object'
+        /// </param>
+        /// <param name='sasType'>
+        /// Possible values include: 'dfs', 'blob'
+        /// </param>
         /// <param name='cancellationToken'>
         /// The cancellation token.
         /// </param>
-        Task<string> GetSASTokenForInternalStorageAsync(StorageQueryDto body, System.Guid workspaceId, CancellationToken cancellationToken = default);
+        Task GetSASTokenForInternalStorageAsync(StorageQueryDto body, System.Guid workspaceId, string format = default, string sasType = default, CancellationToken cancellationToken = default);
 
         /// <summary>
         /// Revoke sas policy for current workspace or based on policy name.

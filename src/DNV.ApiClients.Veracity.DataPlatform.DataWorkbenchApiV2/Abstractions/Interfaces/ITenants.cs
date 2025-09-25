@@ -424,6 +424,86 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataWorkbenchApiV2.Interfaces
         Task<WorkspaceDto> CreateWorkspaceV2Async(WorkspaceCreationDtoV2 body, System.Guid tenantId, CancellationToken cancellationToken = default);
 
         /// <summary>
+        /// Query workspaces by conditions
+        /// </summary>
+        /// <remarks>
+        /// Sample request:
+        ///
+        /// {
+        /// "tagName": "tag1",
+        /// "vtmId": "1234567",
+        /// "customerId": "1234567"
+        /// }
+        ///
+        /// Sample response:
+        ///
+        /// [
+        /// {
+        /// "workspaceId": "196a8ff4-dfbc-4ee7-ae08-4f38b84d9c86",
+        /// "workspaceName": "shanghai123",
+        /// "workspaceDescription": "shanghai desc",
+        /// "workspaceRegion": "EU",
+        /// "tenantId": "7794cb5a-403e-4f87-bd80-f7f35a34f8fb",
+        /// "tenantName": "EasTenant1",
+        /// "tenantAlias": "DC"
+        /// }
+        /// ]
+        /// </remarks>
+        /// <param name='body'>
+        /// Workspace query dto
+        /// </param>
+        /// <param name='customHeaders'>
+        /// The headers that will be added to request.
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        /// <exception cref="Microsoft.Rest.HttpOperationException">
+        /// Thrown when the operation returned an invalid status code
+        /// </exception>
+        /// <exception cref="Microsoft.Rest.SerializationException">
+        /// Thrown when unable to deserialize the response
+        /// </exception>
+        /// <exception cref="Microsoft.Rest.ValidationException">
+        /// Thrown when a required parameter is null
+        /// </exception>
+        Task<HttpOperationResponse<IEnumerable<WorkspaceWithTenantReadDto>>> WorkspacesQueryWithHttpMessagesAsync(WorkspaceQueryDto body, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default);
+
+        /// <summary>
+        /// Query workspaces by conditions
+        /// </summary>
+        /// <remarks>
+        /// Sample request:
+        ///
+        /// {
+        /// "tagName": "tag1",
+        /// "vtmId": "1234567",
+        /// "customerId": "1234567"
+        /// }
+        ///
+        /// Sample response:
+        ///
+        /// [
+        /// {
+        /// "workspaceId": "196a8ff4-dfbc-4ee7-ae08-4f38b84d9c86",
+        /// "workspaceName": "shanghai123",
+        /// "workspaceDescription": "shanghai desc",
+        /// "workspaceRegion": "EU",
+        /// "tenantId": "7794cb5a-403e-4f87-bd80-f7f35a34f8fb",
+        /// "tenantName": "EasTenant1",
+        /// "tenantAlias": "DC"
+        /// }
+        /// ]
+        /// </remarks>
+        /// <param name='body'>
+        /// Workspace query dto
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        Task<IEnumerable<WorkspaceWithTenantReadDto>> WorkspacesQueryAsync(WorkspaceQueryDto body, CancellationToken cancellationToken = default);
+
+        /// <summary>
         /// Get workspace by id
         /// </summary>
         /// <remarks>

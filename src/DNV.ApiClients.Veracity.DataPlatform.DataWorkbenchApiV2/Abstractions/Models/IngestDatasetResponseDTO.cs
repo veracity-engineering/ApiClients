@@ -9,23 +9,24 @@ using System.Linq;
 namespace DNV.ApiClients.Veracity.DataPlatform.DataWorkbenchApiV2.Models
 {
     using Newtonsoft.Json;
-    public partial class SasTokenResultDTO
+    public partial class IngestDatasetResponseDTO
     {
         /// <summary>
-        /// Initializes a new instance of the SasTokenResultDTO class.
+        /// Initializes a new instance of the IngestDatasetResponseDTO class.
         /// </summary>
-        public SasTokenResultDTO()
+        public IngestDatasetResponseDTO()
         {
             CustomInit();
         }
 
         /// <summary>
-        /// Initializes a new instance of the SasTokenResultDTO class.
+        /// Initializes a new instance of the IngestDatasetResponseDTO class.
         /// </summary>
-        public SasTokenResultDTO(string sasToken = default, SasPolicyDTO policy = default)
+        public IngestDatasetResponseDTO(System.Guid workspaceId = default, System.Guid jobId = default, string sasToken = default)
         {
+            WorkspaceId = workspaceId;
+            JobId = jobId;
             SasToken = sasToken;
-            Policy = policy;
             CustomInit();
         }
 
@@ -36,13 +37,18 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataWorkbenchApiV2.Models
 
         /// <summary>
         /// </summary>
-        [JsonProperty(PropertyName = "sasToken")]
-        public string SasToken { get; set; }
+        [JsonProperty(PropertyName = "workspaceId")]
+        public System.Guid WorkspaceId { get; set; }
 
         /// <summary>
         /// </summary>
-        [JsonProperty(PropertyName = "policy")]
-        public SasPolicyDTO Policy { get; set; }
+        [JsonProperty(PropertyName = "jobId")]
+        public System.Guid JobId { get; set; }
+
+        /// <summary>
+        /// </summary>
+        [JsonProperty(PropertyName = "sasToken")]
+        public string SasToken { get; set; }
 
     }
 }

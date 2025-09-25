@@ -26,7 +26,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataWorkbenchApiV2.Models
         /// </summary>
         /// <param name="sortDirection">Possible values include: 'Ascending',
         /// 'Descending'</param>
-        public DataCatalogQueryDto(bool? isBaseDataset = default, int? pageIndex = default, int? pageSize = default, string sortColumn = default, SortDirection? sortDirection = default, string datasetName = default, IDictionary<string, IEnumerable<string>> tags = default, System.DateTime? createdAfter = default, System.DateTime? createdBefore = default, IEnumerable<System.Guid?> schemaVersionIds = default)
+        public DataCatalogQueryDto(bool? isBaseDataset = default, int? pageIndex = default, int? pageSize = default, string sortColumn = default, SortDirection? sortDirection = default, string datasetName = default, IDictionary<string, IEnumerable<string>> tags = default, System.DateTime? createdAfter = default, System.DateTime? createdBefore = default, IEnumerable<System.Guid?> schemaVersionIds = default, System.Guid? schemaId = default)
         {
             IsBaseDataset = isBaseDataset;
             PageIndex = pageIndex;
@@ -38,6 +38,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataWorkbenchApiV2.Models
             CreatedAfter = createdAfter;
             CreatedBefore = createdBefore;
             SchemaVersionIds = schemaVersionIds;
+            SchemaId = schemaId;
             CustomInit();
         }
 
@@ -96,6 +97,11 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataWorkbenchApiV2.Models
         /// </summary>
         [JsonProperty(PropertyName = "schemaVersionIds")]
         public IEnumerable<System.Guid?> SchemaVersionIds { get; set; }
+
+        /// <summary>
+        /// </summary>
+        [JsonProperty(PropertyName = "schemaId")]
+        public System.Guid? SchemaId { get; set; }
 
     }
 }

@@ -308,7 +308,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataWorkbenchApiV2
         /// "a33060fe-de8f-469c-8cb2-864753f46d64"
         /// ],
         /// "statuses": [
-        /// "New"
+        /// "Accepted"
         /// ]
         /// }
         ///
@@ -337,9 +337,12 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataWorkbenchApiV2
         /// ]
         /// }
         /// ],
-        /// "associatedShareId": "6f9d46bd-76b4-4b79-95fa-a2c5abd2bec7",
+        /// "associatedShareId": "6f9d46bd-76b4-4b79-95fa-a2c5abd2bec7",    //Will be
+        /// available only after share request get accepted
+        /// "associatedDatasetId": "7aa39404-7fa4-4352-bfd0-b5c25fa8b745",    //Will be
+        /// available only after share request get accepted
         /// "notes": "Test notes",
-        /// "status": "New",
+        /// "status": "Accepted",
         /// "createdBy": "55da50ee-20af-4bf1-aa7f-b5a64e72f09d",
         /// "createdOn": "2025-02-26T10:13:08.4101697Z"
         /// }
@@ -486,7 +489,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataWorkbenchApiV2
         /// "a33060fe-de8f-469c-8cb2-864753f46d64"
         /// ],
         /// "statuses": [
-        /// "New"
+        /// "Accepted"
         /// ]
         /// }
         ///
@@ -515,9 +518,12 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataWorkbenchApiV2
         /// ]
         /// }
         /// ],
-        /// "associatedShareId": "6f9d46bd-76b4-4b79-95fa-a2c5abd2bec7",
+        /// "associatedShareId": "6f9d46bd-76b4-4b79-95fa-a2c5abd2bec7",    //Will be
+        /// available only after share request get accepted
+        /// "associatedDatasetId": "7aa39404-7fa4-4352-bfd0-b5c25fa8b745",    //Will be
+        /// available only after share request get accepted
         /// "notes": "Test notes",
-        /// "status": "New",
+        /// "status": "Accepted",
         /// "createdBy": "55da50ee-20af-4bf1-aa7f-b5a64e72f09d",
         /// "createdOn": "2025-02-26T10:13:08.4101697Z"
         /// }
@@ -551,8 +557,8 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataWorkbenchApiV2
         /// <remarks>
         /// Sample request:
         ///
-        /// GET /api/v2/{workspaceId}/shareRequests/{shareRequestId}
-        /// /api/v2/196a8ff4-dfbc-4ee7-ae08-4f38b84d9c86/shareRequests/348b5dcf-edff-415b-9259-384b20932fc0
+        /// GET /api/v2/{workspaceId}/shareRequests/{shareRequestId}?isRequestor=true
+        /// /api/v2/196a8ff4-dfbc-4ee7-ae08-4f38b84d9c86/shareRequests/348b5dcf-edff-415b-9259-384b20932fc0?isRequestor=true
         ///
         /// Sample response:
         ///
@@ -577,9 +583,12 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataWorkbenchApiV2
         /// ]
         /// }
         /// ],
-        /// "associatedShareId": "4c46787e-946a-4265-9574-aaa1a1e4d2f0",
+        /// "associatedShareId": "4c46787e-946a-4265-9574-aaa1a1e4d2f0",    //Will be
+        /// available only after share request get accepted
+        /// "associatedDatasetId": "7aa39404-7fa4-4352-bfd0-b5c25fa8b745",    //Will be
+        /// available only after share request get accepted
         /// "notes": "Test notes",
-        /// "status": "New",
+        /// "status": "Accepted",
         /// "createdBy": "55da50ee-20af-4bf1-aa7f-b5a64e72f09d",
         /// "createdOn": "2025-02-26T10:13:08.4101697Z"
         /// }
@@ -587,6 +596,9 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataWorkbenchApiV2
         /// <param name='workspaceId'>
         /// </param>
         /// <param name='shareRequestId'>
+        /// </param>
+        /// <param name='isRequestor'>
+        /// Is workspace id from the route a requestor workspace id
         /// </param>
         /// <param name='customHeaders'>
         /// Headers that will be added to request.
@@ -603,13 +615,22 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataWorkbenchApiV2
         /// <return>
         /// A response object containing the response body and response headers.
         /// </return>
-        public async Task<HttpOperationResponse<ShareRequestDto>> GetShareRequestWithHttpMessagesAsync(System.Guid workspaceId, System.Guid shareRequestId, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default)
+        public async Task<HttpOperationResponse<ShareRequestDto>> GetShareRequestWithHttpMessagesAsync(System.Guid workspaceId, System.Guid shareRequestId, bool? isRequestor = false, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default)
         {
             // Construct URL
             var _baseUrl = Client.HttpClient.BaseAddress?.AbsoluteUri ?? Client.BaseUri.AbsoluteUri;
             var _url = new System.Uri(new System.Uri(_baseUrl + (_baseUrl.EndsWith("/") ? "" : "/")), "workspaces/{workspaceId}/sharerequests/{shareRequestId}").ToString();
             _url = _url.Replace("{workspaceId}", System.Uri.EscapeDataString(Microsoft.Rest.Serialization.SafeJsonConvert.SerializeObject(workspaceId, Client.SerializationSettings).Trim('"')));
             _url = _url.Replace("{shareRequestId}", System.Uri.EscapeDataString(Microsoft.Rest.Serialization.SafeJsonConvert.SerializeObject(shareRequestId, Client.SerializationSettings).Trim('"')));
+            IList<string> _queryParameters = new List<string>();
+            if (isRequestor != null)
+            {
+                _queryParameters.Add(string.Format("isRequestor={0}", System.Uri.EscapeDataString(Microsoft.Rest.Serialization.SafeJsonConvert.SerializeObject(isRequestor, Client.SerializationSettings).Trim('"'))));
+            }
+            if (_queryParameters.Any())
+            {
+                _url += "?" + string.Join("&", _queryParameters);
+            }
             // Create HTTP transport objects
             var _httpRequest = new HttpRequestMessage();
             HttpResponseMessage _httpResponse = null;
@@ -686,8 +707,8 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataWorkbenchApiV2
         /// <remarks>
         /// Sample request:
         ///
-        /// GET /api/v2/{workspaceId}/shareRequests/{shareRequestId}
-        /// /api/v2/196a8ff4-dfbc-4ee7-ae08-4f38b84d9c86/shareRequests/348b5dcf-edff-415b-9259-384b20932fc0
+        /// GET /api/v2/{workspaceId}/shareRequests/{shareRequestId}?isRequestor=true
+        /// /api/v2/196a8ff4-dfbc-4ee7-ae08-4f38b84d9c86/shareRequests/348b5dcf-edff-415b-9259-384b20932fc0?isRequestor=true
         ///
         /// Sample response:
         ///
@@ -712,9 +733,12 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataWorkbenchApiV2
         /// ]
         /// }
         /// ],
-        /// "associatedShareId": "4c46787e-946a-4265-9574-aaa1a1e4d2f0",
+        /// "associatedShareId": "4c46787e-946a-4265-9574-aaa1a1e4d2f0",    //Will be
+        /// available only after share request get accepted
+        /// "associatedDatasetId": "7aa39404-7fa4-4352-bfd0-b5c25fa8b745",    //Will be
+        /// available only after share request get accepted
         /// "notes": "Test notes",
-        /// "status": "New",
+        /// "status": "Accepted",
         /// "createdBy": "55da50ee-20af-4bf1-aa7f-b5a64e72f09d",
         /// "createdOn": "2025-02-26T10:13:08.4101697Z"
         /// }
@@ -723,15 +747,264 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataWorkbenchApiV2
         /// </param>
         /// <param name='shareRequestId'>
         /// </param>
+        /// <param name='isRequestor'>
+        /// Is workspace id from the route a requestor workspace id
+        /// </param>
         /// <param name='cancellationToken'>
         /// The cancellation token.
         /// </param>
-        public async Task<ShareRequestDto> GetShareRequestAsync(System.Guid workspaceId, System.Guid shareRequestId, CancellationToken cancellationToken = default)
+        public async Task<ShareRequestDto> GetShareRequestAsync(System.Guid workspaceId, System.Guid shareRequestId, bool? isRequestor = false, CancellationToken cancellationToken = default)
         {
-            using (var _result = await GetShareRequestWithHttpMessagesAsync(workspaceId, shareRequestId, null, cancellationToken).ConfigureAwait(false))
+            using (var _result = await GetShareRequestWithHttpMessagesAsync(workspaceId, shareRequestId, isRequestor, null, cancellationToken).ConfigureAwait(false))
             {
                 return _result.Body;
             }
+        }
+
+        /// <summary>
+        /// Accept share request
+        /// </summary>
+        /// <remarks>
+        /// Sample request:
+        ///
+        /// POST /api/v2/workspaces/{workspaceId}/shareRequests/{shareRequestId}/accept
+        /// /api/v2/workspaces/196a8ff4-dfbc-4ee7-ae08-4f38b84d9c87/ShareRequests/1ec84a50-8c2a-4d46-b291-8ed22306619f/accept
+        ///
+        /// Sample response:
+        ///
+        /// 202
+        /// {
+        /// "shareRequestId":"1ec84a50-8c2a-4d46-b291-8ed22306619f",
+        /// "status":"Pending",
+        /// "queryUri":"https://gateway.dev.internal.veracity.com/gateway/api/v2/workspaces/196a8ff4-dfbc-4ee7-ae08-4f38b84d9c87/shareRequests/1ec84a50-8c2a-4d46-b291-8ed22306619f"
+        /// }
+        /// </remarks>
+        /// <param name='workspaceId'>
+        /// Id of receiver workspace
+        /// </param>
+        /// <param name='shareRequestId'>
+        /// share request id
+        /// </param>
+        /// <param name='customHeaders'>
+        /// Headers that will be added to request.
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        /// <exception cref="HttpOperationException">
+        /// Thrown when the operation returned an invalid status code
+        /// </exception>
+        /// <return>
+        /// A response object containing the response body and response headers.
+        /// </return>
+        public async Task<HttpOperationResponse> AcceptShareRequestWithHttpMessagesAsync(System.Guid workspaceId, System.Guid shareRequestId, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default)
+        {
+            // Construct URL
+            var _baseUrl = Client.HttpClient.BaseAddress?.AbsoluteUri ?? Client.BaseUri.AbsoluteUri;
+            var _url = new System.Uri(new System.Uri(_baseUrl + (_baseUrl.EndsWith("/") ? "" : "/")), "workspaces/{workspaceId}/sharerequests/{shareRequestId}/accept").ToString();
+            _url = _url.Replace("{workspaceId}", System.Uri.EscapeDataString(Microsoft.Rest.Serialization.SafeJsonConvert.SerializeObject(workspaceId, Client.SerializationSettings).Trim('"')));
+            _url = _url.Replace("{shareRequestId}", System.Uri.EscapeDataString(Microsoft.Rest.Serialization.SafeJsonConvert.SerializeObject(shareRequestId, Client.SerializationSettings).Trim('"')));
+            // Create HTTP transport objects
+            var _httpRequest = new HttpRequestMessage();
+            HttpResponseMessage _httpResponse = null;
+            _httpRequest.Method = new HttpMethod("POST");
+            _httpRequest.RequestUri = new System.Uri(_url);
+            // Set Headers
+
+
+            if (customHeaders != null)
+            {
+                foreach(var _header in customHeaders)
+                {
+                    if (_httpRequest.Headers.Contains(_header.Key))
+                    {
+                        _httpRequest.Headers.Remove(_header.Key);
+                    }
+                    _httpRequest.Headers.TryAddWithoutValidation(_header.Key, _header.Value);
+                }
+            }
+
+            // Serialize Request
+            string _requestContent = null;
+            // Send Request
+            cancellationToken.ThrowIfCancellationRequested();
+            _httpResponse = await Client.HttpClient.SendAsync(_httpRequest, cancellationToken).ConfigureAwait(false);
+            HttpStatusCode _statusCode = _httpResponse.StatusCode;
+            cancellationToken.ThrowIfCancellationRequested();
+            string _responseContent = null;
+            if ((int)_statusCode != 202)
+            {
+                var ex = new HttpOperationException(string.Format("Operation returned an invalid status code '{0}'", _statusCode));
+                if (_httpResponse.Content != null) {
+                    _responseContent = await _httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
+                }
+                else {
+                    _responseContent = string.Empty;
+                }
+                ex.Request = new HttpRequestMessageWrapper(_httpRequest, _requestContent);
+                ex.Response = new HttpResponseMessageWrapper(_httpResponse, _responseContent);
+                _httpRequest.Dispose();
+                if (_httpResponse != null)
+                {
+                    _httpResponse.Dispose();
+                }
+                throw ex;
+            }
+            // Create Result
+            var _result = new HttpOperationResponse();
+            _result.Request = _httpRequest;
+            _result.Response = _httpResponse;
+            return _result;
+        }
+        /// <summary>
+        /// Accept share request
+        /// </summary>
+        /// <remarks>
+        /// Sample request:
+        ///
+        /// POST /api/v2/workspaces/{workspaceId}/shareRequests/{shareRequestId}/accept
+        /// /api/v2/workspaces/196a8ff4-dfbc-4ee7-ae08-4f38b84d9c87/ShareRequests/1ec84a50-8c2a-4d46-b291-8ed22306619f/accept
+        ///
+        /// Sample response:
+        ///
+        /// 202
+        /// {
+        /// "shareRequestId":"1ec84a50-8c2a-4d46-b291-8ed22306619f",
+        /// "status":"Pending",
+        /// "queryUri":"https://gateway.dev.internal.veracity.com/gateway/api/v2/workspaces/196a8ff4-dfbc-4ee7-ae08-4f38b84d9c87/shareRequests/1ec84a50-8c2a-4d46-b291-8ed22306619f"
+        /// }
+        /// </remarks>
+        /// <param name='workspaceId'>
+        /// Id of receiver workspace
+        /// </param>
+        /// <param name='shareRequestId'>
+        /// share request id
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        public async Task AcceptShareRequestAsync(System.Guid workspaceId, System.Guid shareRequestId, CancellationToken cancellationToken = default)
+        {
+            (await AcceptShareRequestWithHttpMessagesAsync(workspaceId, shareRequestId, null, cancellationToken).ConfigureAwait(false)).Dispose();
+        }
+
+        /// <summary>
+        /// Decline a share request
+        /// </summary>
+        /// <remarks>
+        /// Sample request:
+        ///
+        /// POST
+        /// /api/v2/workspaces/{workspaceId}/shareRequests/{shareRequestId}/decline
+        /// POST
+        /// /api/v2/workspaces/a33060fe-de8f-469c-8cb2-864753f46d64/ShareRequests/1a940e6a-2e2e-4cc9-894d-807cb2d90d5f/decline
+        ///
+        /// Sample response:
+        ///
+        /// 204 No Content
+        /// </remarks>
+        /// <param name='workspaceId'>
+        /// Id of receiver workspace
+        /// </param>
+        /// <param name='shareRequestId'>
+        /// </param>
+        /// <param name='customHeaders'>
+        /// Headers that will be added to request.
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        /// <exception cref="HttpOperationException">
+        /// Thrown when the operation returned an invalid status code
+        /// </exception>
+        /// <return>
+        /// A response object containing the response body and response headers.
+        /// </return>
+        public async Task<HttpOperationResponse> DeclineShareRequestWithHttpMessagesAsync(System.Guid workspaceId, System.Guid shareRequestId, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default)
+        {
+            // Construct URL
+            var _baseUrl = Client.HttpClient.BaseAddress?.AbsoluteUri ?? Client.BaseUri.AbsoluteUri;
+            var _url = new System.Uri(new System.Uri(_baseUrl + (_baseUrl.EndsWith("/") ? "" : "/")), "workspaces/{workspaceId}/sharerequests/{shareRequestId}/decline").ToString();
+            _url = _url.Replace("{workspaceId}", System.Uri.EscapeDataString(Microsoft.Rest.Serialization.SafeJsonConvert.SerializeObject(workspaceId, Client.SerializationSettings).Trim('"')));
+            _url = _url.Replace("{shareRequestId}", System.Uri.EscapeDataString(Microsoft.Rest.Serialization.SafeJsonConvert.SerializeObject(shareRequestId, Client.SerializationSettings).Trim('"')));
+            // Create HTTP transport objects
+            var _httpRequest = new HttpRequestMessage();
+            HttpResponseMessage _httpResponse = null;
+            _httpRequest.Method = new HttpMethod("POST");
+            _httpRequest.RequestUri = new System.Uri(_url);
+            // Set Headers
+
+
+            if (customHeaders != null)
+            {
+                foreach(var _header in customHeaders)
+                {
+                    if (_httpRequest.Headers.Contains(_header.Key))
+                    {
+                        _httpRequest.Headers.Remove(_header.Key);
+                    }
+                    _httpRequest.Headers.TryAddWithoutValidation(_header.Key, _header.Value);
+                }
+            }
+
+            // Serialize Request
+            string _requestContent = null;
+            // Send Request
+            cancellationToken.ThrowIfCancellationRequested();
+            _httpResponse = await Client.HttpClient.SendAsync(_httpRequest, cancellationToken).ConfigureAwait(false);
+            HttpStatusCode _statusCode = _httpResponse.StatusCode;
+            cancellationToken.ThrowIfCancellationRequested();
+            string _responseContent = null;
+            if ((int)_statusCode != 204)
+            {
+                var ex = new HttpOperationException(string.Format("Operation returned an invalid status code '{0}'", _statusCode));
+                if (_httpResponse.Content != null) {
+                    _responseContent = await _httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
+                }
+                else {
+                    _responseContent = string.Empty;
+                }
+                ex.Request = new HttpRequestMessageWrapper(_httpRequest, _requestContent);
+                ex.Response = new HttpResponseMessageWrapper(_httpResponse, _responseContent);
+                _httpRequest.Dispose();
+                if (_httpResponse != null)
+                {
+                    _httpResponse.Dispose();
+                }
+                throw ex;
+            }
+            // Create Result
+            var _result = new HttpOperationResponse();
+            _result.Request = _httpRequest;
+            _result.Response = _httpResponse;
+            return _result;
+        }
+        /// <summary>
+        /// Decline a share request
+        /// </summary>
+        /// <remarks>
+        /// Sample request:
+        ///
+        /// POST
+        /// /api/v2/workspaces/{workspaceId}/shareRequests/{shareRequestId}/decline
+        /// POST
+        /// /api/v2/workspaces/a33060fe-de8f-469c-8cb2-864753f46d64/ShareRequests/1a940e6a-2e2e-4cc9-894d-807cb2d90d5f/decline
+        ///
+        /// Sample response:
+        ///
+        /// 204 No Content
+        /// </remarks>
+        /// <param name='workspaceId'>
+        /// Id of receiver workspace
+        /// </param>
+        /// <param name='shareRequestId'>
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        public async Task DeclineShareRequestAsync(System.Guid workspaceId, System.Guid shareRequestId, CancellationToken cancellationToken = default)
+        {
+            (await DeclineShareRequestWithHttpMessagesAsync(workspaceId, shareRequestId, null, cancellationToken).ConfigureAwait(false)).Dispose();
         }
 
     }

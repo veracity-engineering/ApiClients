@@ -93,6 +93,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataWorkbenchApiV2
         /// <return>
         /// A response object containing the response body and response headers.
         /// </return>
+        [System.Obsolete("This operation is deprecated. Please do not use it any longer.")]
         public async Task<HttpOperationResponse<string>> GenerateByodStorageWithHttpMessagesAsync(System.Guid workspaceId, System.Guid? datasetId = default, string type = default, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default)
         {
             // Construct URL
@@ -214,9 +215,775 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataWorkbenchApiV2
         /// <param name='cancellationToken'>
         /// The cancellation token.
         /// </param>
+        [System.Obsolete("This operation is deprecated. Please do not use it any longer.")]
         public async Task<string> GenerateByodStorageAsync(System.Guid workspaceId, System.Guid? datasetId = default, string type = default, CancellationToken cancellationToken = default)
         {
             using (var _result = await GenerateByodStorageWithHttpMessagesAsync(workspaceId, datasetId, type, null, cancellationToken).ConfigureAwait(false))
+            {
+                return _result.Body;
+            }
+        }
+
+        /// <summary>
+        /// Create an ingest dataset in the workspace
+        /// </summary>
+        /// <remarks>
+        /// Sample request For Create Ingest Dataset:
+        ///
+        /// {
+        /// "datasetName": "string",
+        /// "datasetDescription": "string",
+        /// "schemaVersionId": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+        /// "files": [
+        /// {
+        /// "fileName": "string",
+        /// "operation": "Create"
+        /// }
+        /// ],
+        /// "tags": [
+        /// {
+        /// "key": "tag1",
+        /// "values": [
+        /// "tag1Value"
+        /// ]
+        /// },
+        /// {
+        /// "key": "tag2",
+        /// "values": [
+        /// "tag2Value"
+        /// ]
+        /// }
+        /// ],
+        /// "provider": "string",
+        /// "startAutomatically": true
+        /// }
+        ///
+        /// * startAutomatically is optional with default value as true.
+        /// If set to true, the file will be processed automatically. (There is no need
+        /// to run the validate and start endpoint manually after uploading the file).
+        /// If set to false, please call the validate and start endpoint manually after
+        /// uploading the file.
+        /// * tags are optional. Either send null, or an array with at least 1 tag.
+        /// * provider is optional and should only be specified if you have been
+        /// informed to do so.
+        ///
+        /// Sample Response:
+        ///
+        /// {
+        /// "workspaceId": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+        /// "jobId": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+        /// "sasToken": "string"
+        /// }
+        ///
+        /// * jobId in the response is the ingest job which will take care of creating
+        /// the ingest dataset.
+        /// * sasToken in the response is the token which will be used to upload the
+        /// file to create ingest dataset.
+        /// </remarks>
+        /// <param name='body'>
+        /// </param>
+        /// <param name='workspaceId'>
+        /// </param>
+        /// <param name='customHeaders'>
+        /// Headers that will be added to request.
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        /// <exception cref="HttpOperationException">
+        /// Thrown when the operation returned an invalid status code
+        /// </exception>
+        /// <exception cref="SerializationException">
+        /// Thrown when unable to deserialize the response
+        /// </exception>
+        /// <exception cref="ValidationException">
+        /// Thrown when a required parameter is null
+        /// </exception>
+        /// <exception cref="System.ArgumentNullException">
+        /// Thrown when a required parameter is null
+        /// </exception>
+        /// <return>
+        /// A response object containing the response body and response headers.
+        /// </return>
+        public async Task<HttpOperationResponse<IngestDatasetResponseDTO>> CreateIngestDatasetWithHttpMessagesAsync(CreateIngestDatasetRequestDTO body, System.Guid workspaceId, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default)
+        {
+            if (body == null)
+            {
+                throw new ValidationException(ValidationRules.CannotBeNull, "body");
+            }
+            // Construct URL
+            var _baseUrl = Client.HttpClient.BaseAddress?.AbsoluteUri ?? Client.BaseUri.AbsoluteUri;
+            var _url = new System.Uri(new System.Uri(_baseUrl + (_baseUrl.EndsWith("/") ? "" : "/")), "workspaces/{workspaceId}/ingest/dataset").ToString();
+            _url = _url.Replace("{workspaceId}", System.Uri.EscapeDataString(Microsoft.Rest.Serialization.SafeJsonConvert.SerializeObject(workspaceId, Client.SerializationSettings).Trim('"')));
+            // Create HTTP transport objects
+            var _httpRequest = new HttpRequestMessage();
+            HttpResponseMessage _httpResponse = null;
+            _httpRequest.Method = new HttpMethod("POST");
+            _httpRequest.RequestUri = new System.Uri(_url);
+            // Set Headers
+
+
+            if (customHeaders != null)
+            {
+                foreach(var _header in customHeaders)
+                {
+                    if (_httpRequest.Headers.Contains(_header.Key))
+                    {
+                        _httpRequest.Headers.Remove(_header.Key);
+                    }
+                    _httpRequest.Headers.TryAddWithoutValidation(_header.Key, _header.Value);
+                }
+            }
+
+            // Serialize Request
+            string _requestContent = null;
+            if(body != null)
+            {
+                _requestContent = Microsoft.Rest.Serialization.SafeJsonConvert.SerializeObject(body, Client.SerializationSettings);
+                _httpRequest.Content = new StringContent(_requestContent, System.Text.Encoding.UTF8);
+                _httpRequest.Content.Headers.ContentType =System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json; charset=utf-8");
+            }
+            // Send Request
+            cancellationToken.ThrowIfCancellationRequested();
+            _httpResponse = await Client.HttpClient.SendAsync(_httpRequest, cancellationToken).ConfigureAwait(false);
+            HttpStatusCode _statusCode = _httpResponse.StatusCode;
+            cancellationToken.ThrowIfCancellationRequested();
+            string _responseContent = null;
+            if ((int)_statusCode != 200)
+            {
+                var ex = new HttpOperationException(string.Format("Operation returned an invalid status code '{0}'", _statusCode));
+                if (_httpResponse.Content != null) {
+                    _responseContent = await _httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
+                }
+                else {
+                    _responseContent = string.Empty;
+                }
+                ex.Request = new HttpRequestMessageWrapper(_httpRequest, _requestContent);
+                ex.Response = new HttpResponseMessageWrapper(_httpResponse, _responseContent);
+                _httpRequest.Dispose();
+                if (_httpResponse != null)
+                {
+                    _httpResponse.Dispose();
+                }
+                throw ex;
+            }
+            // Create Result
+            var _result = new HttpOperationResponse<IngestDatasetResponseDTO>();
+            _result.Request = _httpRequest;
+            _result.Response = _httpResponse;
+            // Deserialize Response
+            if ((int)_statusCode == 200)
+            {
+                _responseContent = await _httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
+                try
+                {
+                    _result.Body = Microsoft.Rest.Serialization.SafeJsonConvert.DeserializeObject<IngestDatasetResponseDTO>(_responseContent, Client.DeserializationSettings);
+                }
+                catch (JsonException ex)
+                {
+                    _httpRequest.Dispose();
+                    if (_httpResponse != null)
+                    {
+                        _httpResponse.Dispose();
+                    }
+                    throw new SerializationException("Unable to deserialize the response.", _responseContent, ex);
+                }
+            }
+            return _result;
+        }
+        /// <summary>
+        /// Create an ingest dataset in the workspace
+        /// </summary>
+        /// <remarks>
+        /// Sample request For Create Ingest Dataset:
+        ///
+        /// {
+        /// "datasetName": "string",
+        /// "datasetDescription": "string",
+        /// "schemaVersionId": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+        /// "files": [
+        /// {
+        /// "fileName": "string",
+        /// "operation": "Create"
+        /// }
+        /// ],
+        /// "tags": [
+        /// {
+        /// "key": "tag1",
+        /// "values": [
+        /// "tag1Value"
+        /// ]
+        /// },
+        /// {
+        /// "key": "tag2",
+        /// "values": [
+        /// "tag2Value"
+        /// ]
+        /// }
+        /// ],
+        /// "provider": "string",
+        /// "startAutomatically": true
+        /// }
+        ///
+        /// * startAutomatically is optional with default value as true.
+        /// If set to true, the file will be processed automatically. (There is no need
+        /// to run the validate and start endpoint manually after uploading the file).
+        /// If set to false, please call the validate and start endpoint manually after
+        /// uploading the file.
+        /// * tags are optional. Either send null, or an array with at least 1 tag.
+        /// * provider is optional and should only be specified if you have been
+        /// informed to do so.
+        ///
+        /// Sample Response:
+        ///
+        /// {
+        /// "workspaceId": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+        /// "jobId": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+        /// "sasToken": "string"
+        /// }
+        ///
+        /// * jobId in the response is the ingest job which will take care of creating
+        /// the ingest dataset.
+        /// * sasToken in the response is the token which will be used to upload the
+        /// file to create ingest dataset.
+        /// </remarks>
+        /// <param name='body'>
+        /// </param>
+        /// <param name='workspaceId'>
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        public async Task<IngestDatasetResponseDTO> CreateIngestDatasetAsync(CreateIngestDatasetRequestDTO body, System.Guid workspaceId, CancellationToken cancellationToken = default)
+        {
+            using (var _result = await CreateIngestDatasetWithHttpMessagesAsync(body, workspaceId, null, cancellationToken).ConfigureAwait(false))
+            {
+                return _result.Body;
+            }
+        }
+
+        /// <summary>
+        /// Update an existing dataset in the workspace
+        /// </summary>
+        /// <remarks>
+        /// Sample request For Updating Ingest Dataset:
+        ///
+        /// {
+        /// "files": [
+        /// {
+        /// "fileName": "string",
+        /// "operation": "Upsert"
+        /// }
+        /// ]
+        /// "startAutomatically": true,
+        /// "datasetDescription": "string",
+        /// "tags": [
+        /// {
+        /// "key": "tag1",
+        /// "values": [
+        /// "tag1Value"
+        /// ]
+        /// },
+        /// {
+        /// "key": "tag2",
+        /// "values": [
+        /// "tag2Value"
+        /// ]
+        /// }
+        /// ]
+        /// }
+        ///
+        /// * startAutomatically is optional with default value as true.
+        /// If set to true, there is no need to call the validate and start endpoint
+        /// manually after uploading the file.
+        /// If set to false, we should run the validate and start endpoint manually
+        /// after uploading the file.
+        /// * datasetDescription is optional.
+        /// * tags are optional. Either send null, or an array with at least 1 tag.
+        ///
+        /// Sample Response:
+        ///
+        /// {
+        /// "workspaceId": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+        /// "jobId": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+        /// "sasToken": "string"
+        /// }
+        ///
+        /// * jobId in the response is the ingest job which will take care of updating
+        /// the ingest dataset.
+        /// * sasToken in the response is the token which will be used to upload the
+        /// file to update ingest dataset
+        /// </remarks>
+        /// <param name='body'>
+        /// </param>
+        /// <param name='workspaceId'>
+        /// </param>
+        /// <param name='datasetId'>
+        /// </param>
+        /// <param name='customHeaders'>
+        /// Headers that will be added to request.
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        /// <exception cref="HttpOperationException">
+        /// Thrown when the operation returned an invalid status code
+        /// </exception>
+        /// <exception cref="SerializationException">
+        /// Thrown when unable to deserialize the response
+        /// </exception>
+        /// <exception cref="ValidationException">
+        /// Thrown when a required parameter is null
+        /// </exception>
+        /// <exception cref="System.ArgumentNullException">
+        /// Thrown when a required parameter is null
+        /// </exception>
+        /// <return>
+        /// A response object containing the response body and response headers.
+        /// </return>
+        public async Task<HttpOperationResponse<IngestDatasetResponseDTO>> UpdateIngestDatasetWithHttpMessagesAsync(UpdateIngestDatasetRequestDTO body, System.Guid workspaceId, System.Guid datasetId, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default)
+        {
+            if (body == null)
+            {
+                throw new ValidationException(ValidationRules.CannotBeNull, "body");
+            }
+            // Construct URL
+            var _baseUrl = Client.HttpClient.BaseAddress?.AbsoluteUri ?? Client.BaseUri.AbsoluteUri;
+            var _url = new System.Uri(new System.Uri(_baseUrl + (_baseUrl.EndsWith("/") ? "" : "/")), "workspaces/{workspaceId}/ingest/dataset/{datasetId}").ToString();
+            _url = _url.Replace("{workspaceId}", System.Uri.EscapeDataString(Microsoft.Rest.Serialization.SafeJsonConvert.SerializeObject(workspaceId, Client.SerializationSettings).Trim('"')));
+            _url = _url.Replace("{datasetId}", System.Uri.EscapeDataString(Microsoft.Rest.Serialization.SafeJsonConvert.SerializeObject(datasetId, Client.SerializationSettings).Trim('"')));
+            // Create HTTP transport objects
+            var _httpRequest = new HttpRequestMessage();
+            HttpResponseMessage _httpResponse = null;
+            _httpRequest.Method = new HttpMethod("PUT");
+            _httpRequest.RequestUri = new System.Uri(_url);
+            // Set Headers
+
+
+            if (customHeaders != null)
+            {
+                foreach(var _header in customHeaders)
+                {
+                    if (_httpRequest.Headers.Contains(_header.Key))
+                    {
+                        _httpRequest.Headers.Remove(_header.Key);
+                    }
+                    _httpRequest.Headers.TryAddWithoutValidation(_header.Key, _header.Value);
+                }
+            }
+
+            // Serialize Request
+            string _requestContent = null;
+            if(body != null)
+            {
+                _requestContent = Microsoft.Rest.Serialization.SafeJsonConvert.SerializeObject(body, Client.SerializationSettings);
+                _httpRequest.Content = new StringContent(_requestContent, System.Text.Encoding.UTF8);
+                _httpRequest.Content.Headers.ContentType =System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json; charset=utf-8");
+            }
+            // Send Request
+            cancellationToken.ThrowIfCancellationRequested();
+            _httpResponse = await Client.HttpClient.SendAsync(_httpRequest, cancellationToken).ConfigureAwait(false);
+            HttpStatusCode _statusCode = _httpResponse.StatusCode;
+            cancellationToken.ThrowIfCancellationRequested();
+            string _responseContent = null;
+            if ((int)_statusCode != 200)
+            {
+                var ex = new HttpOperationException(string.Format("Operation returned an invalid status code '{0}'", _statusCode));
+                if (_httpResponse.Content != null) {
+                    _responseContent = await _httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
+                }
+                else {
+                    _responseContent = string.Empty;
+                }
+                ex.Request = new HttpRequestMessageWrapper(_httpRequest, _requestContent);
+                ex.Response = new HttpResponseMessageWrapper(_httpResponse, _responseContent);
+                _httpRequest.Dispose();
+                if (_httpResponse != null)
+                {
+                    _httpResponse.Dispose();
+                }
+                throw ex;
+            }
+            // Create Result
+            var _result = new HttpOperationResponse<IngestDatasetResponseDTO>();
+            _result.Request = _httpRequest;
+            _result.Response = _httpResponse;
+            // Deserialize Response
+            if ((int)_statusCode == 200)
+            {
+                _responseContent = await _httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
+                try
+                {
+                    _result.Body = Microsoft.Rest.Serialization.SafeJsonConvert.DeserializeObject<IngestDatasetResponseDTO>(_responseContent, Client.DeserializationSettings);
+                }
+                catch (JsonException ex)
+                {
+                    _httpRequest.Dispose();
+                    if (_httpResponse != null)
+                    {
+                        _httpResponse.Dispose();
+                    }
+                    throw new SerializationException("Unable to deserialize the response.", _responseContent, ex);
+                }
+            }
+            return _result;
+        }
+        /// <summary>
+        /// Update an existing dataset in the workspace
+        /// </summary>
+        /// <remarks>
+        /// Sample request For Updating Ingest Dataset:
+        ///
+        /// {
+        /// "files": [
+        /// {
+        /// "fileName": "string",
+        /// "operation": "Upsert"
+        /// }
+        /// ]
+        /// "startAutomatically": true,
+        /// "datasetDescription": "string",
+        /// "tags": [
+        /// {
+        /// "key": "tag1",
+        /// "values": [
+        /// "tag1Value"
+        /// ]
+        /// },
+        /// {
+        /// "key": "tag2",
+        /// "values": [
+        /// "tag2Value"
+        /// ]
+        /// }
+        /// ]
+        /// }
+        ///
+        /// * startAutomatically is optional with default value as true.
+        /// If set to true, there is no need to call the validate and start endpoint
+        /// manually after uploading the file.
+        /// If set to false, we should run the validate and start endpoint manually
+        /// after uploading the file.
+        /// * datasetDescription is optional.
+        /// * tags are optional. Either send null, or an array with at least 1 tag.
+        ///
+        /// Sample Response:
+        ///
+        /// {
+        /// "workspaceId": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+        /// "jobId": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+        /// "sasToken": "string"
+        /// }
+        ///
+        /// * jobId in the response is the ingest job which will take care of updating
+        /// the ingest dataset.
+        /// * sasToken in the response is the token which will be used to upload the
+        /// file to update ingest dataset
+        /// </remarks>
+        /// <param name='body'>
+        /// </param>
+        /// <param name='workspaceId'>
+        /// </param>
+        /// <param name='datasetId'>
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        public async Task<IngestDatasetResponseDTO> UpdateIngestDatasetAsync(UpdateIngestDatasetRequestDTO body, System.Guid workspaceId, System.Guid datasetId, CancellationToken cancellationToken = default)
+        {
+            using (var _result = await UpdateIngestDatasetWithHttpMessagesAsync(body, workspaceId, datasetId, null, cancellationToken).ConfigureAwait(false))
+            {
+                return _result.Body;
+            }
+        }
+
+        /// <summary>
+        /// Get Ingest Job History for Dataset
+        /// </summary>
+        /// <remarks>
+        /// Sample Response
+        ///
+        /// {
+        /// result: [
+        /// {
+        /// "jobId": "26a39ea0-0702-4d07-8170-171f50388f83",
+        /// "workspaceId": "196a8ff4-dfbc-4ee7-ae08-4f38b84d9c86",
+        /// "createdAt": "2025-04-22T18:18:52.4399275Z",
+        /// "createdBy": "1346ea17-6954-4e46-9c8d-a56bb9dc76d1",
+        /// "status": "Failed",
+        /// "operations": [
+        /// "Create"
+        /// ],
+        /// "error": "An unexpected error occurred. Please contact support.",
+        /// "notebookError": "",
+        /// "validationError": [],
+        /// "lastModifiedAt": "2025-04-22T18:24:09.9343922Z"
+        /// },
+        /// {
+        /// "jobId": "69b41efe-4988-4db5-a0da-4798bc9f3bf3",
+        /// "workspaceId": "196a8ff4-dfbc-4ee7-ae08-4f38b84d9c86",
+        /// "datasetId": "f0a29868-b286-4605-9d4b-7a31479dab3d",
+        /// "createdAt": "2025-06-03T09:12:33.3609211Z",
+        /// "createdBy": "00000000-0000-0000-0000-000000000001",
+        /// "status": "Completed",
+        /// "operations": [
+        /// "Upsert"
+        /// ],
+        /// "notebookError": "",
+        /// "lastModifiedAt": "2025-06-03T09:16:27.584353Z"
+        /// },
+        /// {
+        /// "jobId": "14bc90e8-f107-479c-8a4b-6ecb91593986",
+        /// "workspaceId": "196a8ff4-dfbc-4ee7-ae08-4f38b84d9c86",
+        /// "createdAt": "2025-05-13T21:20:22.5283497Z",
+        /// "createdBy": "00000000-0000-0000-0000-000000000001",
+        /// "status": "Failed",
+        /// "operations": [
+        /// "Create"
+        /// ],
+        /// "error": "File(s) failed to validate.",
+        /// "notebookError": "",
+        /// "validationError": [
+        /// {
+        /// "fileName": "Upload.csv",
+        /// "isValid": false,
+        /// "errorReason": "Columns do not match schema. Missing columns: IMO,
+        /// Vessel_Name, Voyage_Id, Leg_Start_DateTime, Leg_End_DateTime, Leg_Mode,
+        /// Port_From_Code, Port_From_Name, Port_To_Code, Port_To_Name, Hours_Underway,
+        /// Total_Reported_Time, Transport_Work_PP, Transport_Work_Unit_PP,
+        /// Transport_Work, Transport_Work_Unit, CO2_Emitted_Mt, Distance, Cargo_Mt,
+        /// Cargo_M3, Cargo_Pax, Cargo_TEU, Deadweight, Gross_Tonnage,
+        /// Cargo_Percentage, Vessel_Flag, Vessel_Type_DCS, Vessel_Type_PP,
+        /// Vessel_Type_Other, Vessel_Category_PP, Data_Classification, AIS_Distance,
+        /// AIS_Duration, AIS_CO2_Emitted. Extra columns: ID, TS, NodeID, Signal,
+        /// Value."
+        /// }
+        /// ],
+        /// "lastModifiedAt": "2025-05-13T21:23:15.9390815Z"
+        /// }
+        /// ],
+        /// "pageIndex": 1,
+        /// "pageSize": 10,
+        /// "totalCount": 43,
+        /// "totalPages": 5
+        /// }
+        /// </remarks>
+        /// <param name='workspaceId'>
+        /// </param>
+        /// <param name='datasetId'>
+        /// </param>
+        /// <param name='pageIndex'>
+        /// </param>
+        /// <param name='pageSize'>
+        /// </param>
+        /// <param name='sortColumn'>
+        /// </param>
+        /// <param name='sortDirection'>
+        /// Possible values include: 'Ascending', 'Descending'
+        /// </param>
+        /// <param name='customHeaders'>
+        /// Headers that will be added to request.
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        /// <exception cref="HttpOperationException">
+        /// Thrown when the operation returned an invalid status code
+        /// </exception>
+        /// <exception cref="SerializationException">
+        /// Thrown when unable to deserialize the response
+        /// </exception>
+        /// <return>
+        /// A response object containing the response body and response headers.
+        /// </return>
+        public async Task<HttpOperationResponse<JobHistoryDTOPaginatedResult>> GetDatasetJobHistoryWithHttpMessagesAsync(System.Guid workspaceId, System.Guid datasetId, int? pageIndex = default, int? pageSize = default, string sortColumn = default, string sortDirection = default, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default)
+        {
+            // Construct URL
+            var _baseUrl = Client.HttpClient.BaseAddress?.AbsoluteUri ?? Client.BaseUri.AbsoluteUri;
+            var _url = new System.Uri(new System.Uri(_baseUrl + (_baseUrl.EndsWith("/") ? "" : "/")), "workspaces/{workspaceId}/ingest/dataset/{datasetId}/history").ToString();
+            _url = _url.Replace("{workspaceId}", System.Uri.EscapeDataString(Microsoft.Rest.Serialization.SafeJsonConvert.SerializeObject(workspaceId, Client.SerializationSettings).Trim('"')));
+            _url = _url.Replace("{datasetId}", System.Uri.EscapeDataString(Microsoft.Rest.Serialization.SafeJsonConvert.SerializeObject(datasetId, Client.SerializationSettings).Trim('"')));
+            IList<string> _queryParameters = new List<string>();
+            if (pageIndex != null)
+            {
+                _queryParameters.Add(string.Format("pageIndex={0}", System.Uri.EscapeDataString(Microsoft.Rest.Serialization.SafeJsonConvert.SerializeObject(pageIndex, Client.SerializationSettings).Trim('"'))));
+            }
+            if (pageSize != null)
+            {
+                _queryParameters.Add(string.Format("pageSize={0}", System.Uri.EscapeDataString(Microsoft.Rest.Serialization.SafeJsonConvert.SerializeObject(pageSize, Client.SerializationSettings).Trim('"'))));
+            }
+            if (sortColumn != null)
+            {
+                _queryParameters.Add(string.Format("sortColumn={0}", System.Uri.EscapeDataString(sortColumn)));
+            }
+            if (sortDirection != null)
+            {
+                _queryParameters.Add(string.Format("sortDirection={0}", System.Uri.EscapeDataString(Microsoft.Rest.Serialization.SafeJsonConvert.SerializeObject(sortDirection, Client.SerializationSettings).Trim('"'))));
+            }
+            if (_queryParameters.Any())
+            {
+                _url += "?" + string.Join("&", _queryParameters);
+            }
+            // Create HTTP transport objects
+            var _httpRequest = new HttpRequestMessage();
+            HttpResponseMessage _httpResponse = null;
+            _httpRequest.Method = new HttpMethod("GET");
+            _httpRequest.RequestUri = new System.Uri(_url);
+            // Set Headers
+
+
+            if (customHeaders != null)
+            {
+                foreach(var _header in customHeaders)
+                {
+                    if (_httpRequest.Headers.Contains(_header.Key))
+                    {
+                        _httpRequest.Headers.Remove(_header.Key);
+                    }
+                    _httpRequest.Headers.TryAddWithoutValidation(_header.Key, _header.Value);
+                }
+            }
+
+            // Serialize Request
+            string _requestContent = null;
+            // Send Request
+            cancellationToken.ThrowIfCancellationRequested();
+            _httpResponse = await Client.HttpClient.SendAsync(_httpRequest, cancellationToken).ConfigureAwait(false);
+            HttpStatusCode _statusCode = _httpResponse.StatusCode;
+            cancellationToken.ThrowIfCancellationRequested();
+            string _responseContent = null;
+            if ((int)_statusCode != 200)
+            {
+                var ex = new HttpOperationException(string.Format("Operation returned an invalid status code '{0}'", _statusCode));
+                if (_httpResponse.Content != null) {
+                    _responseContent = await _httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
+                }
+                else {
+                    _responseContent = string.Empty;
+                }
+                ex.Request = new HttpRequestMessageWrapper(_httpRequest, _requestContent);
+                ex.Response = new HttpResponseMessageWrapper(_httpResponse, _responseContent);
+                _httpRequest.Dispose();
+                if (_httpResponse != null)
+                {
+                    _httpResponse.Dispose();
+                }
+                throw ex;
+            }
+            // Create Result
+            var _result = new HttpOperationResponse<JobHistoryDTOPaginatedResult>();
+            _result.Request = _httpRequest;
+            _result.Response = _httpResponse;
+            // Deserialize Response
+            if ((int)_statusCode == 200)
+            {
+                _responseContent = await _httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
+                try
+                {
+                    _result.Body = Microsoft.Rest.Serialization.SafeJsonConvert.DeserializeObject<JobHistoryDTOPaginatedResult>(_responseContent, Client.DeserializationSettings);
+                }
+                catch (JsonException ex)
+                {
+                    _httpRequest.Dispose();
+                    if (_httpResponse != null)
+                    {
+                        _httpResponse.Dispose();
+                    }
+                    throw new SerializationException("Unable to deserialize the response.", _responseContent, ex);
+                }
+            }
+            return _result;
+        }
+        /// <summary>
+        /// Get Ingest Job History for Dataset
+        /// </summary>
+        /// <remarks>
+        /// Sample Response
+        ///
+        /// {
+        /// result: [
+        /// {
+        /// "jobId": "26a39ea0-0702-4d07-8170-171f50388f83",
+        /// "workspaceId": "196a8ff4-dfbc-4ee7-ae08-4f38b84d9c86",
+        /// "createdAt": "2025-04-22T18:18:52.4399275Z",
+        /// "createdBy": "1346ea17-6954-4e46-9c8d-a56bb9dc76d1",
+        /// "status": "Failed",
+        /// "operations": [
+        /// "Create"
+        /// ],
+        /// "error": "An unexpected error occurred. Please contact support.",
+        /// "notebookError": "",
+        /// "validationError": [],
+        /// "lastModifiedAt": "2025-04-22T18:24:09.9343922Z"
+        /// },
+        /// {
+        /// "jobId": "69b41efe-4988-4db5-a0da-4798bc9f3bf3",
+        /// "workspaceId": "196a8ff4-dfbc-4ee7-ae08-4f38b84d9c86",
+        /// "datasetId": "f0a29868-b286-4605-9d4b-7a31479dab3d",
+        /// "createdAt": "2025-06-03T09:12:33.3609211Z",
+        /// "createdBy": "00000000-0000-0000-0000-000000000001",
+        /// "status": "Completed",
+        /// "operations": [
+        /// "Upsert"
+        /// ],
+        /// "notebookError": "",
+        /// "lastModifiedAt": "2025-06-03T09:16:27.584353Z"
+        /// },
+        /// {
+        /// "jobId": "14bc90e8-f107-479c-8a4b-6ecb91593986",
+        /// "workspaceId": "196a8ff4-dfbc-4ee7-ae08-4f38b84d9c86",
+        /// "createdAt": "2025-05-13T21:20:22.5283497Z",
+        /// "createdBy": "00000000-0000-0000-0000-000000000001",
+        /// "status": "Failed",
+        /// "operations": [
+        /// "Create"
+        /// ],
+        /// "error": "File(s) failed to validate.",
+        /// "notebookError": "",
+        /// "validationError": [
+        /// {
+        /// "fileName": "Upload.csv",
+        /// "isValid": false,
+        /// "errorReason": "Columns do not match schema. Missing columns: IMO,
+        /// Vessel_Name, Voyage_Id, Leg_Start_DateTime, Leg_End_DateTime, Leg_Mode,
+        /// Port_From_Code, Port_From_Name, Port_To_Code, Port_To_Name, Hours_Underway,
+        /// Total_Reported_Time, Transport_Work_PP, Transport_Work_Unit_PP,
+        /// Transport_Work, Transport_Work_Unit, CO2_Emitted_Mt, Distance, Cargo_Mt,
+        /// Cargo_M3, Cargo_Pax, Cargo_TEU, Deadweight, Gross_Tonnage,
+        /// Cargo_Percentage, Vessel_Flag, Vessel_Type_DCS, Vessel_Type_PP,
+        /// Vessel_Type_Other, Vessel_Category_PP, Data_Classification, AIS_Distance,
+        /// AIS_Duration, AIS_CO2_Emitted. Extra columns: ID, TS, NodeID, Signal,
+        /// Value."
+        /// }
+        /// ],
+        /// "lastModifiedAt": "2025-05-13T21:23:15.9390815Z"
+        /// }
+        /// ],
+        /// "pageIndex": 1,
+        /// "pageSize": 10,
+        /// "totalCount": 43,
+        /// "totalPages": 5
+        /// }
+        /// </remarks>
+        /// <param name='workspaceId'>
+        /// </param>
+        /// <param name='datasetId'>
+        /// </param>
+        /// <param name='pageIndex'>
+        /// </param>
+        /// <param name='pageSize'>
+        /// </param>
+        /// <param name='sortColumn'>
+        /// </param>
+        /// <param name='sortDirection'>
+        /// Possible values include: 'Ascending', 'Descending'
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        public async Task<JobHistoryDTOPaginatedResult> GetDatasetJobHistoryAsync(System.Guid workspaceId, System.Guid datasetId, int? pageIndex = default, int? pageSize = default, string sortColumn = default, string sortDirection = default, CancellationToken cancellationToken = default)
+        {
+            using (var _result = await GetDatasetJobHistoryWithHttpMessagesAsync(workspaceId, datasetId, pageIndex, pageSize, sortColumn, sortDirection, null, cancellationToken).ConfigureAwait(false))
             {
                 return _result.Body;
             }
@@ -355,6 +1122,856 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataWorkbenchApiV2
         }
 
         /// <summary>
+        /// Start an existing job for ingest dataset in the workspace
+        /// </summary>
+        /// <remarks>
+        /// Sample Response:
+        ///
+        /// {
+        /// "startJobStatus": "JobNotFound",
+        /// "isValid": true,
+        /// "validationResponse": {
+        /// "errorReason": "string",
+        /// "files": {
+        /// "additionalProp1": {
+        /// "isValid": true,
+        /// "errorReason": "string"
+        /// },
+        /// "additionalProp2": {
+        /// "isValid": true,
+        /// "errorReason": "string"
+        /// },
+        /// "additionalProp3": {
+        /// "isValid": true,
+        /// "errorReason": "string"
+        /// }
+        /// }
+        /// }
+        /// }
+        ///
+        /// * If the validation for job or files fail, the response will have
+        /// validation errors and job will not start.
+        /// * If validation is successfull, the response will not have any validation
+        /// error and job will start.
+        /// * If job was set to startAutomatically = true, job will not start as it was
+        /// set to start automatically.
+        /// * If job has already started, job will not start again.
+        /// </remarks>
+        /// <param name='workspaceId'>
+        /// </param>
+        /// <param name='jobId'>
+        /// </param>
+        /// <param name='customHeaders'>
+        /// Headers that will be added to request.
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        /// <exception cref="HttpOperationException">
+        /// Thrown when the operation returned an invalid status code
+        /// </exception>
+        /// <exception cref="SerializationException">
+        /// Thrown when unable to deserialize the response
+        /// </exception>
+        /// <return>
+        /// A response object containing the response body and response headers.
+        /// </return>
+        public async Task<HttpOperationResponse<StartJobResultDTO>> StartIngestJobWithHttpMessagesAsync(System.Guid workspaceId, System.Guid jobId, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default)
+        {
+            // Construct URL
+            var _baseUrl = Client.HttpClient.BaseAddress?.AbsoluteUri ?? Client.BaseUri.AbsoluteUri;
+            var _url = new System.Uri(new System.Uri(_baseUrl + (_baseUrl.EndsWith("/") ? "" : "/")), "workspaces/{workspaceId}/ingest/job/{jobId}/start").ToString();
+            _url = _url.Replace("{workspaceId}", System.Uri.EscapeDataString(Microsoft.Rest.Serialization.SafeJsonConvert.SerializeObject(workspaceId, Client.SerializationSettings).Trim('"')));
+            _url = _url.Replace("{jobId}", System.Uri.EscapeDataString(Microsoft.Rest.Serialization.SafeJsonConvert.SerializeObject(jobId, Client.SerializationSettings).Trim('"')));
+            // Create HTTP transport objects
+            var _httpRequest = new HttpRequestMessage();
+            HttpResponseMessage _httpResponse = null;
+            _httpRequest.Method = new HttpMethod("POST");
+            _httpRequest.RequestUri = new System.Uri(_url);
+            // Set Headers
+
+
+            if (customHeaders != null)
+            {
+                foreach(var _header in customHeaders)
+                {
+                    if (_httpRequest.Headers.Contains(_header.Key))
+                    {
+                        _httpRequest.Headers.Remove(_header.Key);
+                    }
+                    _httpRequest.Headers.TryAddWithoutValidation(_header.Key, _header.Value);
+                }
+            }
+
+            // Serialize Request
+            string _requestContent = null;
+            // Send Request
+            cancellationToken.ThrowIfCancellationRequested();
+            _httpResponse = await Client.HttpClient.SendAsync(_httpRequest, cancellationToken).ConfigureAwait(false);
+            HttpStatusCode _statusCode = _httpResponse.StatusCode;
+            cancellationToken.ThrowIfCancellationRequested();
+            string _responseContent = null;
+            if ((int)_statusCode != 200)
+            {
+                var ex = new HttpOperationException(string.Format("Operation returned an invalid status code '{0}'", _statusCode));
+                if (_httpResponse.Content != null) {
+                    _responseContent = await _httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
+                }
+                else {
+                    _responseContent = string.Empty;
+                }
+                ex.Request = new HttpRequestMessageWrapper(_httpRequest, _requestContent);
+                ex.Response = new HttpResponseMessageWrapper(_httpResponse, _responseContent);
+                _httpRequest.Dispose();
+                if (_httpResponse != null)
+                {
+                    _httpResponse.Dispose();
+                }
+                throw ex;
+            }
+            // Create Result
+            var _result = new HttpOperationResponse<StartJobResultDTO>();
+            _result.Request = _httpRequest;
+            _result.Response = _httpResponse;
+            // Deserialize Response
+            if ((int)_statusCode == 200)
+            {
+                _responseContent = await _httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
+                try
+                {
+                    _result.Body = Microsoft.Rest.Serialization.SafeJsonConvert.DeserializeObject<StartJobResultDTO>(_responseContent, Client.DeserializationSettings);
+                }
+                catch (JsonException ex)
+                {
+                    _httpRequest.Dispose();
+                    if (_httpResponse != null)
+                    {
+                        _httpResponse.Dispose();
+                    }
+                    throw new SerializationException("Unable to deserialize the response.", _responseContent, ex);
+                }
+            }
+            return _result;
+        }
+        /// <summary>
+        /// Start an existing job for ingest dataset in the workspace
+        /// </summary>
+        /// <remarks>
+        /// Sample Response:
+        ///
+        /// {
+        /// "startJobStatus": "JobNotFound",
+        /// "isValid": true,
+        /// "validationResponse": {
+        /// "errorReason": "string",
+        /// "files": {
+        /// "additionalProp1": {
+        /// "isValid": true,
+        /// "errorReason": "string"
+        /// },
+        /// "additionalProp2": {
+        /// "isValid": true,
+        /// "errorReason": "string"
+        /// },
+        /// "additionalProp3": {
+        /// "isValid": true,
+        /// "errorReason": "string"
+        /// }
+        /// }
+        /// }
+        /// }
+        ///
+        /// * If the validation for job or files fail, the response will have
+        /// validation errors and job will not start.
+        /// * If validation is successfull, the response will not have any validation
+        /// error and job will start.
+        /// * If job was set to startAutomatically = true, job will not start as it was
+        /// set to start automatically.
+        /// * If job has already started, job will not start again.
+        /// </remarks>
+        /// <param name='workspaceId'>
+        /// </param>
+        /// <param name='jobId'>
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        public async Task<StartJobResultDTO> StartIngestJobAsync(System.Guid workspaceId, System.Guid jobId, CancellationToken cancellationToken = default)
+        {
+            using (var _result = await StartIngestJobWithHttpMessagesAsync(workspaceId, jobId, null, cancellationToken).ConfigureAwait(false))
+            {
+                return _result.Body;
+            }
+        }
+
+        /// <summary>
+        /// Get status of an ingest job
+        /// </summary>
+        /// <remarks>
+        /// Sample Response
+        ///
+        /// {
+        /// "jobId": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+        /// "status": "Failed",
+        /// "operations": [
+        /// "Create"
+        /// ],
+        /// "errorMessage": "Databricks processing error.",
+        /// "notebookErrorMessage": "Failed to execute CREATE operation.",
+        /// "validationError": []
+        /// }
+        ///
+        /// {
+        /// "jobId": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+        /// "status": "Completed",
+        /// "operations": [
+        /// "Create"
+        /// ],
+        /// "notebookErrorMessage": "",
+        /// "dataSetName": "datasetName",
+        /// "datasetId": "3fa85f64-5717-4562-b3fc-2c963f66afa6"
+        /// }
+        ///
+        /// {
+        /// "jobId": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+        /// "status": "Failed",
+        /// "operations": [
+        /// "Create"
+        /// ],
+        /// "errorMessage": "File(s) failed to validate.",
+        /// "notebookErrorMessage": "",
+        /// "validationError": [
+        /// {
+        /// "FileName": "test.csv",
+        /// "isValid": false,
+        /// "errorReason": "File not found."
+        /// }
+        /// {
+        /// "FileName": "test.csv",
+        /// "isValid": false,
+        /// "errorReason": "Columns do not match schema. Extra columns: Weight."
+        /// }
+        /// }
+        /// </remarks>
+        /// <param name='workspaceId'>
+        /// </param>
+        /// <param name='jobId'>
+        /// </param>
+        /// <param name='customHeaders'>
+        /// Headers that will be added to request.
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        /// <exception cref="HttpOperationException">
+        /// Thrown when the operation returned an invalid status code
+        /// </exception>
+        /// <exception cref="SerializationException">
+        /// Thrown when unable to deserialize the response
+        /// </exception>
+        /// <return>
+        /// A response object containing the response body and response headers.
+        /// </return>
+        public async Task<HttpOperationResponse<JobStatusDTO>> GetIngestJobStatusWithHttpMessagesAsync(System.Guid workspaceId, System.Guid jobId, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default)
+        {
+            // Construct URL
+            var _baseUrl = Client.HttpClient.BaseAddress?.AbsoluteUri ?? Client.BaseUri.AbsoluteUri;
+            var _url = new System.Uri(new System.Uri(_baseUrl + (_baseUrl.EndsWith("/") ? "" : "/")), "workspaces/{workspaceId}/ingest/job/{jobId}/status").ToString();
+            _url = _url.Replace("{workspaceId}", System.Uri.EscapeDataString(Microsoft.Rest.Serialization.SafeJsonConvert.SerializeObject(workspaceId, Client.SerializationSettings).Trim('"')));
+            _url = _url.Replace("{jobId}", System.Uri.EscapeDataString(Microsoft.Rest.Serialization.SafeJsonConvert.SerializeObject(jobId, Client.SerializationSettings).Trim('"')));
+            // Create HTTP transport objects
+            var _httpRequest = new HttpRequestMessage();
+            HttpResponseMessage _httpResponse = null;
+            _httpRequest.Method = new HttpMethod("GET");
+            _httpRequest.RequestUri = new System.Uri(_url);
+            // Set Headers
+
+
+            if (customHeaders != null)
+            {
+                foreach(var _header in customHeaders)
+                {
+                    if (_httpRequest.Headers.Contains(_header.Key))
+                    {
+                        _httpRequest.Headers.Remove(_header.Key);
+                    }
+                    _httpRequest.Headers.TryAddWithoutValidation(_header.Key, _header.Value);
+                }
+            }
+
+            // Serialize Request
+            string _requestContent = null;
+            // Send Request
+            cancellationToken.ThrowIfCancellationRequested();
+            _httpResponse = await Client.HttpClient.SendAsync(_httpRequest, cancellationToken).ConfigureAwait(false);
+            HttpStatusCode _statusCode = _httpResponse.StatusCode;
+            cancellationToken.ThrowIfCancellationRequested();
+            string _responseContent = null;
+            if ((int)_statusCode != 200)
+            {
+                var ex = new HttpOperationException(string.Format("Operation returned an invalid status code '{0}'", _statusCode));
+                if (_httpResponse.Content != null) {
+                    _responseContent = await _httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
+                }
+                else {
+                    _responseContent = string.Empty;
+                }
+                ex.Request = new HttpRequestMessageWrapper(_httpRequest, _requestContent);
+                ex.Response = new HttpResponseMessageWrapper(_httpResponse, _responseContent);
+                _httpRequest.Dispose();
+                if (_httpResponse != null)
+                {
+                    _httpResponse.Dispose();
+                }
+                throw ex;
+            }
+            // Create Result
+            var _result = new HttpOperationResponse<JobStatusDTO>();
+            _result.Request = _httpRequest;
+            _result.Response = _httpResponse;
+            // Deserialize Response
+            if ((int)_statusCode == 200)
+            {
+                _responseContent = await _httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
+                try
+                {
+                    _result.Body = Microsoft.Rest.Serialization.SafeJsonConvert.DeserializeObject<JobStatusDTO>(_responseContent, Client.DeserializationSettings);
+                }
+                catch (JsonException ex)
+                {
+                    _httpRequest.Dispose();
+                    if (_httpResponse != null)
+                    {
+                        _httpResponse.Dispose();
+                    }
+                    throw new SerializationException("Unable to deserialize the response.", _responseContent, ex);
+                }
+            }
+            return _result;
+        }
+        /// <summary>
+        /// Get status of an ingest job
+        /// </summary>
+        /// <remarks>
+        /// Sample Response
+        ///
+        /// {
+        /// "jobId": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+        /// "status": "Failed",
+        /// "operations": [
+        /// "Create"
+        /// ],
+        /// "errorMessage": "Databricks processing error.",
+        /// "notebookErrorMessage": "Failed to execute CREATE operation.",
+        /// "validationError": []
+        /// }
+        ///
+        /// {
+        /// "jobId": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+        /// "status": "Completed",
+        /// "operations": [
+        /// "Create"
+        /// ],
+        /// "notebookErrorMessage": "",
+        /// "dataSetName": "datasetName",
+        /// "datasetId": "3fa85f64-5717-4562-b3fc-2c963f66afa6"
+        /// }
+        ///
+        /// {
+        /// "jobId": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+        /// "status": "Failed",
+        /// "operations": [
+        /// "Create"
+        /// ],
+        /// "errorMessage": "File(s) failed to validate.",
+        /// "notebookErrorMessage": "",
+        /// "validationError": [
+        /// {
+        /// "FileName": "test.csv",
+        /// "isValid": false,
+        /// "errorReason": "File not found."
+        /// }
+        /// {
+        /// "FileName": "test.csv",
+        /// "isValid": false,
+        /// "errorReason": "Columns do not match schema. Extra columns: Weight."
+        /// }
+        /// }
+        /// </remarks>
+        /// <param name='workspaceId'>
+        /// </param>
+        /// <param name='jobId'>
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        public async Task<JobStatusDTO> GetIngestJobStatusAsync(System.Guid workspaceId, System.Guid jobId, CancellationToken cancellationToken = default)
+        {
+            using (var _result = await GetIngestJobStatusWithHttpMessagesAsync(workspaceId, jobId, null, cancellationToken).ConfigureAwait(false))
+            {
+                return _result.Body;
+            }
+        }
+
+        /// <summary>
+        /// Validate an existing job for ingest dataset in the workspace
+        /// </summary>
+        /// <remarks>
+        /// Sample Response:
+        ///
+        /// {
+        /// "isValid": true,
+        /// "errorReason": "string",
+        /// "files": {
+        /// "additionalProp1": {
+        /// "isValid": true,
+        /// "errorReason": "string"
+        /// },
+        /// "additionalProp2": {
+        /// "isValid": true,
+        /// "errorReason": "string"
+        /// },
+        /// "additionalProp3": {
+        /// "isValid": true,
+        /// "errorReason": "string"
+        /// }
+        /// }
+        /// }
+        /// }
+        ///
+        /// * If job is set to startAutomatically = true, validation will not happen.
+        /// * response will show the validation result for all files regardless they
+        /// are valid or invalid.
+        /// </remarks>
+        /// <param name='workspaceId'>
+        /// </param>
+        /// <param name='jobId'>
+        /// </param>
+        /// <param name='customHeaders'>
+        /// Headers that will be added to request.
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        /// <exception cref="HttpOperationException">
+        /// Thrown when the operation returned an invalid status code
+        /// </exception>
+        /// <exception cref="SerializationException">
+        /// Thrown when unable to deserialize the response
+        /// </exception>
+        /// <return>
+        /// A response object containing the response body and response headers.
+        /// </return>
+        public async Task<HttpOperationResponse<JobValidationResultDTO>> ValidateIngestJobWithHttpMessagesAsync(System.Guid workspaceId, System.Guid jobId, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default)
+        {
+            // Construct URL
+            var _baseUrl = Client.HttpClient.BaseAddress?.AbsoluteUri ?? Client.BaseUri.AbsoluteUri;
+            var _url = new System.Uri(new System.Uri(_baseUrl + (_baseUrl.EndsWith("/") ? "" : "/")), "workspaces/{workspaceId}/ingest/job/{jobId}/validate").ToString();
+            _url = _url.Replace("{workspaceId}", System.Uri.EscapeDataString(Microsoft.Rest.Serialization.SafeJsonConvert.SerializeObject(workspaceId, Client.SerializationSettings).Trim('"')));
+            _url = _url.Replace("{jobId}", System.Uri.EscapeDataString(Microsoft.Rest.Serialization.SafeJsonConvert.SerializeObject(jobId, Client.SerializationSettings).Trim('"')));
+            // Create HTTP transport objects
+            var _httpRequest = new HttpRequestMessage();
+            HttpResponseMessage _httpResponse = null;
+            _httpRequest.Method = new HttpMethod("POST");
+            _httpRequest.RequestUri = new System.Uri(_url);
+            // Set Headers
+
+
+            if (customHeaders != null)
+            {
+                foreach(var _header in customHeaders)
+                {
+                    if (_httpRequest.Headers.Contains(_header.Key))
+                    {
+                        _httpRequest.Headers.Remove(_header.Key);
+                    }
+                    _httpRequest.Headers.TryAddWithoutValidation(_header.Key, _header.Value);
+                }
+            }
+
+            // Serialize Request
+            string _requestContent = null;
+            // Send Request
+            cancellationToken.ThrowIfCancellationRequested();
+            _httpResponse = await Client.HttpClient.SendAsync(_httpRequest, cancellationToken).ConfigureAwait(false);
+            HttpStatusCode _statusCode = _httpResponse.StatusCode;
+            cancellationToken.ThrowIfCancellationRequested();
+            string _responseContent = null;
+            if ((int)_statusCode != 200)
+            {
+                var ex = new HttpOperationException(string.Format("Operation returned an invalid status code '{0}'", _statusCode));
+                if (_httpResponse.Content != null) {
+                    _responseContent = await _httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
+                }
+                else {
+                    _responseContent = string.Empty;
+                }
+                ex.Request = new HttpRequestMessageWrapper(_httpRequest, _requestContent);
+                ex.Response = new HttpResponseMessageWrapper(_httpResponse, _responseContent);
+                _httpRequest.Dispose();
+                if (_httpResponse != null)
+                {
+                    _httpResponse.Dispose();
+                }
+                throw ex;
+            }
+            // Create Result
+            var _result = new HttpOperationResponse<JobValidationResultDTO>();
+            _result.Request = _httpRequest;
+            _result.Response = _httpResponse;
+            // Deserialize Response
+            if ((int)_statusCode == 200)
+            {
+                _responseContent = await _httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
+                try
+                {
+                    _result.Body = Microsoft.Rest.Serialization.SafeJsonConvert.DeserializeObject<JobValidationResultDTO>(_responseContent, Client.DeserializationSettings);
+                }
+                catch (JsonException ex)
+                {
+                    _httpRequest.Dispose();
+                    if (_httpResponse != null)
+                    {
+                        _httpResponse.Dispose();
+                    }
+                    throw new SerializationException("Unable to deserialize the response.", _responseContent, ex);
+                }
+            }
+            return _result;
+        }
+        /// <summary>
+        /// Validate an existing job for ingest dataset in the workspace
+        /// </summary>
+        /// <remarks>
+        /// Sample Response:
+        ///
+        /// {
+        /// "isValid": true,
+        /// "errorReason": "string",
+        /// "files": {
+        /// "additionalProp1": {
+        /// "isValid": true,
+        /// "errorReason": "string"
+        /// },
+        /// "additionalProp2": {
+        /// "isValid": true,
+        /// "errorReason": "string"
+        /// },
+        /// "additionalProp3": {
+        /// "isValid": true,
+        /// "errorReason": "string"
+        /// }
+        /// }
+        /// }
+        /// }
+        ///
+        /// * If job is set to startAutomatically = true, validation will not happen.
+        /// * response will show the validation result for all files regardless they
+        /// are valid or invalid.
+        /// </remarks>
+        /// <param name='workspaceId'>
+        /// </param>
+        /// <param name='jobId'>
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        public async Task<JobValidationResultDTO> ValidateIngestJobAsync(System.Guid workspaceId, System.Guid jobId, CancellationToken cancellationToken = default)
+        {
+            using (var _result = await ValidateIngestJobWithHttpMessagesAsync(workspaceId, jobId, null, cancellationToken).ConfigureAwait(false))
+            {
+                return _result.Body;
+            }
+        }
+
+        /// <summary>
+        /// Get Ingest Job History for workspace
+        /// </summary>
+        /// <remarks>
+        /// Sample Response
+        ///
+        /// {
+        /// result: [
+        /// {
+        /// "jobId": "26a39ea0-0702-4d07-8170-171f50388f83",
+        /// "workspaceId": "196a8ff4-dfbc-4ee7-ae08-4f38b84d9c86",
+        /// "createdAt": "2025-04-22T18:18:52.4399275Z",
+        /// "createdBy": "1346ea17-6954-4e46-9c8d-a56bb9dc76d1",
+        /// "status": "Failed",
+        /// "operations": [
+        /// "Create"
+        /// ],
+        /// "error": "An unexpected error occurred. Please contact support.",
+        /// "notebookError": "",
+        /// "validationError": [],
+        /// "lastModifiedAt": "2025-04-22T18:24:09.9343922Z"
+        /// },
+        /// {
+        /// "jobId": "8bcc224b-96b7-4f54-99c3-5c62a7a0b5b1",
+        /// "workspaceId": "196a8ff4-dfbc-4ee7-ae08-4f38b84d9c86",
+        /// "createdAt": "2025-04-30T16:00:01.8200722Z",
+        /// "createdBy": "00000000-0000-0000-0000-000000000001",
+        /// "status": "Proposed",
+        /// "operations": [
+        /// "Create"
+        /// ],
+        /// "error": "",
+        /// "notebookError": "",
+        /// "validationError": []
+        /// },
+        /// {
+        /// "jobId": "14bc90e8-f107-479c-8a4b-6ecb91593986",
+        /// "workspaceId": "196a8ff4-dfbc-4ee7-ae08-4f38b84d9c86",
+        /// "createdAt": "2025-05-13T21:20:22.5283497Z",
+        /// "createdBy": "00000000-0000-0000-0000-000000000001",
+        /// "status": "Failed",
+        /// "operations": [
+        /// "Create"
+        /// ],
+        /// "error": "File(s) failed to validate.",
+        /// "notebookError": "",
+        /// "validationError": [
+        /// {
+        /// "fileName": "Upload.csv",
+        /// "isValid": false,
+        /// "errorReason": "Columns do not match schema. Missing columns: IMO,
+        /// Vessel_Name, Voyage_Id, Leg_Start_DateTime, Leg_End_DateTime, Leg_Mode,
+        /// Port_From_Code, Port_From_Name, Port_To_Code, Port_To_Name, Hours_Underway,
+        /// Total_Reported_Time, Transport_Work_PP, Transport_Work_Unit_PP,
+        /// Transport_Work, Transport_Work_Unit, CO2_Emitted_Mt, Distance, Cargo_Mt,
+        /// Cargo_M3, Cargo_Pax, Cargo_TEU, Deadweight, Gross_Tonnage,
+        /// Cargo_Percentage, Vessel_Flag, Vessel_Type_DCS, Vessel_Type_PP,
+        /// Vessel_Type_Other, Vessel_Category_PP, Data_Classification, AIS_Distance,
+        /// AIS_Duration, AIS_CO2_Emitted. Extra columns: ID, TS, NodeID, Signal,
+        /// Value."
+        /// }
+        /// ],
+        /// "lastModifiedAt": "2025-05-13T21:23:15.9390815Z"
+        /// }
+        /// ],
+        /// "pageIndex": 1,
+        /// "pageSize": 10,
+        /// "totalCount": 43,
+        /// "totalPages": 5
+        /// }
+        /// </remarks>
+        /// <param name='workspaceId'>
+        /// </param>
+        /// <param name='pageIndex'>
+        /// </param>
+        /// <param name='pageSize'>
+        /// </param>
+        /// <param name='sortColumn'>
+        /// </param>
+        /// <param name='sortDirection'>
+        /// Possible values include: 'Ascending', 'Descending'
+        /// </param>
+        /// <param name='customHeaders'>
+        /// Headers that will be added to request.
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        /// <exception cref="HttpOperationException">
+        /// Thrown when the operation returned an invalid status code
+        /// </exception>
+        /// <exception cref="SerializationException">
+        /// Thrown when unable to deserialize the response
+        /// </exception>
+        /// <return>
+        /// A response object containing the response body and response headers.
+        /// </return>
+        public async Task<HttpOperationResponse<JobHistoryDTOPaginatedResult>> GetWorkspaceJobHistoryWithHttpMessagesAsync(System.Guid workspaceId, int? pageIndex = default, int? pageSize = default, string sortColumn = default, string sortDirection = default, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default)
+        {
+            // Construct URL
+            var _baseUrl = Client.HttpClient.BaseAddress?.AbsoluteUri ?? Client.BaseUri.AbsoluteUri;
+            var _url = new System.Uri(new System.Uri(_baseUrl + (_baseUrl.EndsWith("/") ? "" : "/")), "workspaces/{workspaceId}/ingest/jobs/history").ToString();
+            _url = _url.Replace("{workspaceId}", System.Uri.EscapeDataString(Microsoft.Rest.Serialization.SafeJsonConvert.SerializeObject(workspaceId, Client.SerializationSettings).Trim('"')));
+            IList<string> _queryParameters = new List<string>();
+            if (pageIndex != null)
+            {
+                _queryParameters.Add(string.Format("pageIndex={0}", System.Uri.EscapeDataString(Microsoft.Rest.Serialization.SafeJsonConvert.SerializeObject(pageIndex, Client.SerializationSettings).Trim('"'))));
+            }
+            if (pageSize != null)
+            {
+                _queryParameters.Add(string.Format("pageSize={0}", System.Uri.EscapeDataString(Microsoft.Rest.Serialization.SafeJsonConvert.SerializeObject(pageSize, Client.SerializationSettings).Trim('"'))));
+            }
+            if (sortColumn != null)
+            {
+                _queryParameters.Add(string.Format("sortColumn={0}", System.Uri.EscapeDataString(sortColumn)));
+            }
+            if (sortDirection != null)
+            {
+                _queryParameters.Add(string.Format("sortDirection={0}", System.Uri.EscapeDataString(Microsoft.Rest.Serialization.SafeJsonConvert.SerializeObject(sortDirection, Client.SerializationSettings).Trim('"'))));
+            }
+            if (_queryParameters.Any())
+            {
+                _url += "?" + string.Join("&", _queryParameters);
+            }
+            // Create HTTP transport objects
+            var _httpRequest = new HttpRequestMessage();
+            HttpResponseMessage _httpResponse = null;
+            _httpRequest.Method = new HttpMethod("GET");
+            _httpRequest.RequestUri = new System.Uri(_url);
+            // Set Headers
+
+
+            if (customHeaders != null)
+            {
+                foreach(var _header in customHeaders)
+                {
+                    if (_httpRequest.Headers.Contains(_header.Key))
+                    {
+                        _httpRequest.Headers.Remove(_header.Key);
+                    }
+                    _httpRequest.Headers.TryAddWithoutValidation(_header.Key, _header.Value);
+                }
+            }
+
+            // Serialize Request
+            string _requestContent = null;
+            // Send Request
+            cancellationToken.ThrowIfCancellationRequested();
+            _httpResponse = await Client.HttpClient.SendAsync(_httpRequest, cancellationToken).ConfigureAwait(false);
+            HttpStatusCode _statusCode = _httpResponse.StatusCode;
+            cancellationToken.ThrowIfCancellationRequested();
+            string _responseContent = null;
+            if ((int)_statusCode != 200)
+            {
+                var ex = new HttpOperationException(string.Format("Operation returned an invalid status code '{0}'", _statusCode));
+                if (_httpResponse.Content != null) {
+                    _responseContent = await _httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
+                }
+                else {
+                    _responseContent = string.Empty;
+                }
+                ex.Request = new HttpRequestMessageWrapper(_httpRequest, _requestContent);
+                ex.Response = new HttpResponseMessageWrapper(_httpResponse, _responseContent);
+                _httpRequest.Dispose();
+                if (_httpResponse != null)
+                {
+                    _httpResponse.Dispose();
+                }
+                throw ex;
+            }
+            // Create Result
+            var _result = new HttpOperationResponse<JobHistoryDTOPaginatedResult>();
+            _result.Request = _httpRequest;
+            _result.Response = _httpResponse;
+            // Deserialize Response
+            if ((int)_statusCode == 200)
+            {
+                _responseContent = await _httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
+                try
+                {
+                    _result.Body = Microsoft.Rest.Serialization.SafeJsonConvert.DeserializeObject<JobHistoryDTOPaginatedResult>(_responseContent, Client.DeserializationSettings);
+                }
+                catch (JsonException ex)
+                {
+                    _httpRequest.Dispose();
+                    if (_httpResponse != null)
+                    {
+                        _httpResponse.Dispose();
+                    }
+                    throw new SerializationException("Unable to deserialize the response.", _responseContent, ex);
+                }
+            }
+            return _result;
+        }
+        /// <summary>
+        /// Get Ingest Job History for workspace
+        /// </summary>
+        /// <remarks>
+        /// Sample Response
+        ///
+        /// {
+        /// result: [
+        /// {
+        /// "jobId": "26a39ea0-0702-4d07-8170-171f50388f83",
+        /// "workspaceId": "196a8ff4-dfbc-4ee7-ae08-4f38b84d9c86",
+        /// "createdAt": "2025-04-22T18:18:52.4399275Z",
+        /// "createdBy": "1346ea17-6954-4e46-9c8d-a56bb9dc76d1",
+        /// "status": "Failed",
+        /// "operations": [
+        /// "Create"
+        /// ],
+        /// "error": "An unexpected error occurred. Please contact support.",
+        /// "notebookError": "",
+        /// "validationError": [],
+        /// "lastModifiedAt": "2025-04-22T18:24:09.9343922Z"
+        /// },
+        /// {
+        /// "jobId": "8bcc224b-96b7-4f54-99c3-5c62a7a0b5b1",
+        /// "workspaceId": "196a8ff4-dfbc-4ee7-ae08-4f38b84d9c86",
+        /// "createdAt": "2025-04-30T16:00:01.8200722Z",
+        /// "createdBy": "00000000-0000-0000-0000-000000000001",
+        /// "status": "Proposed",
+        /// "operations": [
+        /// "Create"
+        /// ],
+        /// "error": "",
+        /// "notebookError": "",
+        /// "validationError": []
+        /// },
+        /// {
+        /// "jobId": "14bc90e8-f107-479c-8a4b-6ecb91593986",
+        /// "workspaceId": "196a8ff4-dfbc-4ee7-ae08-4f38b84d9c86",
+        /// "createdAt": "2025-05-13T21:20:22.5283497Z",
+        /// "createdBy": "00000000-0000-0000-0000-000000000001",
+        /// "status": "Failed",
+        /// "operations": [
+        /// "Create"
+        /// ],
+        /// "error": "File(s) failed to validate.",
+        /// "notebookError": "",
+        /// "validationError": [
+        /// {
+        /// "fileName": "Upload.csv",
+        /// "isValid": false,
+        /// "errorReason": "Columns do not match schema. Missing columns: IMO,
+        /// Vessel_Name, Voyage_Id, Leg_Start_DateTime, Leg_End_DateTime, Leg_Mode,
+        /// Port_From_Code, Port_From_Name, Port_To_Code, Port_To_Name, Hours_Underway,
+        /// Total_Reported_Time, Transport_Work_PP, Transport_Work_Unit_PP,
+        /// Transport_Work, Transport_Work_Unit, CO2_Emitted_Mt, Distance, Cargo_Mt,
+        /// Cargo_M3, Cargo_Pax, Cargo_TEU, Deadweight, Gross_Tonnage,
+        /// Cargo_Percentage, Vessel_Flag, Vessel_Type_DCS, Vessel_Type_PP,
+        /// Vessel_Type_Other, Vessel_Category_PP, Data_Classification, AIS_Distance,
+        /// AIS_Duration, AIS_CO2_Emitted. Extra columns: ID, TS, NodeID, Signal,
+        /// Value."
+        /// }
+        /// ],
+        /// "lastModifiedAt": "2025-05-13T21:23:15.9390815Z"
+        /// }
+        /// ],
+        /// "pageIndex": 1,
+        /// "pageSize": 10,
+        /// "totalCount": 43,
+        /// "totalPages": 5
+        /// }
+        /// </remarks>
+        /// <param name='workspaceId'>
+        /// </param>
+        /// <param name='pageIndex'>
+        /// </param>
+        /// <param name='pageSize'>
+        /// </param>
+        /// <param name='sortColumn'>
+        /// </param>
+        /// <param name='sortDirection'>
+        /// Possible values include: 'Ascending', 'Descending'
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        public async Task<JobHistoryDTOPaginatedResult> GetWorkspaceJobHistoryAsync(System.Guid workspaceId, int? pageIndex = default, int? pageSize = default, string sortColumn = default, string sortDirection = default, CancellationToken cancellationToken = default)
+        {
+            using (var _result = await GetWorkspaceJobHistoryWithHttpMessagesAsync(workspaceId, pageIndex, pageSize, sortColumn, sortDirection, null, cancellationToken).ConfigureAwait(false))
+            {
+                return _result.Body;
+            }
+        }
+
+        /// <summary>
         /// Retrieve the content of the BYOD status file
         /// </summary>
         /// <remarks>
@@ -392,6 +2009,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataWorkbenchApiV2
         /// <return>
         /// A response object containing the response body and response headers.
         /// </return>
+        [System.Obsolete("This operation is deprecated. Please do not use it any longer.")]
         public async Task<HttpOperationResponse<StatusLogModel>> GetStatusLogWithHttpMessagesAsync(System.Guid workspaceId, System.Guid requestId, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default)
         {
             // Construct URL
@@ -495,6 +2113,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataWorkbenchApiV2
         /// <param name='cancellationToken'>
         /// The cancellation token.
         /// </param>
+        [System.Obsolete("This operation is deprecated. Please do not use it any longer.")]
         public async Task<StatusLogModel> GetStatusLogAsync(System.Guid workspaceId, System.Guid requestId, CancellationToken cancellationToken = default)
         {
             using (var _result = await GetStatusLogWithHttpMessagesAsync(workspaceId, requestId, null, cancellationToken).ConfigureAwait(false))

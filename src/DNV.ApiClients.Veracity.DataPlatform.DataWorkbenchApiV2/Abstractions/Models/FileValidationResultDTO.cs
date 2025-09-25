@@ -9,24 +9,23 @@ using System.Linq;
 namespace DNV.ApiClients.Veracity.DataPlatform.DataWorkbenchApiV2.Models
 {
     using Newtonsoft.Json;
-    using System.Collections;
-    using System.Collections.Generic;
-    public partial class RevokeSasPolicyDTO
+    public partial class FileValidationResultDTO
     {
         /// <summary>
-        /// Initializes a new instance of the RevokeSasPolicyDTO class.
+        /// Initializes a new instance of the FileValidationResultDTO class.
         /// </summary>
-        public RevokeSasPolicyDTO()
+        public FileValidationResultDTO()
         {
             CustomInit();
         }
 
         /// <summary>
-        /// Initializes a new instance of the RevokeSasPolicyDTO class.
+        /// Initializes a new instance of the FileValidationResultDTO class.
         /// </summary>
-        public RevokeSasPolicyDTO(IEnumerable<string> policies = default)
+        public FileValidationResultDTO(bool isValid = default, string errorReason = default)
         {
-            Policies = policies;
+            IsValid = isValid;
+            ErrorReason = errorReason;
             CustomInit();
         }
 
@@ -37,8 +36,13 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataWorkbenchApiV2.Models
 
         /// <summary>
         /// </summary>
-        [JsonProperty(PropertyName = "policies")]
-        public IEnumerable<string> Policies { get; set; }
+        [JsonProperty(PropertyName = "isValid")]
+        public bool IsValid { get; set; }
+
+        /// <summary>
+        /// </summary>
+        [JsonProperty(PropertyName = "errorReason")]
+        public string ErrorReason { get; set; }
 
     }
 }

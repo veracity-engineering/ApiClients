@@ -26,7 +26,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataWorkbenchApiV2.Models
         /// </summary>
         /// <param name="status">Possible values include: 'New', 'Pending',
         /// 'Processing', 'Accepted', 'Declined'</param>
-        public ShareRequestDto(System.Guid id = default, System.Guid requestorWorkspaceId = default, System.Guid receiverWorkspaceId = default, System.Guid datasetRequestId = default, System.Guid schemaId = default, System.Guid schemaVersionId = default, IEnumerable<string> columns = default, IEnumerable<QueryFilter> queryFilters = default, System.Guid? associatedShareId = default, string notes = default, ShareRequestStatusDto? status = default, System.Guid createdBy = default, System.DateTime createdOn = default)
+        public ShareRequestDto(System.Guid id = default, System.Guid requestorWorkspaceId = default, System.Guid receiverWorkspaceId = default, System.Guid datasetRequestId = default, System.Guid schemaId = default, System.Guid schemaVersionId = default, IEnumerable<string> columns = default, IEnumerable<QueryFilter> queryFilters = default, System.Guid? associatedShareId = default, System.Guid? associatedDatasetId = default, string notes = default, ShareRequestStatusDto? status = default, System.Guid createdBy = default, System.DateTime createdOn = default)
         {
             Id = id;
             RequestorWorkspaceId = requestorWorkspaceId;
@@ -37,6 +37,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataWorkbenchApiV2.Models
             Columns = columns;
             QueryFilters = queryFilters;
             AssociatedShareId = associatedShareId;
+            AssociatedDatasetId = associatedDatasetId;
             Notes = notes;
             Status = status;
             CreatedBy = createdBy;
@@ -93,6 +94,11 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataWorkbenchApiV2.Models
         /// </summary>
         [JsonProperty(PropertyName = "associatedShareId")]
         public System.Guid? AssociatedShareId { get; set; }
+
+        /// <summary>
+        /// </summary>
+        [JsonProperty(PropertyName = "associatedDatasetId")]
+        public System.Guid? AssociatedDatasetId { get; set; }
 
         /// <summary>
         /// </summary>

@@ -33,7 +33,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataWorkbenchApiV2.Models
         /// 'NonFromList', 'StringContains'</param>
         /// <param name="metaType">Possible values include: 'Validation',
         /// 'FallbackIndicator', 'Timestamp'</param>
-        public ColumnDto(string name, string displayName, ColumnTypes type, FilterType? filterType = default, IEnumerable<FilterType?> filterTypes = default, string format = default, bool isSortable = default, string description = default, bool? isFilterable = default, int order = default, bool isRequired = default, IEnumerable<ColumnValidationDto> validations = default, MetaType? metaType = default)
+        public ColumnDto(string name, string displayName, ColumnTypes type, FilterType? filterType = default, IEnumerable<FilterType?> filterTypes = default, string format = default, bool isSortable = default, string description = default, bool? isFilterable = default, bool? isKey = default, int order = default, bool isRequired = default, IEnumerable<ColumnValidationDto> validations = default, MetaType? metaType = default)
         {
             Name = name;
             DisplayName = displayName;
@@ -44,6 +44,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataWorkbenchApiV2.Models
             IsSortable = isSortable;
             Description = description;
             IsFilterable = isFilterable;
+            IsKey = isKey;
             Order = order;
             IsRequired = isRequired;
             Validations = validations;
@@ -105,6 +106,11 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataWorkbenchApiV2.Models
         /// </summary>
         [JsonProperty(PropertyName = "isFilterable")]
         public bool? IsFilterable { get; set; }
+
+        /// <summary>
+        /// </summary>
+        [JsonProperty(PropertyName = "isKey")]
+        public bool? IsKey { get; set; }
 
         /// <summary>
         /// </summary>
