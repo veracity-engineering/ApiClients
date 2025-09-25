@@ -7,7 +7,7 @@
   },
   "servers": [
     {
-      "url": "https://tst-api.dw.veracity.com/gateway/api/v2"
+      "url": "https://api.dw.veracity.com/gateway/api/v2"
     }
   ],
   "paths": {
@@ -361,6 +361,46 @@
         }
       }
     },
+    "/workspaces/query": {
+      "post": {
+        "tags": [
+          "Tenants"
+        ],
+        "summary": "Query workspaces by conditions",
+        "description": "Sample request:\r\n\r\n    {\r\n        \u0022tagName\u0022: \u0022tag1\u0022,\r\n        \u0022vtmId\u0022: \u00221234567\u0022,       \r\n        \u0022customerId\u0022: \u00221234567\u0022\r\n    }\r\n    \r\nSample response:\r\n\r\n    [\r\n      {\r\n        \u0022workspaceId\u0022: \u0022196a8ff4-dfbc-4ee7-ae08-4f38b84d9c86\u0022,\r\n        \u0022workspaceName\u0022: \u0022shanghai123\u0022,\r\n        \u0022workspaceDescription\u0022: \u0022shanghai desc\u0022,\r\n        \u0022workspaceRegion\u0022: \u0022EU\u0022,\r\n        \u0022tenantId\u0022: \u00227794cb5a-403e-4f87-bd80-f7f35a34f8fb\u0022,\r\n        \u0022tenantName\u0022: \u0022EasTenant1\u0022,\r\n        \u0022tenantAlias\u0022: \u0022DC\u0022\r\n      }\r\n    ]",
+        "operationId": "Tenants_WorkspacesQuery",
+        "requestBody": {
+          "description": "Workspace query dto",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/WorkspaceQueryDto"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/WorkspaceWithTenantReadDto"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-feature-flags": [
+          "All",
+          "654842_EnableQueryWorkspacesV2"
+        ]
+      }
+    },
     "/workspaces/{workspaceId}": {
       "get": {
         "tags": [
@@ -671,6 +711,7 @@
           "Datasets"
         ],
         "summary": "Get all data sets for a specific workspace. Supports pagination, enhanced filtering and sorting.",
+        "description": "Sample request:\r\n\r\n    {\r\n        \u0022isBaseDataset\u0022: false,\r\n        \u0022pageIndex\u0022: 1,\r\n        \u0022pageSize\u0022: 10,\r\n        \u0022sortColumn\u0022: \u0022IMO\u0022,\r\n        \u0022sortDirection\u0022: \u0022Ascending\u0022,\r\n        \u0022datasetName\u0022: \u0022Share test (3)\u0022,\r\n        \u0022tags\u0022: { \u0022t1\u0022: [\u0022v1\u0022] },\r\n        \u0022createdAfter\u0022: \u00222020-01-28T08:55:05.975Z\u0022,\r\n        \u0022createdBefore\u0022: \u00222025-04-28T08:55:05.975Z\u0022,\r\n        \u0022schemaId\u0022: \u002207961ff0-5bbd-4ef1-8ea3-7b5d9907ee62\u0022    // Get datasets belongs to all schema versions of the given schema\r\n    }\r\n    \r\nSample response:\r\n\r\n    {\r\n        \u0022result\u0022: [\r\n            {\r\n                \u0022id\u0022: \u00220d8ac9e1-a3ce-4a43-aa6f-12a02192dbe0\u0022,\r\n                \u0022name\u0022: \u0022Share test (3)\u0022,\r\n                \u0022description\u0022: \u0022Share desc\u0022,\r\n                \u0022workspaceId\u0022: \u0022196a8ff4-dfbc-4ee7-ae08-4f38b84d9c86\u0022,\r\n                \u0022connectionId\u0022: \u002241f00188-407e-4efa-a546-a13b47ff6717\u0022,\r\n                \u0022createdBy\u0022: \u002236f17b7f-3829-4e61-8106-d9047bd04dc4\u0022,\r\n                \u0022createdOn\u0022: \u00222025-04-21T01:42:22.5358667Z\u0022,\r\n                \u0022lastModifiedBy\u0022: \u002236f17b7f-3829-4e61-8106-d9047bd04dc4\u0022,\r\n                \u0022lastModifiedOn\u0022: \u00222025-04-21T01:42:22.535868Z\u0022,\r\n                \u0022schemaInfo\u0022: {\r\n                    \u0022schemaVersionId\u0022: \u0022a4276640-ab83-4ebd-a745-67bef52ac34a\u0022,\r\n                    \u0022schemaName\u0022: \u0022Monthly emissions summary V1\u0022\r\n                },\r\n                \u0022queries\u0022: [\r\n                    {\r\n                        \u0022column\u0022: \u0022IMO\u0022,\r\n                        \u0022filterType\u0022: \u0022List\u0022,\r\n                        \u0022filterValues\u0022: [\r\n                            \u00220001016\u0022,\r\n                            \u00221111111\u0022\r\n                        ]\r\n                    }\r\n                ],\r\n                \u0022columns\u0022: [\r\n                    \u0022IMO\u0022,\r\n                    \u0022Vessel_Name\u0022\r\n                ],\r\n                \u0022isBaseDataset\u0022: false,\r\n                \u0022tags\u0022: {\r\n                    \u0022t1\u0022: [\r\n                        \u0022v1\u0022,\r\n                        \u0022v2\u0022\r\n                    ]\r\n                },\r\n                \u0022sharedBy\u0022: {\r\n                    \u0022id\u0022: \u0022258f29e2-769e-4841-b08c-fff3026c2f93\u0022,\r\n                    \u0022sharedByType\u0022: \u0022Workspace\u0022,\r\n                    \u0022name\u0022: \u0022BoolTenant, WS_Bool\u0022\r\n                }\r\n            }\r\n        ],\r\n        \u0022pageIndex\u0022: 1,\r\n        \u0022pageSize\u0022: 10,\r\n        \u0022totalCount\u0022: 1,\r\n        \u0022totalPages\u0022: 1\r\n    }",
         "operationId": "Datasets_GetDataCatalogsQuery",
         "parameters": [
           {
@@ -786,6 +827,54 @@
           },
           "404": {
             "description": "Not Found"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Datasets"
+        ],
+        "summary": "Delete a specific dataset by Workspace Id and DataSet Id",
+        "operationId": "Datasets_DeleteDataset",
+        "parameters": [
+          {
+            "name": "workspaceId",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "x-nullable": false
+            },
+            "x-nullable": false
+          },
+          {
+            "name": "datasetId",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "x-nullable": false
+            },
+            "x-nullable": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
           }
         }
       }
@@ -1046,7 +1135,7 @@
     "/workspaces/{workspaceId}/ingest": {
       "post": {
         "tags": [
-          "Ingest"
+          "Datasets Ingest"
         ],
         "summary": "Get data ingest endpoint for current workspace",
         "description": "Sample request\r\n\r\n    dfs:\r\n        POST {workspaceId}/Ingest?type=dfs\r\n        POST {workspaceId}/Ingest?datasetId=be072260-78d9-4e14-ac16-942284026577\u0026type=dfs\r\n    blob:\r\n        POST {workspaceId}/Ingest?type=blob\r\n        POST {workspaceId}/Ingest?datasetId=be072260-78d9-4e14-ac16-942284026577\u0026type=blob\r\n\r\nSample response\r\n    \r\n    dfs:\r\n        https://{domain}.dfs.core.windows.net/196a8ff4-dfbc-4ee7-ae08-4f38b84d9c86/a16d1d0d-2b92-4e71-b2a1-2931ce61c863/Raw?sv=2023-11-03\u0026spr=https\u0026st=2024-07-12T01%3A55%3A12Z\u0026se=2024-07-12T02%3A10%3A12Z\u0026sr=d\u0026sp=cw\u0026sdd=2\u0026sig=%2BaxD8B250vI0bJn9u8KHRv7duvLjqXlhOfVBOCi5Cqo%3D\r\n    blob:\r\n        https://{domain}.blob.core.windows.net/196a8ff4-dfbc-4ee7-ae08-4f38b84d9c86/f5a0ef4c-e76f-4d1c-9b0d-947c8b7923ff/Raw?sv=2023-11-03\u0026spr=https\u0026st=2024-07-12T01%3A56%3A01Z\u0026se=2024-07-12T02%3A11%3A01Z\u0026sr=d\u0026sp=cw\u0026sdd=2\u0026sig=EzfaySpQ5hAN2eLEAPp4vhRIyvMUDikD4iFKDmagpKM%3D",
@@ -1094,13 +1183,246 @@
               }
             }
           }
-        }
+        },
+        "deprecated": true
+      }
+    },
+    "/workspaces/{workspaceId}/ingest/dataset": {
+      "post": {
+        "tags": [
+          "Datasets Ingest"
+        ],
+        "summary": "Create an ingest dataset in the workspace",
+        "description": "Sample request For Create Ingest Dataset:\r\n\r\n\t{\r\n\t  \u0022datasetName\u0022: \u0022string\u0022,\r\n\t  \u0022datasetDescription\u0022: \u0022string\u0022,\r\n\t  \u0022schemaVersionId\u0022: \u00223fa85f64-5717-4562-b3fc-2c963f66afa6\u0022,\r\n\t  \u0022files\u0022: [\r\n\t    {\r\n\t      \u0022fileName\u0022: \u0022string\u0022,\r\n\t      \u0022operation\u0022: \u0022Create\u0022\r\n\t    }\r\n\t  ],\r\n      \u0022tags\u0022: [\r\n        {\r\n            \u0022key\u0022: \u0022tag1\u0022,\r\n            \u0022values\u0022: [\r\n                 \u0022tag1Value\u0022\r\n            ]\r\n        },\r\n        {\r\n            \u0022key\u0022: \u0022tag2\u0022,\r\n            \u0022values\u0022: [\r\n                 \u0022tag2Value\u0022\r\n            ]\r\n        }\r\n      ],\r\n\t  \u0022provider\u0022: \u0022string\u0022,\r\n\t  \u0022startAutomatically\u0022: true\r\n\t}\r\n\r\n* startAutomatically is optional with default value as true. \r\n    If set to true, the file will be processed automatically. (There is no need to run the validate and start endpoint manually after uploading the file).\r\n    If set to false, please call the validate and start endpoint manually after uploading the file.\r\n* tags are optional. Either send null, or an array with at least 1 tag.\r\n* provider is optional and should only be specified if you have been informed to do so.\r\n\r\nSample Response:\r\n\r\n\t{\r\n\t  \u0022workspaceId\u0022: \u00223fa85f64-5717-4562-b3fc-2c963f66afa6\u0022,\r\n      \u0022jobId\u0022: \u00223fa85f64-5717-4562-b3fc-2c963f66afa6\u0022,\r\n      \u0022sasToken\u0022: \u0022string\u0022\r\n\t}\r\n\t\r\n* jobId in the response is the ingest job which will take care of creating the ingest dataset.\r\n* sasToken in the response is the token which will be used to upload the file to create ingest dataset.",
+        "operationId": "Ingest_CreateIngestDataset",
+        "parameters": [
+          {
+            "name": "workspaceId",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "x-nullable": false
+            },
+            "x-nullable": false
+          }
+        ],
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateIngestDatasetRequestDTO"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Returns Ingest dataset object",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IngestDatasetResponseDTO"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        },
+        "x-feature-flags": [
+          "All",
+          "656987_EnableUpsertV2Endpoints"
+        ]
+      }
+    },
+    "/workspaces/{workspaceId}/ingest/dataset/{datasetId}": {
+      "put": {
+        "tags": [
+          "Datasets Ingest"
+        ],
+        "summary": "Update an existing dataset in the workspace",
+        "description": "Sample request For Updating Ingest Dataset:\r\n\r\n\t{\r\n\t  \u0022files\u0022: [\r\n\t    {\r\n\t      \u0022fileName\u0022: \u0022string\u0022,\r\n\t      \u0022operation\u0022: \u0022Upsert\u0022\r\n\t    }\r\n\t  ]\r\n\t  \u0022startAutomatically\u0022: true,\r\n      \u0022datasetDescription\u0022: \u0022string\u0022,\r\n      \u0022tags\u0022: [\r\n        {\r\n          \u0022key\u0022: \u0022tag1\u0022,\r\n          \u0022values\u0022: [\r\n            \u0022tag1Value\u0022\r\n          ]\r\n        },\r\n        {\r\n          \u0022key\u0022: \u0022tag2\u0022,\r\n          \u0022values\u0022: [\r\n            \u0022tag2Value\u0022\r\n          ]\r\n        }\r\n      ]\r\n\t}\r\n\t\r\n* startAutomatically is optional with default value as true. \r\n    If set to true, there is no need to call the validate and start endpoint manually after uploading the file.\r\n    If set to false, we should run the validate and start endpoint manually after uploading the file.\r\n* datasetDescription is optional.\r\n* tags are optional. Either send null, or an array with at least 1 tag.\r\n\r\nSample Response:\r\n\r\n\t{\r\n\t  \u0022workspaceId\u0022: \u00223fa85f64-5717-4562-b3fc-2c963f66afa6\u0022,\r\n      \u0022jobId\u0022: \u00223fa85f64-5717-4562-b3fc-2c963f66afa6\u0022,\r\n      \u0022sasToken\u0022: \u0022string\u0022\r\n\t}\r\n\t\r\n* jobId in the response is the ingest job which will take care of updating the ingest dataset.\r\n* sasToken in the response is the token which will be used to upload the file to update ingest dataset",
+        "operationId": "Ingest_UpdateIngestDataset",
+        "parameters": [
+          {
+            "name": "workspaceId",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "x-nullable": false
+            },
+            "x-nullable": false
+          },
+          {
+            "name": "datasetId",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "x-nullable": false
+            },
+            "x-nullable": false
+          }
+        ],
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateIngestDatasetRequestDTO"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Returns Job object",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IngestDatasetResponseDTO"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        },
+        "x-feature-flags": [
+          "All",
+          "656987_EnableUpsertV2Endpoints"
+        ]
+      }
+    },
+    "/workspaces/{workspaceId}/ingest/dataset/{datasetId}/history": {
+      "get": {
+        "tags": [
+          "Datasets Ingest"
+        ],
+        "summary": "Get Ingest Job History for Dataset",
+        "description": "Sample Response\r\n\r\n    {\r\n        result: [ \r\n           {\r\n               \u0022jobId\u0022: \u002226a39ea0-0702-4d07-8170-171f50388f83\u0022,\r\n               \u0022workspaceId\u0022: \u0022196a8ff4-dfbc-4ee7-ae08-4f38b84d9c86\u0022,\r\n               \u0022createdAt\u0022: \u00222025-04-22T18:18:52.4399275Z\u0022,\r\n               \u0022createdBy\u0022: \u00221346ea17-6954-4e46-9c8d-a56bb9dc76d1\u0022,\r\n               \u0022status\u0022: \u0022Failed\u0022,\r\n               \u0022operations\u0022: [\r\n                  \u0022Create\u0022\r\n               ],\r\n               \u0022error\u0022: \u0022An unexpected error occurred. Please contact support.\u0022,\r\n               \u0022notebookError\u0022: \u0022\u0022,\r\n               \u0022validationError\u0022: [],\r\n               \u0022lastModifiedAt\u0022: \u00222025-04-22T18:24:09.9343922Z\u0022\r\n           },\r\n           {   \r\n               \u0022jobId\u0022: \u002269b41efe-4988-4db5-a0da-4798bc9f3bf3\u0022,\r\n               \u0022workspaceId\u0022: \u0022196a8ff4-dfbc-4ee7-ae08-4f38b84d9c86\u0022,\r\n               \u0022datasetId\u0022: \u0022f0a29868-b286-4605-9d4b-7a31479dab3d\u0022,\r\n               \u0022createdAt\u0022: \u00222025-06-03T09:12:33.3609211Z\u0022,\r\n               \u0022createdBy\u0022: \u002200000000-0000-0000-0000-000000000001\u0022,\r\n               \u0022status\u0022: \u0022Completed\u0022,\r\n               \u0022operations\u0022: [\r\n                 \u0022Upsert\u0022\r\n               ],\r\n               \u0022notebookError\u0022: \u0022\u0022,\r\n               \u0022lastModifiedAt\u0022: \u00222025-06-03T09:16:27.584353Z\u0022\r\n           },\r\n           {\r\n              \u0022jobId\u0022: \u002214bc90e8-f107-479c-8a4b-6ecb91593986\u0022,\r\n              \u0022workspaceId\u0022: \u0022196a8ff4-dfbc-4ee7-ae08-4f38b84d9c86\u0022,\r\n              \u0022createdAt\u0022: \u00222025-05-13T21:20:22.5283497Z\u0022,\r\n              \u0022createdBy\u0022: \u002200000000-0000-0000-0000-000000000001\u0022,\r\n              \u0022status\u0022: \u0022Failed\u0022,\r\n              \u0022operations\u0022: [\r\n                  \u0022Create\u0022\r\n              ],\r\n              \u0022error\u0022: \u0022File(s) failed to validate.\u0022,\r\n              \u0022notebookError\u0022: \u0022\u0022,\r\n              \u0022validationError\u0022: [\r\n                   {\r\n                      \u0022fileName\u0022: \u0022Upload.csv\u0022,\r\n                      \u0022isValid\u0022: false,\r\n                      \u0022errorReason\u0022: \u0022Columns do not match schema. Missing columns: IMO, Vessel_Name, Voyage_Id, Leg_Start_DateTime, Leg_End_DateTime, Leg_Mode, Port_From_Code, Port_From_Name, Port_To_Code, Port_To_Name, Hours_Underway, Total_Reported_Time, Transport_Work_PP, Transport_Work_Unit_PP, Transport_Work, Transport_Work_Unit, CO2_Emitted_Mt, Distance, Cargo_Mt, Cargo_M3, Cargo_Pax, Cargo_TEU, Deadweight, Gross_Tonnage, Cargo_Percentage, Vessel_Flag, Vessel_Type_DCS, Vessel_Type_PP, Vessel_Type_Other, Vessel_Category_PP, Data_Classification, AIS_Distance, AIS_Duration, AIS_CO2_Emitted. Extra columns: ID, TS, NodeID, Signal, Value.\u0022\r\n                   }\r\n              ],\r\n              \u0022lastModifiedAt\u0022: \u00222025-05-13T21:23:15.9390815Z\u0022\r\n           }\r\n        ],\r\n        \u0022pageIndex\u0022: 1,\r\n        \u0022pageSize\u0022: 10,\r\n        \u0022totalCount\u0022: 43,\r\n        \u0022totalPages\u0022: 5\r\n    }",
+        "operationId": "Ingest_GetDatasetJobHistory",
+        "parameters": [
+          {
+            "name": "workspaceId",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "x-nullable": false
+            },
+            "x-nullable": false
+          },
+          {
+            "name": "datasetId",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "x-nullable": false
+            },
+            "x-nullable": false
+          },
+          {
+            "name": "pageIndex",
+            "in": "query",
+            "description": "",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "description": "",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "sortColumn",
+            "in": "query",
+            "description": "",
+            "schema": {
+              "type": "string",
+              "x-nullable": false
+            },
+            "x-nullable": false
+          },
+          {
+            "name": "sortDirection",
+            "in": "query",
+            "description": "",
+            "schema": {
+              "$ref": "#/components/schemas/SortDirection"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns Job History Paginated result",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/JobHistoryDTOPaginatedResult"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        },
+        "x-feature-flags": [
+          "All",
+          "656987_EnableUpsertV2Endpoints"
+        ]
       }
     },
     "/workspaces/{workspaceId}/ingest/datasets/import": {
       "post": {
         "tags": [
-          "Ingest"
+          "Datasets Ingest"
         ],
         "summary": "Import a dataset to the workspace",
         "operationId": "Ingest_ImportDataset",
@@ -1147,10 +1469,302 @@
         ]
       }
     },
+    "/workspaces/{workspaceId}/ingest/job/{jobId}/start": {
+      "post": {
+        "tags": [
+          "Datasets Ingest"
+        ],
+        "summary": "Start an existing job for ingest dataset in the workspace",
+        "description": "Sample Response:\r\n\r\n    {\r\n\t  \u0022startJobStatus\u0022: \u0022JobNotFound\u0022,\r\n\t  \u0022isValid\u0022: true,\r\n\t  \u0022validationResponse\u0022: {\r\n\t    \u0022errorReason\u0022: \u0022string\u0022,\r\n\t    \u0022files\u0022: {\r\n\t      \u0022additionalProp1\u0022: {\r\n            \u0022isValid\u0022: true,\r\n            \u0022errorReason\u0022: \u0022string\u0022\r\n          },\r\n          \u0022additionalProp2\u0022: {\r\n            \u0022isValid\u0022: true,\r\n            \u0022errorReason\u0022: \u0022string\u0022\r\n          },\r\n          \u0022additionalProp3\u0022: {\r\n            \u0022isValid\u0022: true,\r\n            \u0022errorReason\u0022: \u0022string\u0022\r\n          }\r\n        }\r\n      }\r\n\t}\r\n\t\r\n* If the validation for job or files fail, the response will have validation errors and job will not start.\r\n* If validation is successfull, the response will not have any validation error and job will start.\r\n* If job was set to startAutomatically = true, job will not start as it was set to start automatically.\r\n* If job has already started, job will not start again.",
+        "operationId": "Ingest_StartIngestJob",
+        "parameters": [
+          {
+            "name": "workspaceId",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "x-nullable": false
+            },
+            "x-nullable": false
+          },
+          {
+            "name": "jobId",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "x-nullable": false
+            },
+            "x-nullable": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns Start Job Result",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StartJobResultDTO"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        },
+        "x-feature-flags": [
+          "All",
+          "656987_EnableUpsertV2Endpoints"
+        ]
+      }
+    },
+    "/workspaces/{workspaceId}/ingest/job/{jobId}/status": {
+      "get": {
+        "tags": [
+          "Datasets Ingest"
+        ],
+        "summary": "Get status of an ingest job",
+        "description": "Sample Response\r\n\r\n    {\r\n        \u0022jobId\u0022: \u00223fa85f64-5717-4562-b3fc-2c963f66afa6\u0022,\r\n        \u0022status\u0022: \u0022Failed\u0022,\r\n        \u0022operations\u0022: [\r\n            \u0022Create\u0022\r\n        ],\r\n        \u0022errorMessage\u0022: \u0022Databricks processing error.\u0022,\r\n        \u0022notebookErrorMessage\u0022: \u0022Failed to execute CREATE operation.\u0022,\r\n        \u0022validationError\u0022: []\r\n    }\r\n    \r\n    {\r\n        \u0022jobId\u0022: \u00223fa85f64-5717-4562-b3fc-2c963f66afa6\u0022,\r\n        \u0022status\u0022: \u0022Completed\u0022,\r\n        \u0022operations\u0022: [\r\n            \u0022Create\u0022\r\n        ],\r\n        \u0022notebookErrorMessage\u0022: \u0022\u0022,\r\n        \u0022dataSetName\u0022: \u0022datasetName\u0022,\r\n        \u0022datasetId\u0022: \u00223fa85f64-5717-4562-b3fc-2c963f66afa6\u0022\r\n    }\r\n    \r\n    {\r\n        \u0022jobId\u0022: \u00223fa85f64-5717-4562-b3fc-2c963f66afa6\u0022,\r\n        \u0022status\u0022: \u0022Failed\u0022,\r\n        \u0022operations\u0022: [\r\n            \u0022Create\u0022\r\n        ],\r\n        \u0022errorMessage\u0022: \u0022File(s) failed to validate.\u0022,\r\n        \u0022notebookErrorMessage\u0022: \u0022\u0022,\r\n        \u0022validationError\u0022: [\r\n            {\r\n                \u0022FileName\u0022: \u0022test.csv\u0022,\r\n                \u0022isValid\u0022: false,\r\n                \u0022errorReason\u0022: \u0022File not found.\u0022\r\n            }\r\n            {\r\n                \u0022FileName\u0022: \u0022test.csv\u0022,\r\n                \u0022isValid\u0022: false,\r\n                \u0022errorReason\u0022: \u0022Columns do not match schema. Extra columns: Weight.\u0022\r\n            }\r\n    }",
+        "operationId": "Ingest_GetIngestJobStatus",
+        "parameters": [
+          {
+            "name": "workspaceId",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "x-nullable": false
+            },
+            "x-nullable": false
+          },
+          {
+            "name": "jobId",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "x-nullable": false
+            },
+            "x-nullable": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns Status Result",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/JobStatusDTO"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        },
+        "x-feature-flags": [
+          "All",
+          "656987_EnableUpsertV2Endpoints"
+        ]
+      }
+    },
+    "/workspaces/{workspaceId}/ingest/job/{jobId}/validate": {
+      "post": {
+        "tags": [
+          "Datasets Ingest"
+        ],
+        "summary": "Validate an existing job for ingest dataset in the workspace",
+        "description": "Sample Response:\r\n\r\n    {\r\n\t    \u0022isValid\u0022: true,\r\n\t    \u0022errorReason\u0022: \u0022string\u0022,\r\n\t    \u0022files\u0022: {\r\n\t      \u0022additionalProp1\u0022: {\r\n            \u0022isValid\u0022: true,\r\n            \u0022errorReason\u0022: \u0022string\u0022\r\n          },\r\n          \u0022additionalProp2\u0022: {\r\n            \u0022isValid\u0022: true,\r\n            \u0022errorReason\u0022: \u0022string\u0022\r\n          },\r\n          \u0022additionalProp3\u0022: {\r\n            \u0022isValid\u0022: true,\r\n            \u0022errorReason\u0022: \u0022string\u0022\r\n          }\r\n        }\r\n      }\r\n\t}\r\n\t\r\n* If job is set to startAutomatically = true, validation will not happen.\r\n* response will show the validation result for all files regardless they are valid or invalid.",
+        "operationId": "Ingest_ValidateIngestJob",
+        "parameters": [
+          {
+            "name": "workspaceId",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "x-nullable": false
+            },
+            "x-nullable": false
+          },
+          {
+            "name": "jobId",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "x-nullable": false
+            },
+            "x-nullable": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns Job Validation Result",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/JobValidationResultDTO"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        },
+        "x-feature-flags": [
+          "All",
+          "656987_EnableUpsertV2Endpoints"
+        ]
+      }
+    },
+    "/workspaces/{workspaceId}/ingest/jobs/history": {
+      "get": {
+        "tags": [
+          "Datasets Ingest"
+        ],
+        "summary": "Get Ingest Job History for workspace",
+        "description": "Sample Response\r\n\r\n    {\r\n        result: [ \r\n           {\r\n               \u0022jobId\u0022: \u002226a39ea0-0702-4d07-8170-171f50388f83\u0022,\r\n               \u0022workspaceId\u0022: \u0022196a8ff4-dfbc-4ee7-ae08-4f38b84d9c86\u0022,\r\n               \u0022createdAt\u0022: \u00222025-04-22T18:18:52.4399275Z\u0022,\r\n               \u0022createdBy\u0022: \u00221346ea17-6954-4e46-9c8d-a56bb9dc76d1\u0022,\r\n               \u0022status\u0022: \u0022Failed\u0022,\r\n               \u0022operations\u0022: [\r\n                  \u0022Create\u0022\r\n               ],\r\n               \u0022error\u0022: \u0022An unexpected error occurred. Please contact support.\u0022,\r\n               \u0022notebookError\u0022: \u0022\u0022,\r\n               \u0022validationError\u0022: [],\r\n               \u0022lastModifiedAt\u0022: \u00222025-04-22T18:24:09.9343922Z\u0022\r\n           },\r\n           {   \r\n               \u0022jobId\u0022: \u00228bcc224b-96b7-4f54-99c3-5c62a7a0b5b1\u0022,\r\n               \u0022workspaceId\u0022: \u0022196a8ff4-dfbc-4ee7-ae08-4f38b84d9c86\u0022,\r\n               \u0022createdAt\u0022: \u00222025-04-30T16:00:01.8200722Z\u0022,\r\n               \u0022createdBy\u0022: \u002200000000-0000-0000-0000-000000000001\u0022,\r\n               \u0022status\u0022: \u0022Proposed\u0022,\r\n               \u0022operations\u0022: [\r\n                  \u0022Create\u0022\r\n               ],\r\n               \u0022error\u0022: \u0022\u0022,\r\n               \u0022notebookError\u0022: \u0022\u0022,\r\n               \u0022validationError\u0022: []\r\n           },\r\n           {\r\n              \u0022jobId\u0022: \u002214bc90e8-f107-479c-8a4b-6ecb91593986\u0022,\r\n              \u0022workspaceId\u0022: \u0022196a8ff4-dfbc-4ee7-ae08-4f38b84d9c86\u0022,\r\n              \u0022createdAt\u0022: \u00222025-05-13T21:20:22.5283497Z\u0022,\r\n              \u0022createdBy\u0022: \u002200000000-0000-0000-0000-000000000001\u0022,\r\n              \u0022status\u0022: \u0022Failed\u0022,\r\n              \u0022operations\u0022: [\r\n                  \u0022Create\u0022\r\n              ],\r\n              \u0022error\u0022: \u0022File(s) failed to validate.\u0022,\r\n              \u0022notebookError\u0022: \u0022\u0022,\r\n              \u0022validationError\u0022: [\r\n                   {\r\n                      \u0022fileName\u0022: \u0022Upload.csv\u0022,\r\n                      \u0022isValid\u0022: false,\r\n                      \u0022errorReason\u0022: \u0022Columns do not match schema. Missing columns: IMO, Vessel_Name, Voyage_Id, Leg_Start_DateTime, Leg_End_DateTime, Leg_Mode, Port_From_Code, Port_From_Name, Port_To_Code, Port_To_Name, Hours_Underway, Total_Reported_Time, Transport_Work_PP, Transport_Work_Unit_PP, Transport_Work, Transport_Work_Unit, CO2_Emitted_Mt, Distance, Cargo_Mt, Cargo_M3, Cargo_Pax, Cargo_TEU, Deadweight, Gross_Tonnage, Cargo_Percentage, Vessel_Flag, Vessel_Type_DCS, Vessel_Type_PP, Vessel_Type_Other, Vessel_Category_PP, Data_Classification, AIS_Distance, AIS_Duration, AIS_CO2_Emitted. Extra columns: ID, TS, NodeID, Signal, Value.\u0022\r\n                   }\r\n              ],\r\n              \u0022lastModifiedAt\u0022: \u00222025-05-13T21:23:15.9390815Z\u0022\r\n           }\r\n        ],\r\n        \u0022pageIndex\u0022: 1,\r\n        \u0022pageSize\u0022: 10,\r\n        \u0022totalCount\u0022: 43,\r\n        \u0022totalPages\u0022: 5\r\n    }",
+        "operationId": "Ingest_GetWorkspaceJobHistory",
+        "parameters": [
+          {
+            "name": "workspaceId",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "x-nullable": false
+            },
+            "x-nullable": false
+          },
+          {
+            "name": "pageIndex",
+            "in": "query",
+            "description": "",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "description": "",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "sortColumn",
+            "in": "query",
+            "description": "",
+            "schema": {
+              "type": "string",
+              "x-nullable": false
+            },
+            "x-nullable": false
+          },
+          {
+            "name": "sortDirection",
+            "in": "query",
+            "description": "",
+            "schema": {
+              "$ref": "#/components/schemas/SortDirection"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns Job History Paginated result",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/JobHistoryDTOPaginatedResult"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        },
+        "x-feature-flags": [
+          "All",
+          "656987_EnableUpsertV2Endpoints"
+        ]
+      }
+    },
     "/workspaces/{workspaceId}/ingest/{requestId}/status": {
       "get": {
         "tags": [
-          "Ingest"
+          "Datasets Ingest"
         ],
         "summary": "Retrieve the content of the BYOD status file",
         "description": "Sample Response\r\n\r\n    {\r\n        \u0022status\u0022: \u0022Started\u0022,\r\n        \u0022correlationId\u0022: \u0022203bfa0b-86c3-4467-a3b0-d2eb415a96cc\u0022,\r\n        \u0022fileName\u0022: \u0022TestUpload.csv\u0022\r\n    }\r\n    \r\n    {\r\n        \u0022status\u0022: \u0022Completed\u0022,\r\n        \u0022correlationId\u0022: \u0022203bfa0b-86c3-4467-a3b0-d2eb415a96cc\u0022,\r\n        \u0022fileName\u0022: \u0022TestUpload.csv\u0022,\r\n        \u0022dataSetName\u0022: \u0022TestUploadLILN\u0022\r\n    }",
@@ -1193,6 +1807,7 @@
             }
           }
         },
+        "deprecated": true,
         "x-feature-flags": [
           "All",
           "589842_EnableGetIngestBYODStatusLog"
@@ -1279,19 +1894,24 @@
               "x-nullable": false
             },
             "x-nullable": false
+          },
+          {
+            "name": "policiesToRevoke",
+            "in": "query",
+            "description": "",
+            "required": true,
+            "style": "form",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "x-nullable": false
+              },
+              "x-nullable": false
+            },
+            "x-nullable": false
           }
         ],
-        "requestBody": {
-          "description": "",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/RevokeSasPolicyDTO"
-              }
-            }
-          },
-          "required": true
-        },
         "responses": {
           "204": {
             "description": "No Content"
@@ -1324,7 +1944,7 @@
         "tags": [
           "Datasets"
         ],
-        "summary": "Revoke all SAS tokens for the workspace container",
+        "summary": "Revoke all SAS policies for the workspace container",
         "operationId": "Datasets_RevokeAllSasTokensForContainer",
         "parameters": [
           {
@@ -1438,7 +2058,7 @@
         "tags": [
           "Datasets"
         ],
-        "summary": "Get a SAS policies for the workspace container",
+        "summary": "Get SAS policies for the workspace container",
         "operationId": "Datasets_GetSasPoliciesForContainer",
         "parameters": [
           {
@@ -1781,10 +2401,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/SchemaVersionReadDto"
-                  }
+                  "$ref": "#/components/schemas/SchemaVersionReadDto"
                 }
               }
             }
@@ -2403,11 +3020,7 @@
               }
             }
           }
-        },
-        "x-feature-flags": [
-          "All",
-          "593747_EnableUpdateSchemaWithNewEndpoint"
-        ]
+        }
       }
     },
     "/workspaces/{workspaceId}/schemas/{schemaId}/schemaversions/{schemaVersionId}/activate": {
@@ -2476,11 +3089,7 @@
               }
             }
           }
-        },
-        "x-feature-flags": [
-          "All",
-          "593747_EnableUpdateSchemaWithNewEndpoint"
-        ]
+        }
       }
     },
     "/workspaces/{workspaceId}/schemas/{schemaId}/schemaversions/{versionId}/lock": {
@@ -2609,7 +3218,7 @@
           "ShareRequests"
         ],
         "summary": "Retrieves all share requests requested from the workspace or share requests requested to the workspace",
-        "description": "Sample request(following parameters are optional except pageIndex):\r\n\r\n    {\r\n        \u0022pageIndex\u0022: 1,\r\n        \u0022pageSize\u0022: 10,\r\n        \u0022sortColumn\u0022: \u0022Status\u0022,\r\n        \u0022sortDirection\u0022: \u0022Ascending\u0022,\r\n        \u0022isRequestor\u0022: true,\r\n        \u0022schemaIds\u0022: [\r\n            \u002228c9e18d-8beb-44a4-92c1-7cea2587977b\u0022\r\n        ],\r\n        \u0022schemaVersionIds\u0022: [\r\n            \u002275ef9474-089f-4f77-9bcf-63cf9658387e\u0022\r\n        ],\r\n        \u0022workspaceIds\u0022: [\r\n            \u0022a33060fe-de8f-469c-8cb2-864753f46d64\u0022\r\n        ],\r\n        \u0022statuses\u0022: [\r\n            \u0022New\u0022\r\n        ]\r\n    }\r\n    \r\nSample response:\r\n\r\n    {\r\n        \u0022result\u0022: [\r\n            {\r\n                \u0022id\u0022: \u00221a940e6a-2e2e-4cc9-894d-807cb2d90d5f\u0022,\r\n                \u0022requestorWorkspaceId\u0022: \u0022196a8ff4-dfbc-4ee7-ae08-4f38b84d9c86\u0022,\r\n                \u0022receiverWorkspaceId\u0022: \u0022a33060fe-de8f-469c-8cb2-864753f46d64\u0022,\r\n                \u0022datasetRequestId\u0022: \u00225faf4e0a-0a12-4eb9-a82f-a71d076ebc33\u0022,\r\n                \u0022schemaId\u0022: \u002228c9e18d-8beb-44a4-92c1-7cea2587977b\u0022,\r\n                \u0022schemaVersionId\u0022: \u002275ef9474-089f-4f77-9bcf-63cf9658387e\u0022,\r\n                \u0022columns\u0022: [\r\n                    \u0022IMO\u0022,\r\n                    \u0022Vessel_Name\u0022\r\n                ],\r\n                \u0022queryFilters\u0022: [\r\n                    {\r\n                        \u0022column\u0022: \u0022IMO\u0022,\r\n                        \u0022filterType\u0022: \u0022List\u0022,\r\n                        \u0022filterValues\u0022: [\r\n                            \u00229226425\u0022,\r\n                            \u00229626053\u0022\r\n                        ]\r\n                    }\r\n                ],\r\n                \u0022associatedShareId\u0022: \u00226f9d46bd-76b4-4b79-95fa-a2c5abd2bec7\u0022,\r\n                \u0022notes\u0022: \u0022Test notes\u0022,\r\n                \u0022status\u0022: \u0022New\u0022,\r\n                \u0022createdBy\u0022: \u002255da50ee-20af-4bf1-aa7f-b5a64e72f09d\u0022,\r\n                \u0022createdOn\u0022: \u00222025-02-26T10:13:08.4101697Z\u0022\r\n            }\r\n        ],\r\n        \u0022pageIndex\u0022: 1,\r\n        \u0022pageSize\u0022: 10,\r\n        \u0022totalCount\u0022: 1,\r\n        \u0022totalPages\u0022: 1\r\n    }",
+        "description": "Sample request(following parameters are optional except pageIndex):\r\n\r\n    {\r\n        \u0022pageIndex\u0022: 1,\r\n        \u0022pageSize\u0022: 10,\r\n        \u0022sortColumn\u0022: \u0022Status\u0022,\r\n        \u0022sortDirection\u0022: \u0022Ascending\u0022,\r\n        \u0022isRequestor\u0022: true,\r\n        \u0022schemaIds\u0022: [\r\n            \u002228c9e18d-8beb-44a4-92c1-7cea2587977b\u0022\r\n        ],\r\n        \u0022schemaVersionIds\u0022: [\r\n            \u002275ef9474-089f-4f77-9bcf-63cf9658387e\u0022\r\n        ],\r\n        \u0022workspaceIds\u0022: [\r\n            \u0022a33060fe-de8f-469c-8cb2-864753f46d64\u0022\r\n        ],\r\n        \u0022statuses\u0022: [\r\n            \u0022Accepted\u0022\r\n        ]\r\n    }\r\n    \r\nSample response:\r\n\r\n    {\r\n        \u0022result\u0022: [\r\n            {\r\n                \u0022id\u0022: \u00221a940e6a-2e2e-4cc9-894d-807cb2d90d5f\u0022,\r\n                \u0022requestorWorkspaceId\u0022: \u0022196a8ff4-dfbc-4ee7-ae08-4f38b84d9c86\u0022,\r\n                \u0022receiverWorkspaceId\u0022: \u0022a33060fe-de8f-469c-8cb2-864753f46d64\u0022,\r\n                \u0022datasetRequestId\u0022: \u00225faf4e0a-0a12-4eb9-a82f-a71d076ebc33\u0022,\r\n                \u0022schemaId\u0022: \u002228c9e18d-8beb-44a4-92c1-7cea2587977b\u0022,\r\n                \u0022schemaVersionId\u0022: \u002275ef9474-089f-4f77-9bcf-63cf9658387e\u0022,\r\n                \u0022columns\u0022: [\r\n                    \u0022IMO\u0022,\r\n                    \u0022Vessel_Name\u0022\r\n                ],\r\n                \u0022queryFilters\u0022: [\r\n                    {\r\n                        \u0022column\u0022: \u0022IMO\u0022,\r\n                        \u0022filterType\u0022: \u0022List\u0022,\r\n                        \u0022filterValues\u0022: [\r\n                            \u00229226425\u0022,\r\n                            \u00229626053\u0022\r\n                        ]\r\n                    }\r\n                ],\r\n                \u0022associatedShareId\u0022: \u00226f9d46bd-76b4-4b79-95fa-a2c5abd2bec7\u0022,    //Will be available only after share request get accepted\r\n                \u0022associatedDatasetId\u0022: \u00227aa39404-7fa4-4352-bfd0-b5c25fa8b745\u0022,    //Will be available only after share request get accepted\r\n                \u0022notes\u0022: \u0022Test notes\u0022,\r\n                \u0022status\u0022: \u0022Accepted\u0022,\r\n                \u0022createdBy\u0022: \u002255da50ee-20af-4bf1-aa7f-b5a64e72f09d\u0022,\r\n                \u0022createdOn\u0022: \u00222025-02-26T10:13:08.4101697Z\u0022\r\n            }\r\n        ],\r\n        \u0022pageIndex\u0022: 1,\r\n        \u0022pageSize\u0022: 10,\r\n        \u0022totalCount\u0022: 1,\r\n        \u0022totalPages\u0022: 1\r\n    }",
         "operationId": "ShareRequests_QueryShareRequests",
         "parameters": [
           {
@@ -2670,7 +3279,7 @@
           "ShareRequests"
         ],
         "summary": "Get share request",
-        "description": "Sample request:\r\n\r\n    GET /api/v2/{workspaceId}/shareRequests/{shareRequestId}\r\n        /api/v2/196a8ff4-dfbc-4ee7-ae08-4f38b84d9c86/shareRequests/348b5dcf-edff-415b-9259-384b20932fc0\r\n\r\nSample response:\r\n\r\n    {\r\n        \u0022id\u0022: \u00221a940e6a-2e2e-4cc9-894d-807cb2d90d5f\u0022,\r\n        \u0022requestorWorkspaceId\u0022: \u0022196a8ff4-dfbc-4ee7-ae08-4f38b84d9c86\u0022,\r\n        \u0022receiverWorkspaceId\u0022: \u0022a33060fe-de8f-469c-8cb2-864753f46d64\u0022,\r\n        \u0022datasetRequestId\u0022: \u00226113fcaa-a29e-4804-b9a9-dac331676ee8\u0022,\r\n        \u0022schemaId\u0022: \u002228c9e18d-8beb-44a4-92c1-7cea2587977b\u0022,\r\n        \u0022schemaVersionId\u0022: \u002275ef9474-089f-4f77-9bcf-63cf9658387e\u0022,\r\n        \u0022columns\u0022: [\r\n            \u0022IMO\u0022,\r\n            \u0022Vessel_Name\u0022\r\n        ],\r\n        \u0022queryFilters\u0022: [\r\n            {\r\n                \u0022column\u0022: \u0022IMO\u0022,\r\n                \u0022filterType\u0022: \u0022List\u0022,\r\n                \u0022filterValues\u0022: [\r\n                    \u00229226425\u0022,\r\n                    \u00229626053\u0022\r\n                ]\r\n            }\r\n        ],\r\n        \u0022associatedShareId\u0022: \u00224c46787e-946a-4265-9574-aaa1a1e4d2f0\u0022,\r\n        \u0022notes\u0022: \u0022Test notes\u0022,\r\n        \u0022status\u0022: \u0022New\u0022,\r\n        \u0022createdBy\u0022: \u002255da50ee-20af-4bf1-aa7f-b5a64e72f09d\u0022,\r\n        \u0022createdOn\u0022: \u00222025-02-26T10:13:08.4101697Z\u0022\r\n    }",
+        "description": "Sample request:\r\n\r\n    GET /api/v2/{workspaceId}/shareRequests/{shareRequestId}?isRequestor=true\r\n        /api/v2/196a8ff4-dfbc-4ee7-ae08-4f38b84d9c86/shareRequests/348b5dcf-edff-415b-9259-384b20932fc0?isRequestor=true\r\n\r\nSample response:\r\n\r\n    {\r\n        \u0022id\u0022: \u00221a940e6a-2e2e-4cc9-894d-807cb2d90d5f\u0022,\r\n        \u0022requestorWorkspaceId\u0022: \u0022196a8ff4-dfbc-4ee7-ae08-4f38b84d9c86\u0022,\r\n        \u0022receiverWorkspaceId\u0022: \u0022a33060fe-de8f-469c-8cb2-864753f46d64\u0022,\r\n        \u0022datasetRequestId\u0022: \u00226113fcaa-a29e-4804-b9a9-dac331676ee8\u0022,\r\n        \u0022schemaId\u0022: \u002228c9e18d-8beb-44a4-92c1-7cea2587977b\u0022,\r\n        \u0022schemaVersionId\u0022: \u002275ef9474-089f-4f77-9bcf-63cf9658387e\u0022,\r\n        \u0022columns\u0022: [\r\n            \u0022IMO\u0022,\r\n            \u0022Vessel_Name\u0022\r\n        ],\r\n        \u0022queryFilters\u0022: [\r\n            {\r\n                \u0022column\u0022: \u0022IMO\u0022,\r\n                \u0022filterType\u0022: \u0022List\u0022,\r\n                \u0022filterValues\u0022: [\r\n                    \u00229226425\u0022,\r\n                    \u00229626053\u0022\r\n                ]\r\n            }\r\n        ],\r\n        \u0022associatedShareId\u0022: \u00224c46787e-946a-4265-9574-aaa1a1e4d2f0\u0022,    //Will be available only after share request get accepted\r\n        \u0022associatedDatasetId\u0022: \u00227aa39404-7fa4-4352-bfd0-b5c25fa8b745\u0022,    //Will be available only after share request get accepted\r\n        \u0022notes\u0022: \u0022Test notes\u0022,\r\n        \u0022status\u0022: \u0022Accepted\u0022,\r\n        \u0022createdBy\u0022: \u002255da50ee-20af-4bf1-aa7f-b5a64e72f09d\u0022,\r\n        \u0022createdOn\u0022: \u00222025-02-26T10:13:08.4101697Z\u0022\r\n    }",
         "operationId": "ShareRequests_GetShareRequest",
         "parameters": [
           {
@@ -2696,6 +3305,15 @@
               "x-nullable": false
             },
             "x-nullable": false
+          },
+          {
+            "name": "isRequestor",
+            "in": "query",
+            "description": "Is workspace id from the route a requestor workspace id",
+            "schema": {
+              "type": "boolean",
+              "default": false
+            }
           }
         ],
         "responses": {
@@ -2711,6 +3329,116 @@
           },
           "404": {
             "description": "Share Request Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        },
+        "x-feature-flags": [
+          "All",
+          "623434_EnableShareRequestEndpoints"
+        ]
+      }
+    },
+    "/workspaces/{workspaceId}/sharerequests/{shareRequestId}/accept": {
+      "post": {
+        "tags": [
+          "ShareRequests"
+        ],
+        "summary": "Accept share request",
+        "description": "Sample request:\r\n\r\n    POST /api/v2/workspaces/{workspaceId}/shareRequests/{shareRequestId}/accept\r\n         /api/v2/workspaces/196a8ff4-dfbc-4ee7-ae08-4f38b84d9c87/ShareRequests/1ec84a50-8c2a-4d46-b291-8ed22306619f/accept\r\n\r\nSample response:\r\n\r\n    202 \r\n    {\r\n        \u0022shareRequestId\u0022:\u00221ec84a50-8c2a-4d46-b291-8ed22306619f\u0022, \r\n        \u0022status\u0022:\u0022Pending\u0022, \r\n        \u0022queryUri\u0022:\u0022https://gateway.dev.internal.veracity.com/gateway/api/v2/workspaces/196a8ff4-dfbc-4ee7-ae08-4f38b84d9c87/shareRequests/1ec84a50-8c2a-4d46-b291-8ed22306619f\u0022\r\n    }",
+        "operationId": "ShareRequests_AcceptShareRequest",
+        "parameters": [
+          {
+            "name": "workspaceId",
+            "in": "path",
+            "description": "Id of receiver workspace",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "x-nullable": false
+            },
+            "x-nullable": false
+          },
+          {
+            "name": "shareRequestId",
+            "in": "path",
+            "description": "share request id",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "x-nullable": false
+            },
+            "x-nullable": false
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "Accepted"
+          },
+          "400": {
+            "description": "Invalid request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        },
+        "x-feature-flags": [
+          "All",
+          "623434_EnableShareRequestEndpoints"
+        ]
+      }
+    },
+    "/workspaces/{workspaceId}/sharerequests/{shareRequestId}/decline": {
+      "post": {
+        "tags": [
+          "ShareRequests"
+        ],
+        "summary": "Decline a share request",
+        "description": "Sample request:\r\n\r\n    POST /api/v2/workspaces/{workspaceId}/shareRequests/{shareRequestId}/decline\r\n    POST /api/v2/workspaces/a33060fe-de8f-469c-8cb2-864753f46d64/ShareRequests/1a940e6a-2e2e-4cc9-894d-807cb2d90d5f/decline\r\n\r\nSample response:\r\n\r\n    204 No Content",
+        "operationId": "ShareRequests_DeclineShareRequest",
+        "parameters": [
+          {
+            "name": "workspaceId",
+            "in": "path",
+            "description": "Id of receiver workspace",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "x-nullable": false
+            },
+            "x-nullable": false
+          },
+          {
+            "name": "shareRequestId",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "x-nullable": false
+            },
+            "x-nullable": false
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Returns OK"
+          },
+          "400": {
+            "description": "Invalid request",
             "content": {
               "application/json": {
                 "schema": {
@@ -2789,7 +3517,7 @@
     "/workspaces/{workspaceId}/shares/{shareId}/storages/sas": {
       "get": {
         "tags": [
-          "Storages"
+          "File Storages"
         ],
         "summary": "Get storage sas token by share id",
         "operationId": "Storages_GetSASTokenForStorageDatasetByShareIdV2",
@@ -2817,18 +3545,27 @@
               "x-nullable": false
             },
             "x-nullable": false
+          },
+          {
+            "name": "format",
+            "in": "query",
+            "description": "format of the sas token",
+            "schema": {
+              "$ref": "#/components/schemas/SASFormat"
+            }
+          },
+          {
+            "name": "sasType",
+            "in": "query",
+            "description": "type of sas token",
+            "schema": {
+              "$ref": "#/components/schemas/SASType"
+            }
           }
         ],
         "responses": {
           "200": {
-            "description": "Returns sas token for storage",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/SasTokenResultDTO"
-                }
-              }
-            }
+            "description": "Returns sas token for storage"
           },
           "400": {
             "description": "Invalid Model",
@@ -2856,7 +3593,7 @@
     "/workspaces/{workspaceId}/storages/external/policies": {
       "post": {
         "tags": [
-          "Storages"
+          "File Storages"
         ],
         "summary": "List sas policies for current workspace.",
         "description": "/// Sample request For Revoke Sas Token:\r\n\r\n    POST {workspaceId}/storages/external/policies\r\n            {\r\n              \u0022containerName\u0022: \u0022string\u0022,\r\n              \u0022connectionString\u0022: \u0022string\u0022                 \r\n            } \r\n* ContainerName is the name of the container for which the SAS policy needs to be revoked.\r\n* ConnectionString is the connection string of the external storage account.\r\n\r\nNotes - \r\n* This endpoint helps to list all the SAS policies for external storage which are active.",
@@ -2916,7 +3653,7 @@
     "/workspaces/{workspaceId}/storages/external/sas": {
       "post": {
         "tags": [
-          "Storages"
+          "File Storages"
         ],
         "summary": "Get external storage sas token for current workspace",
         "description": "Sample request For Storage Sas Token:\r\n\r\n    POST {workspaceId}/storages/external/sas\r\n            {\r\n                \u0022settings\u0022: {\r\n                  \u0022containerName\u0022: \u0022string\u0022,\r\n                  \u0022connectionString\u0022: \u0022string\u0022\r\n                },\r\n                \u0022filters\u0022: {\r\n                   \u0022path\u0022: \u002218a4a7ab-022c-4964-9d1b-6cc77e252a67/test.csv\u0022,\r\n                   \u0022readOrWritePermission\u0022: \u0022Read\u0022,\r\n                   \u0022startsOn\u0022: \u00222024-05-14T09:04:12.297Z\u0022,\r\n                   \u0022expiresOn\u0022: \u00222024-05-14T09:04:12.297Z\u0022,\r\n                   \u0022storageName\u0022: \u0022StorageDataset\u0022\r\n                }\r\n            }\r\n* ContainerName is the name of the container for which the SAS policy needs to be revoked.\r\n* ConnectionString is the connection string of the external storage account.\r\n* Path \u2013 string, path of the resource you want to generate the SAS Token for. It is optional, if it is left empty or not provided, the default path of internal storage will be considered.(which means ContainerName which was specified while creating the internal storage). If provided, it should be valid path pointing to a resource.\r\n* ReadOrWritePermission \u2013 string, type of permission you want to give on the resource, it can only have values Read/Write.\r\n* StartsOn \u2013 DateTime, datetime from which the SAS Token will be valid. It is optional, if not provided current UTC date time will be considered. If provided, it should not be a past date time.\r\n* ExpiresOn \u2013 DateTime, datetime till when the SAS Token will be valid.It should not be a past date time and should be greater than StartsOn.\r\n* StorageName - string, name of the storage for which the SAS token needs to be generated. It is optional, if not provided the default internal storage dataset will be considered. If it is provided it should be a valid storage dataset name.\r\n\r\nNotes - \r\n* A user of Workspace who has role of Reader can only generate tokens with Read permission, if he tries to generate token with Write permission, he will be unauthorized.\r\n* A user of Workspace who has role of Administrator can generate tokens with both Read/Write permissions.\r\n* Service Accounts should generate only Read token. If they need to generate Write SAS Token, they need to get access for it.",
@@ -2933,6 +3670,22 @@
               "x-nullable": false
             },
             "x-nullable": false
+          },
+          {
+            "name": "format",
+            "in": "query",
+            "description": "",
+            "schema": {
+              "$ref": "#/components/schemas/SASFormat"
+            }
+          },
+          {
+            "name": "sasType",
+            "in": "query",
+            "description": "",
+            "schema": {
+              "$ref": "#/components/schemas/SASType"
+            }
           }
         ],
         "requestBody": {
@@ -2948,14 +3701,7 @@
         },
         "responses": {
           "200": {
-            "description": "Returns sas token as string",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "string"
-                }
-              }
-            }
+            "description": "Returns sas token as string"
           },
           "400": {
             "description": "Invalid Model",
@@ -2983,7 +3729,7 @@
     "/workspaces/{workspaceId}/storages/policies": {
       "get": {
         "tags": [
-          "Storages"
+          "File Storages"
         ],
         "summary": "List sas policies for current workspace.",
         "description": "Notes - \r\n* This endpoint helps to list all the SAS policies for internal storage which are active.",
@@ -3032,7 +3778,7 @@
     "/workspaces/{workspaceId}/storages/sas": {
       "post": {
         "tags": [
-          "Storages"
+          "File Storages"
         ],
         "summary": "Get internal storage sas token for current workspace",
         "description": "Sample request For Storage Sas Token:\r\n\r\n    POST {workspaceId}/storages/sas\r\n            {\r\n                \u0022path\u0022: \u002218a4a7ab-022c-4964-9d1b-6cc77e252a67/test.csv\u0022,\r\n                \u0022readOrWritePermission\u0022: \u0022Read\u0022,\r\n                \u0022startsOn\u0022: \u00222024-05-14T09:04:12.297Z\u0022,\r\n                \u0022expiresOn\u0022: \u00222024-05-14T09:04:12.297Z\u0022,\r\n                \u0022storageName\u0022: \u0022StorageDataset\u0022\r\n            }\r\n* Path \u2013 string, path of the resource you want to generate the SAS Token for. It is optional, if it is left empty or not provided, the default path of internal storage will be considered.(which means ContainerName which was specified while creating the internal storage). If provided, it should be valid path pointing to a resource.\r\n* ReadOrWritePermission \u2013 string, type of permission you want to give on the resource, it can only have values Read/Write.\r\n* StartsOn \u2013 DateTime, datetime from which the SAS Token will be valid. It is optional, if not provided current UTC date time will be considered. If provided, it should not be a past date time.\r\n* ExpiresOn \u2013 DateTime, datetime till when the SAS Token will be valid.It should not be a past date time and should be greater than StartsOn.\r\n* StorageName - string, name of the storage for which the SAS token needs to be generated. It is optional, if not provided the default internal storage dataset will be considered. If it is provided it should be a valid storage dataset name.\r\n\r\nNotes - \r\n* A user of Workspace who has role of Reader can only generate tokens with Read permission, if he tries to generate token with Write permission, he will be unauthorized.\r\n* A user of Workspace who has role of Administrator can generate tokens with both Read/Write permissions.\r\n* Service Accounts should generate only Read token. If they need to generate Write SAS Token, they need to get access for it.",
@@ -3049,6 +3795,22 @@
               "x-nullable": false
             },
             "x-nullable": false
+          },
+          {
+            "name": "format",
+            "in": "query",
+            "description": "",
+            "schema": {
+              "$ref": "#/components/schemas/SASFormat"
+            }
+          },
+          {
+            "name": "sasType",
+            "in": "query",
+            "description": "",
+            "schema": {
+              "$ref": "#/components/schemas/SASType"
+            }
           }
         ],
         "requestBody": {
@@ -3064,14 +3826,7 @@
         },
         "responses": {
           "200": {
-            "description": "Returns sas token for storage",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "string"
-                }
-              }
-            }
+            "description": "Returns sas token for storage"
           },
           "400": {
             "description": "Invalid Model",
@@ -3099,7 +3854,7 @@
     "/workspaces/{workspaceId}/storages/sas/external/revokepolicies": {
       "delete": {
         "tags": [
-          "Storages"
+          "File Storages"
         ],
         "summary": "Revoke sas policy for current workspace or based on policy name.",
         "description": "Sample request For Revoke Sas Token:\r\n\r\n    DELETE {workspaceId}/storages/sas/external/revoke\r\n            {\r\n                \u0022settings\u0022: {\r\n                    \u0022containerName\u0022: \u0022string\u0022,\r\n                    \u0022connectionString\u0022: \u0022string\u0022\r\n                },\r\n                \u0022policyName\u0022: \u0022string\u0022\r\n            } \r\n* ContainerName is the name of the container for which the SAS policy needs to be revoked.\r\n* ConnectionString is the connection string of the external storage account.\r\n\r\nNotes - \r\n* If policies are not provided, all the SAS policies for the workspace for storage will be revoked.\r\n* If policies are provided, only the SAS policies with the matching names will be revoked.\r\n* To see the policyNames for storage, call the POST endpoint - /gateway/api/v1/workspaces/{workspaceId}/storages/sas/external/policies endpoint.\r\n* A user of Workspace who has role of Reader can not revoke tokens.\r\n* A user of Workspace who has role of Administrator can only revoke tokens.\r\n* Service Accounts can\u0027t revoke tokens currently.",
@@ -3149,7 +3904,7 @@
     "/workspaces/{workspaceId}/storages/sas/revoke": {
       "delete": {
         "tags": [
-          "Storages"
+          "File Storages"
         ],
         "summary": "Revoke sas policy for current workspace or based on policy name.",
         "description": "Notes - \r\n* If policyName is not provided, all the SAS policies for the workspace for storage will be revoked.\r\n* If policyName is provided, only the SAS policy with that name will be revoked.\r\n* To see the policyNames for storage, call the GET endpoint - /gateway/api/v1/workspaces/{workspaceId}/storages/sas/policies endpoint.\r\n* A user of Workspace who has role of Reader can not revoke tokens.\r\n* A user of Workspace who has role of Administrator can only revoke tokens.\r\n* Service Accounts can\u0027t revoke tokens currently.",
@@ -3199,7 +3954,7 @@
     "/workspaces/{workspaceId}/storages/sas/revokepolicies": {
       "delete": {
         "tags": [
-          "Storages"
+          "File Storages"
         ],
         "summary": "Revoke sas policies for current workspace or based on policy names.",
         "description": "Notes - \r\n* If policies are not provided, all the SAS policies for the workspace for storage will be revoked.\r\n* If policies are provided, only the SAS policies with the matching names will be revoked.\r\n* To see the policyNames for storage, call the GET endpoint - /gateway/api/v1/workspaces/{workspaceId}/storages/sas/policies endpoint.\r\n* A user of Workspace who has role of Reader can not revoke tokens.\r\n* A user of Workspace who has role of Administrator can only revoke tokens.\r\n* Service Accounts can\u0027t revoke tokens currently.",
@@ -3249,7 +4004,7 @@
     "/workspaces/{workspaceId}/storages/storagedatasets": {
       "get": {
         "tags": [
-          "Storages"
+          "File Storages"
         ],
         "summary": "Gets Storage DataSets by workspaceId",
         "operationId": "Storages_GetStorageDatasetsByWorkspaceId",
@@ -3578,6 +4333,11 @@
             "nullable": true,
             "x-nullable": true
           },
+          "isKey": {
+            "type": "boolean",
+            "nullable": true,
+            "x-nullable": true
+          },
           "order": {
             "type": "integer",
             "format": "int32",
@@ -3830,6 +4590,7 @@
         "type": "object",
         "properties": {
           "name": {
+            "maxLength": 500,
             "type": "string",
             "x-nullable": false
           },
@@ -3876,6 +4637,7 @@
             "x-nullable": true
           },
           "pattern": {
+            "maxLength": 8000,
             "type": "string",
             "nullable": true,
             "x-nullable": true
@@ -3891,10 +4653,12 @@
             "x-nullable": true
           },
           "errorMessage": {
+            "maxLength": 1000,
             "type": "string",
             "x-nullable": false
           },
           "fallbackValue": {
+            "maxLength": 8000,
             "type": "string",
             "nullable": true,
             "x-nullable": true
@@ -3957,6 +4721,11 @@
             "nullable": true,
             "x-nullable": true
           },
+          "isKey": {
+            "type": "boolean",
+            "nullable": true,
+            "x-nullable": true
+          },
           "order": {
             "type": "integer",
             "format": "int32",
@@ -3981,6 +4750,51 @@
           "connectionString": {
             "type": "string",
             "x-nullable": false
+          }
+        }
+      },
+      "CreateIngestDatasetRequestDTO": {
+        "type": "object",
+        "properties": {
+          "datasetName": {
+            "type": "string",
+            "x-nullable": false
+          },
+          "datasetDescription": {
+            "type": "string",
+            "nullable": true,
+            "x-nullable": true
+          },
+          "schemaVersionId": {
+            "type": "string",
+            "format": "uuid",
+            "x-nullable": false
+          },
+          "files": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/JobFileDTO"
+            },
+            "nullable": true,
+            "x-nullable": true
+          },
+          "tags": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TagDTO"
+            },
+            "nullable": true,
+            "x-nullable": true
+          },
+          "provider": {
+            "type": "string",
+            "nullable": true,
+            "x-nullable": true
+          },
+          "startAutomatically": {
+            "type": "boolean",
+            "nullable": true,
+            "x-nullable": true
           }
         }
       },
@@ -4057,6 +4871,12 @@
               "nullable": true,
               "x-nullable": true
             },
+            "nullable": true,
+            "x-nullable": true
+          },
+          "schemaId": {
+            "type": "string",
+            "format": "uuid",
             "nullable": true,
             "x-nullable": true
           }
@@ -4140,6 +4960,17 @@
             },
             "nullable": true,
             "x-nullable": true
+          },
+          "sharedBy": {
+            "$ref": "#/components/schemas/SharedByDTO"
+          },
+          "sharedWith": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SharedWithDto"
+            },
+            "nullable": true,
+            "x-nullable": true
           }
         }
       },
@@ -4189,8 +5020,23 @@
             "x-nullable": false
           },
           "documentId": {
+            "maxLength": 128,
             "type": "string",
             "x-nullable": false
+          }
+        }
+      },
+      "FileValidationResultDTO": {
+        "type": "object",
+        "properties": {
+          "isValid": {
+            "type": "boolean",
+            "x-nullable": false
+          },
+          "errorReason": {
+            "type": "string",
+            "nullable": true,
+            "x-nullable": true
           }
         }
       },
@@ -4251,6 +5097,212 @@
           "schemaId": {
             "type": "string",
             "format": "uuid",
+            "nullable": true,
+            "x-nullable": true
+          }
+        }
+      },
+      "IngestDatasetResponseDTO": {
+        "type": "object",
+        "properties": {
+          "workspaceId": {
+            "type": "string",
+            "format": "uuid",
+            "x-nullable": false
+          },
+          "jobId": {
+            "type": "string",
+            "format": "uuid",
+            "x-nullable": false
+          },
+          "sasToken": {
+            "type": "string",
+            "x-nullable": false
+          }
+        }
+      },
+      "JobFileDTO": {
+        "type": "object",
+        "properties": {
+          "fileName": {
+            "type": "string",
+            "x-nullable": false
+          },
+          "operation": {
+            "$ref": "#/components/schemas/Operation"
+          }
+        }
+      },
+      "JobHistoryDTO": {
+        "type": "object",
+        "properties": {
+          "jobId": {
+            "type": "string",
+            "nullable": true,
+            "x-nullable": true
+          },
+          "workspaceId": {
+            "type": "string",
+            "format": "uuid",
+            "x-nullable": false
+          },
+          "datasetId": {
+            "type": "string",
+            "format": "uuid",
+            "nullable": true,
+            "x-nullable": true
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time",
+            "x-nullable": false
+          },
+          "createdBy": {
+            "type": "string",
+            "format": "uuid",
+            "x-nullable": false
+          },
+          "status": {
+            "$ref": "#/components/schemas/JobStatus"
+          },
+          "operations": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "nullable": true,
+              "x-nullable": true
+            },
+            "nullable": true,
+            "x-nullable": true
+          },
+          "error": {
+            "type": "string",
+            "nullable": true,
+            "x-nullable": true
+          },
+          "notebookError": {
+            "type": "string",
+            "nullable": true,
+            "x-nullable": true
+          },
+          "validationError": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ValidationErrorDTO"
+            },
+            "nullable": true,
+            "x-nullable": true
+          },
+          "lastModifiedAt": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true,
+            "x-nullable": true
+          }
+        }
+      },
+      "JobHistoryDTOPaginatedResult": {
+        "type": "object",
+        "properties": {
+          "pageIndex": {
+            "type": "integer"
+          },
+          "pageSize": {
+            "type": "integer"
+          },
+          "totalCount": {
+            "type": "integer"
+          },
+          "totalPages": {
+            "type": "integer"
+          },
+          "result": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/JobHistoryDTO"
+            }
+          }
+        }
+      },
+      "JobStatus": {
+        "enum": [
+          "Proposed",
+          "Running",
+          "Completed",
+          "Failed"
+        ],
+        "type": "string"
+      },
+      "JobStatusDTO": {
+        "type": "object",
+        "properties": {
+          "jobId": {
+            "type": "string",
+            "format": "uuid",
+            "nullable": true,
+            "x-nullable": true
+          },
+          "status": {
+            "$ref": "#/components/schemas/JobStatus"
+          },
+          "operations": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "nullable": true,
+              "x-nullable": true
+            },
+            "nullable": true,
+            "x-nullable": true
+          },
+          "errorMessage": {
+            "type": "string",
+            "nullable": true,
+            "x-nullable": true
+          },
+          "notebookErrorMessage": {
+            "type": "string",
+            "nullable": true,
+            "x-nullable": true
+          },
+          "dataSetName": {
+            "type": "string",
+            "nullable": true,
+            "x-nullable": true
+          },
+          "datasetId": {
+            "type": "string",
+            "format": "uuid",
+            "nullable": true,
+            "x-nullable": true
+          },
+          "validationError": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ValidationErrorDTO"
+            },
+            "nullable": true,
+            "x-nullable": true
+          }
+        }
+      },
+      "JobValidationResultDTO": {
+        "type": "object",
+        "properties": {
+          "isValid": {
+            "type": "boolean",
+            "x-nullable": false
+          },
+          "errorReason": {
+            "type": "string",
+            "nullable": true,
+            "x-nullable": true
+          },
+          "files": {
+            "type": "object",
+            "additionalProperties": {
+              "$ref": "#/components/schemas/FileValidationResultDTO"
+            },
             "nullable": true,
             "x-nullable": true
           }
@@ -4336,6 +5388,16 @@
           "Validation",
           "FallbackIndicator",
           "Timestamp"
+        ],
+        "type": "string"
+      },
+      "Operation": {
+        "enum": [
+          "Create",
+          "Append",
+          "Overwrite",
+          "Upsert",
+          "Delete"
         ],
         "type": "string"
       },
@@ -4528,6 +5590,7 @@
             "x-nullable": true
           },
           "sortColumn": {
+            "maxLength": 50,
             "type": "string",
             "nullable": true,
             "x-nullable": true
@@ -4652,19 +5715,6 @@
           }
         }
       },
-      "RevokeSasPolicyDTO": {
-        "type": "object",
-        "properties": {
-          "policies": {
-            "type": "array",
-            "items": {
-              "type": "string",
-              "x-nullable": false
-            },
-            "x-nullable": false
-          }
-        }
-      },
       "RoleScopeGetDto": {
         "type": "object",
         "properties": {
@@ -4746,6 +5796,13 @@
         ],
         "type": "string"
       },
+      "SASFormat": {
+        "enum": [
+          "String",
+          "Object"
+        ],
+        "type": "string"
+      },
       "SASType": {
         "enum": [
           "dfs",
@@ -4784,18 +5841,6 @@
               "x-nullable": false
             },
             "x-nullable": false
-          }
-        }
-      },
-      "SasTokenResultDTO": {
-        "type": "object",
-        "properties": {
-          "sasToken": {
-            "type": "string",
-            "x-nullable": false
-          },
-          "policy": {
-            "$ref": "#/components/schemas/SasPolicyDTO"
           }
         }
       },
@@ -5063,15 +6108,18 @@
         "type": "object",
         "properties": {
           "name": {
+            "maxLength": 500,
             "type": "string",
             "x-nullable": false
           },
           "shortName": {
+            "maxLength": 20,
             "type": "string",
             "nullable": true,
             "x-nullable": true
           },
           "description": {
+            "maxLength": 5000,
             "type": "string",
             "nullable": true,
             "x-nullable": true
@@ -5106,6 +6154,22 @@
           "Error",
           "Warning",
           "Fallback"
+        ],
+        "type": "string"
+      },
+      "ShareAccessLevelEnum": {
+        "enum": [
+          "ReadOnly",
+          "ReadAndWrite"
+        ],
+        "type": "string"
+      },
+      "ShareReceiverTypeEnum": {
+        "enum": [
+          "User",
+          "Workspace",
+          "ShareShortCut",
+          "PartnerTemplate"
         ],
         "type": "string"
       },
@@ -5193,6 +6257,12 @@
             "x-nullable": false
           },
           "associatedShareId": {
+            "type": "string",
+            "format": "uuid",
+            "nullable": true,
+            "x-nullable": true
+          },
+          "associatedDatasetId": {
             "type": "string",
             "format": "uuid",
             "nullable": true,
@@ -5305,6 +6375,46 @@
           }
         }
       },
+      "SharedWithDto": {
+        "type": "object",
+        "properties": {
+          "shareId": {
+            "type": "string",
+            "format": "uuid",
+            "x-nullable": false
+          },
+          "receiverId": {
+            "type": "string",
+            "format": "uuid",
+            "x-nullable": false
+          },
+          "receiverName": {
+            "type": "string",
+            "nullable": true,
+            "x-nullable": true
+          },
+          "shareReceiverType": {
+            "$ref": "#/components/schemas/ShareReceiverTypeEnum"
+          },
+          "tenantAlias": {
+            "type": "string",
+            "nullable": true,
+            "x-nullable": true
+          },
+          "createdBy": {
+            "type": "string",
+            "format": "uuid",
+            "x-nullable": false
+          },
+          "isServicePrincipal": {
+            "type": "boolean",
+            "x-nullable": false
+          },
+          "accessLevel": {
+            "$ref": "#/components/schemas/ShareAccessLevelEnum"
+          }
+        }
+      },
       "SortDirection": {
         "enum": [
           "Ascending",
@@ -5330,6 +6440,27 @@
           "Descending"
         ],
         "type": "string"
+      },
+      "StartJobResponses": {
+        "enum": [
+          "JobNotFound",
+          "JobAlreadyStarted",
+          "JobValidationFailed",
+          "JobStarted",
+          "JobFinished"
+        ],
+        "type": "string"
+      },
+      "StartJobResultDTO": {
+        "type": "object",
+        "properties": {
+          "startJobStatus": {
+            "$ref": "#/components/schemas/StartJobResponses"
+          },
+          "validationResponse": {
+            "$ref": "#/components/schemas/JobValidationResultDTO"
+          }
+        }
       },
       "StatusLogModel": {
         "type": "object",
@@ -5400,6 +6531,54 @@
           }
         }
       },
+      "TagDTO": {
+        "type": "object",
+        "properties": {
+          "key": {
+            "type": "string",
+            "x-nullable": false
+          },
+          "values": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "x-nullable": false
+            },
+            "x-nullable": false
+          }
+        }
+      },
+      "UpdateIngestDatasetRequestDTO": {
+        "type": "object",
+        "properties": {
+          "files": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/JobFileDTO"
+            },
+            "nullable": true,
+            "x-nullable": true
+          },
+          "startAutomatically": {
+            "type": "boolean",
+            "nullable": true,
+            "x-nullable": true
+          },
+          "datasetDescription": {
+            "type": "string",
+            "nullable": true,
+            "x-nullable": true
+          },
+          "tags": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TagDTO"
+            },
+            "nullable": true,
+            "x-nullable": true
+          }
+        }
+      },
       "UserInviteDto": {
         "type": "object",
         "properties": {
@@ -5420,6 +6599,24 @@
             "type": "string",
             "format": "uuid",
             "x-nullable": false
+          }
+        }
+      },
+      "ValidationErrorDTO": {
+        "type": "object",
+        "properties": {
+          "fileName": {
+            "type": "string",
+            "x-nullable": false
+          },
+          "isValid": {
+            "type": "boolean",
+            "x-nullable": false
+          },
+          "errorReason": {
+            "type": "string",
+            "nullable": true,
+            "x-nullable": true
           }
         }
       },
@@ -5480,6 +6677,61 @@
             "type": "string",
             "nullable": true,
             "x-nullable": true
+          }
+        }
+      },
+      "WorkspaceQueryDto": {
+        "type": "object",
+        "properties": {
+          "tagName": {
+            "type": "string",
+            "x-nullable": false
+          },
+          "vtmId": {
+            "type": "string",
+            "nullable": true,
+            "x-nullable": true
+          },
+          "customerId": {
+            "type": "string",
+            "nullable": true,
+            "x-nullable": true
+          }
+        }
+      },
+      "WorkspaceWithTenantReadDto": {
+        "type": "object",
+        "properties": {
+          "workspaceId": {
+            "type": "string",
+            "format": "uuid",
+            "x-nullable": false
+          },
+          "workspaceName": {
+            "type": "string",
+            "x-nullable": false
+          },
+          "workspaceDescription": {
+            "type": "string",
+            "nullable": true,
+            "x-nullable": true
+          },
+          "workspaceRegion": {
+            "type": "string",
+            "x-nullable": false
+          },
+          "tenantId": {
+            "type": "string",
+            "format": "uuid",
+            "x-nullable": false
+          },
+          "tenantName": {
+            "type": "string",
+            "x-nullable": false
+          },
+          "tenantAlias": {
+            "type": "string",
+            "x-nullable": false
           }
         }
       }
