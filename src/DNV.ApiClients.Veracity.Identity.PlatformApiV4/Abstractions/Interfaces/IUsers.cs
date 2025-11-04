@@ -222,7 +222,7 @@ namespace DNV.ApiClients.Veracity.Identity.PlatformApiV4.Interfaces
         /// <exception cref="Microsoft.Rest.ValidationException">
         /// Thrown when a required parameter is null
         /// </exception>
-        Task<HttpOperationResponse<IEnumerable<GlobalUserDetailsResponse>>> ResolveUsersWithHttpMessagesAsync(string tenantId, IEnumerable<System.Guid?> body = default, string requestId = default, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default);
+        Task<HttpOperationResponse<IEnumerable<GlobalUserDetailsResponse>>> ResolveUsersWithHttpMessagesAsync(string tenantId, IEnumerable<System.Guid> body = default, string requestId = default, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default);
 
         /// <summary>
         /// Get multiple users by ids
@@ -243,7 +243,7 @@ namespace DNV.ApiClients.Veracity.Identity.PlatformApiV4.Interfaces
         /// <param name='cancellationToken'>
         /// The cancellation token.
         /// </param>
-        Task<IEnumerable<GlobalUserDetailsResponse>> ResolveUsersAsync(string tenantId, IEnumerable<System.Guid?> body = default, string requestId = default, CancellationToken cancellationToken = default);
+        Task<IEnumerable<GlobalUserDetailsResponse>> ResolveUsersAsync(string tenantId, IEnumerable<System.Guid> body = default, string requestId = default, CancellationToken cancellationToken = default);
 
         /// <summary>
         /// Get user by id in a tenant

@@ -558,7 +558,7 @@ namespace DNV.ApiClients.Veracity.Identity.PlatformApiV4
         /// <return>
         /// A response object containing the response body and response headers.
         /// </return>
-        public async Task<HttpOperationResponse<IEnumerable<GlobalUserDetailsResponse>>> ResolveUsersWithHttpMessagesAsync(string tenantId, IEnumerable<System.Guid?> body = default, string requestId = default, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default)
+        public async Task<HttpOperationResponse<IEnumerable<GlobalUserDetailsResponse>>> ResolveUsersWithHttpMessagesAsync(string tenantId, IEnumerable<System.Guid> body = default, string requestId = default, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default)
         {
             if (tenantId == null)
             {
@@ -671,7 +671,7 @@ namespace DNV.ApiClients.Veracity.Identity.PlatformApiV4
         /// <param name='cancellationToken'>
         /// The cancellation token.
         /// </param>
-        public async Task<IEnumerable<GlobalUserDetailsResponse>> ResolveUsersAsync(string tenantId, IEnumerable<System.Guid?> body = default, string requestId = default, CancellationToken cancellationToken = default)
+        public async Task<IEnumerable<GlobalUserDetailsResponse>> ResolveUsersAsync(string tenantId, IEnumerable<System.Guid> body = default, string requestId = default, CancellationToken cancellationToken = default)
         {
             using (var _result = await ResolveUsersWithHttpMessagesAsync(tenantId, body, requestId, null, cancellationToken).ConfigureAwait(false))
             {
