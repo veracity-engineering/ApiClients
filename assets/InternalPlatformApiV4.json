@@ -1,0 +1,2811 @@
+{
+  "openapi": "3.0.4",
+  "info": {
+    "title": "V4_internal (Test)",
+    "description": "# V4 internal, intended for internal applications, like marketplace, data workbench, etc.\r\n\r\n## Features and use cases.\r\n\r\n### 1. Marketplace\r\n\r\nAllows the marketplase to lookup existing tenants and create new ones. Can allso install and uninstall applications on exixting tenants.\r\n\r\n### 2. Data Workbench\r\n\r\nAllow the data workbench to create new users and assign data workbench licenses to them. Also allows to assign the new users admin roles when needed.\r\n\r\n### 3. invoicing systems\r\n\r\nAllows the invoicing system to look up orders and find usage metrics for the orders to use as basis for invoicing.\r\n\n\n> Service build version __BUILD_NUMBER__ - Environment: Test",
+    "version": "v4_internal"
+  },
+  "servers": [
+    {
+      "url": "https://api-v4-ica5dyfal6qp2-test.azurewebsites.net"
+    }
+  ],
+  "paths": {
+    "/cache": {
+      "get": {
+        "tags": [
+          "CacheKeyItems"
+        ],
+        "summary": "This is a helper method used during development to identify the cache keys and how to invalidated them\r\n\r\n",
+        "description": "<br/>Only used for development purposes",
+        "operationId": "CacheKeyItems_GetCacheKeys",
+        "parameters": [
+          {
+            "name": "request-id",
+            "in": "header",
+            "description": "A correlation token to use when looking in the logs.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": { }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": { }
+                }
+              },
+              "text/plain": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": { }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/cache/flushall": {
+      "get": {
+        "tags": [
+          "CacheKeyItems"
+        ],
+        "summary": "this is a help method used for flush all v4 related cache items.\r\n\r\n",
+        "description": "<br/>Only used for development purposes",
+        "operationId": "CacheKeyItems_ClearAllCachedItems",
+        "parameters": [
+          {
+            "name": "request-id",
+            "in": "header",
+            "description": "A correlation token to use when looking in the logs.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": { }
+            }
+          }
+        }
+      }
+    },
+    "/cache/flush/{tenantId}/publicIds/{publicId}": {
+      "post": {
+        "tags": [
+          "CacheKeyItems"
+        ],
+        "summary": "",
+        "description": "Use this when a user/application is removed and the re-added to a tenant and the built in invalidation fails.<br/>Only used for development purposes",
+        "operationId": "CacheKeyItems_InvalidateId",
+        "parameters": [
+          {
+            "name": "tenantId",
+            "in": "path",
+            "description": "The tenant id (or dnvCustomerId for veracity_default tenants)",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "example": "be0c84cb-7a4a-4114-aa17-9c0224b084cf"
+          },
+          {
+            "name": "publicId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "request-id",
+            "in": "header",
+            "description": "A correlation token to use when looking in the logs.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "The request has been accepted for processing, but the processing has not been completed.",
+            "content": {
+              "application/json": { }
+            }
+          }
+        }
+      }
+    },
+    "/sse/tenants/{tenantId}/users/create": {
+      "post": {
+        "tags": [
+          "CreateUserSseApi"
+        ],
+        "summary": "",
+        "description": "Create a user. Request with server sent events<br/>Restricted, only to be used by Veracity Platform and select partners",
+        "operationId": "CreateUserSse_CreateUser",
+        "parameters": [
+          {
+            "name": "tenantId",
+            "in": "path",
+            "description": "The tenant id (or dnvCustomerId for veracity_default tenants)",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "be0c84cb-7a4a-4114-aa17-9c0224b084cf"
+          },
+          {
+            "name": "request-id",
+            "in": "header",
+            "description": "A correlation token to use when looking in the logs.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateUserPayload"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateUserPayload"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateUserPayload"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateUserPayload"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "The request has been processed successfully.",
+            "content": {
+              "application/json": { },
+              "text/event-stream": {
+                "schema": {
+                  "$ref": "#/components/schemas/PagedCreateTenantResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/sse/tenants/{tenantId}/users/create_batch": {
+      "post": {
+        "tags": [
+          "CreateUserSseApi"
+        ],
+        "summary": "",
+        "description": "Create multiple users. Request with server sent events<br/>Restricted, only to be used by Veracity Platform and select partners",
+        "operationId": "CreateUserSse_CreateUsers",
+        "parameters": [
+          {
+            "name": "tenantId",
+            "in": "path",
+            "description": "The tenant id (or dnvCustomerId for veracity_default tenants)",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "be0c84cb-7a4a-4114-aa17-9c0224b084cf"
+          },
+          {
+            "name": "request-id",
+            "in": "header",
+            "description": "A correlation token to use when looking in the logs.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateUsersPayload"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateUsersPayload"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateUsersPayload"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateUsersPayload"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "The request has been processed successfully.",
+            "content": {
+              "application/json": { },
+              "text/event-stream": {
+                "schema": {
+                  "$ref": "#/components/schemas/PagedCreateTenantResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/sse/tenants/{tenantId}/.resolve({email})": {
+      "get": {
+        "tags": [
+          "CreateUserSseApi"
+        ],
+        "summary": "",
+        "description": "<br/>Restricted, only to be used by Veracity Platform and select partners",
+        "operationId": "CreateUserSse_ResolveUser",
+        "parameters": [
+          {
+            "name": "tenantId",
+            "in": "path",
+            "description": "The tenant id (or dnvCustomerId for veracity_default tenants)",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "be0c84cb-7a4a-4114-aa17-9c0224b084cf"
+          },
+          {
+            "name": "email",
+            "in": "path",
+            "description": "The email address of the user",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "olaf.jensen@democorp.com"
+          },
+          {
+            "name": "request-id",
+            "in": "header",
+            "description": "A correlation token to use when looking in the logs.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserExistanceTypes"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserExistanceTypes"
+                }
+              },
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserExistanceTypes"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/domainEvents/routes/resolve": {
+      "post": {
+        "tags": [
+          "DomainEventHelper"
+        ],
+        "summary": "",
+        "description": "Resolve the route ids to be used in the label header of the messages based on a list of service principals<br/>",
+        "operationId": "DomainEventsHelper_ResolveDomainEventRoutes",
+        "parameters": [
+          {
+            "name": "formating",
+            "in": "query",
+            "schema": {
+              "$ref": "#/components/schemas/FormatingTypes"
+            }
+          },
+          {
+            "name": "request-id",
+            "in": "header",
+            "description": "A correlation token to use when looking in the logs.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            },
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            },
+            "text/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "202": {
+            "description": "The request has been accepted for processing, but the processing has not been completed.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RouteDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RouteDetails"
+                }
+              },
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/RouteDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/orders/{orderNo}": {
+      "get": {
+        "tags": [
+          "Provisioning"
+        ],
+        "summary": "",
+        "description": "Get order by order number<br/>",
+        "operationId": "MarketplaceHelper_GetByOrderNo",
+        "parameters": [
+          {
+            "name": "orderNo",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "request-id",
+            "in": "header",
+            "description": "A correlation token to use when looking in the logs.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Order"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Order"
+                  }
+                }
+              },
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Order"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/tenants": {
+      "get": {
+        "tags": [
+          "Provisioning"
+        ],
+        "summary": "",
+        "description": "<br/>",
+        "operationId": "MarketplaceHelper_ListAllTenants",
+        "parameters": [
+          {
+            "name": "odata",
+            "in": "query",
+            "description": "OData query options, the values are passed as query string parameters",
+            "style": "deepObject",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            },
+            "example": {
+              "$filter": "email eq 'olaf.jensen@democorp.com'",
+              "search": "olaf jensen",
+              "$top": 100,
+              "$skip": 0,
+              "$orderby": "name desc"
+            }
+          },
+          {
+            "name": "request-id",
+            "in": "header",
+            "description": "A correlation token to use when looking in the logs.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PagedTenantResponse"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PagedTenantResponse"
+                }
+              },
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/PagedTenantResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/tenants/entities/{entityType}": {
+      "get": {
+        "tags": [
+          "Provisioning"
+        ],
+        "summary": "",
+        "description": "<br/>",
+        "operationId": "MarketplaceHelper_ListAllTenantEntities",
+        "parameters": [
+          {
+            "name": "entityType",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/AllEntityTypes"
+            }
+          },
+          {
+            "name": "odata",
+            "in": "query",
+            "description": "OData query options, the values are passed as query string parameters",
+            "style": "deepObject",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            },
+            "example": {
+              "$filter": "email eq 'olaf.jensen@democorp.com'",
+              "search": "olaf jensen",
+              "$top": 100,
+              "$skip": 0,
+              "$orderby": "name desc"
+            }
+          },
+          {
+            "name": "request-id",
+            "in": "header",
+            "description": "A correlation token to use when looking in the logs.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PagedTenantEntityResponseBase"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PagedTenantEntityResponseBase"
+                }
+              },
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/PagedTenantEntityResponseBase"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/health": {
+      "get": {
+        "tags": [
+          "StatusService"
+        ],
+        "summary": "",
+        "description": "Returns 200 when all dependencies are ok, 424 if there are some non essential dependency failures and 500 when essential dependencies are unreachable or the service is down<br/>",
+        "operationId": "StatusService_GetServiceHealthStatus",
+        "parameters": [
+          {
+            "name": "request-id",
+            "in": "header",
+            "description": "A correlation token to use when looking in the logs.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HealthStatus"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HealthStatus"
+                }
+              },
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/HealthStatus"
+                }
+              }
+            }
+          },
+          "424": {
+            "description": "Failed Dependency",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HealthStatus"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HealthStatus"
+                }
+              },
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/HealthStatus"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HealthStatus"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HealthStatus"
+                }
+              },
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/HealthStatus"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/sse/tenants/create": {
+      "post": {
+        "tags": [
+          "Provisioning"
+        ],
+        "summary": "",
+        "description": "Create a tenant. Request with server sent events<br/>",
+        "operationId": "TenantsSse_CreateTenant",
+        "parameters": [
+          {
+            "name": "request-id",
+            "in": "header",
+            "description": "A correlation token to use when looking in the logs.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateTenantPayload"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateTenantPayload"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateTenantPayload"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateTenantPayload"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "The request has been processed successfully.",
+            "content": {
+              "application/json": { },
+              "text/event-stream": {
+                "schema": {
+                  "$ref": "#/components/schemas/PagedCreateTenantResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/sse/tenants/create/.synchronous": {
+      "post": {
+        "tags": [
+          "Provisioning"
+        ],
+        "summary": "",
+        "description": "Creates a tenant synchronously, otherwise the same as the SSE version<br/>",
+        "operationId": "TenantsSse_CreateTenantSynchronous",
+        "parameters": [
+          {
+            "name": "request-id",
+            "in": "header",
+            "description": "A correlation token to use when looking in the logs.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateTenantPayload"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateTenantPayload"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateTenantPayload"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateTenantPayload"
+              }
+            }
+          }
+        },
+        "responses": {
+          "202": {
+            "description": "The request has been accepted for processing, but the processing has not been completed.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateTenantResponse"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateTenantResponse"
+                }
+              },
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateTenantResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/sse/tenants/{tenantId}/applications": {
+      "post": {
+        "tags": [
+          "Provisioning"
+        ],
+        "summary": "",
+        "description": "Install an applications in an existing tenant. Request with server sent events. The application admin user must already be a member of the tenant. The application admin will not be able to invite users to the tenant if this right is not already granted.<br/>",
+        "operationId": "TenantsSse_InstallApplications",
+        "parameters": [
+          {
+            "name": "tenantId",
+            "in": "path",
+            "description": "The tenant id (or dnvCustomerId for veracity_default tenants)",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "example": "be0c84cb-7a4a-4114-aa17-9c0224b084cf"
+          },
+          {
+            "name": "request-id",
+            "in": "header",
+            "description": "A correlation token to use when looking in the logs.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/InstallApplicationsPayload"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/InstallApplicationsPayload"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/InstallApplicationsPayload"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/InstallApplicationsPayload"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "The request has been processed successfully.",
+            "content": {
+              "application/json": { },
+              "text/event-stream": {
+                "schema": {
+                  "$ref": "#/components/schemas/PagedInstallApplicationsResponse"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Provisioning"
+        ],
+        "summary": "",
+        "description": "UnInstall applications from an existing tenant. Request with server sent events<br/>",
+        "operationId": "TenantsSse_UnInstallApplications",
+        "parameters": [
+          {
+            "name": "tenantId",
+            "in": "path",
+            "description": "The tenant id (or dnvCustomerId for veracity_default tenants)",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "example": "be0c84cb-7a4a-4114-aa17-9c0224b084cf"
+          },
+          {
+            "name": "request-id",
+            "in": "header",
+            "description": "A correlation token to use when looking in the logs.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/UnInstallApplicationPayload"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UnInstallApplicationPayload"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UnInstallApplicationPayload"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/UnInstallApplicationPayload"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "The request has been processed successfully.",
+            "content": {
+              "application/json": { },
+              "text/event-stream": {
+                "schema": {
+                  "$ref": "#/components/schemas/PagedUnInstallApplicationsResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/sse/tenants/{tenantId}/applications/{applicationId}": {
+      "put": {
+        "tags": [
+          "Provisioning"
+        ],
+        "summary": "",
+        "description": "Update the application, like pricingTier or numberOfLicenses<br/>",
+        "operationId": "TenantsSse_UpdateApplication",
+        "parameters": [
+          {
+            "name": "tenantId",
+            "in": "path",
+            "description": "The tenant id (or dnvCustomerId for veracity_default tenants)",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "example": "be0c84cb-7a4a-4114-aa17-9c0224b084cf"
+          },
+          {
+            "name": "applicationId",
+            "in": "path",
+            "description": "The applicationId is the same as serviceId in developer",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "request-id",
+            "in": "header",
+            "description": "A correlation token to use when looking in the logs.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApplicationRequest"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApplicationRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApplicationRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApplicationRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "202": {
+            "description": "The request has been accepted for processing, but the processing has not been completed.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApplicationResponse"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApplicationResponse"
+                }
+              },
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApplicationResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/sse/tenants/{tenantId}/.upgrade": {
+      "put": {
+        "tags": [
+          "Provisioning"
+        ],
+        "summary": "",
+        "description": "promote a hidden tenant to a private tenant. the existing user will be made tenant admin<br/>",
+        "operationId": "TenantsSse_UpgradeTenant",
+        "parameters": [
+          {
+            "name": "tenantId",
+            "in": "path",
+            "description": "The tenant id (or dnvCustomerId for veracity_default tenants)",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "example": "be0c84cb-7a4a-4114-aa17-9c0224b084cf"
+          },
+          {
+            "name": "request-id",
+            "in": "header",
+            "description": "A correlation token to use when looking in the logs.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "The request has been accepted for processing, but the processing has not been completed.",
+            "content": {
+              "application/json": { }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Administrator": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "description": "This is the email address of the user who will be the administrator of the tenant. Cannot be specified if UserId is set",
+            "nullable": true
+          },
+          "firstName": {
+            "type": "string",
+            "nullable": true
+          },
+          "lastName": {
+            "type": "string",
+            "nullable": true
+          },
+          "userId": {
+            "type": "string",
+            "description": "Required: The userId from id.veracity.com, cannot be specified if Email is set. only available if the user already exists in the Veracity",
+            "format": "uuid",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "AllEntityTypes": {
+        "enum": [
+          "profiles",
+          "userGroups",
+          "applications",
+          "elements",
+          "tenants"
+        ],
+        "type": "string"
+      },
+      "Application": {
+        "type": "object",
+        "properties": {
+          "users": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/UsersRefRequest"
+            },
+            "nullable": true
+          },
+          "applicationId": {
+            "type": "string",
+            "description": "This is the application id found in developer as serviceId, it is the invariant id of the application across all tenants.",
+            "format": "uuid"
+          },
+          "elements": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ElementRequest"
+            },
+            "nullable": true
+          },
+          "properties": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ExtensionProperty"
+            },
+            "nullable": true
+          },
+          "orderNumber": {
+            "type": "string",
+            "description": "The order number associated with the application installed in the tenant.",
+            "nullable": true
+          },
+          "quantity": {
+            "type": "integer",
+            "description": "The number of licenses purchased for the application.",
+            "format": "int32",
+            "nullable": true
+          },
+          "pricingTier": {
+            "type": "string",
+            "description": "Represents the pricing tier, sku or variant of the application installed in the tenant. usually provided by the marketplace.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApplicationElementRight": {
+        "type": "object",
+        "properties": {
+          "applicationId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "elementId": {
+            "type": "string",
+            "nullable": true
+          },
+          "accessLevel": {
+            "type": "string",
+            "nullable": true
+          },
+          "properties": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ExtensionProperty"
+            },
+            "nullable": true
+          },
+          "canAddUsersToTenant": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApplicationInstallation": {
+        "type": "object",
+        "properties": {
+          "adminUserId": {
+            "type": "string",
+            "description": "Optional: the user id from Veracity Identity that will be the admin of the application in the tenant. Used when the user isn't already a tenant admin. The user must be a member of the tenant.",
+            "format": "uuid",
+            "nullable": true
+          },
+          "applicationId": {
+            "type": "string",
+            "description": "This is the application id found in developer as serviceId, it is the invariant id of the application across all tenants.",
+            "format": "uuid"
+          },
+          "elements": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ElementRequest"
+            },
+            "nullable": true
+          },
+          "properties": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ExtensionProperty"
+            },
+            "nullable": true
+          },
+          "orderNumber": {
+            "type": "string",
+            "description": "The order number associated with the application installed in the tenant.",
+            "nullable": true
+          },
+          "quantity": {
+            "type": "integer",
+            "description": "The number of licenses purchased for the application.",
+            "format": "int32",
+            "nullable": true
+          },
+          "pricingTier": {
+            "type": "string",
+            "description": "Represents the pricing tier, sku or variant of the application installed in the tenant. usually provided by the marketplace.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApplicationOrder": {
+        "type": "object",
+        "properties": {
+          "applicationId": {
+            "type": "string",
+            "description": "Gets or sets the ID of the application.",
+            "format": "uuid"
+          },
+          "applicationName": {
+            "type": "string",
+            "description": "Gets or sets the name of the application.",
+            "nullable": true
+          },
+          "tenantServiceId": {
+            "type": "string",
+            "description": "Gets or sets the ID of the tenant service.",
+            "format": "uuid"
+          },
+          "numberOfLicenses": {
+            "type": "integer",
+            "description": "Gets or sets the number of licenses.",
+            "format": "int32",
+            "nullable": true
+          },
+          "status": {
+            "type": "string",
+            "description": "Gets or sets the status of the application order.",
+            "nullable": true
+          },
+          "applicationProperties": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ExtensionProperty"
+            },
+            "description": "Gets or sets the application properties.",
+            "nullable": true
+          },
+          "pricingTier": {
+            "type": "string",
+            "description": "Gets or sets the pricing tier.",
+            "nullable": true
+          },
+          "orderDate": {
+            "type": "string",
+            "description": "Gets or sets the order date.",
+            "format": "date-time"
+          },
+          "orderId": {
+            "type": "string",
+            "description": "Gets or sets the order ID.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Represents an order for an application."
+      },
+      "ApplicationRequest": {
+        "type": "object",
+        "properties": {
+          "elements": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ElementRequest"
+            },
+            "nullable": true
+          },
+          "properties": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ExtensionProperty"
+            },
+            "nullable": true
+          },
+          "orderNumber": {
+            "type": "string",
+            "description": "The order number associated with the application installed in the tenant.",
+            "nullable": true
+          },
+          "quantity": {
+            "type": "integer",
+            "description": "The number of licenses purchased for the application.",
+            "format": "int32",
+            "nullable": true
+          },
+          "pricingTier": {
+            "type": "string",
+            "description": "Represents the pricing tier, sku or variant of the application installed in the tenant. usually provided by the marketplace.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApplicationResponse": {
+        "type": "object",
+        "properties": {
+          "users": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/UsersRefResponse"
+            },
+            "nullable": true
+          },
+          "applicationInstanceId": {
+            "type": "string",
+            "description": "This is the unique identifier for the application instance. It is different in all tenants.",
+            "format": "uuid",
+            "nullable": true
+          },
+          "elements": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ElementResponse"
+            },
+            "nullable": true
+          },
+          "applicationId": {
+            "type": "string",
+            "description": "This is the application id found in developer as serviceId, it is the invariant id of the application across all tenants.",
+            "format": "uuid"
+          },
+          "properties": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ExtensionProperty"
+            },
+            "nullable": true
+          },
+          "orderNumber": {
+            "type": "string",
+            "description": "The order number associated with the application installed in the tenant.",
+            "nullable": true
+          },
+          "quantity": {
+            "type": "integer",
+            "description": "The number of licenses purchased for the application.",
+            "format": "int32",
+            "nullable": true
+          },
+          "pricingTier": {
+            "type": "string",
+            "description": "Represents the pricing tier, sku or variant of the application installed in the tenant. usually provided by the marketplace.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "Capability": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "The name of the capability.",
+            "nullable": true,
+            "example": "files"
+          },
+          "hasAccessLevel": {
+            "type": "boolean",
+            "description": "Determines if the capability can have additional rights associated with it. If true, the capability is visible in access hub and is part of ACL.",
+            "example": true
+          },
+          "capacity": {
+            "type": "integer",
+            "description": "",
+            "format": "int32",
+            "nullable": true
+          },
+          "capacityUnit": {
+            "type": "string",
+            "description": "This is usually used to tell the application what the unit of measure is for the capacity. Eg gigabytes, number of sub-elements, etc.",
+            "nullable": true
+          },
+          "accessLevels": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "The list of access levels associated with the capability.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "CapabilityRequest": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "hasAccessLevel": {
+            "type": "boolean",
+            "description": "Determines if the capability can have additional rights associated with it. If true, the capability is visible in access hub and is part of ACL.",
+            "example": true
+          },
+          "capacity": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "capacityUnit": {
+            "type": "string",
+            "description": "This is usually used to tell the application what the unit of measure is for the capacity. Eg gigabytes, number of sub-elements, etc.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ControlOptionTypes": {
+        "enum": [
+          "StopOnFailure",
+          "TryUndo",
+          "Continue"
+        ],
+        "type": "string",
+        "description": "Defines how to handle a failure in an operation"
+      },
+      "CreateTenantPayload": {
+        "type": "object",
+        "properties": {
+          "admins": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Administrator"
+            },
+            "description": "List of the initial administrators for the tenant",
+            "nullable": true
+          },
+          "applications": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Application"
+            },
+            "description": "the list of applications that should be installed in the tenant",
+            "nullable": true
+          },
+          "properties": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ExtensionProperty"
+            },
+            "description": "Extension properties for the tenant.",
+            "nullable": true
+          },
+          "domains": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "list of email domains that is associated with the tenant. Only available for tenants with the tenant type veracity_default",
+            "nullable": true
+          },
+          "controlOptions": {
+            "$ref": "#/components/schemas/ControlOptionTypes"
+          },
+          "legalEntityName": {
+            "type": "string",
+            "description": "The name of the legal entity, should be the same as the name of the tenant. And is synced with the legal entity (site) in MDM.",
+            "nullable": true
+          },
+          "tenantType": {
+            "$ref": "#/components/schemas/TenantTypes"
+          },
+          "dnvCustomerId": {
+            "type": "string",
+            "description": "The global customer id from MDM and salesforce",
+            "nullable": true
+          },
+          "legalEntityId": {
+            "type": "string",
+            "description": "The internal MDM id for the legal entity",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "CreateTenantResponse": {
+        "type": "object",
+        "properties": {
+          "tenantId": {
+            "type": "string",
+            "description": "The ID of the tenant.",
+            "format": "uuid",
+            "nullable": true
+          },
+          "users": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/UsersResponse"
+            },
+            "description": "The users that are part of the tenant.",
+            "nullable": true
+          },
+          "applications": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ApplicationResponse"
+            },
+            "description": "The applications that are part of the tenant.",
+            "nullable": true
+          },
+          "properties": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ExtensionProperty"
+            },
+            "description": "The extension properties of the tenant entity. extension properties are case sensitive and shall user {appPrefix}_{propertyName} format, appPrefixes are defined in developer.veracity.com.",
+            "nullable": true
+          },
+          "domains": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "list of email domains that is associated with the tenant. Only available for tenants with the tenant type veracity_default",
+            "nullable": true
+          },
+          "legalEntityName": {
+            "type": "string",
+            "description": "The name of the legal entity, should be the same as the name of the tenant. And is synced with the legal entity in MDM.",
+            "nullable": true
+          },
+          "tenantType": {
+            "$ref": "#/components/schemas/TenantTypes"
+          },
+          "dnvCustomerId": {
+            "type": "string",
+            "description": "The global customer id from MDM and salesforce",
+            "nullable": true
+          },
+          "legalEntityId": {
+            "type": "string",
+            "description": "The internal MDM id for the legal entity",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Represents a create response for tenant information."
+      },
+      "CreateUserPayload": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "description": "The email address of the user, cannot be specified if UserId is set",
+            "nullable": true
+          },
+          "userId": {
+            "type": "string",
+            "description": "the id of the user from Veracity Identity, cannot be specified if Email is set",
+            "format": "uuid",
+            "nullable": true
+          },
+          "applications": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/License"
+            },
+            "description": "Assign licenses to the user when the user is created",
+            "nullable": true
+          },
+          "elementRights": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ApplicationElementRight"
+            },
+            "nullable": true
+          },
+          "groups": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Add the user to the listed groups when the user is created",
+            "nullable": true
+          },
+          "createUserIfNOtInIdentity": {
+            "type": "boolean",
+            "description": "Create the user in identity if the user does not exist, will cause the call to be slower and the user needs to activate the account"
+          }
+        },
+        "additionalProperties": false
+      },
+      "CreateUsersPayload": {
+        "type": "object",
+        "properties": {
+          "controlOptions": {
+            "$ref": "#/components/schemas/ControlOptionTypes"
+          },
+          "users": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/UserPayloadSlim"
+            },
+            "nullable": true
+          },
+          "licenses": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/LicenseSlim"
+            },
+            "nullable": true
+          },
+          "elementRights": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ElementRightSlim"
+            },
+            "nullable": true
+          },
+          "groups": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "DependencyState": {
+        "type": "object",
+        "properties": {
+          "componentId": {
+            "type": "string",
+            "nullable": true
+          },
+          "componentType": {
+            "type": "string",
+            "nullable": true
+          },
+          "observedValue": {
+            "nullable": true
+          },
+          "observedUnit": {
+            "type": "string",
+            "nullable": true
+          },
+          "status": {
+            "$ref": "#/components/schemas/HealthStateTypes"
+          },
+          "affectedEndpoints": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "time": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "output": {
+            "type": "string",
+            "nullable": true
+          },
+          "weight": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "critical": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ElementRequest": {
+        "required": [
+          "name"
+        ],
+        "type": "object",
+        "properties": {
+          "description": {
+            "type": "string",
+            "description": "Describe the purpose og the element",
+            "nullable": true
+          },
+          "elementExternalId": {
+            "type": "string",
+            "description": "the application's reference for the element. This is the same as the element id in the application.",
+            "nullable": true,
+            "example": "{6e4d334d-b8c9-4ac3-a058-c8ddd5f39c05}"
+          },
+          "elementType": {
+            "type": "string",
+            "description": "the type of the element, used to describe the element in the application.",
+            "nullable": true
+          },
+          "elementTypeIconUrl": {
+            "type": "string",
+            "description": "The url element type icon. This is used to display the element in the application and access hub.",
+            "format": "uri",
+            "nullable": true
+          },
+          "capabilities": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CapabilityRequest"
+            },
+            "description": "Additional capabilities enabled for the application element.",
+            "nullable": true
+          },
+          "name": {
+            "minLength": 1,
+            "type": "string",
+            "description": "The name of the element. This is used to display the element in the application and access hub."
+          },
+          "systemTags": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "The system tags associated with the element and assigned by the application itself or Veracity Platform components. These are used to categorize and filter elements in the application and access hub.",
+            "nullable": true,
+            "example": [
+              "EC",
+              "premium",
+              "archived"
+            ]
+          },
+          "properties": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ExtensionProperty"
+            },
+            "description": "The extension properties. Extra information kept on the object.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Represents a request to create an application element."
+      },
+      "ElementResponse": {
+        "type": "object",
+        "properties": {
+          "elementId": {
+            "type": "string",
+            "description": "The ID of the application element.",
+            "format": "uuid",
+            "example": "1deb5f9f-f438-4665-9f11-62e86737f7d1"
+          },
+          "applicationId": {
+            "type": "string",
+            "description": "The ID of the application. This is the same as the serviceId in developer.",
+            "format": "uuid",
+            "example": "1deb5f9f-f438-4665-9f11-62e86737f7d1"
+          },
+          "applicationInstanceId": {
+            "type": "string",
+            "description": "The globally unique identifier (GUID) for the application.",
+            "format": "uuid",
+            "example": "89da7932-cc2a-4eaa-acd4-b34e8e2e5c35"
+          },
+          "elementExternalId": {
+            "type": "string",
+            "description": "the application's reference for the element. This is the same as the element id in the application.",
+            "nullable": true,
+            "example": "workspace1"
+          },
+          "elementType": {
+            "type": "string",
+            "description": "the type of the element, used to describe the element in the application.",
+            "nullable": true,
+            "example": "Workspace"
+          },
+          "elementTypeIconUrl": {
+            "type": "string",
+            "description": "The url element type icon. This is used to display the element in the application and access hub.",
+            "format": "uri",
+            "nullable": true,
+            "example": "https://cdn.veracity.com/assets/workspace.icon.png"
+          },
+          "capabilities": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Capability"
+            },
+            "description": "Additional capabilities enabled for the application element.",
+            "nullable": true
+          },
+          "accessLevels": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "isChild": {
+            "type": "boolean"
+          },
+          "parentId": {
+            "type": "string",
+            "format": "uuid",
+            "nullable": true
+          },
+          "elementLevel": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          },
+          "accessHubElementUrl": {
+            "type": "string",
+            "description": "Gets or sets the URL for accessing the hub element associated with this response.",
+            "format": "uri",
+            "nullable": true
+          },
+          "accessHubApplicationUrl": {
+            "type": "string",
+            "description": "Gets or sets the URL for accessing the application in the Access Hub.",
+            "format": "uri",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "description": "The name of the tenant entity.",
+            "nullable": true,
+            "example": "Jensen, Olaf"
+          },
+          "tenantId": {
+            "type": "string",
+            "description": "The ID of the tenant.",
+            "format": "uuid"
+          },
+          "metadata": {
+            "$ref": "#/components/schemas/Metadata"
+          },
+          "properties": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ExtensionProperty"
+            },
+            "description": "The extension properties of the tenant entity. extension properties are case-sensitive and shall user {appPrefix}_{propertyName} format, appPrefixes are defined in developer.veracity.com.",
+            "nullable": true
+          },
+          "accessHubTenantHomeUrl": {
+            "type": "string",
+            "description": "get the url to the tenants home page in access hub",
+            "format": "uri",
+            "nullable": true,
+            "example": "https://accesshub.veracity.com?tenant_id=be0c84cb-7a4a-4114-aa17-9c0224b084cf"
+          },
+          "systemTags": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Gets or sets the list of system generated tags associated with the tenant entity.",
+            "nullable": true,
+            "example": [
+              "EC",
+              "premium",
+              "archived"
+            ]
+          },
+          "tags": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Gets or sets the list of tags associated with the tenant entity.",
+            "nullable": true,
+            "example": [
+              "customer",
+              "energy",
+              "partner"
+            ]
+          }
+        },
+        "additionalProperties": false,
+        "description": "This class represents the response for an application element.",
+        "readOnly": true
+      },
+      "ElementRightSlim": {
+        "type": "object",
+        "properties": {
+          "elementId": {
+            "type": "string",
+            "nullable": true
+          },
+          "applicationId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "accessLevel": {
+            "type": "string",
+            "nullable": true
+          },
+          "properties": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ExtensionProperty"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ExtensionProperty": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "The name of the property. Properties are case sensitive and shall use {appPrefix}_{propertyName} format, appPrefixes are defined in developer.veracity.com.",
+            "nullable": true,
+            "example": "vtmd_vesselList"
+          },
+          "value": {
+            "type": "string",
+            "description": "The value of the property.",
+            "nullable": true,
+            "example": "7911545;7911533"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Represents an extension property."
+      },
+      "FormatingTypes": {
+        "enum": [
+          "Unformatted",
+          "DomainLabelFormatted"
+        ],
+        "type": "string"
+      },
+      "HealthStateTypes": {
+        "enum": [
+          "Pass",
+          "Warn",
+          "Fail"
+        ],
+        "type": "string"
+      },
+      "HealthStatus": {
+        "type": "object",
+        "properties": {
+          "checks": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/DependencyState"
+            },
+            "nullable": true
+          },
+          "status": {
+            "$ref": "#/components/schemas/HealthStateTypes"
+          },
+          "serviceId": {
+            "type": "string",
+            "nullable": true
+          },
+          "releaseId": {
+            "type": "string",
+            "nullable": true
+          },
+          "version": {
+            "type": "string",
+            "nullable": true
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          },
+          "notes": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "output": {
+            "type": "string",
+            "nullable": true
+          },
+          "message": {
+            "type": "string",
+            "nullable": true
+          },
+          "information": {
+            "type": "string",
+            "nullable": true
+          },
+          "subCode": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "supportCode": {
+            "type": "string",
+            "nullable": true
+          },
+          "correlationId": {
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "InstallApplicationsPayload": {
+        "type": "object",
+        "properties": {
+          "applications": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ApplicationInstallation"
+            },
+            "description": "The applications to install.",
+            "nullable": true
+          },
+          "controlOptions": {
+            "$ref": "#/components/schemas/ControlOptionTypes"
+          }
+        },
+        "additionalProperties": false
+      },
+      "InstallApplicationsResponse": {
+        "type": "object",
+        "properties": {
+          "applications": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ApplicationResponse"
+            },
+            "description": "The applications that where installed",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "JsonPatchDocument": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/Operation"
+        },
+        "description": "Array of operations to perform"
+      },
+      "License": {
+        "type": "object",
+        "properties": {
+          "applicationId": {
+            "type": "string",
+            "description": "The ID of the application. This is the same as the serviceId in developer.",
+            "format": "uuid"
+          },
+          "accessLevel": {
+            "type": "string",
+            "description": "Indicates the accessLevel of the uses in the application instance, only applicable for applications with tenant wide roles. eg:  'owner', 'contributor', 'reader'.",
+            "nullable": true
+          },
+          "canAddUsersToTenant": {
+            "type": "boolean",
+            "description": "indicates that the user needs to be able to add users to the tenant (grant the user UserAdmin rights on the tenant), cannot be set to true without isApplicationAdmin being set to true. If the user is already a UserAdmin setting it to false will not remove this right"
+          },
+          "isApplicationAdmin": {
+            "type": "boolean",
+            "description": "indicates that the user needs to be able to administer the application (grant the user ApplicationAdmin rights on the application)"
+          }
+        },
+        "additionalProperties": false
+      },
+      "LicenseSlim": {
+        "type": "object",
+        "properties": {
+          "applicationId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "accessLevel": {
+            "type": "string",
+            "nullable": true
+          },
+          "properties": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ExtensionProperty"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "Metadata": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "The entity type.",
+            "readOnly": true
+          },
+          "createdBy": {
+            "type": "string",
+            "description": "The creator.",
+            "nullable": true,
+            "readOnly": true
+          },
+          "createDate": {
+            "type": "string",
+            "description": "The creation date.",
+            "format": "date-time",
+            "readOnly": true
+          },
+          "modifiedBy": {
+            "type": "string",
+            "description": "The modifier.",
+            "nullable": true,
+            "readOnly": true
+          },
+          "modifiedDate": {
+            "type": "string",
+            "description": "The modification date.",
+            "format": "date-time",
+            "nullable": true,
+            "readOnly": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Represents the metadata information for the entities."
+      },
+      "Operation": {
+        "type": "object",
+        "properties": {
+          "op": {
+            "enum": [
+              "add",
+              "remove",
+              "replace",
+              "move",
+              "copy"
+            ],
+            "type": "string"
+          },
+          "value": {
+            "type": "string"
+          },
+          "path": {
+            "type": "string"
+          },
+          "from": {
+            "type": "string"
+          }
+        },
+        "description": "An operation to perform against a resource property. eg update the 'name' property of a resource",
+        "externalDocs": {
+          "description": "JSON Patch Operation",
+          "url": "https://tools.ietf.org/html/rfc6902"
+        }
+      },
+      "Order": {
+        "type": "object",
+        "properties": {
+          "orderId": {
+            "type": "string",
+            "description": "Gets or sets the order ID.",
+            "nullable": true
+          },
+          "orderType": {
+            "type": "string",
+            "description": "Gets or sets the type of the order.",
+            "nullable": true
+          },
+          "applications": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ApplicationOrder"
+            },
+            "description": "Gets or sets the list of applications in the order.",
+            "nullable": true
+          },
+          "orderDate": {
+            "type": "string",
+            "description": "Gets or sets the order date.",
+            "format": "date-time"
+          },
+          "tenantId": {
+            "type": "string",
+            "description": "Gets or sets the tenant ID.",
+            "nullable": true
+          },
+          "tenantName": {
+            "type": "string",
+            "description": "Gets or sets the tenant name.",
+            "nullable": true
+          },
+          "tenantProperties": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ExtensionProperty"
+            },
+            "description": "Gets or sets the tenant properties.",
+            "nullable": true
+          },
+          "dnvCustomerId": {
+            "type": "string",
+            "description": "Gets or sets the DNV customer ID.",
+            "nullable": true
+          },
+          "legalEntityName": {
+            "type": "string",
+            "description": "Gets or sets the legal entity name.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Represents an order."
+      },
+      "PagedCreateTenantResponse": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/CreateTenantResponse"
+          },
+          "message": {
+            "type": "string",
+            "description": "Contains error messages if any",
+            "nullable": true
+          },
+          "stage": {
+            "type": "integer",
+            "description": "the # of the stage that was executed",
+            "format": "int32"
+          },
+          "totalStages": {
+            "type": "integer",
+            "description": "the total # of stages that will be executed",
+            "format": "int32"
+          },
+          "isComplete": {
+            "type": "boolean",
+            "description": "true if all stages have been executed, or the process has been aborted"
+          },
+          "payloadType": {
+            "type": "string",
+            "description": "the type of payload that was processed",
+            "nullable": true
+          },
+          "numberOfRetries": {
+            "type": "integer",
+            "description": "the number of retries that have been attempted for the last stage",
+            "format": "int32"
+          },
+          "isFailed": {
+            "type": "boolean",
+            "description": "true if the stage failed"
+          },
+          "statusCode": {
+            "type": "integer",
+            "description": "the status code of the response for the last stage",
+            "format": "int32",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "PagedInstallApplicationsResponse": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/InstallApplicationsResponse"
+          },
+          "message": {
+            "type": "string",
+            "description": "Contains error messages if any",
+            "nullable": true
+          },
+          "stage": {
+            "type": "integer",
+            "description": "the # of the stage that was executed",
+            "format": "int32"
+          },
+          "totalStages": {
+            "type": "integer",
+            "description": "the total # of stages that will be executed",
+            "format": "int32"
+          },
+          "isComplete": {
+            "type": "boolean",
+            "description": "true if all stages have been executed, or the process has been aborted"
+          },
+          "payloadType": {
+            "type": "string",
+            "description": "the type of payload that was processed",
+            "nullable": true
+          },
+          "numberOfRetries": {
+            "type": "integer",
+            "description": "the number of retries that have been attempted for the last stage",
+            "format": "int32"
+          },
+          "isFailed": {
+            "type": "boolean",
+            "description": "true if the stage failed"
+          },
+          "statusCode": {
+            "type": "integer",
+            "description": "the status code of the response for the last stage",
+            "format": "int32",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "PagedTenantEntityResponseBase": {
+        "type": "object",
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TenantEntityResponseBase"
+            },
+            "description": "The items in the current page",
+            "nullable": true
+          },
+          "pageCount": {
+            "type": "integer",
+            "description": "The number of items in the current page",
+            "format": "int32",
+            "readOnly": true
+          },
+          "totalCount": {
+            "type": "integer",
+            "description": "The total number of items in the result set. This value is only present if the result set is paged.",
+            "format": "int64",
+            "nullable": true,
+            "readOnly": true
+          },
+          "nextPageUrl": {
+            "type": "string",
+            "description": "Contains the relative url to the next page of the result set. The url is only present if there are more results to fetch. It assumes a constant page size.",
+            "format": "uri",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "A paged list of items. This class is used to represent the result of a paged query."
+      },
+      "PagedTenantResponse": {
+        "type": "object",
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TenantResponse"
+            },
+            "description": "The items in the current page",
+            "nullable": true
+          },
+          "pageCount": {
+            "type": "integer",
+            "description": "The number of items in the current page",
+            "format": "int32",
+            "readOnly": true
+          },
+          "totalCount": {
+            "type": "integer",
+            "description": "The total number of items in the result set. This value is only present if the result set is paged.",
+            "format": "int64",
+            "nullable": true,
+            "readOnly": true
+          },
+          "nextPageUrl": {
+            "type": "string",
+            "description": "Contains the relative url to the next page of the result set. The url is only present if there are more results to fetch. It assumes a constant page size.",
+            "format": "uri",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "A paged list of items. This class is used to represent the result of a paged query."
+      },
+      "PagedUnInstallApplicationsResponse": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/UnInstallApplicationsResponse"
+          },
+          "message": {
+            "type": "string",
+            "description": "Contains error messages if any",
+            "nullable": true
+          },
+          "stage": {
+            "type": "integer",
+            "description": "the # of the stage that was executed",
+            "format": "int32"
+          },
+          "totalStages": {
+            "type": "integer",
+            "description": "the total # of stages that will be executed",
+            "format": "int32"
+          },
+          "isComplete": {
+            "type": "boolean",
+            "description": "true if all stages have been executed, or the process has been aborted"
+          },
+          "payloadType": {
+            "type": "string",
+            "description": "the type of payload that was processed",
+            "nullable": true
+          },
+          "numberOfRetries": {
+            "type": "integer",
+            "description": "the number of retries that have been attempted for the last stage",
+            "format": "int32"
+          },
+          "isFailed": {
+            "type": "boolean",
+            "description": "true if the stage failed"
+          },
+          "statusCode": {
+            "type": "integer",
+            "description": "the status code of the response for the last stage",
+            "format": "int32",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "RouteDetails": {
+        "type": "object",
+        "properties": {
+          "routes": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "formatedLabelValue": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "TenantEntityResponseBase": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "The name of the tenant entity.",
+            "nullable": true,
+            "example": "Jensen, Olaf"
+          },
+          "tenantId": {
+            "type": "string",
+            "description": "The ID of the tenant.",
+            "format": "uuid"
+          },
+          "metadata": {
+            "$ref": "#/components/schemas/Metadata"
+          },
+          "properties": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ExtensionProperty"
+            },
+            "description": "The extension properties of the tenant entity. extension properties are case-sensitive and shall user {appPrefix}_{propertyName} format, appPrefixes are defined in developer.veracity.com.",
+            "nullable": true
+          },
+          "accessHubTenantHomeUrl": {
+            "type": "string",
+            "description": "get the url to the tenants home page in access hub",
+            "format": "uri",
+            "nullable": true,
+            "example": "https://accesshub.veracity.com?tenant_id=be0c84cb-7a4a-4114-aa17-9c0224b084cf"
+          },
+          "systemTags": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Gets or sets the list of system generated tags associated with the tenant entity.",
+            "nullable": true,
+            "example": [
+              "EC",
+              "premium",
+              "archived"
+            ]
+          },
+          "tags": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Gets or sets the list of tags associated with the tenant entity.",
+            "nullable": true,
+            "example": [
+              "customer",
+              "energy",
+              "partner"
+            ]
+          }
+        },
+        "additionalProperties": false,
+        "description": "Represents the base response for a tenant entity.",
+        "readOnly": true
+      },
+      "TenantResponse": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "The display name of the tenant.",
+            "nullable": true,
+            "example": "Demo Corp"
+          },
+          "legalEntityName": {
+            "type": "string",
+            "description": "The legal entity name.",
+            "nullable": true,
+            "example": "Demo Corp"
+          },
+          "dnvCustomerId": {
+            "type": "string",
+            "description": "The DNV customer ID.",
+            "nullable": true,
+            "example": "mpbe0c84cb7a4a4114aa179c0224b084cf"
+          },
+          "legalEntityId": {
+            "type": "string",
+            "description": "The legal entity ID.",
+            "nullable": true,
+            "example": "mpbe0c84cb7a4a4114aa179c0224b084cf"
+          },
+          "tenantType": {
+            "type": "string",
+            "description": "The tenant type.",
+            "nullable": true,
+            "example": "veracity_private"
+          },
+          "logoUri": {
+            "type": "string",
+            "description": "The logo URI.",
+            "format": "uri",
+            "nullable": true,
+            "example": "https://veracitycdn.blob.core.windows.net/digisales/ttp/logo/TT/oT+3sZIt2mTL/mvCXl4OV5nHaJTGEBTwayCo86CA.png"
+          },
+          "groupsIsActivated": {
+            "type": "boolean",
+            "description": "Value indicating if group is activated",
+            "example": true
+          },
+          "tenantId": {
+            "type": "string",
+            "description": "The ID of the tenant.",
+            "format": "uuid"
+          },
+          "metadata": {
+            "$ref": "#/components/schemas/Metadata"
+          },
+          "properties": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ExtensionProperty"
+            },
+            "description": "The extension properties of the tenant entity. extension properties are case-sensitive and shall user {appPrefix}_{propertyName} format, appPrefixes are defined in developer.veracity.com.",
+            "nullable": true
+          },
+          "accessHubTenantHomeUrl": {
+            "type": "string",
+            "description": "get the url to the tenants home page in access hub",
+            "format": "uri",
+            "nullable": true,
+            "example": "https://accesshub.veracity.com?tenant_id=be0c84cb-7a4a-4114-aa17-9c0224b084cf"
+          },
+          "systemTags": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Gets or sets the list of system generated tags associated with the tenant entity.",
+            "nullable": true,
+            "example": [
+              "EC",
+              "premium",
+              "archived"
+            ]
+          },
+          "tags": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Gets or sets the list of tags associated with the tenant entity.",
+            "nullable": true,
+            "example": [
+              "customer",
+              "energy",
+              "partner"
+            ]
+          }
+        },
+        "additionalProperties": false,
+        "description": "Represents a response containing tenant information.",
+        "readOnly": true
+      },
+      "TenantTypes": {
+        "enum": [
+          "veracity_hidden",
+          "veracity_private",
+          "veracity_default"
+        ],
+        "type": "string"
+      },
+      "UnInstallApplicationPayload": {
+        "type": "object",
+        "properties": {
+          "applications": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "description": "The applications to remove from the tenant.",
+            "nullable": true
+          },
+          "controlOptions": {
+            "$ref": "#/components/schemas/ControlOptionTypes"
+          }
+        },
+        "additionalProperties": false,
+        "description": ""
+      },
+      "UnInstallApplicationsResponse": {
+        "type": "object",
+        "properties": {
+          "applications": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string",
+              "format": "uuid",
+              "nullable": true
+            },
+            "description": "The applications that were uninstalled has both the key and the value filled out.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "UserExistanceTypes": {
+        "enum": [
+          "None",
+          "Veracity",
+          "Tenant",
+          "TenantPending"
+        ],
+        "type": "string"
+      },
+      "UserPayloadSlim": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "nullable": true
+          },
+          "userId": {
+            "type": "string",
+            "format": "uuid",
+            "nullable": true
+          },
+          "properties": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ExtensionProperty"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "UsersRefRequest": {
+        "type": "object",
+        "properties": {
+          "userId": {
+            "type": "string",
+            "description": "the user id from Veracity Identity, cannot be specified together with email",
+            "format": "uuid",
+            "nullable": true
+          },
+          "email": {
+            "type": "string",
+            "description": "the user email from Veracity Identity, cannot be specified together with userId",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "UsersRefResponse": {
+        "type": "object",
+        "properties": {
+          "profileId": {
+            "type": "string",
+            "description": "the object id of the user in the tenant.",
+            "format": "uuid",
+            "nullable": true
+          },
+          "userId": {
+            "type": "string",
+            "description": "the user id from Veracity Identity, cannot be specified together with email",
+            "format": "uuid",
+            "nullable": true
+          },
+          "email": {
+            "type": "string",
+            "description": "the user email from Veracity Identity, cannot be specified together with userId",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "UsersResponse": {
+        "type": "object",
+        "properties": {
+          "profileId": {
+            "type": "string",
+            "description": "the users profile id,",
+            "format": "uuid"
+          },
+          "tenantId": {
+            "type": "string",
+            "description": "the tenant id of the userProfile",
+            "nullable": true
+          },
+          "isServicePrincipal": {
+            "type": "boolean",
+            "description": "indicates if the user is a service principal"
+          },
+          "isLimitedUser": {
+            "type": "boolean",
+            "description": "Indicates it the user is a limited user (vessel user)"
+          },
+          "name": {
+            "type": "string",
+            "description": "Optional: The display name of the user.",
+            "nullable": true
+          },
+          "userId": {
+            "type": "string",
+            "description": "The userId from id.veracity.com, cannot be specified if Email is set",
+            "format": "uuid",
+            "nullable": true
+          },
+          "email": {
+            "type": "string",
+            "description": "The email address of the user, cannot be specified if UserId is set",
+            "nullable": true
+          },
+          "isAdmin": {
+            "type": "boolean",
+            "description": "Annotates if the user should be added as an admin user or not, if not specified the user will be added as a normal user",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "securitySchemes": {
+      "oauth2": {
+        "type": "oauth2",
+        "flows": {
+          "implicit": {
+            "authorizationUrl": "https://logintest.veracity.com/ed815121-cdfa-4097-b524-e2b23cd36eb6/oauth2/v2.0/authorize",
+            "scopes": {
+              "https://dnvglb2ctest.onmicrosoft.com/a4a8e726-c1cc-407c-83a0-4ce37f1ce130/user_impersonation": "user_impersonation",
+              "https://dnvglb2ctest.onmicrosoft.com/a4a8e726-c1cc-407c-83a0-4ce37f1ce130/resource_administration": "resource_administration",
+              "https://dnvglb2ctest.onmicrosoft.com/a4a8e726-c1cc-407c-83a0-4ce37f1ce130/manage_services": "manage_services"
+            }
+          }
+        }
+      }
+    }
+  },
+  "security": [
+    {
+      "oauth2": [
+        "https://dnvglb2ctest.onmicrosoft.com/a4a8e726-c1cc-407c-83a0-4ce37f1ce130/user_impersonation",
+        "https://dnvglb2ctest.onmicrosoft.com/a4a8e726-c1cc-407c-83a0-4ce37f1ce130/resource_administration",
+        "https://dnvglb2ctest.onmicrosoft.com/a4a8e726-c1cc-407c-83a0-4ce37f1ce130/manage_services"
+      ]
+    }
+  ]
+}
