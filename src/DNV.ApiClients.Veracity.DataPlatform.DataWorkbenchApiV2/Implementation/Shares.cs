@@ -50,6 +50,790 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataWorkbenchApiV2
         public DataWorkbenchApiV2Client Client { get; private set; }
 
         /// <summary>
+        /// Allows sharing a subset of a dataset with custom queries and/or columns
+        /// with a user or workspace
+        /// This will create a dataset based on
+        /// datasetName/datasetDescription/datasetQueries/datasetColumns/datasetTags,
+        /// and new created dataset will be shared with the receiver
+        /// </summary>
+        /// <remarks>
+        /// Sample request payload for creating share to a user with dataset info based
+        /// on a dataset:
+        ///
+        /// {
+        /// "datasetId": "3f187797-49c8-4530-83d6-555d8f53f8c6",
+        /// "receiverId": "5c0cd768-eac8-482a-9f27-6d7dc3919d73",
+        /// "receiverType": "User",
+        /// "allowReshare": true,
+        /// "shareNote": "Share note for user share with queries/columns",
+        /// "datasetName": "DS_Share_As_New",
+        /// "datasetDescription": "Dataset created during share as new with queries
+        /// "datasetQueries": [
+        /// {
+        /// "column": "IMO",
+        /// "filterType": "List",
+        /// "filterValues": [
+        /// "0001016",
+        /// "3879220",
+        /// "9577071"
+        /// ]
+        /// },
+        /// {
+        /// "column": "Year",
+        /// "filterType": "Equals",
+        /// "filterValues": [
+        /// "2025"
+        /// ]
+        /// }
+        /// ],
+        /// "datasetColumns": [
+        /// "IMO",
+        /// "Vessel_Name",
+        /// "Year",
+        /// "Date_From",
+        /// "Date_To"
+        /// ],
+        /// "datasetTags": {
+        /// "tag01": [
+        /// "value01"
+        /// ],
+        /// "tag02": [
+        /// "value02"
+        /// ]
+        /// }
+        /// }
+        ///
+        /// Sample response body when successfully create a share
+        ///
+        /// {
+        /// "shareId": "c0b48ed2-86ad-41f2-8b1c-af0564cbdebb"
+        /// }
+        /// Sample response body when fail to create a share:
+        ///
+        /// {
+        /// "type": "BusinessError",
+        /// "title": "Share is not allowed: 'Resource has been shared to this user'",
+        /// "status": 400,
+        /// "detail": "Share is not allowed: 'Resource has been shared to this user'",
+        /// "traceId": "195392b9866721eb7d7b18da127ad1b2"
+        /// }
+        /// </remarks>
+        /// <param name='body'>
+        /// Share creation details including new dataset info
+        /// </param>
+        /// <param name='workspaceId'>
+        /// Workspace identifier (UUID)
+        /// </param>
+        /// <param name='datasetId'>
+        /// Dataset identifier (UUID)
+        /// </param>
+        /// <param name='customHeaders'>
+        /// Headers that will be added to request.
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        /// <exception cref="HttpOperationException">
+        /// Thrown when the operation returned an invalid status code
+        /// </exception>
+        /// <exception cref="SerializationException">
+        /// Thrown when unable to deserialize the response
+        /// </exception>
+        /// <exception cref="ValidationException">
+        /// Thrown when a required parameter is null
+        /// </exception>
+        /// <exception cref="System.ArgumentNullException">
+        /// Thrown when a required parameter is null
+        /// </exception>
+        /// <return>
+        /// A response object containing the response body and response headers.
+        /// </return>
+        public async Task<HttpOperationResponse<CreateShareResponseDto>> CreateShareAsNewWithHttpMessagesAsync(CreateShareAsNewDto body, System.Guid workspaceId, System.Guid datasetId, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default)
+        {
+            if (body == null)
+            {
+                throw new ValidationException(ValidationRules.CannotBeNull, "body");
+            }
+            if (body != null)
+            {
+                body.Validate();
+            }
+            // Construct URL
+            var _baseUrl = Client.HttpClient.BaseAddress?.AbsoluteUri ?? Client.BaseUri.AbsoluteUri;
+            var _url = new System.Uri(new System.Uri(_baseUrl + (_baseUrl.EndsWith("/") ? "" : "/")), "workspaces/{workspaceId}/datasets/{datasetId}/shareasnew").ToString();
+            _url = _url.Replace("{workspaceId}", System.Uri.EscapeDataString(Microsoft.Rest.Serialization.SafeJsonConvert.SerializeObject(workspaceId, Client.SerializationSettings).Trim('"')));
+            _url = _url.Replace("{datasetId}", System.Uri.EscapeDataString(Microsoft.Rest.Serialization.SafeJsonConvert.SerializeObject(datasetId, Client.SerializationSettings).Trim('"')));
+            // Create HTTP transport objects
+            var _httpRequest = new HttpRequestMessage();
+            HttpResponseMessage _httpResponse = null;
+            _httpRequest.Method = new HttpMethod("POST");
+            _httpRequest.RequestUri = new System.Uri(_url);
+            // Set Headers
+
+
+            if (customHeaders != null)
+            {
+                foreach(var _header in customHeaders)
+                {
+                    if (_httpRequest.Headers.Contains(_header.Key))
+                    {
+                        _httpRequest.Headers.Remove(_header.Key);
+                    }
+                    _httpRequest.Headers.TryAddWithoutValidation(_header.Key, _header.Value);
+                }
+            }
+
+            // Serialize Request
+            string _requestContent = null;
+            if(body != null)
+            {
+                _requestContent = Microsoft.Rest.Serialization.SafeJsonConvert.SerializeObject(body, Client.SerializationSettings);
+                _httpRequest.Content = new StringContent(_requestContent, System.Text.Encoding.UTF8);
+                _httpRequest.Content.Headers.ContentType =System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json; charset=utf-8");
+            }
+            // Send Request
+            cancellationToken.ThrowIfCancellationRequested();
+            _httpResponse = await Client.HttpClient.SendAsync(_httpRequest, cancellationToken).ConfigureAwait(false);
+            HttpStatusCode _statusCode = _httpResponse.StatusCode;
+            cancellationToken.ThrowIfCancellationRequested();
+            string _responseContent = null;
+            if ((int)_statusCode != 201)
+            {
+                var ex = new HttpOperationException(string.Format("Operation returned an invalid status code '{0}'", _statusCode));
+                if (_httpResponse.Content != null) {
+                    _responseContent = await _httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
+                }
+                else {
+                    _responseContent = string.Empty;
+                }
+                ex.Request = new HttpRequestMessageWrapper(_httpRequest, _requestContent);
+                ex.Response = new HttpResponseMessageWrapper(_httpResponse, _responseContent);
+                _httpRequest.Dispose();
+                if (_httpResponse != null)
+                {
+                    _httpResponse.Dispose();
+                }
+                throw ex;
+            }
+            // Create Result
+            var _result = new HttpOperationResponse<CreateShareResponseDto>();
+            _result.Request = _httpRequest;
+            _result.Response = _httpResponse;
+            // Deserialize Response
+            if ((int)_statusCode == 201)
+            {
+                _responseContent = await _httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
+                try
+                {
+                    _result.Body = Microsoft.Rest.Serialization.SafeJsonConvert.DeserializeObject<CreateShareResponseDto>(_responseContent, Client.DeserializationSettings);
+                }
+                catch (JsonException ex)
+                {
+                    _httpRequest.Dispose();
+                    if (_httpResponse != null)
+                    {
+                        _httpResponse.Dispose();
+                    }
+                    throw new SerializationException("Unable to deserialize the response.", _responseContent, ex);
+                }
+            }
+            return _result;
+        }
+        /// <summary>
+        /// Allows sharing a subset of a dataset with custom queries and/or columns
+        /// with a user or workspace
+        /// This will create a dataset based on
+        /// datasetName/datasetDescription/datasetQueries/datasetColumns/datasetTags,
+        /// and new created dataset will be shared with the receiver
+        /// </summary>
+        /// <remarks>
+        /// Sample request payload for creating share to a user with dataset info based
+        /// on a dataset:
+        ///
+        /// {
+        /// "datasetId": "3f187797-49c8-4530-83d6-555d8f53f8c6",
+        /// "receiverId": "5c0cd768-eac8-482a-9f27-6d7dc3919d73",
+        /// "receiverType": "User",
+        /// "allowReshare": true,
+        /// "shareNote": "Share note for user share with queries/columns",
+        /// "datasetName": "DS_Share_As_New",
+        /// "datasetDescription": "Dataset created during share as new with queries
+        /// "datasetQueries": [
+        /// {
+        /// "column": "IMO",
+        /// "filterType": "List",
+        /// "filterValues": [
+        /// "0001016",
+        /// "3879220",
+        /// "9577071"
+        /// ]
+        /// },
+        /// {
+        /// "column": "Year",
+        /// "filterType": "Equals",
+        /// "filterValues": [
+        /// "2025"
+        /// ]
+        /// }
+        /// ],
+        /// "datasetColumns": [
+        /// "IMO",
+        /// "Vessel_Name",
+        /// "Year",
+        /// "Date_From",
+        /// "Date_To"
+        /// ],
+        /// "datasetTags": {
+        /// "tag01": [
+        /// "value01"
+        /// ],
+        /// "tag02": [
+        /// "value02"
+        /// ]
+        /// }
+        /// }
+        ///
+        /// Sample response body when successfully create a share
+        ///
+        /// {
+        /// "shareId": "c0b48ed2-86ad-41f2-8b1c-af0564cbdebb"
+        /// }
+        /// Sample response body when fail to create a share:
+        ///
+        /// {
+        /// "type": "BusinessError",
+        /// "title": "Share is not allowed: 'Resource has been shared to this user'",
+        /// "status": 400,
+        /// "detail": "Share is not allowed: 'Resource has been shared to this user'",
+        /// "traceId": "195392b9866721eb7d7b18da127ad1b2"
+        /// }
+        /// </remarks>
+        /// <param name='body'>
+        /// Share creation details including new dataset info
+        /// </param>
+        /// <param name='workspaceId'>
+        /// Workspace identifier (UUID)
+        /// </param>
+        /// <param name='datasetId'>
+        /// Dataset identifier (UUID)
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        public async Task<CreateShareResponseDto> CreateShareAsNewAsync(CreateShareAsNewDto body, System.Guid workspaceId, System.Guid datasetId, CancellationToken cancellationToken = default)
+        {
+            using (var _result = await CreateShareAsNewWithHttpMessagesAsync(body, workspaceId, datasetId, null, cancellationToken).ConfigureAwait(false))
+            {
+                return _result.Body;
+            }
+        }
+
+        /// <summary>
+        /// Allows sharing a dataset with a user or workspace
+        /// </summary>
+        /// <remarks>
+        /// Sample request payload for creating share to a user based on a dataset:
+        ///
+        /// {
+        /// "receiverId": "5c0cd768-eac8-482a-9f27-6d7dc3919d73",   // Id of the user
+        /// to be shared with
+        /// "receiverType": "User",
+        /// "allowReshare": true,
+        /// "shareNote": "Share note for user share"
+        /// }
+        /// Sample request payload for creating share to a workspace based on a
+        /// dataset:
+        ///
+        /// {
+        /// "receiverId": "a05e1fb8-15c3-4ed6-bbef-140d1e8a905f",   // Id of the
+        /// workspace to be shared with
+        /// "receiverType": "Workspace",
+        /// "allowReshare": true,
+        /// "shareNote": "Share note for workspace share"
+        /// }
+        ///
+        /// Sample response body when successfully create a share
+        ///
+        /// {
+        /// "shareId": "c0b48ed2-86ad-41f2-8b1c-af0564cbdebb"
+        /// }
+        /// Sample response body when fail to create the share:
+        ///
+        /// {
+        /// "type": "BusinessError",
+        /// "title": "Share is not allowed: 'Resource has been shared to this user'",
+        /// "status": 400,
+        /// "detail": "Share is not allowed: 'Resource has been shared to this user'",
+        /// "traceId": "b451354c2770f6efb2469e14e28e5ae5"
+        /// }
+        /// Sample response body when validation fails:
+        ///
+        /// {
+        /// "type": "ValidationError",
+        /// "title": "Please refer to the errors property for additional details.",
+        /// "status": 400,
+        /// "errors": {
+        /// "": [
+        /// "Either ShareId or DatasetId must be provided, but not both."
+        /// ]
+        /// },
+        /// "traceId": "4fac9bfeb164c4d05192e5da74de9945"
+        /// }
+        /// </remarks>
+        /// <param name='body'>
+        /// Share creation details
+        /// </param>
+        /// <param name='workspaceId'>
+        /// Workspace identifier (UUID)
+        /// </param>
+        /// <param name='datasetId'>
+        /// Dataset identifier (UUID)
+        /// </param>
+        /// <param name='customHeaders'>
+        /// Headers that will be added to request.
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        /// <exception cref="HttpOperationException">
+        /// Thrown when the operation returned an invalid status code
+        /// </exception>
+        /// <exception cref="SerializationException">
+        /// Thrown when unable to deserialize the response
+        /// </exception>
+        /// <exception cref="ValidationException">
+        /// Thrown when a required parameter is null
+        /// </exception>
+        /// <exception cref="System.ArgumentNullException">
+        /// Thrown when a required parameter is null
+        /// </exception>
+        /// <return>
+        /// A response object containing the response body and response headers.
+        /// </return>
+        public async Task<HttpOperationResponse<CreateShareResponseDto>> CreateShareWithHttpMessagesAsync(CreateShareDto body, System.Guid workspaceId, System.Guid datasetId, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default)
+        {
+            if (body == null)
+            {
+                throw new ValidationException(ValidationRules.CannotBeNull, "body");
+            }
+            if (body != null)
+            {
+                body.Validate();
+            }
+            // Construct URL
+            var _baseUrl = Client.HttpClient.BaseAddress?.AbsoluteUri ?? Client.BaseUri.AbsoluteUri;
+            var _url = new System.Uri(new System.Uri(_baseUrl + (_baseUrl.EndsWith("/") ? "" : "/")), "workspaces/{workspaceId}/datasets/{datasetId}/shares").ToString();
+            _url = _url.Replace("{workspaceId}", System.Uri.EscapeDataString(Microsoft.Rest.Serialization.SafeJsonConvert.SerializeObject(workspaceId, Client.SerializationSettings).Trim('"')));
+            _url = _url.Replace("{datasetId}", System.Uri.EscapeDataString(Microsoft.Rest.Serialization.SafeJsonConvert.SerializeObject(datasetId, Client.SerializationSettings).Trim('"')));
+            // Create HTTP transport objects
+            var _httpRequest = new HttpRequestMessage();
+            HttpResponseMessage _httpResponse = null;
+            _httpRequest.Method = new HttpMethod("POST");
+            _httpRequest.RequestUri = new System.Uri(_url);
+            // Set Headers
+
+
+            if (customHeaders != null)
+            {
+                foreach(var _header in customHeaders)
+                {
+                    if (_httpRequest.Headers.Contains(_header.Key))
+                    {
+                        _httpRequest.Headers.Remove(_header.Key);
+                    }
+                    _httpRequest.Headers.TryAddWithoutValidation(_header.Key, _header.Value);
+                }
+            }
+
+            // Serialize Request
+            string _requestContent = null;
+            if(body != null)
+            {
+                _requestContent = Microsoft.Rest.Serialization.SafeJsonConvert.SerializeObject(body, Client.SerializationSettings);
+                _httpRequest.Content = new StringContent(_requestContent, System.Text.Encoding.UTF8);
+                _httpRequest.Content.Headers.ContentType =System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json; charset=utf-8");
+            }
+            // Send Request
+            cancellationToken.ThrowIfCancellationRequested();
+            _httpResponse = await Client.HttpClient.SendAsync(_httpRequest, cancellationToken).ConfigureAwait(false);
+            HttpStatusCode _statusCode = _httpResponse.StatusCode;
+            cancellationToken.ThrowIfCancellationRequested();
+            string _responseContent = null;
+            if ((int)_statusCode != 201)
+            {
+                var ex = new HttpOperationException(string.Format("Operation returned an invalid status code '{0}'", _statusCode));
+                if (_httpResponse.Content != null) {
+                    _responseContent = await _httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
+                }
+                else {
+                    _responseContent = string.Empty;
+                }
+                ex.Request = new HttpRequestMessageWrapper(_httpRequest, _requestContent);
+                ex.Response = new HttpResponseMessageWrapper(_httpResponse, _responseContent);
+                _httpRequest.Dispose();
+                if (_httpResponse != null)
+                {
+                    _httpResponse.Dispose();
+                }
+                throw ex;
+            }
+            // Create Result
+            var _result = new HttpOperationResponse<CreateShareResponseDto>();
+            _result.Request = _httpRequest;
+            _result.Response = _httpResponse;
+            // Deserialize Response
+            if ((int)_statusCode == 201)
+            {
+                _responseContent = await _httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
+                try
+                {
+                    _result.Body = Microsoft.Rest.Serialization.SafeJsonConvert.DeserializeObject<CreateShareResponseDto>(_responseContent, Client.DeserializationSettings);
+                }
+                catch (JsonException ex)
+                {
+                    _httpRequest.Dispose();
+                    if (_httpResponse != null)
+                    {
+                        _httpResponse.Dispose();
+                    }
+                    throw new SerializationException("Unable to deserialize the response.", _responseContent, ex);
+                }
+            }
+            return _result;
+        }
+        /// <summary>
+        /// Allows sharing a dataset with a user or workspace
+        /// </summary>
+        /// <remarks>
+        /// Sample request payload for creating share to a user based on a dataset:
+        ///
+        /// {
+        /// "receiverId": "5c0cd768-eac8-482a-9f27-6d7dc3919d73",   // Id of the user
+        /// to be shared with
+        /// "receiverType": "User",
+        /// "allowReshare": true,
+        /// "shareNote": "Share note for user share"
+        /// }
+        /// Sample request payload for creating share to a workspace based on a
+        /// dataset:
+        ///
+        /// {
+        /// "receiverId": "a05e1fb8-15c3-4ed6-bbef-140d1e8a905f",   // Id of the
+        /// workspace to be shared with
+        /// "receiverType": "Workspace",
+        /// "allowReshare": true,
+        /// "shareNote": "Share note for workspace share"
+        /// }
+        ///
+        /// Sample response body when successfully create a share
+        ///
+        /// {
+        /// "shareId": "c0b48ed2-86ad-41f2-8b1c-af0564cbdebb"
+        /// }
+        /// Sample response body when fail to create the share:
+        ///
+        /// {
+        /// "type": "BusinessError",
+        /// "title": "Share is not allowed: 'Resource has been shared to this user'",
+        /// "status": 400,
+        /// "detail": "Share is not allowed: 'Resource has been shared to this user'",
+        /// "traceId": "b451354c2770f6efb2469e14e28e5ae5"
+        /// }
+        /// Sample response body when validation fails:
+        ///
+        /// {
+        /// "type": "ValidationError",
+        /// "title": "Please refer to the errors property for additional details.",
+        /// "status": 400,
+        /// "errors": {
+        /// "": [
+        /// "Either ShareId or DatasetId must be provided, but not both."
+        /// ]
+        /// },
+        /// "traceId": "4fac9bfeb164c4d05192e5da74de9945"
+        /// }
+        /// </remarks>
+        /// <param name='body'>
+        /// Share creation details
+        /// </param>
+        /// <param name='workspaceId'>
+        /// Workspace identifier (UUID)
+        /// </param>
+        /// <param name='datasetId'>
+        /// Dataset identifier (UUID)
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        public async Task<CreateShareResponseDto> CreateShareAsync(CreateShareDto body, System.Guid workspaceId, System.Guid datasetId, CancellationToken cancellationToken = default)
+        {
+            using (var _result = await CreateShareWithHttpMessagesAsync(body, workspaceId, datasetId, null, cancellationToken).ConfigureAwait(false))
+            {
+                return _result.Body;
+            }
+        }
+
+        /// <summary>
+        /// Query shares by various conditions
+        ///
+        /// Note:
+        /// The workspaceId in the route is the workspace where the user is currently
+        /// in, not the share workspace id.
+        /// And the workspaceId just used for permission check, not as a filter
+        /// condition.
+        /// </summary>
+        /// <remarks>
+        /// Sample request:
+        ///
+        /// {
+        /// // This is the share workspace id.
+        /// // If workspace share owner, it is the workspace id the share shared from
+        /// which workspace.
+        /// // If workspace share receiver, it is the workspace that the share in. I
+        /// // If not set, will set to empty Guid as default
+        /// "shareWorkspaceId":"880737b3-b3a1-40b1-95b3-713eee9b2001",
+        ///
+        /// // It is only useful when shareWorkspaceId is not null/empty.
+        /// "isWorkspaceShareOwner": false,
+        ///
+        /// // Indicate that if query out a system user share,
+        /// // should include the workspace share which is the parent share of the
+        /// system user share.
+        /// "includeWorkspaceShare": true,
+        /// "datasetIds": [
+        /// "11096795-d8d9-4470-9010-25664f634f21"
+        /// ],
+        /// "shareIds": [
+        /// "28120c42-94ca-4ad2-97e4-c87d262f9166"
+        /// ],
+        /// "parentShareIds": [
+        /// "90881e9c-fd82-4ec7-9470-04f762d340cb"
+        /// ],
+        ///
+        /// // Enum: Workspace, User, this indicates the type of receivers(receiverIds)
+        /// "receiverType": "Workspace",
+        /// "receiverIds": [
+        /// "880737b3-b3a1-40b1-95b3-713eee9b2001"
+        /// ],
+        /// "createdBy": "191eba59-d5b8-4440-8319-883bc850eaac"
+        /// }
+        ///
+        /// Sample response for shares:
+        ///
+        /// [
+        /// {
+        /// "workspaceId": "880737b3-b3a1-40b1-95b3-713eee9b2001",
+        /// "datasetWorkspaceId": "880737b3-b3a1-40b1-95b3-713eee9b2001",
+        /// "datasetId": "11096795-d8d9-4470-9010-25664f634f21",
+        /// "shareType": "InApp",
+        /// "shareStatus": "Active",
+        /// "createdBy": "191eba59-d5b8-4440-8319-883bc850eaac",
+        /// "lastModifiedBy": "3442f3d6-bdaf-4deb-8cbb-770b4f029a93",
+        /// "id": "28120c42-94ca-4ad2-97e4-c87d262f9166",
+        /// "receiverId": "880737b3-b3a1-40b1-95b3-713eee9b2001",
+        /// "shareReceiverType": "Workspace",
+        /// "allowReshare": true,
+        /// "parentShareId": "90881e9c-fd82-4ec7-9470-04f762d340cb",
+        /// "accessLevel": "ReadOnly"
+        /// }
+        /// ]
+        /// </remarks>
+        /// <param name='body'>
+        /// Query conditions
+        /// </param>
+        /// <param name='workspaceId'>
+        /// Id of workspace
+        /// </param>
+        /// <param name='customHeaders'>
+        /// Headers that will be added to request.
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        /// <exception cref="HttpOperationException">
+        /// Thrown when the operation returned an invalid status code
+        /// </exception>
+        /// <exception cref="SerializationException">
+        /// Thrown when unable to deserialize the response
+        /// </exception>
+        /// <exception cref="ValidationException">
+        /// Thrown when a required parameter is null
+        /// </exception>
+        /// <exception cref="System.ArgumentNullException">
+        /// Thrown when a required parameter is null
+        /// </exception>
+        /// <return>
+        /// A response object containing the response body and response headers.
+        /// </return>
+        public async Task<HttpOperationResponse<IEnumerable<ShareDto>>> QuerySharesWithHttpMessagesAsync(QueryShareDto body, System.Guid workspaceId, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default)
+        {
+            if (body == null)
+            {
+                throw new ValidationException(ValidationRules.CannotBeNull, "body");
+            }
+            // Construct URL
+            var _baseUrl = Client.HttpClient.BaseAddress?.AbsoluteUri ?? Client.BaseUri.AbsoluteUri;
+            var _url = new System.Uri(new System.Uri(_baseUrl + (_baseUrl.EndsWith("/") ? "" : "/")), "workspaces/{workspaceId}/shares/query").ToString();
+            _url = _url.Replace("{workspaceId}", System.Uri.EscapeDataString(Microsoft.Rest.Serialization.SafeJsonConvert.SerializeObject(workspaceId, Client.SerializationSettings).Trim('"')));
+            // Create HTTP transport objects
+            var _httpRequest = new HttpRequestMessage();
+            HttpResponseMessage _httpResponse = null;
+            _httpRequest.Method = new HttpMethod("POST");
+            _httpRequest.RequestUri = new System.Uri(_url);
+            // Set Headers
+
+
+            if (customHeaders != null)
+            {
+                foreach(var _header in customHeaders)
+                {
+                    if (_httpRequest.Headers.Contains(_header.Key))
+                    {
+                        _httpRequest.Headers.Remove(_header.Key);
+                    }
+                    _httpRequest.Headers.TryAddWithoutValidation(_header.Key, _header.Value);
+                }
+            }
+
+            // Serialize Request
+            string _requestContent = null;
+            if(body != null)
+            {
+                _requestContent = Microsoft.Rest.Serialization.SafeJsonConvert.SerializeObject(body, Client.SerializationSettings);
+                _httpRequest.Content = new StringContent(_requestContent, System.Text.Encoding.UTF8);
+                _httpRequest.Content.Headers.ContentType =System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json; charset=utf-8");
+            }
+            // Send Request
+            cancellationToken.ThrowIfCancellationRequested();
+            _httpResponse = await Client.HttpClient.SendAsync(_httpRequest, cancellationToken).ConfigureAwait(false);
+            HttpStatusCode _statusCode = _httpResponse.StatusCode;
+            cancellationToken.ThrowIfCancellationRequested();
+            string _responseContent = null;
+            if ((int)_statusCode != 200)
+            {
+                var ex = new HttpOperationException(string.Format("Operation returned an invalid status code '{0}'", _statusCode));
+                if (_httpResponse.Content != null) {
+                    _responseContent = await _httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
+                }
+                else {
+                    _responseContent = string.Empty;
+                }
+                ex.Request = new HttpRequestMessageWrapper(_httpRequest, _requestContent);
+                ex.Response = new HttpResponseMessageWrapper(_httpResponse, _responseContent);
+                _httpRequest.Dispose();
+                if (_httpResponse != null)
+                {
+                    _httpResponse.Dispose();
+                }
+                throw ex;
+            }
+            // Create Result
+            var _result = new HttpOperationResponse<IEnumerable<ShareDto>>();
+            _result.Request = _httpRequest;
+            _result.Response = _httpResponse;
+            // Deserialize Response
+            if ((int)_statusCode == 200)
+            {
+                _responseContent = await _httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
+                try
+                {
+                    _result.Body = Microsoft.Rest.Serialization.SafeJsonConvert.DeserializeObject<IEnumerable<ShareDto>>(_responseContent, Client.DeserializationSettings);
+                }
+                catch (JsonException ex)
+                {
+                    _httpRequest.Dispose();
+                    if (_httpResponse != null)
+                    {
+                        _httpResponse.Dispose();
+                    }
+                    throw new SerializationException("Unable to deserialize the response.", _responseContent, ex);
+                }
+            }
+            return _result;
+        }
+        /// <summary>
+        /// Query shares by various conditions
+        ///
+        /// Note:
+        /// The workspaceId in the route is the workspace where the user is currently
+        /// in, not the share workspace id.
+        /// And the workspaceId just used for permission check, not as a filter
+        /// condition.
+        /// </summary>
+        /// <remarks>
+        /// Sample request:
+        ///
+        /// {
+        /// // This is the share workspace id.
+        /// // If workspace share owner, it is the workspace id the share shared from
+        /// which workspace.
+        /// // If workspace share receiver, it is the workspace that the share in. I
+        /// // If not set, will set to empty Guid as default
+        /// "shareWorkspaceId":"880737b3-b3a1-40b1-95b3-713eee9b2001",
+        ///
+        /// // It is only useful when shareWorkspaceId is not null/empty.
+        /// "isWorkspaceShareOwner": false,
+        ///
+        /// // Indicate that if query out a system user share,
+        /// // should include the workspace share which is the parent share of the
+        /// system user share.
+        /// "includeWorkspaceShare": true,
+        /// "datasetIds": [
+        /// "11096795-d8d9-4470-9010-25664f634f21"
+        /// ],
+        /// "shareIds": [
+        /// "28120c42-94ca-4ad2-97e4-c87d262f9166"
+        /// ],
+        /// "parentShareIds": [
+        /// "90881e9c-fd82-4ec7-9470-04f762d340cb"
+        /// ],
+        ///
+        /// // Enum: Workspace, User, this indicates the type of receivers(receiverIds)
+        /// "receiverType": "Workspace",
+        /// "receiverIds": [
+        /// "880737b3-b3a1-40b1-95b3-713eee9b2001"
+        /// ],
+        /// "createdBy": "191eba59-d5b8-4440-8319-883bc850eaac"
+        /// }
+        ///
+        /// Sample response for shares:
+        ///
+        /// [
+        /// {
+        /// "workspaceId": "880737b3-b3a1-40b1-95b3-713eee9b2001",
+        /// "datasetWorkspaceId": "880737b3-b3a1-40b1-95b3-713eee9b2001",
+        /// "datasetId": "11096795-d8d9-4470-9010-25664f634f21",
+        /// "shareType": "InApp",
+        /// "shareStatus": "Active",
+        /// "createdBy": "191eba59-d5b8-4440-8319-883bc850eaac",
+        /// "lastModifiedBy": "3442f3d6-bdaf-4deb-8cbb-770b4f029a93",
+        /// "id": "28120c42-94ca-4ad2-97e4-c87d262f9166",
+        /// "receiverId": "880737b3-b3a1-40b1-95b3-713eee9b2001",
+        /// "shareReceiverType": "Workspace",
+        /// "allowReshare": true,
+        /// "parentShareId": "90881e9c-fd82-4ec7-9470-04f762d340cb",
+        /// "accessLevel": "ReadOnly"
+        /// }
+        /// ]
+        /// </remarks>
+        /// <param name='body'>
+        /// Query conditions
+        /// </param>
+        /// <param name='workspaceId'>
+        /// Id of workspace
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        public async Task<IEnumerable<ShareDto>> QuerySharesAsync(QueryShareDto body, System.Guid workspaceId, CancellationToken cancellationToken = default)
+        {
+            using (var _result = await QuerySharesWithHttpMessagesAsync(body, workspaceId, null, cancellationToken).ConfigureAwait(false))
+            {
+                return _result.Body;
+            }
+        }
+
+        /// <summary>
         /// Get share owner info by dataset ID list
         /// </summary>
         /// <remarks>
@@ -226,6 +1010,510 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataWorkbenchApiV2
         public async Task<IEnumerable<SharedByInfoResultDTO>> QuerySharedBysAsync(SharedBysQueryDTO body, System.Guid workspaceId, CancellationToken cancellationToken = default)
         {
             using (var _result = await QuerySharedBysWithHttpMessagesAsync(body, workspaceId, null, cancellationToken).ConfigureAwait(false))
+            {
+                return _result.Body;
+            }
+        }
+
+        /// <summary>
+        /// Gets share by id
+        /// </summary>
+        /// <remarks>
+        /// Sample response for dataset owner or dataset receiver role info:
+        ///
+        /// {
+        /// "workspaceId": "4c356e75-1b2c-4acc-a94e-275de03b7e59",
+        /// "datasetWorkspaceId": "4c356e75-1b2c-4acc-a94e-275de03b7e59",
+        /// "datasetId": "0d4f0274-2532-442d-9285-9fd9e9a35a48",
+        /// "shareType": "InApp",
+        /// "shareStatus": "Active",
+        /// "createdBy": "191eba59-d5b8-4440-8319-883bc850eaac",
+        /// "lastModifiedBy": "191eba59-d5b8-4440-8319-883bc850eaac",
+        /// "id": "06c7b81a-4b17-47d6-87cb-bcccbbb2bfe2",
+        /// "receiverId": "4c356e75-1b2c-4acc-a94e-275de03b7e59",
+        /// "shareReceiverType": "Workspace",
+        /// "accessLevel": "ReadOnly",
+        /// "allowReshare": false,
+        /// "shareNote": "Share Note",
+        /// "parentShareId": "1be165a4-90b5-4308-86c0-14aff44f5298"     //this can be
+        /// null when there is no parentShare
+        /// }
+        /// </remarks>
+        /// <param name='workspaceId'>
+        /// </param>
+        /// <param name='shareId'>
+        /// </param>
+        /// <param name='customHeaders'>
+        /// Headers that will be added to request.
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        /// <exception cref="HttpOperationException">
+        /// Thrown when the operation returned an invalid status code
+        /// </exception>
+        /// <exception cref="SerializationException">
+        /// Thrown when unable to deserialize the response
+        /// </exception>
+        /// <return>
+        /// A response object containing the response body and response headers.
+        /// </return>
+        public async Task<HttpOperationResponse<ShareDto>> GetShareByIdWithHttpMessagesAsync(System.Guid workspaceId, System.Guid shareId, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default)
+        {
+            // Construct URL
+            var _baseUrl = Client.HttpClient.BaseAddress?.AbsoluteUri ?? Client.BaseUri.AbsoluteUri;
+            var _url = new System.Uri(new System.Uri(_baseUrl + (_baseUrl.EndsWith("/") ? "" : "/")), "workspaces/{workspaceId}/shares/{shareId}").ToString();
+            _url = _url.Replace("{workspaceId}", System.Uri.EscapeDataString(Microsoft.Rest.Serialization.SafeJsonConvert.SerializeObject(workspaceId, Client.SerializationSettings).Trim('"')));
+            _url = _url.Replace("{shareId}", System.Uri.EscapeDataString(Microsoft.Rest.Serialization.SafeJsonConvert.SerializeObject(shareId, Client.SerializationSettings).Trim('"')));
+            // Create HTTP transport objects
+            var _httpRequest = new HttpRequestMessage();
+            HttpResponseMessage _httpResponse = null;
+            _httpRequest.Method = new HttpMethod("GET");
+            _httpRequest.RequestUri = new System.Uri(_url);
+            // Set Headers
+
+
+            if (customHeaders != null)
+            {
+                foreach(var _header in customHeaders)
+                {
+                    if (_httpRequest.Headers.Contains(_header.Key))
+                    {
+                        _httpRequest.Headers.Remove(_header.Key);
+                    }
+                    _httpRequest.Headers.TryAddWithoutValidation(_header.Key, _header.Value);
+                }
+            }
+
+            // Serialize Request
+            string _requestContent = null;
+            // Send Request
+            cancellationToken.ThrowIfCancellationRequested();
+            _httpResponse = await Client.HttpClient.SendAsync(_httpRequest, cancellationToken).ConfigureAwait(false);
+            HttpStatusCode _statusCode = _httpResponse.StatusCode;
+            cancellationToken.ThrowIfCancellationRequested();
+            string _responseContent = null;
+            if ((int)_statusCode != 200)
+            {
+                var ex = new HttpOperationException(string.Format("Operation returned an invalid status code '{0}'", _statusCode));
+                if (_httpResponse.Content != null) {
+                    _responseContent = await _httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
+                }
+                else {
+                    _responseContent = string.Empty;
+                }
+                ex.Request = new HttpRequestMessageWrapper(_httpRequest, _requestContent);
+                ex.Response = new HttpResponseMessageWrapper(_httpResponse, _responseContent);
+                _httpRequest.Dispose();
+                if (_httpResponse != null)
+                {
+                    _httpResponse.Dispose();
+                }
+                throw ex;
+            }
+            // Create Result
+            var _result = new HttpOperationResponse<ShareDto>();
+            _result.Request = _httpRequest;
+            _result.Response = _httpResponse;
+            // Deserialize Response
+            if ((int)_statusCode == 200)
+            {
+                _responseContent = await _httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
+                try
+                {
+                    _result.Body = Microsoft.Rest.Serialization.SafeJsonConvert.DeserializeObject<ShareDto>(_responseContent, Client.DeserializationSettings);
+                }
+                catch (JsonException ex)
+                {
+                    _httpRequest.Dispose();
+                    if (_httpResponse != null)
+                    {
+                        _httpResponse.Dispose();
+                    }
+                    throw new SerializationException("Unable to deserialize the response.", _responseContent, ex);
+                }
+            }
+            return _result;
+        }
+        /// <summary>
+        /// Gets share by id
+        /// </summary>
+        /// <remarks>
+        /// Sample response for dataset owner or dataset receiver role info:
+        ///
+        /// {
+        /// "workspaceId": "4c356e75-1b2c-4acc-a94e-275de03b7e59",
+        /// "datasetWorkspaceId": "4c356e75-1b2c-4acc-a94e-275de03b7e59",
+        /// "datasetId": "0d4f0274-2532-442d-9285-9fd9e9a35a48",
+        /// "shareType": "InApp",
+        /// "shareStatus": "Active",
+        /// "createdBy": "191eba59-d5b8-4440-8319-883bc850eaac",
+        /// "lastModifiedBy": "191eba59-d5b8-4440-8319-883bc850eaac",
+        /// "id": "06c7b81a-4b17-47d6-87cb-bcccbbb2bfe2",
+        /// "receiverId": "4c356e75-1b2c-4acc-a94e-275de03b7e59",
+        /// "shareReceiverType": "Workspace",
+        /// "accessLevel": "ReadOnly",
+        /// "allowReshare": false,
+        /// "shareNote": "Share Note",
+        /// "parentShareId": "1be165a4-90b5-4308-86c0-14aff44f5298"     //this can be
+        /// null when there is no parentShare
+        /// }
+        /// </remarks>
+        /// <param name='workspaceId'>
+        /// </param>
+        /// <param name='shareId'>
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        public async Task<ShareDto> GetShareByIdAsync(System.Guid workspaceId, System.Guid shareId, CancellationToken cancellationToken = default)
+        {
+            using (var _result = await GetShareByIdWithHttpMessagesAsync(workspaceId, shareId, null, cancellationToken).ConfigureAwait(false))
+            {
+                return _result.Body;
+            }
+        }
+
+        /// <summary>
+        /// Revoke share by share Id
+        /// </summary>
+        /// <remarks>
+        /// Sample request for share revoke:
+        ///
+        /// POST workspaces/{workspaceId:guid}/shares/{shareId:guid}/revoke
+        /// </remarks>
+        /// <param name='workspaceId'>
+        /// </param>
+        /// <param name='shareId'>
+        /// </param>
+        /// <param name='customHeaders'>
+        /// Headers that will be added to request.
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        /// <exception cref="HttpOperationException">
+        /// Thrown when the operation returned an invalid status code
+        /// </exception>
+        /// <exception cref="SerializationException">
+        /// Thrown when unable to deserialize the response
+        /// </exception>
+        /// <return>
+        /// A response object containing the response body and response headers.
+        /// </return>
+        public async Task<HttpOperationResponse<bool?>> RevokeShareWithHttpMessagesAsync(System.Guid workspaceId, System.Guid shareId, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default)
+        {
+            // Construct URL
+            var _baseUrl = Client.HttpClient.BaseAddress?.AbsoluteUri ?? Client.BaseUri.AbsoluteUri;
+            var _url = new System.Uri(new System.Uri(_baseUrl + (_baseUrl.EndsWith("/") ? "" : "/")), "workspaces/{workspaceId}/shares/{shareId}/revoke").ToString();
+            _url = _url.Replace("{workspaceId}", System.Uri.EscapeDataString(Microsoft.Rest.Serialization.SafeJsonConvert.SerializeObject(workspaceId, Client.SerializationSettings).Trim('"')));
+            _url = _url.Replace("{shareId}", System.Uri.EscapeDataString(Microsoft.Rest.Serialization.SafeJsonConvert.SerializeObject(shareId, Client.SerializationSettings).Trim('"')));
+            // Create HTTP transport objects
+            var _httpRequest = new HttpRequestMessage();
+            HttpResponseMessage _httpResponse = null;
+            _httpRequest.Method = new HttpMethod("POST");
+            _httpRequest.RequestUri = new System.Uri(_url);
+            // Set Headers
+
+
+            if (customHeaders != null)
+            {
+                foreach(var _header in customHeaders)
+                {
+                    if (_httpRequest.Headers.Contains(_header.Key))
+                    {
+                        _httpRequest.Headers.Remove(_header.Key);
+                    }
+                    _httpRequest.Headers.TryAddWithoutValidation(_header.Key, _header.Value);
+                }
+            }
+
+            // Serialize Request
+            string _requestContent = null;
+            // Send Request
+            cancellationToken.ThrowIfCancellationRequested();
+            _httpResponse = await Client.HttpClient.SendAsync(_httpRequest, cancellationToken).ConfigureAwait(false);
+            HttpStatusCode _statusCode = _httpResponse.StatusCode;
+            cancellationToken.ThrowIfCancellationRequested();
+            string _responseContent = null;
+            if ((int)_statusCode != 200)
+            {
+                var ex = new HttpOperationException(string.Format("Operation returned an invalid status code '{0}'", _statusCode));
+                if (_httpResponse.Content != null) {
+                    _responseContent = await _httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
+                }
+                else {
+                    _responseContent = string.Empty;
+                }
+                ex.Request = new HttpRequestMessageWrapper(_httpRequest, _requestContent);
+                ex.Response = new HttpResponseMessageWrapper(_httpResponse, _responseContent);
+                _httpRequest.Dispose();
+                if (_httpResponse != null)
+                {
+                    _httpResponse.Dispose();
+                }
+                throw ex;
+            }
+            // Create Result
+            var _result = new HttpOperationResponse<bool?>();
+            _result.Request = _httpRequest;
+            _result.Response = _httpResponse;
+            // Deserialize Response
+            if ((int)_statusCode == 200)
+            {
+                _responseContent = await _httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
+                try
+                {
+                    _result.Body = Microsoft.Rest.Serialization.SafeJsonConvert.DeserializeObject<bool?>(_responseContent, Client.DeserializationSettings);
+                }
+                catch (JsonException ex)
+                {
+                    _httpRequest.Dispose();
+                    if (_httpResponse != null)
+                    {
+                        _httpResponse.Dispose();
+                    }
+                    throw new SerializationException("Unable to deserialize the response.", _responseContent, ex);
+                }
+            }
+            return _result;
+        }
+        /// <summary>
+        /// Revoke share by share Id
+        /// </summary>
+        /// <remarks>
+        /// Sample request for share revoke:
+        ///
+        /// POST workspaces/{workspaceId:guid}/shares/{shareId:guid}/revoke
+        /// </remarks>
+        /// <param name='workspaceId'>
+        /// </param>
+        /// <param name='shareId'>
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        public async Task<bool?> RevokeShareAsync(System.Guid workspaceId, System.Guid shareId, CancellationToken cancellationToken = default)
+        {
+            using (var _result = await RevokeShareWithHttpMessagesAsync(workspaceId, shareId, null, cancellationToken).ConfigureAwait(false))
+            {
+                return _result.Body;
+            }
+        }
+
+        /// <summary>
+        /// Allows sharing a storage path with a user or workspace, or reshare a shared
+        /// storage dataset with a user or workspace
+        /// </summary>
+        /// <remarks>
+        /// Sample request payload for creating share to a workspace based on a storage
+        /// folder:
+        ///
+        /// {
+        /// "receiverId": "87bbb22c-7ccd-436b-86e7-d9441d1a699d",
+        /// "receiverType": "Workspace",
+        /// "path": "StorageFolder/",
+        /// "accessLevel": "ReadAndWrite",  //user should be a workspace admin to
+        /// create a share with 'ReadAndWrite' access level
+        /// "allowReshare": true,
+        /// "shareNote": "Share note for workspace share based on a storage folder"
+        /// }
+        /// Sample request payload for creating share to a user based on a shared
+        /// storage dataset:
+        ///
+        /// {
+        /// "datasetId": "5054b10c-5f73-4c4f-9bf7-adead43248df",
+        /// "receiverId": "5c0cd768-eac8-482a-9f27-6d7dc3919d73",
+        /// "receiverType": "User",
+        /// "accessLevel": "ReadOnly",
+        /// "allowReshare": true,
+        /// "shareNote": "Share note for user share based on a shared storage dataset"
+        /// }
+        ///
+        /// Sample response body when successfully create a share
+        ///
+        /// {
+        /// "shareId": "c0b48ed2-86ad-41f2-8b1c-af0564cbdebb"
+        /// }
+        /// Sample response body when fail to create a share:
+        ///
+        /// {
+        /// "type": "BusinessError",
+        /// "title": "Share is not allowed: 'Resource has been shared to this user'",
+        /// "status": 400,
+        /// "detail": "Share is not allowed: 'Resource has been shared to this user'",
+        /// "traceId": "195392b9866721eb7d7b18da127ad1b2"
+        /// }
+        /// </remarks>
+        /// <param name='body'>
+        /// Share creation details
+        /// </param>
+        /// <param name='workspaceId'>
+        /// Workspace identifier (UUID)
+        /// </param>
+        /// <param name='customHeaders'>
+        /// Headers that will be added to request.
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        /// <exception cref="HttpOperationException">
+        /// Thrown when the operation returned an invalid status code
+        /// </exception>
+        /// <exception cref="SerializationException">
+        /// Thrown when unable to deserialize the response
+        /// </exception>
+        /// <exception cref="ValidationException">
+        /// Thrown when a required parameter is null
+        /// </exception>
+        /// <exception cref="System.ArgumentNullException">
+        /// Thrown when a required parameter is null
+        /// </exception>
+        /// <return>
+        /// A response object containing the response body and response headers.
+        /// </return>
+        public async Task<HttpOperationResponse<CreateShareResponseDto>> CreateStorageShareWithHttpMessagesAsync(CreateStorageShareDto body, System.Guid workspaceId, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default)
+        {
+            if (body == null)
+            {
+                throw new ValidationException(ValidationRules.CannotBeNull, "body");
+            }
+            // Construct URL
+            var _baseUrl = Client.HttpClient.BaseAddress?.AbsoluteUri ?? Client.BaseUri.AbsoluteUri;
+            var _url = new System.Uri(new System.Uri(_baseUrl + (_baseUrl.EndsWith("/") ? "" : "/")), "workspaces/{workspaceId}/storages/shares").ToString();
+            _url = _url.Replace("{workspaceId}", System.Uri.EscapeDataString(Microsoft.Rest.Serialization.SafeJsonConvert.SerializeObject(workspaceId, Client.SerializationSettings).Trim('"')));
+            // Create HTTP transport objects
+            var _httpRequest = new HttpRequestMessage();
+            HttpResponseMessage _httpResponse = null;
+            _httpRequest.Method = new HttpMethod("POST");
+            _httpRequest.RequestUri = new System.Uri(_url);
+            // Set Headers
+
+
+            if (customHeaders != null)
+            {
+                foreach(var _header in customHeaders)
+                {
+                    if (_httpRequest.Headers.Contains(_header.Key))
+                    {
+                        _httpRequest.Headers.Remove(_header.Key);
+                    }
+                    _httpRequest.Headers.TryAddWithoutValidation(_header.Key, _header.Value);
+                }
+            }
+
+            // Serialize Request
+            string _requestContent = null;
+            if(body != null)
+            {
+                _requestContent = Microsoft.Rest.Serialization.SafeJsonConvert.SerializeObject(body, Client.SerializationSettings);
+                _httpRequest.Content = new StringContent(_requestContent, System.Text.Encoding.UTF8);
+                _httpRequest.Content.Headers.ContentType =System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json; charset=utf-8");
+            }
+            // Send Request
+            cancellationToken.ThrowIfCancellationRequested();
+            _httpResponse = await Client.HttpClient.SendAsync(_httpRequest, cancellationToken).ConfigureAwait(false);
+            HttpStatusCode _statusCode = _httpResponse.StatusCode;
+            cancellationToken.ThrowIfCancellationRequested();
+            string _responseContent = null;
+            if ((int)_statusCode != 201)
+            {
+                var ex = new HttpOperationException(string.Format("Operation returned an invalid status code '{0}'", _statusCode));
+                if (_httpResponse.Content != null) {
+                    _responseContent = await _httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
+                }
+                else {
+                    _responseContent = string.Empty;
+                }
+                ex.Request = new HttpRequestMessageWrapper(_httpRequest, _requestContent);
+                ex.Response = new HttpResponseMessageWrapper(_httpResponse, _responseContent);
+                _httpRequest.Dispose();
+                if (_httpResponse != null)
+                {
+                    _httpResponse.Dispose();
+                }
+                throw ex;
+            }
+            // Create Result
+            var _result = new HttpOperationResponse<CreateShareResponseDto>();
+            _result.Request = _httpRequest;
+            _result.Response = _httpResponse;
+            // Deserialize Response
+            if ((int)_statusCode == 201)
+            {
+                _responseContent = await _httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
+                try
+                {
+                    _result.Body = Microsoft.Rest.Serialization.SafeJsonConvert.DeserializeObject<CreateShareResponseDto>(_responseContent, Client.DeserializationSettings);
+                }
+                catch (JsonException ex)
+                {
+                    _httpRequest.Dispose();
+                    if (_httpResponse != null)
+                    {
+                        _httpResponse.Dispose();
+                    }
+                    throw new SerializationException("Unable to deserialize the response.", _responseContent, ex);
+                }
+            }
+            return _result;
+        }
+        /// <summary>
+        /// Allows sharing a storage path with a user or workspace, or reshare a shared
+        /// storage dataset with a user or workspace
+        /// </summary>
+        /// <remarks>
+        /// Sample request payload for creating share to a workspace based on a storage
+        /// folder:
+        ///
+        /// {
+        /// "receiverId": "87bbb22c-7ccd-436b-86e7-d9441d1a699d",
+        /// "receiverType": "Workspace",
+        /// "path": "StorageFolder/",
+        /// "accessLevel": "ReadAndWrite",  //user should be a workspace admin to
+        /// create a share with 'ReadAndWrite' access level
+        /// "allowReshare": true,
+        /// "shareNote": "Share note for workspace share based on a storage folder"
+        /// }
+        /// Sample request payload for creating share to a user based on a shared
+        /// storage dataset:
+        ///
+        /// {
+        /// "datasetId": "5054b10c-5f73-4c4f-9bf7-adead43248df",
+        /// "receiverId": "5c0cd768-eac8-482a-9f27-6d7dc3919d73",
+        /// "receiverType": "User",
+        /// "accessLevel": "ReadOnly",
+        /// "allowReshare": true,
+        /// "shareNote": "Share note for user share based on a shared storage dataset"
+        /// }
+        ///
+        /// Sample response body when successfully create a share
+        ///
+        /// {
+        /// "shareId": "c0b48ed2-86ad-41f2-8b1c-af0564cbdebb"
+        /// }
+        /// Sample response body when fail to create a share:
+        ///
+        /// {
+        /// "type": "BusinessError",
+        /// "title": "Share is not allowed: 'Resource has been shared to this user'",
+        /// "status": 400,
+        /// "detail": "Share is not allowed: 'Resource has been shared to this user'",
+        /// "traceId": "195392b9866721eb7d7b18da127ad1b2"
+        /// }
+        /// </remarks>
+        /// <param name='body'>
+        /// Share creation details
+        /// </param>
+        /// <param name='workspaceId'>
+        /// Workspace identifier (UUID)
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        public async Task<CreateShareResponseDto> CreateStorageShareAsync(CreateStorageShareDto body, System.Guid workspaceId, CancellationToken cancellationToken = default)
+        {
+            using (var _result = await CreateStorageShareWithHttpMessagesAsync(body, workspaceId, null, cancellationToken).ConfigureAwait(false))
             {
                 return _result.Body;
             }

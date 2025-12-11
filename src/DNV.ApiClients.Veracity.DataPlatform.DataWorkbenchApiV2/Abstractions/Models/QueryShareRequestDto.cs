@@ -26,7 +26,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataWorkbenchApiV2.Models
         /// </summary>
         /// <param name="sortDirection">Possible values include: 'Ascending',
         /// 'Descending'</param>
-        public QueryShareRequestDto(int? pageIndex = default, int? pageSize = default, string sortColumn = default, SortDirection? sortDirection = default, bool? isRequestor = default, IEnumerable<System.Guid?> schemaIds = default, IEnumerable<System.Guid?> schemaVersionIds = default, IEnumerable<System.Guid?> workspaceIds = default, IEnumerable<ShareRequestStatusDto?> statuses = default)
+        public QueryShareRequestDto(int? pageIndex = default, int? pageSize = default, string sortColumn = default, SortDirection? sortDirection = default, bool? isRequestor = default, IEnumerable<System.Guid?> schemaIds = default, IEnumerable<System.Guid?> schemaVersionIds = default, IEnumerable<System.Guid?> workspaceIds = default, IEnumerable<ShareRequestStatusDto> statuses = default)
         {
             PageIndex = pageIndex;
             PageSize = pageSize;
@@ -89,7 +89,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataWorkbenchApiV2.Models
         /// <summary>
         /// </summary>
         [JsonProperty(PropertyName = "statuses")]
-        public IEnumerable<ShareRequestStatusDto?> Statuses { get; set; }
+        public IEnumerable<ShareRequestStatusDto> Statuses { get; set; }
 
     }
 }
