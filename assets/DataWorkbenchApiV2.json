@@ -7,7 +7,7 @@
   },
   "servers": [
     {
-      "url": "https://api.dw.veracity.com/gateway/api/v2"
+      "url": "https://tst-api.dw.veracity.com/gateway/api/v2"
     }
   ],
   "paths": {
@@ -394,11 +394,7 @@
               }
             }
           }
-        },
-        "x-feature-flags": [
-          "All",
-          "654842_EnableQueryWorkspacesV2"
-        ]
+        }
       }
     },
     "/workspaces/{workspaceId}": {
@@ -1132,6 +1128,152 @@
         }
       }
     },
+    "/workspaces/{workspaceId}/datasets/{datasetId}/shareasnew": {
+      "post": {
+        "tags": [
+          "Datasets"
+        ],
+        "summary": "Allows sharing a subset of a dataset with custom queries and/or columns with a user or workspace\r\nThis will create a dataset based on datasetName/datasetDescription/datasetQueries/datasetColumns/datasetTags, and new created dataset will be shared with the receiver",
+        "description": "Sample request payload for creating share to a user with dataset info based on a dataset:\r\n\r\n    {\r\n        \u0022datasetId\u0022: \u00223f187797-49c8-4530-83d6-555d8f53f8c6\u0022,\r\n        \u0022receiverId\u0022: \u00225c0cd768-eac8-482a-9f27-6d7dc3919d73\u0022,\r\n        \u0022receiverType\u0022: \u0022User\u0022,\r\n        \u0022allowReshare\u0022: true,\r\n        \u0022shareNote\u0022: \u0022Share note for user share with queries/columns\u0022,\r\n        \u0022datasetName\u0022: \u0022DS_Share_As_New\u0022,\r\n        \u0022datasetDescription\u0022: \u0022Dataset created during share as new with queries\r\n        \u0022datasetQueries\u0022: [\r\n            {\r\n                \u0022column\u0022: \u0022IMO\u0022,\r\n                \u0022filterType\u0022: \u0022List\u0022,\r\n                \u0022filterValues\u0022: [\r\n                    \u00220001016\u0022,\r\n                    \u00223879220\u0022,\r\n                    \u00229577071\u0022\r\n                ]\r\n            },\r\n            {\r\n                \u0022column\u0022: \u0022Year\u0022,\r\n                \u0022filterType\u0022: \u0022Equals\u0022,\r\n                \u0022filterValues\u0022: [\r\n                    \u00222025\u0022\r\n                ]\r\n            }\r\n        ],\r\n        \u0022datasetColumns\u0022: [\r\n            \u0022IMO\u0022,\r\n            \u0022Vessel_Name\u0022,\r\n            \u0022Year\u0022,\r\n            \u0022Date_From\u0022,\r\n            \u0022Date_To\u0022\r\n        ],\r\n        \u0022datasetTags\u0022: {\r\n            \u0022tag01\u0022: [\r\n                \u0022value01\u0022\r\n            ],\r\n            \u0022tag02\u0022: [\r\n                \u0022value02\u0022\r\n            ]\r\n        }\r\n    }\r\n    \r\nSample response body when successfully create a share\r\n\r\n    {\r\n        \u0022shareId\u0022: \u0022c0b48ed2-86ad-41f2-8b1c-af0564cbdebb\u0022\r\n    }\r\nSample response body when fail to create a share:\r\n\r\n    {\r\n        \u0022type\u0022: \u0022BusinessError\u0022,\r\n        \u0022title\u0022: \u0022Share is not allowed: \u0027Resource has been shared to this user\u0027\u0022,\r\n        \u0022status\u0022: 400,\r\n        \u0022detail\u0022: \u0022Share is not allowed: \u0027Resource has been shared to this user\u0027\u0022,\r\n        \u0022traceId\u0022: \u0022195392b9866721eb7d7b18da127ad1b2\u0022\r\n    }",
+        "operationId": "Shares_CreateShareAsNew",
+        "parameters": [
+          {
+            "name": "workspaceId",
+            "in": "path",
+            "description": "Workspace identifier (UUID)",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "x-nullable": false
+            },
+            "x-nullable": false
+          },
+          {
+            "name": "datasetId",
+            "in": "path",
+            "description": "Dataset identifier (UUID)",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "x-nullable": false
+            },
+            "x-nullable": false
+          }
+        ],
+        "requestBody": {
+          "description": "Share creation details including new dataset info",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateShareAsNewDto"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateShareResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        },
+        "x-feature-flags": [
+          "All",
+          "657275_EnableShareInGateway"
+        ]
+      }
+    },
+    "/workspaces/{workspaceId}/datasets/{datasetId}/shares": {
+      "post": {
+        "tags": [
+          "Datasets"
+        ],
+        "summary": "Allows sharing a dataset with a user or workspace",
+        "description": "Sample request payload for creating share to a user based on a dataset:\r\n\r\n    {\r\n        \u0022receiverId\u0022: \u00225c0cd768-eac8-482a-9f27-6d7dc3919d73\u0022,   // Id of the user to be shared with\r\n        \u0022receiverType\u0022: \u0022User\u0022,\r\n        \u0022allowReshare\u0022: true,\r\n        \u0022shareNote\u0022: \u0022Share note for user share\u0022\r\n    }\r\nSample request payload for creating share to a workspace based on a dataset:\r\n\r\n    {\r\n        \u0022receiverId\u0022: \u0022a05e1fb8-15c3-4ed6-bbef-140d1e8a905f\u0022,   // Id of the workspace to be shared with\r\n        \u0022receiverType\u0022: \u0022Workspace\u0022,\r\n        \u0022allowReshare\u0022: true,\r\n        \u0022shareNote\u0022: \u0022Share note for workspace share\u0022\r\n    }\r\n    \r\nSample response body when successfully create a share\r\n\r\n    {\r\n        \u0022shareId\u0022: \u0022c0b48ed2-86ad-41f2-8b1c-af0564cbdebb\u0022\r\n    }\r\nSample response body when fail to create the share:\r\n\r\n    {\r\n        \u0022type\u0022: \u0022BusinessError\u0022,\r\n        \u0022title\u0022: \u0022Share is not allowed: \u0027Resource has been shared to this user\u0027\u0022,\r\n        \u0022status\u0022: 400,\r\n        \u0022detail\u0022: \u0022Share is not allowed: \u0027Resource has been shared to this user\u0027\u0022,\r\n        \u0022traceId\u0022: \u0022b451354c2770f6efb2469e14e28e5ae5\u0022\r\n    }\r\nSample response body when validation fails:\r\n\r\n    {\r\n        \u0022type\u0022: \u0022ValidationError\u0022,\r\n        \u0022title\u0022: \u0022Please refer to the errors property for additional details.\u0022,\r\n        \u0022status\u0022: 400,\r\n        \u0022errors\u0022: {\r\n            \u0022\u0022: [\r\n                \u0022Either ShareId or DatasetId must be provided, but not both.\u0022\r\n            ]\r\n        },\r\n        \u0022traceId\u0022: \u00224fac9bfeb164c4d05192e5da74de9945\u0022\r\n    }",
+        "operationId": "Shares_CreateShare",
+        "parameters": [
+          {
+            "name": "workspaceId",
+            "in": "path",
+            "description": "Workspace identifier (UUID)",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "x-nullable": false
+            },
+            "x-nullable": false
+          },
+          {
+            "name": "datasetId",
+            "in": "path",
+            "description": "Dataset identifier (UUID)",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "x-nullable": false
+            },
+            "x-nullable": false
+          }
+        ],
+        "requestBody": {
+          "description": "Share creation details",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateShareDto"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateShareResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        },
+        "x-feature-flags": [
+          "All",
+          "657275_EnableShareInGateway"
+        ]
+      }
+    },
     "/workspaces/{workspaceId}/ingest": {
       "post": {
         "tags": [
@@ -1814,6 +1956,167 @@
         ]
       }
     },
+    "/workspaces/{workspaceId}/jobs": {
+      "get": {
+        "tags": [
+          "Analytics"
+        ],
+        "summary": "Gets a list of analytics workspace jobs",
+        "operationId": "Analytics_GetAnalyticsWorkspaceJobs",
+        "parameters": [
+          {
+            "name": "workspaceId",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "x-nullable": false
+            },
+            "x-nullable": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns list of workspace jobs",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/DatabricksJobDTO"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/workspaces/{workspaceId}/jobs/{jobId}/cancel": {
+      "post": {
+        "tags": [
+          "Analytics"
+        ],
+        "summary": "Cancel all job runs under one job",
+        "operationId": "Analytics_CancelAllAnalyticsJobs",
+        "parameters": [
+          {
+            "name": "workspaceId",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "x-nullable": false
+            },
+            "x-nullable": false
+          },
+          {
+            "name": "jobId",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64",
+              "x-nullable": false
+            },
+            "x-nullable": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Jobs were cancelled"
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/workspaces/{workspaceId}/jobs/{jobId}/invoke": {
+      "post": {
+        "tags": [
+          "Analytics"
+        ],
+        "summary": "Invokes analytics jobs for a given job id",
+        "operationId": "Analytics_InvokeAnalyticsJobs",
+        "parameters": [
+          {
+            "name": "workspaceId",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "x-nullable": false
+            },
+            "x-nullable": false
+          },
+          {
+            "name": "jobId",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64",
+              "x-nullable": false
+            },
+            "x-nullable": false
+          }
+        ],
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Job invoked"
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/workspaces/{workspaceId}/ledger": {
       "get": {
         "tags": [
@@ -2051,6 +2354,116 @@
           }
         },
         "deprecated": true
+      }
+    },
+    "/workspaces/{workspaceId}/runs/{runId}/cancel": {
+      "post": {
+        "tags": [
+          "Analytics"
+        ],
+        "summary": "Cancels analytics jobs for a given run id",
+        "operationId": "Analytics_CancelAnalyticsJob",
+        "parameters": [
+          {
+            "name": "workspaceId",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "x-nullable": false
+            },
+            "x-nullable": false
+          },
+          {
+            "name": "runId",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64",
+              "x-nullable": false
+            },
+            "x-nullable": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Jobs for runId were cancelled"
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/workspaces/{workspaceId}/runs/{runId}/status": {
+      "get": {
+        "tags": [
+          "Analytics"
+        ],
+        "summary": "Get the statuses of all run jobs",
+        "operationId": "Analytics_GetAnalyticsJobRunStatus",
+        "parameters": [
+          {
+            "name": "workspaceId",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "x-nullable": false
+            },
+            "x-nullable": false
+          },
+          {
+            "name": "runId",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64",
+              "x-nullable": false
+            },
+            "x-nullable": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns the requested list of job run statuses",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/DatabricksJobDTO"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
       }
     },
     "/workspaces/{workspaceId}/saspolicies": {
@@ -3454,6 +3867,70 @@
         ]
       }
     },
+    "/workspaces/{workspaceId}/shares/query": {
+      "post": {
+        "tags": [
+          "Shares"
+        ],
+        "summary": "Query shares by various conditions\r\n\r\nNote: \r\n    The workspaceId in the route is the workspace where the user is currently in, not the share workspace id.\r\n    And the workspaceId just used for permission check, not as a filter condition.",
+        "description": "Sample request:\r\n\r\n    {\r\n         // This is the share workspace id. \r\n         // If workspace share owner, it is the workspace id the share shared from which workspace. \r\n         // If workspace share receiver, it is the workspace that the share in. I\r\n         // If not set, will set to empty Guid as default\r\n         \u0022shareWorkspaceId\u0022:\u0022880737b3-b3a1-40b1-95b3-713eee9b2001\u0022,\r\n         \r\n         // It is only useful when shareWorkspaceId is not null/empty.\r\n         \u0022isWorkspaceShareOwner\u0022: false,\r\n         \r\n         // Indicate that if query out a system user share, \r\n         // should include the workspace share which is the parent share of the system user share.\r\n         \u0022includeWorkspaceShare\u0022: true, \r\n         \u0022datasetIds\u0022: [\r\n            \u002211096795-d8d9-4470-9010-25664f634f21\u0022\r\n         ],\r\n         \u0022shareIds\u0022: [\r\n            \u002228120c42-94ca-4ad2-97e4-c87d262f9166\u0022\r\n         ],\r\n         \u0022parentShareIds\u0022: [\r\n            \u002290881e9c-fd82-4ec7-9470-04f762d340cb\u0022\r\n         ],\r\n         \r\n         // Enum: Workspace, User, this indicates the type of receivers(receiverIds)\r\n         \u0022receiverType\u0022: \u0022Workspace\u0022, \r\n         \u0022receiverIds\u0022: [\r\n            \u0022880737b3-b3a1-40b1-95b3-713eee9b2001\u0022\r\n         ],\r\n         \u0022createdBy\u0022: \u0022191eba59-d5b8-4440-8319-883bc850eaac\u0022\r\n    }\r\n\r\nSample response for shares:\r\n\r\n    [\r\n         {\r\n             \u0022workspaceId\u0022: \u0022880737b3-b3a1-40b1-95b3-713eee9b2001\u0022,\r\n             \u0022datasetWorkspaceId\u0022: \u0022880737b3-b3a1-40b1-95b3-713eee9b2001\u0022,\r\n             \u0022datasetId\u0022: \u002211096795-d8d9-4470-9010-25664f634f21\u0022,\r\n             \u0022shareType\u0022: \u0022InApp\u0022,\r\n             \u0022shareStatus\u0022: \u0022Active\u0022,\r\n             \u0022createdBy\u0022: \u0022191eba59-d5b8-4440-8319-883bc850eaac\u0022,\r\n             \u0022lastModifiedBy\u0022: \u00223442f3d6-bdaf-4deb-8cbb-770b4f029a93\u0022,\r\n             \u0022id\u0022: \u002228120c42-94ca-4ad2-97e4-c87d262f9166\u0022,\r\n             \u0022receiverId\u0022: \u0022880737b3-b3a1-40b1-95b3-713eee9b2001\u0022,\r\n             \u0022shareReceiverType\u0022: \u0022Workspace\u0022,\r\n             \u0022allowReshare\u0022: true,\r\n             \u0022parentShareId\u0022: \u002290881e9c-fd82-4ec7-9470-04f762d340cb\u0022,\r\n             \u0022accessLevel\u0022: \u0022ReadOnly\u0022\r\n         }\r\n     ]",
+        "operationId": "Shares_QueryShares",
+        "parameters": [
+          {
+            "name": "workspaceId",
+            "in": "path",
+            "description": "Id of workspace",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "x-nullable": false
+            },
+            "x-nullable": false
+          }
+        ],
+        "requestBody": {
+          "description": "Query conditions",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/QueryShareDto"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Returns List of share found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ShareDto"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request parameter",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        },
+        "x-feature-flags": [
+          "All",
+          "657275_EnableShareInGateway"
+        ]
+      }
+    },
     "/workspaces/{workspaceId}/shares/sharedby/query": {
       "post": {
         "tags": [
@@ -3512,6 +3989,130 @@
             }
           }
         }
+      }
+    },
+    "/workspaces/{workspaceId}/shares/{shareId}": {
+      "get": {
+        "tags": [
+          "Shares"
+        ],
+        "summary": "Gets share by id",
+        "description": "Sample response for dataset owner or dataset receiver role info:\r\n\r\n    {\r\n        \u0022workspaceId\u0022: \u00224c356e75-1b2c-4acc-a94e-275de03b7e59\u0022,\r\n        \u0022datasetWorkspaceId\u0022: \u00224c356e75-1b2c-4acc-a94e-275de03b7e59\u0022,\r\n        \u0022datasetId\u0022: \u00220d4f0274-2532-442d-9285-9fd9e9a35a48\u0022,\r\n        \u0022shareType\u0022: \u0022InApp\u0022,\r\n        \u0022shareStatus\u0022: \u0022Active\u0022,\r\n        \u0022createdBy\u0022: \u0022191eba59-d5b8-4440-8319-883bc850eaac\u0022, \r\n        \u0022lastModifiedBy\u0022: \u0022191eba59-d5b8-4440-8319-883bc850eaac\u0022,\r\n        \u0022id\u0022: \u002206c7b81a-4b17-47d6-87cb-bcccbbb2bfe2\u0022,\r\n        \u0022receiverId\u0022: \u00224c356e75-1b2c-4acc-a94e-275de03b7e59\u0022,\r\n        \u0022shareReceiverType\u0022: \u0022Workspace\u0022,\r\n        \u0022accessLevel\u0022: \u0022ReadOnly\u0022,\r\n        \u0022allowReshare\u0022: false,\r\n        \u0022shareNote\u0022: \u0022Share Note\u0022,\r\n        \u0022parentShareId\u0022: \u00221be165a4-90b5-4308-86c0-14aff44f5298\u0022     //this can be null when there is no parentShare\r\n    }",
+        "operationId": "Shares_GetShareById",
+        "parameters": [
+          {
+            "name": "workspaceId",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "x-nullable": false
+            },
+            "x-nullable": false
+          },
+          {
+            "name": "shareId",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "x-nullable": false
+            },
+            "x-nullable": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns share",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ShareDto"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        },
+        "x-feature-flags": [
+          "All",
+          "657275_EnableShareInGateway"
+        ]
+      }
+    },
+    "/workspaces/{workspaceId}/shares/{shareId}/revoke": {
+      "post": {
+        "tags": [
+          "Shares"
+        ],
+        "summary": "Revoke share by share Id",
+        "description": "Sample request for share revoke:\r\n\r\n    POST workspaces/{workspaceId:guid}/shares/{shareId:guid}/revoke",
+        "operationId": "Shares_RevokeShare",
+        "parameters": [
+          {
+            "name": "workspaceId",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "x-nullable": false
+            },
+            "x-nullable": false
+          },
+          {
+            "name": "shareId",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "x-nullable": false
+            },
+            "x-nullable": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Revoke share success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "boolean"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid Model",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        },
+        "x-feature-flags": [
+          "All",
+          "657275_EnableShareInGateway"
+        ]
       }
     },
     "/workspaces/{workspaceId}/shares/{shareId}/storages/sas": {
@@ -3999,6 +4600,67 @@
             }
           }
         }
+      }
+    },
+    "/workspaces/{workspaceId}/storages/shares": {
+      "post": {
+        "tags": [
+          "File Storages"
+        ],
+        "summary": "Allows sharing a storage path with a user or workspace, or reshare a shared storage dataset with a user or workspace",
+        "description": "Sample request payload for creating share to a workspace based on a storage folder:\r\n    \r\n    {\r\n        \u0022receiverId\u0022: \u002287bbb22c-7ccd-436b-86e7-d9441d1a699d\u0022,\r\n        \u0022receiverType\u0022: \u0022Workspace\u0022,\r\n        \u0022path\u0022: \u0022StorageFolder/\u0022,\r\n        \u0022accessLevel\u0022: \u0022ReadAndWrite\u0022,  //user should be a workspace admin to create a share with \u0027ReadAndWrite\u0027 access level\r\n        \u0022allowReshare\u0022: true,\r\n        \u0022shareNote\u0022: \u0022Share note for workspace share based on a storage folder\u0022\r\n    }\r\nSample request payload for creating share to a user based on a shared storage dataset:\r\n    \r\n    {\r\n        \u0022datasetId\u0022: \u00225054b10c-5f73-4c4f-9bf7-adead43248df\u0022,\r\n        \u0022receiverId\u0022: \u00225c0cd768-eac8-482a-9f27-6d7dc3919d73\u0022,\r\n        \u0022receiverType\u0022: \u0022User\u0022,\r\n        \u0022accessLevel\u0022: \u0022ReadOnly\u0022,\r\n        \u0022allowReshare\u0022: true,\r\n        \u0022shareNote\u0022: \u0022Share note for user share based on a shared storage dataset\u0022\r\n    }\r\n    \r\nSample response body when successfully create a share\r\n\r\n    {\r\n        \u0022shareId\u0022: \u0022c0b48ed2-86ad-41f2-8b1c-af0564cbdebb\u0022\r\n    }\r\nSample response body when fail to create a share:\r\n\r\n    {\r\n        \u0022type\u0022: \u0022BusinessError\u0022,\r\n        \u0022title\u0022: \u0022Share is not allowed: \u0027Resource has been shared to this user\u0027\u0022,\r\n        \u0022status\u0022: 400,\r\n        \u0022detail\u0022: \u0022Share is not allowed: \u0027Resource has been shared to this user\u0027\u0022,\r\n        \u0022traceId\u0022: \u0022195392b9866721eb7d7b18da127ad1b2\u0022\r\n    }",
+        "operationId": "Shares_CreateStorageShare",
+        "parameters": [
+          {
+            "name": "workspaceId",
+            "in": "path",
+            "description": "Workspace identifier (UUID)",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "x-nullable": false
+            },
+            "x-nullable": false
+          }
+        ],
+        "requestBody": {
+          "description": "Share creation details",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateStorageShareDto"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateShareResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        },
+        "x-feature-flags": [
+          "All",
+          "657275_EnableShareInGateway"
+        ]
       }
     },
     "/workspaces/{workspaceId}/storages/storagedatasets": {
@@ -4807,6 +5469,147 @@
           }
         }
       },
+      "CreateShareAsNewDto": {
+        "required": [
+          "receiverId",
+          "receiverType"
+        ],
+        "type": "object",
+        "properties": {
+          "receiverId": {
+            "type": "string",
+            "format": "uuid",
+            "x-nullable": false
+          },
+          "receiverType": {
+            "$ref": "#/components/schemas/ShareReceiverTypeEnum"
+          },
+          "allowReshare": {
+            "type": "boolean",
+            "x-nullable": false
+          },
+          "shareNote": {
+            "maxLength": 1000,
+            "type": "string",
+            "nullable": true,
+            "x-nullable": true
+          },
+          "datasetName": {
+            "maxLength": 500,
+            "type": "string",
+            "nullable": true,
+            "x-nullable": true
+          },
+          "datasetDescription": {
+            "maxLength": 5000,
+            "type": "string",
+            "nullable": true,
+            "x-nullable": true
+          },
+          "datasetQueries": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/QueryFilter"
+            },
+            "nullable": true,
+            "x-nullable": true
+          },
+          "datasetColumns": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "nullable": true,
+              "x-nullable": true
+            },
+            "nullable": true,
+            "x-nullable": true
+          },
+          "datasetTags": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "nullable": true,
+            "x-nullable": true
+          }
+        }
+      },
+      "CreateShareDto": {
+        "required": [
+          "receiverId",
+          "receiverType"
+        ],
+        "type": "object",
+        "properties": {
+          "receiverId": {
+            "type": "string",
+            "format": "uuid",
+            "x-nullable": false
+          },
+          "receiverType": {
+            "$ref": "#/components/schemas/ShareReceiverTypeEnum"
+          },
+          "allowReshare": {
+            "type": "boolean",
+            "x-nullable": false
+          },
+          "shareNote": {
+            "maxLength": 1000,
+            "type": "string",
+            "nullable": true,
+            "x-nullable": true
+          }
+        }
+      },
+      "CreateShareResponseDto": {
+        "type": "object",
+        "properties": {
+          "shareId": {
+            "type": "string",
+            "format": "uuid",
+            "x-nullable": false
+          }
+        }
+      },
+      "CreateStorageShareDto": {
+        "type": "object",
+        "properties": {
+          "receiverId": {
+            "type": "string",
+            "format": "uuid",
+            "x-nullable": false
+          },
+          "receiverType": {
+            "$ref": "#/components/schemas/ShareReceiverTypeEnum"
+          },
+          "allowReshare": {
+            "type": "boolean",
+            "x-nullable": false
+          },
+          "shareNote": {
+            "type": "string",
+            "nullable": true,
+            "x-nullable": true
+          },
+          "path": {
+            "type": "string",
+            "nullable": true,
+            "x-nullable": true
+          },
+          "accessLevel": {
+            "$ref": "#/components/schemas/ShareAccessLevelEnum"
+          },
+          "datasetId": {
+            "type": "string",
+            "format": "uuid",
+            "nullable": true,
+            "x-nullable": true
+          }
+        }
+      },
       "DataCatalogQueryDto": {
         "type": "object",
         "properties": {
@@ -5010,6 +5813,39 @@
           "TimeOnly"
         ],
         "type": "string"
+      },
+      "DatabricksJobDTO": {
+        "type": "object",
+        "properties": {
+          "jobId": {
+            "type": "integer",
+            "format": "int64",
+            "x-nullable": false
+          },
+          "jobName": {
+            "type": "string",
+            "nullable": true,
+            "x-nullable": true
+          },
+          "creatorUserName": {
+            "type": "string",
+            "nullable": true,
+            "x-nullable": true
+          },
+          "createdTime": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true,
+            "x-nullable": true
+          },
+          "parameters": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/JobParameter"
+            },
+            "x-nullable": false
+          }
+        }
       },
       "DocumentRefDTO": {
         "type": "object",
@@ -5221,6 +6057,19 @@
             "items": {
               "$ref": "#/components/schemas/JobHistoryDTO"
             }
+          }
+        }
+      },
+      "JobParameter": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "x-nullable": false
+          },
+          "default": {
+            "type": "string",
+            "x-nullable": false
           }
         }
       },
@@ -5573,6 +6422,78 @@
           "StringContains"
         ],
         "type": "string"
+      },
+      "QueryShareDto": {
+        "type": "object",
+        "properties": {
+          "shareWorkspaceId": {
+            "type": "string",
+            "format": "uuid",
+            "nullable": true,
+            "x-nullable": true
+          },
+          "datasetIds": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "uuid",
+              "nullable": true,
+              "x-nullable": true
+            },
+            "nullable": true,
+            "x-nullable": true
+          },
+          "shareIds": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "uuid",
+              "nullable": true,
+              "x-nullable": true
+            },
+            "nullable": true,
+            "x-nullable": true
+          },
+          "parentShareIds": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "uuid",
+              "nullable": true,
+              "x-nullable": true
+            },
+            "nullable": true,
+            "x-nullable": true
+          },
+          "receiverType": {
+            "$ref": "#/components/schemas/ShareReceiverTypeEnum"
+          },
+          "receiverIds": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "uuid",
+              "nullable": true,
+              "x-nullable": true
+            },
+            "nullable": true,
+            "x-nullable": true
+          },
+          "createdBy": {
+            "type": "string",
+            "format": "uuid",
+            "nullable": true,
+            "x-nullable": true
+          },
+          "includeWorkspaceShare": {
+            "type": "boolean",
+            "x-nullable": false
+          },
+          "isWorkspaceShareOwner": {
+            "type": "boolean",
+            "x-nullable": false
+          }
+        }
       },
       "QueryShareRequestDto": {
         "type": "object",
@@ -6164,6 +7085,75 @@
         ],
         "type": "string"
       },
+      "ShareDto": {
+        "type": "object",
+        "properties": {
+          "workspaceId": {
+            "type": "string",
+            "format": "uuid",
+            "x-nullable": false
+          },
+          "datasetWorkspaceId": {
+            "type": "string",
+            "format": "uuid",
+            "nullable": true,
+            "x-nullable": true
+          },
+          "datasetId": {
+            "type": "string",
+            "format": "uuid",
+            "nullable": true,
+            "x-nullable": true
+          },
+          "shareType": {
+            "$ref": "#/components/schemas/ShareType"
+          },
+          "shareStatus": {
+            "$ref": "#/components/schemas/ShareStatusResponse"
+          },
+          "createdBy": {
+            "type": "string",
+            "format": "uuid",
+            "x-nullable": false
+          },
+          "lastModifiedBy": {
+            "type": "string",
+            "format": "uuid",
+            "x-nullable": false
+          },
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "x-nullable": false
+          },
+          "receiverId": {
+            "type": "string",
+            "format": "uuid",
+            "x-nullable": false
+          },
+          "shareReceiverType": {
+            "$ref": "#/components/schemas/ShareReceiverTypeEnum"
+          },
+          "accessLevel": {
+            "$ref": "#/components/schemas/ShareAccessLevelEnum"
+          },
+          "allowReshare": {
+            "type": "boolean",
+            "x-nullable": false
+          },
+          "shareNote": {
+            "type": "string",
+            "nullable": true,
+            "x-nullable": true
+          },
+          "parentShareId": {
+            "type": "string",
+            "format": "uuid",
+            "nullable": true,
+            "x-nullable": true
+          }
+        }
+      },
       "ShareReceiverTypeEnum": {
         "enum": [
           "User",
@@ -6318,6 +7308,22 @@
           "Processing",
           "Accepted",
           "Declined"
+        ],
+        "type": "string"
+      },
+      "ShareStatusResponse": {
+        "enum": [
+          "Inactive",
+          "Active",
+          "Revoked",
+          "Expired"
+        ],
+        "type": "string"
+      },
+      "ShareType": {
+        "enum": [
+          "InApp",
+          "Affiliation"
         ],
         "type": "string"
       },
