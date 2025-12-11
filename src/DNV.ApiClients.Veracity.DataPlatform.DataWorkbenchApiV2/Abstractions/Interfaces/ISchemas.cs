@@ -109,7 +109,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataWorkbenchApiV2.Interfaces
         /// <exception cref="Microsoft.Rest.ValidationException">
         /// Thrown when a required parameter is null
         /// </exception>
-        Task<HttpOperationResponse<IEnumerable<SchemaVersionReadDto>>> GetSchemaVersionsWithHttpMessagesAsync(IEnumerable<System.Guid?> body, System.Guid workspaceId, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default);
+        Task<HttpOperationResponse<IEnumerable<SchemaVersionReadDto>>> GetSchemaVersionsWithHttpMessagesAsync(IEnumerable<System.Guid> body, System.Guid workspaceId, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default);
 
         /// <summary>
         /// Get multiple schema versions
@@ -121,7 +121,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataWorkbenchApiV2.Interfaces
         /// <param name='cancellationToken'>
         /// The cancellation token.
         /// </param>
-        Task<IEnumerable<SchemaVersionReadDto>> GetSchemaVersionsAsync(IEnumerable<System.Guid?> body, System.Guid workspaceId, CancellationToken cancellationToken = default);
+        Task<IEnumerable<SchemaVersionReadDto>> GetSchemaVersionsAsync(IEnumerable<System.Guid> body, System.Guid workspaceId, CancellationToken cancellationToken = default);
 
         /// <summary>
         /// Add a new schema version

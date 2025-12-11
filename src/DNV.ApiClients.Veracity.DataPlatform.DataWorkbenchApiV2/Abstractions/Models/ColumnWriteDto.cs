@@ -33,7 +33,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataWorkbenchApiV2.Models
         /// 'NonFromList', 'StringContains'</param>
         /// <param name="metaType">Possible values include: 'Validation',
         /// 'FallbackIndicator', 'Timestamp'</param>
-        public ColumnWriteDto(string name, string displayName, ColumnTypes type, FilterType? filterType = default, string format = default, bool isRequired = default, IEnumerable<ColumnValidationWriteDto> validations = default, MetaType? metaType = default, bool isSortable = default, string description = default, bool? isFilterable = default, bool? isKey = default, int order = default, IEnumerable<FilterType?> filterTypes = default)
+        public ColumnWriteDto(string name, string displayName, ColumnTypes type, FilterType? filterType = default, string format = default, bool isRequired = default, IEnumerable<ColumnValidationWriteDto> validations = default, MetaType? metaType = default, bool isSortable = default, string description = default, bool? isFilterable = default, bool? isKey = default, int order = default, IEnumerable<FilterType> filterTypes = default)
         {
             Name = name;
             DisplayName = displayName;
@@ -132,7 +132,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataWorkbenchApiV2.Models
         /// <summary>
         /// </summary>
         [JsonProperty(PropertyName = "filterTypes")]
-        public IEnumerable<FilterType?> FilterTypes { get; set; }
+        public IEnumerable<FilterType> FilterTypes { get; set; }
 
         /// <summary>
         /// Validate the object.

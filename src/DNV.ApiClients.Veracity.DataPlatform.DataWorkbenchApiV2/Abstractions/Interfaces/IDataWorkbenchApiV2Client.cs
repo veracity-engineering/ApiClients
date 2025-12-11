@@ -88,9 +88,19 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataWorkbenchApiV2.Interfaces
         IDatasets Datasets { get; }
 
         /// <summary>
+        /// Gets the IShares.
+        /// </summary>
+        IShares Shares { get; }
+
+        /// <summary>
         /// Gets the IIngest.
         /// </summary>
         IIngest Ingest { get; }
+
+        /// <summary>
+        /// Gets the IAnalytics.
+        /// </summary>
+        IAnalytics Analytics { get; }
 
         /// <summary>
         /// Gets the ILedger.
@@ -106,11 +116,6 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataWorkbenchApiV2.Interfaces
         /// Gets the IShareRequests.
         /// </summary>
         IShareRequests ShareRequests { get; }
-
-        /// <summary>
-        /// Gets the IShares.
-        /// </summary>
-        IShares Shares { get; }
 
         /// <summary>
         /// Gets the IStorages.

@@ -334,7 +334,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataWorkbenchApiV2
         /// <return>
         /// A response object containing the response body and response headers.
         /// </return>
-        public async Task<HttpOperationResponse<IEnumerable<SchemaVersionReadDto>>> GetSchemaVersionsWithHttpMessagesAsync(IEnumerable<System.Guid?> body, System.Guid workspaceId, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default)
+        public async Task<HttpOperationResponse<IEnumerable<SchemaVersionReadDto>>> GetSchemaVersionsWithHttpMessagesAsync(IEnumerable<System.Guid> body, System.Guid workspaceId, Dictionary<string, IList<string>> customHeaders = null, CancellationToken cancellationToken = default)
         {
             if (body == null)
             {
@@ -430,7 +430,7 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataWorkbenchApiV2
         /// <param name='cancellationToken'>
         /// The cancellation token.
         /// </param>
-        public async Task<IEnumerable<SchemaVersionReadDto>> GetSchemaVersionsAsync(IEnumerable<System.Guid?> body, System.Guid workspaceId, CancellationToken cancellationToken = default)
+        public async Task<IEnumerable<SchemaVersionReadDto>> GetSchemaVersionsAsync(IEnumerable<System.Guid> body, System.Guid workspaceId, CancellationToken cancellationToken = default)
         {
             using (var _result = await GetSchemaVersionsWithHttpMessagesAsync(body, workspaceId, null, cancellationToken).ConfigureAwait(false))
             {

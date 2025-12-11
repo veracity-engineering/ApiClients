@@ -97,9 +97,19 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataWorkbenchApiV2
         public virtual IDatasets Datasets { get; private set; }
 
         /// <summary>
+        /// Gets the IShares.
+        /// </summary>
+        public virtual IShares Shares { get; private set; }
+
+        /// <summary>
         /// Gets the IIngest.
         /// </summary>
         public virtual IIngest Ingest { get; private set; }
+
+        /// <summary>
+        /// Gets the IAnalytics.
+        /// </summary>
+        public virtual IAnalytics Analytics { get; private set; }
 
         /// <summary>
         /// Gets the ILedger.
@@ -115,11 +125,6 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataWorkbenchApiV2
         /// Gets the IShareRequests.
         /// </summary>
         public virtual IShareRequests ShareRequests { get; private set; }
-
-        /// <summary>
-        /// Gets the IShares.
-        /// </summary>
-        public virtual IShares Shares { get; private set; }
 
         /// <summary>
         /// Gets the IStorages.
@@ -232,13 +237,14 @@ namespace DNV.ApiClients.Veracity.DataPlatform.DataWorkbenchApiV2
             Tenants = new Tenants(this);
             DataOrders = new DataOrders(this);
             Datasets = new Datasets(this);
+            Shares = new Shares(this);
             Ingest = new Ingest(this);
+            Analytics = new Analytics(this);
             Ledger = new Ledger(this);
             Schemas = new Schemas(this);
             ShareRequests = new ShareRequests(this);
-            Shares = new Shares(this);
             Storages = new Storages(this);
-            BaseUri = new System.Uri("https://api.dw.veracity.com/gateway/api/v2");
+            BaseUri = new System.Uri("https://tst-api.dw.veracity.com/gateway/api/v2");
             SerializationSettings = new JsonSerializerSettings
             {
                 Formatting = Newtonsoft.Json.Formatting.Indented,
